@@ -15,6 +15,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    ui->label->setText("Its working!.jpeg");
+   ui->textBrowser->setText("Check out these tutorials:\n https://www.youtube.com/watch?v=HiOOWDb4YjE");
 
 }

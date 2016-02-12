@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>428</width>
     <height>300</height>
    </rect>
   </property>
@@ -18,18 +18,14 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>100</y>
-      <width>241</width>
-      <height>44</height>
+      <y>70</y>
+      <width>281</width>
+      <height>101</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Here is where we will control the FESS.</string>
-       </property>
-      </widget>
+     <item row="2" column="0">
+      <widget class="QTextBrowser" name="textBrowser"/>
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="pushButton">
@@ -38,15 +34,27 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Here is where we will control the FESS.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>428</width>
      <height>21</height>
     </rect>
    </property>
