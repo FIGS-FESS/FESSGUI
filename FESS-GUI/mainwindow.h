@@ -18,6 +18,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_horizontalSlider_valueChanged(int value);
+
+    void keyPressEvent(QKeyEvent *);
+
 private:
     Ui::MainWindow *ui;
 };
