@@ -13,7 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDial>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -33,19 +35,23 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QVBoxLayout *verticalLayout_5;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout_4;
     QGridLayout *gridLayout;
-    QLabel *label;
     QPushButton *pushButton;
+    QLabel *label;
     QTextBrowser *textBrowser;
     QWidget *tab_2;
-    QWidget *verticalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_2;
     QSlider *horizontalSlider;
+    QHBoxLayout *horizontalLayout_2;
+    QDial *dial;
     QLabel *label_2;
     QWidget *tab_3;
+    QGridLayout *gridLayout_2;
     QLabel *label_3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -55,78 +61,114 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(428, 300);
+        MainWindow->resize(656, 500);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        verticalLayout_5 = new QVBoxLayout(centralWidget);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(0, 0, 421, 241));
         tabWidget->setStyleSheet(QStringLiteral(""));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        verticalLayoutWidget = new QWidget(tab);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(80, 40, 258, 111));
-        gridLayout = new QGridLayout(verticalLayoutWidget);
+        verticalLayout_4 = new QVBoxLayout(tab);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(verticalLayoutWidget);
+        pushButton = new QPushButton(tab);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        gridLayout->addWidget(pushButton, 1, 0, 1, 1);
+
+        label = new QLabel(tab);
         label->setObjectName(QStringLiteral("label"));
         label->setAlignment(Qt::AlignCenter);
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
-        pushButton = new QPushButton(verticalLayoutWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        gridLayout->addWidget(pushButton, 1, 0, 1, 1);
-
-        textBrowser = new QTextBrowser(verticalLayoutWidget);
+        textBrowser = new QTextBrowser(tab);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
 
         gridLayout->addWidget(textBrowser, 2, 0, 1, 1);
 
+
+        verticalLayout_4->addLayout(gridLayout);
+
         tabWidget->addTab(tab, QString());
-        verticalLayoutWidget->raise();
-        label->raise();
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        verticalLayoutWidget_2 = new QWidget(tab_2);
-        verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(9, -1, 391, 211));
-        verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
+        horizontalLayout = new QHBoxLayout(tab_2);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        horizontalSlider = new QSlider(verticalLayoutWidget_2);
+        horizontalSlider = new QSlider(tab_2);
         horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setMinimum(1);
         horizontalSlider->setSliderPosition(12);
         horizontalSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout_2->addWidget(horizontalSlider);
 
-        label_2 = new QLabel(verticalLayoutWidget_2);
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        dial = new QDial(tab_2);
+        dial->setObjectName(QStringLiteral("dial"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(dial->sizePolicy().hasHeightForWidth());
+        dial->setSizePolicy(sizePolicy);
+        dial->setMinimumSize(QSize(50, 50));
+        dial->setMaximumSize(QSize(100, 100));
+        dial->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_2->addWidget(dial, 0, Qt::AlignLeft|Qt::AlignTop);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
+        label_2 = new QLabel(tab_2);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         verticalLayout_2->addWidget(label_2);
 
+
+        horizontalLayout->addLayout(verticalLayout_2);
+
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
+        gridLayout_2 = new QGridLayout(tab_3);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         label_3 = new QLabel(tab_3);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(100, 90, 226, 29));
         QFont font;
         font.setPointSize(18);
         label_3->setFont(font);
+        label_3->setContextMenuPolicy(Qt::CustomContextMenu);
+        label_3->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
+
         tabWidget->addTab(tab_3, QString());
+
+        verticalLayout_5->addWidget(tabWidget);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 428, 21));
+        menuBar->setGeometry(QRect(0, 0, 656, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -146,8 +188,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        label->setText(QApplication::translate("MainWindow", "Here is where we will control the FESS.", 0));
         pushButton->setText(QApplication::translate("MainWindow", "If you push this, something exciting will happen.", 0));
+        label->setText(QApplication::translate("MainWindow", "Here is where we will control the FESS.", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Controls", 0));
         label_2->setText(QApplication::translate("MainWindow", "OMG", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "More Controls", 0));

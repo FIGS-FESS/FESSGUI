@@ -14,11 +14,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-   ui->textBrowser->setText("Check out these tutorials:\n https://www.youtube.com/watch?v=CRVwBNkn63s");
-
-}
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
@@ -26,6 +21,8 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     font.setPointSize(value);
 
     ui->label_2->setFont(font);
+
+    ui->dial->setValue(value);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -34,3 +31,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             && ui->tabWidget->currentIndex() == 2)
        QApplication::quit();
 }
+
+
+
+void MainWindow::on_dial_valueChanged(int value)
+{
+    ui->horizontalSlider->setValue(value);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->textBrowser->setText("Check out these tutorials:\n https://www.youtube.com/watch?v=CRVwBNkn63s");
+}
+
