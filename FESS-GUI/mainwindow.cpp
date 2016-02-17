@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QKeyEvent"
+#include <QKeyEvent>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -27,11 +28,9 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Space
-            && ui->tabWidget->currentIndex() == 2)
+    if(event->key() == Qt::Key_Space && ui->tabWidget->currentIndex() == 2)
        QApplication::quit();
 }
-
 
 
 void MainWindow::on_dial_valueChanged(int value)
