@@ -28,8 +28,30 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Space && ui->tabWidget->currentIndex() == 2)
-       QApplication::quit();
+    int x = ui->horizontalSlider->value();
+
+    switch(event->key())
+    {
+    case Qt::Key_Space :
+        if (ui->tabWidget->currentIndex() == 2)
+            QApplication::quit();
+        break;
+
+    case Qt::Key_Plus :
+        if (ui->tabWidget->currentIndex() == 1)
+            ui->horizontalSlider->setValue(++x);
+        break;
+
+
+
+    case Qt::Key_Minus :
+        if (ui->tabWidget->currentIndex() == 1)
+            ui->horizontalSlider->setValue(--x);
+        break;
+
+    default :
+        break;
+    }
 }
 
 

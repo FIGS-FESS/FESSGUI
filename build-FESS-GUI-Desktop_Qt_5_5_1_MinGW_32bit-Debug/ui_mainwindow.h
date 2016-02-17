@@ -129,6 +129,7 @@ public:
         dial->setSizePolicy(sizePolicy);
         dial->setMinimumSize(QSize(50, 50));
         dial->setMaximumSize(QSize(100, 100));
+        dial->setValue(12);
         dial->setOrientation(Qt::Horizontal);
 
         horizontalLayout_2->addWidget(dial, 0, Qt::AlignLeft|Qt::AlignTop);
@@ -138,6 +139,9 @@ public:
 
         label_2 = new QLabel(tab_2);
         label_2->setObjectName(QStringLiteral("label_2"));
+        QFont font;
+        font.setPointSize(12);
+        label_2->setFont(font);
 
         verticalLayout_2->addWidget(label_2);
 
@@ -153,9 +157,9 @@ public:
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         label_3 = new QLabel(tab_3);
         label_3->setObjectName(QStringLiteral("label_3"));
-        QFont font;
-        font.setPointSize(18);
-        label_3->setFont(font);
+        QFont font1;
+        font1.setPointSize(18);
+        label_3->setFont(font1);
         label_3->setContextMenuPolicy(Qt::CustomContextMenu);
         label_3->setAlignment(Qt::AlignCenter);
 
@@ -179,7 +183,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
