@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QPushButton>
+#include <QSlider>
+#include <QHBoxLayout>
+#include <QSpinBox>
+
+
 
 int main(int argc, char *argv[])
 {

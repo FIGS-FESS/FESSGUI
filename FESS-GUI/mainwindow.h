@@ -16,6 +16,13 @@ public:
     ~MainWindow();
 
 private slots:
+
+    void on_horizontalSlider_valueChanged(int value);
+
+    void keyPressEvent(QKeyEvent *);
+
+    void on_dial_valueChanged(int value);
+
     void on_pushButton_clicked();
 
 private:
