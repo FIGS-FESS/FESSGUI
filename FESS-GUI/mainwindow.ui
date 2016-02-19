@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>428</width>
     <height>324</height>
    </rect>
   </property>
@@ -86,8 +86,8 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>75</width>
+                <height>100</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -115,6 +115,9 @@
             </property>
             <property name="text">
              <string>OMG</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
             </property>
            </widget>
           </item>
@@ -156,8 +159,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
-     <height>21</height>
+     <width>428</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
