@@ -25,6 +25,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_actionAdjust_Paramaters_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
