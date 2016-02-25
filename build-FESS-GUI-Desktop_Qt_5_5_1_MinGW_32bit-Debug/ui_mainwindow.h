@@ -14,17 +14,16 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDial>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -38,21 +37,19 @@ public:
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
     QWidget *tab;
-    QVBoxLayout *verticalLayout_4;
+    QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QPushButton *pushButton;
-    QLabel *label;
-    QTextBrowser *textBrowser;
     QWidget *tab_2;
     QHBoxLayout *horizontalLayout;
-    QVBoxLayout *verticalLayout_2;
-    QSlider *horizontalSlider;
-    QHBoxLayout *horizontalLayout_2;
-    QDial *dial;
+    QGridLayout *gridLayout_3;
+    QDoubleSpinBox *doubleSpinBox;
     QLabel *label_2;
+    QLabel *label_3;
+    QDial *dial;
+    QLabel *label;
+    QSlider *horizontalSlider;
     QWidget *tab_3;
     QGridLayout *gridLayout_2;
-    QLabel *label_3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -61,7 +58,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 324);
+        MainWindow->resize(461, 434);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -73,32 +70,14 @@ public:
         tabWidget->setStyleSheet(QStringLiteral(""));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
-        verticalLayout_4 = new QVBoxLayout(tab);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        gridLayout = new QGridLayout();
+        gridLayoutWidget = new QWidget(tab);
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(190, 60, 160, 80));
+        gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        pushButton = new QPushButton(tab);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        gridLayout->addWidget(pushButton, 1, 0, 1, 1);
-
-        label = new QLabel(tab);
-        label->setObjectName(QStringLiteral("label"));
-        label->setAlignment(Qt::AlignCenter);
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        textBrowser = new QTextBrowser(tab);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-
-        gridLayout->addWidget(textBrowser, 2, 0, 1, 1);
-
-
-        verticalLayout_4->addLayout(gridLayout);
-
+        gridLayout->setContentsMargins(0, 0, 0, 0);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -106,47 +85,57 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        horizontalSlider = new QSlider(tab_2);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setMinimum(1);
-        horizontalSlider->setSliderPosition(12);
-        horizontalSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout_2->addWidget(horizontalSlider);
-
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        dial = new QDial(tab_2);
-        dial->setObjectName(QStringLiteral("dial"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        gridLayout_3 = new QGridLayout();
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        doubleSpinBox = new QDoubleSpinBox(tab_2);
+        doubleSpinBox->setObjectName(QStringLiteral("doubleSpinBox"));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(dial->sizePolicy().hasHeightForWidth());
-        dial->setSizePolicy(sizePolicy);
-        dial->setMinimumSize(QSize(50, 50));
-        dial->setMaximumSize(QSize(100, 100));
-        dial->setValue(12);
-        dial->setOrientation(Qt::Horizontal);
+        sizePolicy.setHeightForWidth(doubleSpinBox->sizePolicy().hasHeightForWidth());
+        doubleSpinBox->setSizePolicy(sizePolicy);
 
-        horizontalLayout_2->addWidget(dial, 0, Qt::AlignLeft|Qt::AlignTop);
-
-
-        verticalLayout_2->addLayout(horizontalLayout_2);
+        gridLayout_3->addWidget(doubleSpinBox, 0, 1, 1, 1);
 
         label_2 = new QLabel(tab_2);
         label_2->setObjectName(QStringLiteral("label_2"));
-        QFont font;
-        font.setPointSize(12);
-        label_2->setFont(font);
 
-        verticalLayout_2->addWidget(label_2);
+        gridLayout_3->addWidget(label_2, 1, 0, 1, 1);
+
+        label_3 = new QLabel(tab_2);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout_3->addWidget(label_3, 2, 0, 1, 1);
+
+        dial = new QDial(tab_2);
+        dial->setObjectName(QStringLiteral("dial"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(dial->sizePolicy().hasHeightForWidth());
+        dial->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(dial, 2, 1, 1, 1, Qt::AlignHCenter);
+
+        label = new QLabel(tab_2);
+        label->setObjectName(QStringLiteral("label"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy2);
+
+        gridLayout_3->addWidget(label, 0, 0, 1, 1);
+
+        horizontalSlider = new QSlider(tab_2);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        gridLayout_3->addWidget(horizontalSlider, 1, 1, 1, 1);
 
 
-        horizontalLayout->addLayout(verticalLayout_2);
+        horizontalLayout->addLayout(gridLayout_3);
 
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
@@ -155,16 +144,6 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        label_3 = new QLabel(tab_3);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        QFont font1;
-        font1.setPointSize(18);
-        label_3->setFont(font1);
-        label_3->setContextMenuPolicy(Qt::CustomContextMenu);
-        label_3->setAlignment(Qt::AlignCenter);
-
-        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
-
         tabWidget->addTab(tab_3, QString());
 
         verticalLayout->addWidget(tabWidget);
@@ -172,7 +151,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuBar->setGeometry(QRect(0, 0, 461, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -192,12 +171,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Flywheel Energy Storage System", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "If you push this, something exciting will happen.", 0));
-        label->setText(QApplication::translate("MainWindow", "Here is where we will control the FESS.", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Controls", 0));
-        label_2->setText(QApplication::translate("MainWindow", "OMG", 0));
+        label_2->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        label_3->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        label->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "More Controls", 0));
-        label_3->setText(QApplication::translate("MainWindow", "Don't Press Spacebar", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Page of Death", 0));
     } // retranslateUi
 

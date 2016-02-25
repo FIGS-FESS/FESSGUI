@@ -16,52 +16,21 @@ MainWindow::~MainWindow()
 }
 
 
+
+
+
+
+void MainWindow::on_doubleSpinBox_valueChanged(const QString &arg1)
+{
+    ui->label->setText(arg1);
+}
+
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    QFont font = ui->label_2->font();
-    font.setPointSize(value);
-
-    ui->label_2->setFont(font);
-
-    ui->dial->setValue(value);
+    ui->label_2->setText(QString::number(value));
 }
-
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-    int x = ui->horizontalSlider->value();
-
-    switch(event->key())
-    {
-    case Qt::Key_Space :
-        if (ui->tabWidget->currentIndex() == 2)
-            QApplication::quit();
-        break;
-
-    case Qt::Key_Plus :
-        if (ui->tabWidget->currentIndex() == 1)
-            ui->horizontalSlider->setValue(++x);
-        break;
-
-
-
-    case Qt::Key_Minus :
-        if (ui->tabWidget->currentIndex() == 1)
-            ui->horizontalSlider->setValue(--x);
-        break;
-
-    default :
-        break;
-    }
-}
-
 
 void MainWindow::on_dial_valueChanged(int value)
 {
-    ui->horizontalSlider->setValue(value);
+    ui->label_3->setText(QString::number(value));
 }
-
-void MainWindow::on_pushButton_clicked()
-{
-    ui->textBrowser->setText("Check out these tutorials:\n https://www.youtube.com/watch?v=CRVwBNkn63s");
-}
-
