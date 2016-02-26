@@ -22,7 +22,6 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextBrowser>
@@ -50,7 +49,6 @@ public:
     QSlider *horizontalSlider;
     QHBoxLayout *horizontalLayout_2;
     QDial *dial;
-    QSpinBox *spinBox;
     QLabel *label_2;
     QWidget *tab_3;
     QGridLayout *gridLayout_2;
@@ -135,12 +133,6 @@ public:
         dial->setOrientation(Qt::Horizontal);
 
         horizontalLayout_2->addWidget(dial, 0, Qt::AlignLeft|Qt::AlignTop);
-
-        spinBox = new QSpinBox(tab_2);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-        spinBox->setValue(12);
-
-        horizontalLayout_2->addWidget(spinBox);
 
 
         verticalLayout_2->addLayout(horizontalLayout_2);

@@ -24,8 +24,6 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     ui->label_2->setFont(font);
 
     ui->dial->setValue(value);
-
-    ui->spinBox->setValue(value);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -67,8 +65,3 @@ void MainWindow::on_pushButton_clicked()
     ui->textBrowser->setText("Check out these tutorials:\n https://www.youtube.com/watch?v=CRVwBNkn63s");
 }
 
-
-void MainWindow::on_spinBox_valueChanged(int value)
-{
-    ui->horizontalSlider->setValue(value);
-}
