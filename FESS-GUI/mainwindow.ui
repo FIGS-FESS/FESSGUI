@@ -104,6 +104,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QSpinBox" name="spinBox">
+              <property name="value">
+               <number>12</number>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
