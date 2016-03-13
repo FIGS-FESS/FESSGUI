@@ -30,6 +30,7 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -70,7 +71,7 @@ public:
     QPushButton *pushButton;
     QWidget *page_6;
     QVBoxLayout *verticalLayout_5;
-    QLabel *label_7;
+    QCustomPlot *widget;
     QPushButton *pushButton_2;
     QVBoxLayout *verticalLayout;
     QPushButton *controlButton;
@@ -90,7 +91,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(796, 583);
+        MainWindow->resize(800, 583);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionEdit = new QAction(MainWindow);
@@ -260,13 +261,10 @@ public:
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        label_7 = new QLabel(page_6);
-        label_7->setObjectName(QStringLiteral("label_7"));
-        QFont font;
-        font.setPointSize(40);
-        label_7->setFont(font);
+        widget = new QCustomPlot(page_6);
+        widget->setObjectName(QStringLiteral("widget"));
 
-        verticalLayout_5->addWidget(label_7);
+        verticalLayout_5->addWidget(widget);
 
         stackedWidget->addWidget(page_6);
 
@@ -280,11 +278,11 @@ public:
         sizePolicy.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
         pushButton_2->setSizePolicy(sizePolicy);
         pushButton_2->setMinimumSize(QSize(20, 70));
-        QFont font1;
-        font1.setPointSize(9);
-        font1.setBold(true);
-        font1.setWeight(75);
-        pushButton_2->setFont(font1);
+        QFont font;
+        font.setPointSize(9);
+        font.setBold(true);
+        font.setWeight(75);
+        pushButton_2->setFont(font);
 
         gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
 
@@ -322,7 +320,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 616, 69));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 516, 69));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         gridLayout->addWidget(scrollArea, 1, 1, 1, 1, Qt::AlignBottom);
@@ -330,7 +328,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 796, 21));
+        menuBar->setGeometry(QRect(0, 0, 800, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOptions = new QMenu(menuBar);
@@ -359,7 +357,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -382,7 +380,6 @@ public:
         label_5->setText(QApplication::translate("MainWindow", "Jerk", 0));
         label_6->setText(QApplication::translate("MainWindow", "rad/sec^3", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Go", 0));
-        label_7->setText(QApplication::translate("MainWindow", "SUPER AWESOME GRAPH", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
 "Stop", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));

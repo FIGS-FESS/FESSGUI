@@ -34,6 +34,8 @@ private slots:
 
     void on_doubleSpinBox_valueChanged(double arg1);
 
+    void realtimeDataSlot();
+
 private:
     Ui::MainWindow *ui;
 };
