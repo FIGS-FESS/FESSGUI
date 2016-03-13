@@ -494,6 +494,11 @@ debug/mainwindow.o: ../FESS-GUI/mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QDial \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qdial.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qabstractslider.h \
+		C:/Qt/5.5/mingw492_32/include/QtWidgets/QDoubleSpinBox \
+		C:/Qt/5.5/mingw492_32/include/QtWidgets/qspinbox.h \
+		C:/Qt/5.5/mingw492_32/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.5/mingw492_32/include/QtGui/qvalidator.h \
+		C:/Qt/5.5/mingw492_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QGridLayout \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qgridlayout.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qlayout.h \
@@ -509,9 +514,6 @@ debug/mainwindow.o: ../FESS-GUI/mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:/Qt/5.5/mingw492_32/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qabstractitemdelegate.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qvalidator.h \
-		C:/Qt/5.5/mingw492_32/include/QtCore/qregularexpression.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qslider.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qstyle.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qtabbar.h \
@@ -521,21 +523,10 @@ debug/mainwindow.o: ../FESS-GUI/mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qmenubar.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qmenu.h \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/QPushButton \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QSlider \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QStatusBar \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qstatusbar.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QTabWidget \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/QTextBrowser \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/qtextbrowser.h \
-		C:/Qt/5.5/mingw492_32/include/QtWidgets/qtextedit.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qtextdocument.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qtextoption.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qtextcursor.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qtextformat.h \
-		C:/Qt/5.5/mingw492_32/include/QtGui/qpen.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QToolBar \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/qtoolbar.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QVBoxLayout \

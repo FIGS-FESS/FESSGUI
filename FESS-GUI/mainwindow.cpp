@@ -17,20 +17,47 @@ MainWindow::~MainWindow()
 
 
 
-
-
-
-void MainWindow::on_doubleSpinBox_valueChanged(const QString &arg1)
+void MainWindow::on_controlButton_clicked()
 {
-    ui->label->setText(arg1);
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+void MainWindow::on_configButton_clicked()
 {
-    ui->label_2->setText(QString::number(value));
+    ui->stackedWidget->setCurrentIndex(1);
 }
 
-void MainWindow::on_dial_valueChanged(int value)
+void MainWindow::on_verticalSlider_valueChanged(int value)
 {
-    ui->label_3->setText(QString::number(value));
+    ui->doubleSpinBox->setValue(value);
+}
+
+void MainWindow::on_verticalSlider_2_valueChanged(int value)
+{
+    ui->doubleSpinBox_2->setValue(value);
+}
+
+void MainWindow::on_verticalSlider_3_valueChanged(int value)
+{
+    ui->doubleSpinBox_3->setValue(value);
+}
+
+
+void MainWindow::on_actionMetric_triggered()
+{
+    ui->label_2->setText("rad/sec");
+    ui->label_4->setText("rad/sec^2");
+    ui->label_6->setText("rad/sec^3");
+}
+
+void MainWindow::on_actionEmperial_triggered()
+{
+    ui->label_2->setText("deg/sec");
+    ui->label_4->setText("deg/sec^2");
+    ui->label_6->setText("deg/sec^3");
+}
+
+void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
+{
+    ui->verticalSlider->setValue(arg1);
 }

@@ -17,11 +17,22 @@ public:
 
 private slots:
 
-    void on_doubleSpinBox_valueChanged(const QString &arg1);
 
-    void on_horizontalSlider_valueChanged(int value);
+    void on_controlButton_clicked();
 
-    void on_dial_valueChanged(int value);
+    void on_configButton_clicked();
+
+    void on_verticalSlider_valueChanged(int value);
+
+    void on_verticalSlider_2_valueChanged(int value);
+
+    void on_verticalSlider_3_valueChanged(int value);
+
+    void on_actionMetric_triggered();
+
+    void on_actionEmperial_triggered();
+
+    void on_doubleSpinBox_valueChanged(double arg1);
 
 private:
     Ui::MainWindow *ui;
