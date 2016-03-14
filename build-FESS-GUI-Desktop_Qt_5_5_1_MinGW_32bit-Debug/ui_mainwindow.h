@@ -27,6 +27,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "qcustomplot.h"
@@ -44,7 +45,6 @@ public:
     QAction *actionEmperial;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QPushButton *pushButton_2;
     QStackedWidget *stackedWidget;
     QWidget *page_5;
     QVBoxLayout *verticalLayout_4;
@@ -71,13 +71,18 @@ public:
     QPushButton *pushButton;
     QWidget *page_6;
     QVBoxLayout *verticalLayout_5;
+    QGroupBox *groupBox_3;
+    QHBoxLayout *horizontalLayout;
     QCustomPlot *maingraph;
+    QPushButton *pushButton_2;
     QVBoxLayout *verticalLayout;
     QPushButton *controlButton;
     QPushButton *configButton;
     QPushButton *performButton;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout_3;
+    QTextBrowser *textBrowser;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_2;
     QCustomPlot *auxgraph1;
@@ -112,22 +117,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy);
-        pushButton_2->setMinimumSize(QSize(20, 70));
-        QFont font;
-        font.setPointSize(9);
-        font.setBold(true);
-        font.setWeight(75);
-        pushButton_2->setFont(font);
-
-        gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
-
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         page_5 = new QWidget();
@@ -279,14 +268,39 @@ public:
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        maingraph = new QCustomPlot(page_6);
+        groupBox_3 = new QGroupBox(page_6);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        horizontalLayout = new QHBoxLayout(groupBox_3);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        maingraph = new QCustomPlot(groupBox_3);
         maingraph->setObjectName(QStringLiteral("maingraph"));
 
-        verticalLayout_5->addWidget(maingraph);
+        horizontalLayout->addWidget(maingraph);
+
+
+        verticalLayout_5->addWidget(groupBox_3);
 
         stackedWidget->addWidget(page_6);
 
         gridLayout->addWidget(stackedWidget, 0, 1, 1, 1);
+
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy);
+        pushButton_2->setMinimumSize(QSize(20, 70));
+        QFont font;
+        font.setPointSize(9);
+        font.setBold(true);
+        font.setWeight(75);
+        pushButton_2->setFont(font);
+
+        gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
@@ -317,14 +331,23 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 623, 69));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 593, 210));
+        verticalLayout_3 = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        textBrowser = new QTextBrowser(scrollAreaWidgetContents);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+
+        verticalLayout_3->addWidget(textBrowser);
+
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         gridLayout->addWidget(scrollArea, 1, 1, 1, 1, Qt::AlignBottom);
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(150, 0));
+        groupBox_2->setMinimumSize(QSize(180, 0));
         verticalLayout_2 = new QVBoxLayout(groupBox_2);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -391,9 +414,7 @@ public:
         actionExpanded->setText(QApplication::translate("MainWindow", "Expanded", 0));
         actionMetric->setText(QApplication::translate("MainWindow", "Metric", 0));
         actionEmperial->setText(QApplication::translate("MainWindow", "Emperial", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
-"Stop", 0));
-        groupBox->setTitle(QApplication::translate("MainWindow", "Controls", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Control", 0));
         label->setText(QApplication::translate("MainWindow", "Velocity", 0));
         label_2->setText(QApplication::translate("MainWindow", "rad/sec", 0));
         label_3->setText(QApplication::translate("MainWindow", "Acceleration", 0));
@@ -401,6 +422,9 @@ public:
         label_5->setText(QApplication::translate("MainWindow", "Jerk", 0));
         label_6->setText(QApplication::translate("MainWindow", "rad/sec^3", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Go", 0));
+        groupBox_3->setTitle(QApplication::translate("MainWindow", "Performance Monitor", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
+"Stop", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));

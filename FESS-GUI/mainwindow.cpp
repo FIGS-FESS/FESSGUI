@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     RTG *mainGraph = new RTG(ui->maingraph, true);
     RTG *velGraph = new RTG(ui->auxgraph1, false);
     RTG *accGraph = new RTG(ui->auxgraph2, false);
@@ -85,14 +86,17 @@ void MainWindow::realtimeDataSlot()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
 
+    double value0 = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
+    double value1 = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
-      double value0 = qSin(key); //qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-      double value1 = qCos(key); //qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+
       // add data to lines:
       addMainData(key, value0, value1);
       addAux1Data(key, value0, (double)ui->doubleSpinBox->value());
       addAux2Data(key, value0, (double)ui->doubleSpinBox_2->value());
+
       lastPointKey = key;
 
     }
@@ -110,15 +114,28 @@ void MainWindow::realtimeDataSlot()
     static double lastFpsKey;
     static int frameCount;
     ++frameCount;
-    if (key-lastFpsKey > 2) // average fps over 2 seconds
+
+    if (key-lastFpsKey > .5) // average fps over 2 seconds
     {
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
             .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
             .arg(ui->maingraph->graph(0)->data()->count()+ui->maingraph->graph(1)->data()->count())
             , 0);
+
+      QString vel = QString::number(value0);
+      vel.prepend("Velocity: ");
+      ui->textBrowser->setTextColor(Qt::blue);
+      ui->textBrowser->append(vel);
+
+      QString acc = QString::number(value1);
+      acc.prepend("Acceleration: ");
+      ui->textBrowser->setTextColor(Qt::red);
+      ui->textBrowser->append(acc);
+
       lastFpsKey = key;
       frameCount = 0;
+
     }
 }
 
@@ -170,4 +187,6 @@ void MainWindow::on_actionEmperial_triggered()
 void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
 {
     ui->verticalSlider->setValue(arg1);
+
+
 }
