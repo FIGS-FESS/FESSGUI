@@ -3,6 +3,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <qwidget.h>
+#include "rtg.h"
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -11,68 +13,98 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    RTG *mainGraph = new RTG(ui->maingraph, true);
+    RTG *velGraph = new RTG(ui->auxgraph1, false);
+    RTG *accGraph = new RTG(ui->auxgraph2, false);
 
-    ui->widget->addGraph(); // blue line
-    ui->widget->graph(0)->setPen(QPen(Qt::blue));
-    ui->widget->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
-    ui->widget->graph(0)->setAntialiasedFill(false);
-    ui->widget->addGraph(); // red line
-    ui->widget->graph(1)->setPen(QPen(Qt::red));
-    ui->widget->graph(0)->setChannelFillGraph(ui->widget->graph(1));
-
-    ui->widget->addGraph(); // blue dot
-    ui->widget->graph(2)->setPen(QPen(Qt::blue));
-    ui->widget->graph(2)->setLineStyle(QCPGraph::lsNone);
-    ui->widget->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
-    ui->widget->addGraph(); // red dot
-    ui->widget->graph(3)->setPen(QPen(Qt::red));
-    ui->widget->graph(3)->setLineStyle(QCPGraph::lsNone);
-    ui->widget->graph(3)->setScatterStyle(QCPScatterStyle::ssDisc);
-
-    ui->widget->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-    ui->widget->xAxis->setDateTimeFormat("hh:mm:ss");
-    ui->widget->xAxis->setAutoTickStep(false);
-    ui->widget->xAxis->setTickStep(2);
-    ui->widget->axisRect()->setupFullAxesBox();
 
     // make left and bottom axes transfer their ranges to right and top axes:
-    connect(ui->widget->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->widget->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->widget->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->widget->yAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->maingraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->maingraph->xAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->maingraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->maingraph->yAxis2, SLOT(setRange(QCPRange)));
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     QTimer *dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
 }
+void MainWindow::addMainData(double key, double value0, double value1)
+{
+    ui->maingraph->graph(0)->addData(key, value0);
+    ui->maingraph->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->maingraph->graph(2)->clearData();
+    ui->maingraph->graph(2)->addData(key, value0);
+    ui->maingraph->graph(3)->clearData();
+    ui->maingraph->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->maingraph->graph(0)->removeDataBefore(key-8);
+    ui->maingraph->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->maingraph->graph(0)->rescaleValueAxis();
+    ui->maingraph->graph(1)->rescaleValueAxis(true);
+}
+
+void MainWindow::addAux1Data(double key, double value0, double value1)
+{
+    ui->auxgraph1->graph(0)->addData(key, value0);
+    ui->auxgraph1->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->auxgraph1->graph(2)->clearData();
+    ui->auxgraph1->graph(2)->addData(key, value0);
+    ui->auxgraph1->graph(3)->clearData();
+    ui->auxgraph1->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->auxgraph1->graph(0)->removeDataBefore(key-8);
+    ui->auxgraph1->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->auxgraph1->graph(0)->rescaleValueAxis();
+    ui->auxgraph1->graph(1)->rescaleValueAxis(true);
+}
+
+void MainWindow::addAux2Data(double key, double value0, double value1)
+{
+    ui->auxgraph2->graph(0)->addData(key, value0);
+    ui->auxgraph2->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->auxgraph2->graph(2)->clearData();
+    ui->auxgraph2->graph(2)->addData(key, value0);
+    ui->auxgraph2->graph(3)->clearData();
+    ui->auxgraph2->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->auxgraph2->graph(0)->removeDataBefore(key-8);
+    ui->auxgraph2->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->auxgraph2->graph(0)->rescaleValueAxis();
+    ui->auxgraph2->graph(1)->rescaleValueAxis(true);
+}
 
 void MainWindow::realtimeDataSlot()
 {
+
     // calculate two new data points:
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
+
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
       double value0 = qSin(key); //qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
       double value1 = qCos(key); //qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
       // add data to lines:
-      ui->widget->graph(0)->addData(key, value0);
-      ui->widget->graph(1)->addData(key, value1);
-      // set data of dots:
-      ui->widget->graph(2)->clearData();
-      ui->widget->graph(2)->addData(key, value0);
-      ui->widget->graph(3)->clearData();
-      ui->widget->graph(3)->addData(key, value1);
-      // remove data of lines that's outside visible range:
-      ui->widget->graph(0)->removeDataBefore(key-8);
-      ui->widget->graph(1)->removeDataBefore(key-8);
-      // rescale value (vertical) axis to fit the current data:
-      ui->widget->graph(0)->rescaleValueAxis();
-      ui->widget->graph(1)->rescaleValueAxis(true);
+      addMainData(key, value0, value1);
+      addAux1Data(key, value0, (double)ui->doubleSpinBox->value());
+      addAux2Data(key, value0, (double)ui->doubleSpinBox_2->value());
       lastPointKey = key;
+
     }
     // make key axis range scroll with the data (at a constant range size of 8):
-    ui->widget->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
-    ui->widget->replot();
+    ui->maingraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->maingraph->replot();
+
+    ui->auxgraph1->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxgraph1->replot();
+
+    ui->auxgraph2->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxgraph2->replot();
 
     // calculate frames per second:
     static double lastFpsKey;
@@ -83,7 +115,7 @@ void MainWindow::realtimeDataSlot()
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
             .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
-            .arg(ui->widget->graph(0)->data()->count()+ui->widget->graph(1)->data()->count())
+            .arg(ui->maingraph->graph(0)->data()->count()+ui->maingraph->graph(1)->data()->count())
             , 0);
       lastFpsKey = key;
       frameCount = 0;
@@ -94,9 +126,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
-
 
 void MainWindow::on_controlButton_clicked()
 {

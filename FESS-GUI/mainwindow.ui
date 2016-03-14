@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>583</height>
+    <width>882</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,10 +15,37 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Emergency
+Stop</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_5">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -247,37 +274,10 @@
       <widget class="QWidget" name="page_6">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QCustomPlot" name="widget" native="true"/>
+         <widget class="QCustomPlot" name="maingraph" native="true"/>
         </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>20</width>
-        <height>70</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Emergency
-Stop</string>
-      </property>
      </widget>
     </item>
     <item row="0" column="0">
@@ -324,9 +324,6 @@ Monitor</string>
       </item>
      </layout>
     </item>
-    <item row="0" column="2" rowspan="2">
-     <widget class="QTextBrowser" name="textBrowser_2"/>
-    </item>
     <item row="1" column="1" alignment="Qt::AlignBottom">
      <widget class="QScrollArea" name="scrollArea">
       <property name="widgetResizable">
@@ -337,11 +334,46 @@ Monitor</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>516</width>
+         <width>623</width>
          <height>69</height>
         </rect>
        </property>
       </widget>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2" alignment="Qt::AlignTop">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCustomPlot" name="auxgraph1" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>130</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignTop">
+        <widget class="QCustomPlot" name="auxgraph2" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>130</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -351,7 +383,7 @@ Monitor</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>882</width>
      <height>21</height>
     </rect>
    </property>
