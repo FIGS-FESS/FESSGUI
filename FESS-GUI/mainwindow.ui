@@ -6,150 +6,388 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>428</width>
-    <height>324</height>
+    <width>882</width>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Flywheel Energy Storage System</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Controls</string>
-       </attribute>
+      <widget class="QWidget" name="page_5">
        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="leftMargin">
+         <number>9</number>
+        </property>
+        <property name="topMargin">
+         <number>9</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
         <item>
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="1" column="0">
-           <widget class="QPushButton" name="pushButton">
-            <property name="text">
-             <string>If you push this, something exciting will happen.</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Here is where we will control the FESS.</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QTextBrowser" name="textBrowser"/>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>More Controls</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
-          <item>
-           <widget class="QSlider" name="horizontalSlider">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="sliderPosition">
-             <number>12</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item alignment="Qt::AlignLeft|Qt::AlignTop">
-             <widget class="QDial" name="dial">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>100</height>
-               </size>
-              </property>
-              <property name="value">
-               <number>12</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>OMG</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Page of Death</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="font">
-           <font>
-            <pointsize>18</pointsize>
-           </font>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Control</string>
           </property>
-          <property name="contextMenuPolicy">
-           <enum>Qt::CustomContextMenu</enum>
-          </property>
-          <property name="text">
-           <string>Don't Press Spacebar</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="leftMargin">
+            <number>48</number>
+           </property>
+           <property name="topMargin">
+            <number>48</number>
+           </property>
+           <property name="rightMargin">
+            <number>48</number>
+           </property>
+           <property name="bottomMargin">
+            <number>48</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Velocity</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QSlider" name="verticalSlider">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="maximum">
+                <number>50</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="pageStep">
+                <number>10</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>10</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <property name="spacing">
+              <number>3</number>
+             </property>
+             <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+              <widget class="QDoubleSpinBox" name="doubleSpinBox">
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+               <property name="maximum">
+                <double>50.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.010000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignLeft|Qt::AlignTop">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>rad/sec</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Acceleration</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QSlider" name="verticalSlider_2">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="maximum">
+                <number>10</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <property name="spacing">
+              <number>3</number>
+             </property>
+             <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.010000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignLeft|Qt::AlignTop">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>rad/sec^2</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_10">
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Jerk</string>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignHCenter">
+              <widget class="QSlider" name="verticalSlider_3">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="maximum">
+                <number>5</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <property name="spacing">
+              <number>3</number>
+             </property>
+             <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+               <property name="maximum">
+                <double>5.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.010000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignLeft|Qt::AlignTop">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>rad/sec^3</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item alignment="Qt::AlignBottom">
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Go</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="page_6">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Performance Monitor</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QCustomPlot" name="maingraph" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Emergency
+Stop</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Performance
+Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QPushButton" name="performButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1" alignment="Qt::AlignBottom">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>593</width>
+         <height>210</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTextBrowser" name="textBrowser"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2" alignment="Qt::AlignTop">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="minimumSize">
+       <size>
+        <width>180</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCustomPlot" name="auxgraph1" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>130</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignTop">
+        <widget class="QCustomPlot" name="auxgraph2" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>130</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -159,22 +397,87 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>428</width>
-     <height>31</height>
+     <width>882</width>
+     <height>21</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionEdit"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <widget class="QMenu" name="menuChange_Units">
+     <property name="title">
+      <string>Change Units</string>
+     </property>
+     <addaction name="actionMetric"/>
+     <addaction name="actionEmperial"/>
+    </widget>
+    <addaction name="menuChange_Units"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionNormal"/>
+    <addaction name="actionExpanded"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionNormal">
+   <property name="text">
+    <string>Normal</string>
+   </property>
+  </action>
+  <action name="actionExpanded">
+   <property name="text">
+    <string>Expanded</string>
+   </property>
+  </action>
+  <action name="actionMetric">
+   <property name="text">
+    <string>Metric</string>
+   </property>
+  </action>
+  <action name="actionEmperial">
+   <property name="text">
+    <string>Emperial</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>performButton</tabstop>
+  <tabstop>configButton</tabstop>
+  <tabstop>controlButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
