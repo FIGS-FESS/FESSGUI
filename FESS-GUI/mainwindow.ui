@@ -419,7 +419,16 @@ Monitor</string>
      <addaction name="actionMetric"/>
      <addaction name="actionEmperial"/>
     </widget>
+    <widget class="QMenu" name="menuSounds">
+     <property name="title">
+      <string>Sounds</string>
+     </property>
+     <addaction name="actionNone"/>
+     <addaction name="actionDefault"/>
+     <addaction name="actionDarth_Vader"/>
+    </widget>
     <addaction name="menuChange_Units"/>
+    <addaction name="menuSounds"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -461,6 +470,21 @@ Monitor</string>
   <action name="actionEmperial">
    <property name="text">
     <string>Emperial</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionDefault">
+   <property name="text">
+    <string>Default</string>
+   </property>
+  </action>
+  <action name="actionDarth_Vader">
+   <property name="text">
+    <string>Darth Vader</string>
    </property>
   </action>
  </widget>

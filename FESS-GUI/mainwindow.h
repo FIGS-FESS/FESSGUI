@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
 #include <qcustomplot.h>
 
 namespace Ui {
@@ -14,9 +15,11 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    QMediaPlayer *goplayer = new QMediaPlayer();
+    QMediaPlayer *stopplayer = new QMediaPlayer();
+    bool playSounds = false;
+    enum sounds {none, def, vader};
     ~MainWindow();
-
-    QCustomPlot *graphs[];
 
 private slots:
 
@@ -44,6 +47,14 @@ private slots:
     void addAux1Data(double key, double value0, double value1);
 
     void addAux2Data(double key, double value0, double value1);
+
+    void on_pushButton_clicked();
+
+    void on_actionDarth_Vader_triggered();
+
+    void on_pushButton_2_clicked();
+
+    void on_actionNone_triggered();
 
 private:
     Ui::MainWindow *ui;

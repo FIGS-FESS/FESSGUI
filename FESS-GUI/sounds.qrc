@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>sounds/Yamaha-TG100-Whistle-C5.wav</file>
+        <file>sounds/I-am-altering-the-deal.wav</file>
+        <file>sounds/Darth_Vader_NO!.wav</file>
+    </qresource>
+</RCC>

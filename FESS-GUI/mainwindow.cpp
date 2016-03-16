@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "rtg.h"
 #include <QKeyEvent>
 #include <QTimer>
 #include <qwidget.h>
-#include "rtg.h"
+
 
 
 
@@ -13,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
     RTG *mainGraph = new RTG(ui->maingraph, true);
     RTG *velGraph = new RTG(ui->auxgraph1, false);
     RTG *accGraph = new RTG(ui->auxgraph2, false);
+    free (mainGraph);
+    free (velGraph);
+    free (accGraph);
 
 
     // make left and bottom axes transfer their ranges to right and top axes:
@@ -187,6 +190,40 @@ void MainWindow::on_actionEmperial_triggered()
 void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
 {
     ui->verticalSlider->setValue(arg1);
+}
 
+void MainWindow::on_pushButton_clicked()
+{
+    stopplayer->stop();
+    goplayer->stop();
+    if (playSounds)
+    {
+        goplayer->setVolume(100);
+        goplayer->play();
+    }
+}
 
+void MainWindow::on_actionDarth_Vader_triggered()
+{
+    playSounds = true;
+    goplayer->setMedia(QUrl("qrc:/sounds/sounds/I-am-altering-the-deal.wav"));
+    stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    stopplayer->stop();
+    goplayer->stop();
+    if (playSounds)
+    {
+        stopplayer->setVolume(100);
+        stopplayer->play();
+    }
+    ui->verticalSlider->setValue(0);
+    ui->verticalSlider_2->setValue(0);
+}
+
+void MainWindow::on_actionNone_triggered()
+{
+    playSounds = false;
 }
