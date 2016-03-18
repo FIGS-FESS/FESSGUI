@@ -38,8 +38,6 @@ private slots:
 
     void on_actionEmperial_triggered();
 
-    void on_doubleSpinBox_valueChanged(double arg1);
-
     void realtimeDataSlot();
 
     void addMainData(double key, double value0, double value1);
@@ -57,6 +55,8 @@ private slots:
     void on_actionNone_triggered();
 
     void on_actionDefault_triggered();
+
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::MainWindow *ui;

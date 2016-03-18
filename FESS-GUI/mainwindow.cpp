@@ -194,11 +194,6 @@ void MainWindow::on_actionEmperial_triggered()
     ui->label_6->setText("deg/sec<sup>3</sup>");
 }
 
-void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
-{
-    ui->verticalSlider->setValue(arg1);
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     stopplayer->stop();
@@ -212,7 +207,7 @@ void MainWindow::on_pushButton_clicked()
     double acc = ui->doubleSpinBox_2->value();
     double jerk = ui->doubleSpinBox_3->value();
     ui->textBrowser->append(QString("Flywheel controlled to %1 rad/sec,"
-                                    " %2 rad/sec^2, %3 rad/sec^3"
+                                    " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
                             .arg(vel).arg(acc).arg(jerk)
                             .arg(QTime::currentTime().toString()));
@@ -239,7 +234,8 @@ void MainWindow::on_pushButton_2_clicked()
     ui->verticalSlider->setValue(0);
     ui->verticalSlider_2->setValue(0);
     ui->verticalSlider_3->setValue(0);
-    ui->textBrowser->append("Flywheel Emergency Stop Activated");
+    ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
+                            .arg(QTime::currentTime().toString()));
 }
 
 void MainWindow::on_actionNone_triggered()
@@ -256,4 +252,10 @@ void MainWindow::on_actionDefault_triggered()
     playSounds = true;
     ui->actionDarth_Vader->setChecked(false);
     ui->actionNone->setChecked(false);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if( event->key() == Qt::Key_Space)
+        ui->pushButton_2->click();
 }

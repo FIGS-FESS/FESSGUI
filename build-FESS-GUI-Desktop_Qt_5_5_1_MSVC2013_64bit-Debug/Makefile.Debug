@@ -2655,15 +2655,16 @@ debug\mainwindow.obj: ..\FESS-GUI\mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QMenu \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QMenuBar \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QPushButton \
-		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QScrollArea \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QStackedWidget \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QStatusBar \
+		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QTabWidget \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QTextBrowser \
 		C:\Qt\5.5\msvc2013_64\include\QtWidgets\QVBoxLayout \
 		../FESS-GUI/rtg.h \
 		C:\Qt\5.5\msvc2013_64\include\QtGui\QKeyEvent \
-		C:\Qt\5.5\msvc2013_64\include\QtCore\QTimer
+		C:\Qt\5.5\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\5.5\msvc2013_64\include\QtCore\QTime
 
 debug\qcustomplot.obj: ..\FESS-GUI\qcustomplot.cpp ../FESS-GUI/qcustomplot.h \
 		C:\Qt\5.5\msvc2013_64\include\QtCore\QObject \

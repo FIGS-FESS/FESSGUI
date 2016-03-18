@@ -499,6 +499,13 @@ Stop</string>
        <property name="bottomMargin">
         <number>9</number>
        </property>
+       <item alignment="Qt::AlignBottom">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Velocity</string>
+         </property>
+        </widget>
+       </item>
        <item alignment="Qt::AlignVCenter">
         <widget class="QCustomPlot" name="auxgraph1" native="true">
          <property name="minimumSize">
@@ -506,6 +513,13 @@ Stop</string>
            <width>0</width>
            <height>130</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignBottom">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Acceleration</string>
          </property>
         </widget>
        </item>

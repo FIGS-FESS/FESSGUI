@@ -103,7 +103,9 @@ public:
     QTextBrowser *textBrowser_2;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_2;
+    QLabel *label_17;
     QCustomPlot *auxgraph1;
+    QLabel *label_18;
     QCustomPlot *auxgraph2;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -478,11 +480,21 @@ public:
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(-1, 9, -1, 9);
+        label_17 = new QLabel(groupBox_2);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        verticalLayout_2->addWidget(label_17, 0, Qt::AlignBottom);
+
         auxgraph1 = new QCustomPlot(groupBox_2);
         auxgraph1->setObjectName(QStringLiteral("auxgraph1"));
         auxgraph1->setMinimumSize(QSize(0, 130));
 
         verticalLayout_2->addWidget(auxgraph1, 0, Qt::AlignVCenter);
+
+        label_18 = new QLabel(groupBox_2);
+        label_18->setObjectName(QStringLiteral("label_18"));
+
+        verticalLayout_2->addWidget(label_18, 0, Qt::AlignBottom);
 
         auxgraph2 = new QCustomPlot(groupBox_2);
         auxgraph2->setObjectName(QStringLiteral("auxgraph2"));
@@ -579,6 +591,8 @@ public:
         label_16->setText(QApplication::translate("MainWindow", "Error Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Errors", 0));
         groupBox_2->setTitle(QString());
+        label_17->setText(QApplication::translate("MainWindow", "Velocity", 0));
+        label_18->setText(QApplication::translate("MainWindow", "Acceleration", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
