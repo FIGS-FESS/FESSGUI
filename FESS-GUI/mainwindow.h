@@ -18,7 +18,7 @@ public:
     QMediaPlayer *goplayer = new QMediaPlayer();
     QMediaPlayer *stopplayer = new QMediaPlayer();
     bool playSounds = false;
-    enum sounds {none, def, vader};
+    double maxVel = 0;
     ~MainWindow();
 
 private slots:
@@ -55,6 +55,8 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_actionNone_triggered();
+
+    void on_actionDefault_triggered();
 
 private:
     Ui::MainWindow *ui;

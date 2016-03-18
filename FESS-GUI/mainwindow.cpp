@@ -3,6 +3,7 @@
 #include "rtg.h"
 #include <QKeyEvent>
 #include <QTimer>
+#include <QTime>
 #include <qwidget.h>
 
 
@@ -13,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->label_10->setStyleSheet("QLabel {color : blue; }");
+    ui->label_11->setStyleSheet("QLabel {color : red; }");
 
     RTG *mainGraph = new RTG(ui->maingraph, true);
     RTG *velGraph = new RTG(ui->auxgraph1, false);
@@ -118,7 +121,15 @@ void MainWindow::realtimeDataSlot()
     static int frameCount;
     ++frameCount;
 
-    if (key-lastFpsKey > .5) // average fps over 2 seconds
+    ui->label_12->setText(QString::number(value0) + " rad/sec");
+
+    if (value0 > maxVel)
+    {
+        maxVel = value0;
+        ui->label_13->setText(QString::number(maxVel) + " rad/sec");
+    }
+
+    if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
@@ -126,19 +137,13 @@ void MainWindow::realtimeDataSlot()
             .arg(ui->maingraph->graph(0)->data()->count()+ui->maingraph->graph(1)->data()->count())
             , 0);
 
-      QString vel = QString::number(value0);
-      vel.prepend("Velocity: ");
-      ui->textBrowser->setTextColor(Qt::blue);
-      ui->textBrowser->append(vel);
-
-      QString acc = QString::number(value1);
-      acc.prepend("Acceleration: ");
-      ui->textBrowser->setTextColor(Qt::red);
-      ui->textBrowser->append(acc);
-
       lastFpsKey = key;
       frameCount = 0;
+    }
 
+    if(ui->stackedWidget->currentIndex() != 1)
+    {
+        ui->statusBar->clearMessage();
     }
 }
 
@@ -175,16 +180,18 @@ void MainWindow::on_verticalSlider_3_valueChanged(int value)
 
 void MainWindow::on_actionMetric_triggered()
 {
+    ui->actionEmperial->setChecked(false);
     ui->label_2->setText("rad/sec");
-    ui->label_4->setText("rad/sec^2");
-    ui->label_6->setText("rad/sec^3");
+    ui->label_4->setText("rad/sec<sup>2</sup>");
+    ui->label_6->setText("rad/sec<sup>3</sup>");
 }
 
 void MainWindow::on_actionEmperial_triggered()
 {
+    ui->actionMetric->setChecked(false);
     ui->label_2->setText("deg/sec");
-    ui->label_4->setText("deg/sec^2");
-    ui->label_6->setText("deg/sec^3");
+    ui->label_4->setText("deg/sec<sup>2</sup>");
+    ui->label_6->setText("deg/sec<sup>3</sup>");
 }
 
 void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
@@ -201,11 +208,21 @@ void MainWindow::on_pushButton_clicked()
         goplayer->setVolume(100);
         goplayer->play();
     }
+    double vel = ui->doubleSpinBox->value();
+    double acc = ui->doubleSpinBox_2->value();
+    double jerk = ui->doubleSpinBox_3->value();
+    ui->textBrowser->append(QString("Flywheel controlled to %1 rad/sec,"
+                                    " %2 rad/sec^2, %3 rad/sec^3"
+                                    " at %4")
+                            .arg(vel).arg(acc).arg(jerk)
+                            .arg(QTime::currentTime().toString()));
 }
 
 void MainWindow::on_actionDarth_Vader_triggered()
 {
     playSounds = true;
+    ui->actionNone->setChecked(false);
+    ui->actionDefault->setChecked(false);
     goplayer->setMedia(QUrl("qrc:/sounds/sounds/I-am-altering-the-deal.wav"));
     stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
 }
@@ -221,9 +238,22 @@ void MainWindow::on_pushButton_2_clicked()
     }
     ui->verticalSlider->setValue(0);
     ui->verticalSlider_2->setValue(0);
+    ui->verticalSlider_3->setValue(0);
+    ui->textBrowser->append("Flywheel Emergency Stop Activated");
 }
 
 void MainWindow::on_actionNone_triggered()
 {
     playSounds = false;
+    stopplayer->stop();
+    goplayer->stop();
+    ui->actionDarth_Vader->setChecked(false);
+    ui->actionDefault->setChecked(false);
+}
+
+void MainWindow::on_actionDefault_triggered()
+{
+    playSounds = true;
+    ui->actionDarth_Vader->setChecked(false);
+    ui->actionNone->setChecked(false);
 }
