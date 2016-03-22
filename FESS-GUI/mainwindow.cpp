@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "rtg.h"
 #include <QKeyEvent>
-#include <QTimer>
 #include <QTime>
 #include <qwidget.h>
 
@@ -14,12 +12,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    goplayer = new QMediaPlayer();
+    stopplayer = new QMediaPlayer();
+    playSounds = false;
+    maxVel = 0;
+
     ui->label_10->setStyleSheet("QLabel {color : blue; }");
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
-    RTG *mainGraph = new RTG(ui->maingraph, true);
-    RTG *velGraph = new RTG(ui->auxgraph1, false);
-    RTG *accGraph = new RTG(ui->auxgraph2, false);
+    mainGraph = new RTG(ui->maingraph, true);
+    velGraph = new RTG(ui->auxgraph1, false);
+    accGraph = new RTG(ui->auxgraph2, false);
     free (mainGraph);
     free (velGraph);
     free (accGraph);
@@ -30,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->maingraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->maingraph->yAxis2, SLOT(setRange(QCPRange)));
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
-    QTimer *dataTimer = new QTimer(this);
+    dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
 }

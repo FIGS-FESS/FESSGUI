@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QMediaPlayer>
+#include <QTimer>
 #include <qcustomplot.h>
+#include "rtg.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,10 +17,14 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    QMediaPlayer *goplayer = new QMediaPlayer();
-    QMediaPlayer *stopplayer = new QMediaPlayer();
-    bool playSounds = false;
-    double maxVel = 0;
+    QMediaPlayer *goplayer;
+    QMediaPlayer *stopplayer;
+    RTG *mainGraph;
+    RTG *velGraph;
+    RTG *accGraph;
+    QTimer *dataTimer;
+    bool playSounds;
+    double maxVel;
     ~MainWindow();
 
 private slots:
