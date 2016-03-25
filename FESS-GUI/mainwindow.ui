@@ -388,7 +388,6 @@ Stop</string>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <zorder>groupBox_4</zorder>
             </widget>
            </item>
            <item row="1" column="3" rowspan="2">
@@ -436,7 +435,7 @@ Stop</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_1">
        <attribute name="title">
