@@ -17,10 +17,8 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
@@ -37,24 +35,15 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionAdjust_Paramaters;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
     QWidget *tab;
     QVBoxLayout *verticalLayout_4;
     QGridLayout *gridLayout;
-    QTextBrowser *textBrowser;
     QPushButton *pushButton;
     QLabel *label;
-    QWidget *tab_4;
-    QHBoxLayout *horizontalLayout_3;
-    QLabel *label_4;
-    QSpinBox *spinBox;
-    QLabel *label_5;
-    QSpinBox *spinBox_2;
-    QLabel *label_6;
-    QPushButton *pushButton_2;
+    QTextBrowser *textBrowser;
     QWidget *tab_2;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_2;
@@ -66,9 +55,7 @@ public:
     QWidget *tab_3;
     QGridLayout *gridLayout_2;
     QLabel *label_3;
-    QLCDNumber *lcdNumber;
     QMenuBar *menuBar;
-    QMenu *menuSetting;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -76,13 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-<<<<<<< HEAD
-        MainWindow->resize(656, 500);
-        actionAdjust_Paramaters = new QAction(MainWindow);
-        actionAdjust_Paramaters->setObjectName(QStringLiteral("actionAdjust_Paramaters"));
-=======
         MainWindow->resize(400, 324);
->>>>>>> refs/remotes/origin/master
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -101,11 +82,6 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        textBrowser = new QTextBrowser(tab);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-
-        gridLayout->addWidget(textBrowser, 3, 0, 1, 1);
-
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
@@ -117,47 +93,15 @@ public:
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
+        textBrowser = new QTextBrowser(tab);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+
+        gridLayout->addWidget(textBrowser, 2, 0, 1, 1);
+
 
         verticalLayout_4->addLayout(gridLayout);
 
         tabWidget->addTab(tab, QString());
-        tab_4 = new QWidget();
-        tab_4->setObjectName(QStringLiteral("tab_4"));
-        horizontalLayout_3 = new QHBoxLayout(tab_4);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_4 = new QLabel(tab_4);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        horizontalLayout_3->addWidget(label_4);
-
-        spinBox = new QSpinBox(tab_4);
-        spinBox->setObjectName(QStringLiteral("spinBox"));
-
-        horizontalLayout_3->addWidget(spinBox);
-
-        label_5 = new QLabel(tab_4);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        horizontalLayout_3->addWidget(label_5);
-
-        spinBox_2 = new QSpinBox(tab_4);
-        spinBox_2->setObjectName(QStringLiteral("spinBox_2"));
-
-        horizontalLayout_3->addWidget(spinBox_2);
-
-        label_6 = new QLabel(tab_4);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        horizontalLayout_3->addWidget(label_6);
-
-        pushButton_2 = new QPushButton(tab_4);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-
-        horizontalLayout_3->addWidget(pushButton_2);
-
-        tabWidget->addTab(tab_4, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         horizontalLayout = new QHBoxLayout(tab_2);
@@ -233,21 +177,10 @@ public:
 
         verticalLayout->addWidget(tabWidget);
 
-        lcdNumber = new QLCDNumber(centralWidget);
-        lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
-
-        verticalLayout_5->addWidget(lcdNumber);
-
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-<<<<<<< HEAD
-        menuBar->setGeometry(QRect(0, 0, 656, 21));
-        menuSetting = new QMenu(menuBar);
-        menuSetting->setObjectName(QStringLiteral("menuSetting"));
-=======
         menuBar->setGeometry(QRect(0, 0, 400, 21));
->>>>>>> refs/remotes/origin/master
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -256,12 +189,7 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
-        menuBar->addAction(menuSetting->menuAction());
-        menuSetting->addAction(actionAdjust_Paramaters);
-        mainToolBar->addAction(actionAdjust_Paramaters);
-
         retranslateUi(MainWindow);
-        QObject::connect(spinBox, SIGNAL(valueChanged(int)), lcdNumber, SLOT(display(int)));
 
         tabWidget->setCurrentIndex(1);
 
@@ -271,25 +199,14 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-<<<<<<< HEAD
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionAdjust_Paramaters->setText(QApplication::translate("MainWindow", "Adjust Paramaters", 0));
-=======
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Flywheel Energy Storage System", 0));
->>>>>>> refs/remotes/origin/master
         pushButton->setText(QApplication::translate("MainWindow", "If you push this, something exciting will happen.", 0));
         label->setText(QApplication::translate("MainWindow", "Here is where we will control the FESS.", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Controls", 0));
-        label_4->setText(QApplication::translate("MainWindow", "Reach", 0));
-        label_5->setText(QApplication::translate("MainWindow", "RPM with", 0));
-        label_6->setText(QApplication::translate("MainWindow", "acceleration", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Go", 0));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainWindow", "Page", 0));
         label_2->setText(QApplication::translate("MainWindow", "OMG", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "More Controls", 0));
         label_3->setText(QApplication::translate("MainWindow", "Don't Press Spacebar", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "Page of Death", 0));
-        menuSetting->setTitle(QApplication::translate("MainWindow", "Settings", 0));
     } // retranslateUi
 
 };

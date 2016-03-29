@@ -19,5 +19,14 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     parametersettings.h
 
+<<<<<<< HEAD
 FORMS    += mainwindow.ui \
     parametersettings.ui
+=======
+FORMS    += mainwindow.ui
+
+DISTFILES += \
+    fess.rc
+
+RC_FILE = fess.rc
+>>>>>>> refs/remotes/origin/master

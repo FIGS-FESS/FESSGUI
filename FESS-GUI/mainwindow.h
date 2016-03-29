@@ -25,7 +25,11 @@ private slots:
 
     void on_pushButton_clicked();
 
+<<<<<<< HEAD
     void on_actionAdjust_Paramaters_triggered();
+=======
+    void on_spinBox_valueChanged(int arg1);
+>>>>>>> refs/remotes/origin/master
 
 private:
     Ui::MainWindow *ui;
