@@ -95,7 +95,7 @@ Stop</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_5">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -513,6 +513,22 @@ Stop</string>
            <height>130</height>
           </size>
          </property>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>161</width>
+            <height>131</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </widget>
        </item>
        <item alignment="Qt::AlignBottom">
@@ -530,6 +546,22 @@ Stop</string>
            <height>130</height>
           </size>
          </property>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>-6</x>
+            <y>-8</y>
+            <width>171</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>

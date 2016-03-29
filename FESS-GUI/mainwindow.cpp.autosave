@@ -141,19 +141,11 @@ void MainWindow::realtimeDataSlot()
     static int frameCount;
     ++frameCount;
 
-
-
     if (value0 > maxVel)
-    {
         maxVel = value0;
 
-    }
-
     if (value1 > maxAcc)
-    {
         maxAcc = value1;
-
-    }
 
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {

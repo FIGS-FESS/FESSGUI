@@ -25,6 +25,9 @@ public:
     QTimer *dataTimer;
     bool playSounds;
     double maxVel;
+    double maxAcc;
+    enum graph {VEL, ACC};
+    graph mainGraphDisplay;
     ~MainWindow();
 
 private slots:
@@ -63,6 +66,10 @@ private slots:
     void on_actionDefault_triggered();
 
     void keyPressEvent(QKeyEvent *event);
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::MainWindow *ui;
