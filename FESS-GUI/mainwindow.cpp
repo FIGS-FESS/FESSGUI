@@ -141,19 +141,11 @@ void MainWindow::realtimeDataSlot()
     static int frameCount;
     ++frameCount;
 
-
-
     if (value0 > maxVel)
-    {
         maxVel = value0;
 
-    }
-
     if (value1 > maxAcc)
-    {
         maxAcc = value1;
-
-    }
 
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
@@ -291,6 +283,9 @@ void MainWindow::on_pushButton_3_clicked()
     mainGraphDisplay = VEL;
     ui->label_7->setText("Velocity");
     ui->label_8->setText("Max Velocity");
+    ui->auxgraph1->setStyleSheet("QWidget {border: 4px solid grey;}");
+    ui->auxgraph2->setStyleSheet("QWidget{ border none;}");
+    ui->stackedWidget->setCurrentIndex(1);
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -298,4 +293,9 @@ void MainWindow::on_pushButton_4_clicked()
     mainGraphDisplay = ACC;
     ui->label_7->setText("Acceleration");
     ui->label_8->setText("Max Acceleration");
+    ui->auxgraph2->setStyleSheet(" QWidget{border: 4px solid grey;}");
+    ui->auxgraph1->setStyleSheet("QWidget{ border none;}");
+    ui->stackedWidget->setCurrentIndex(1);
 }
+
+

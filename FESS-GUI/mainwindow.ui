@@ -513,6 +513,9 @@ Stop</string>
            <height>130</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">border: 4px solid grey;</string>
+         </property>
          <widget class="QPushButton" name="pushButton_3">
           <property name="geometry">
            <rect>
@@ -523,10 +526,15 @@ Stop</string>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: transparent</string>
+           <string notr="true">background-color: transparent;
+
+</string>
           </property>
           <property name="text">
            <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
           </property>
          </widget>
         </widget>
@@ -538,7 +546,7 @@ Stop</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignVCenter">
+       <item>
         <widget class="QCustomPlot" name="auxgraph2" native="true">
          <property name="minimumSize">
           <size>
@@ -546,17 +554,21 @@ Stop</string>
            <height>130</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <widget class="QPushButton" name="pushButton_4">
           <property name="geometry">
            <rect>
-            <x>-6</x>
-            <y>-8</y>
-            <width>171</width>
-            <height>141</height>
+            <x>0</x>
+            <y>0</y>
+            <width>161</width>
+            <height>131</height>
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: transparent</string>
+           <string notr="true">background-color: transparent;
+</string>
           </property>
           <property name="text">
            <string/>
@@ -568,6 +580,10 @@ Stop</string>
      </widget>
     </item>
    </layout>
+   <zorder>groupBox_2</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>stackedWidget</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
