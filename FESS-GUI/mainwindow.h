@@ -54,13 +54,6 @@ private slots:
 
     void on_pushButton_clicked();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    void on_actionAdjust_Paramaters_triggered();
-=======
-    void on_spinBox_valueChanged(int arg1);
->>>>>>> refs/remotes/origin/master
-=======
     void on_actionDarth_Vader_triggered();
 
     void on_pushButton_2_clicked();
@@ -70,7 +63,6 @@ private slots:
     void on_actionDefault_triggered();
 
     void keyPressEvent(QKeyEvent *event);
->>>>>>> refs/remotes/origin/master
 
 private:
     Ui::MainWindow *ui;

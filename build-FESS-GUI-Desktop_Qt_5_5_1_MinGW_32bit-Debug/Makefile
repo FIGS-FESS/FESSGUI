@@ -194,8 +194,11 @@ Makefile: ../FESS-GUI/FESS-GUI.pro C:/Dev/Qt/5.5/mingw492_32/mkspecs/win32-g++/q
 		C:/Dev/Qt/5.5/mingw492_32/mkspecs/features/lex.prf \
 		../FESS-GUI/FESS-GUI.pro \
 		C:/Dev/Qt/5.5/mingw492_32/lib/qtmaind.prl \
+		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5PrintSupport.prl \
 		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Widgets.prl \
+		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Multimedia.prl \
 		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Gui.prl \
+		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Network.prl \
 		C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Core.prl
 	$(QMAKE) -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ..\FESS-GUI\FESS-GUI.pro
 C:/Dev/Qt/5.5/mingw492_32/mkspecs/features/spec_pre.prf:
@@ -333,8 +336,11 @@ C:/Dev/Qt/5.5/mingw492_32/mkspecs/features/yacc.prf:
 C:/Dev/Qt/5.5/mingw492_32/mkspecs/features/lex.prf:
 ../FESS-GUI/FESS-GUI.pro:
 C:/Dev/Qt/5.5/mingw492_32/lib/qtmaind.prl:
+C:/Dev/Qt/5.5/mingw492_32/lib/Qt5PrintSupport.prl:
 C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Widgets.prl:
+C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Multimedia.prl:
 C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Gui.prl:
+C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Network.prl:
 C:/Dev/Qt/5.5/mingw492_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ..\FESS-GUI\FESS-GUI.pro

@@ -1,16 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-<<<<<<< HEAD
-#include "parametersettings.h"
-#include "QKeyEvent"
-=======
 #include <QKeyEvent>
 #include <QTime>
 #include <qwidget.h>
 
 
 
->>>>>>> refs/remotes/origin/master
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -168,23 +163,6 @@ void MainWindow::on_controlButton_clicked()
 
 void MainWindow::on_configButton_clicked()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if(event->key() == Qt::Key_Space
-            && ui->tabWidget->currentIndex() == 3)
-       QApplication::quit();
-}
-=======
-    int x = ui->horizontalSlider->value();
-
-    switch(event->key())
-    {
-    case Qt::Key_Space :
-        if (ui->tabWidget->currentIndex() == 2)
-            QApplication::quit();
-        break;
->>>>>>> refs/remotes/origin/master
-=======
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -192,7 +170,6 @@ void MainWindow::on_verticalSlider_valueChanged(int value)
 {
     ui->doubleSpinBox->setValue(value);
 }
->>>>>>> refs/remotes/origin/master
 
 void MainWindow::on_verticalSlider_2_valueChanged(int value)
 {
@@ -281,22 +258,8 @@ void MainWindow::on_actionDefault_triggered()
     ui->actionNone->setChecked(false);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void MainWindow::on_actionAdjust_Paramaters_triggered()
-{
-    ParameterSettings pSettings;
-    pSettings.setModal(true);
-    pSettings.exec();
-=======
-void MainWindow::on_spinBox_valueChanged(int value)
-{
-    ui->horizontalSlider->setValue(value);
->>>>>>> refs/remotes/origin/master
-=======
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if( event->key() == Qt::Key_Space)
         ui->pushButton_2->click();
->>>>>>> refs/remotes/origin/master
 }
