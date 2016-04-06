@@ -3,6 +3,10 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <qwidget.h>
+#include <ctime>
+#include <iomanip>
+#include <string>
+#include <sstream>
 
 
 
@@ -108,7 +112,10 @@ void MainWindow::realtimeDataSlot()
       addAux2Data(key, value0, (double)ui->doubleSpinBox_2->value());
 
       lastPointKey = key;
-
+      //output data to csv if recording
+      if (isRecording){
+          rfs << std::setprecision(4) << std::fixed << key << ", " << value0 << ", " << value1 << "\n";
+      }
     }
     // make key axis range scroll with the data (at a constant range size of 8):
     ui->maingraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
@@ -159,11 +166,15 @@ MainWindow::~MainWindow()
 void MainWindow::on_controlButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->controlButton->setStyleSheet("color:grey;");
+    ui->configButton->setStyleSheet("color:black;");
 }
 
 void MainWindow::on_configButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    ui->controlButton->setStyleSheet("color:black;");
+    ui->configButton->setStyleSheet("color:grey;");
 }
 
 void MainWindow::on_verticalSlider_valueChanged(int value)
@@ -262,4 +273,42 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if( event->key() == Qt::Key_Space)
         ui->pushButton_2->click();
+}
+
+void MainWindow::on_pushButton_Record_clicked()
+{
+    if(!isRecording){
+        isRecording = true;
+
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+
+        //Set filename using stringstream
+        std::stringstream iss;
+        iss << "FlywheelOutput_";
+        iss << std::setw(4) << std::setfill('0') << (timeinfo->tm_year)+1900; //setw() and setfill('0') ensure leading zeros are there.
+        iss << std::setw(2) << std::setfill('0') << (timeinfo->tm_mon)+1;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_mday;
+        iss << "_";
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_min;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
+        iss << ".csv";
+        std::string filename = iss.str();
+
+        rfs.open(filename.c_str());
+        rfs << "Time" << "Column1," << " Column2," << std::endl;
+
+    }
+}
+
+void MainWindow::on_pushButton_StopRecording_clicked()
+{
+    if (isRecording){
+        rfs << std::flush;
+        rfs.close();
+        isRecording = false;
+    }
 }
