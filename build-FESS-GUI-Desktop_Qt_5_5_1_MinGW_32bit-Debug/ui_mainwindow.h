@@ -48,13 +48,6 @@ public:
     QAction *actionDarth_Vader;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout_2;
-    QLabel *label_17;
-    QCustomPlot *auxgraph1;
-    QLabel *label_18;
-    QCustomPlot *auxgraph2;
-    QPushButton *pushButton_2;
     QTabWidget *tabWidget;
     QWidget *tab_1;
     QVBoxLayout *verticalLayout_12;
@@ -64,6 +57,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_16;
     QTextBrowser *textBrowser_2;
+    QTextBrowser *textBrowser_3;
     QStackedWidget *stackedWidget;
     QWidget *page_5;
     QVBoxLayout *verticalLayout_4;
@@ -107,6 +101,18 @@ public:
     QPushButton *controlButton;
     QPushButton *configButton;
     QPushButton *performButton;
+    QPushButton *pushButton_2;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout_2;
+    QLabel *label_17;
+    QCustomPlot *auxgraph1;
+    QLabel *label_18;
+    QCustomPlot *auxgraph2;
+    QGroupBox *groupBox_5;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *pushButton_Record;
+    QPushButton *pushButton_StopRecording;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuOptions;
@@ -119,7 +125,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(802, 555);
+        MainWindow->resize(802, 577);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionEdit = new QAction(MainWindow);
@@ -151,62 +157,13 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(180, 0));
-        verticalLayout_2 = new QVBoxLayout(groupBox_2);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(-1, 9, -1, 9);
-        label_17 = new QLabel(groupBox_2);
-        label_17->setObjectName(QStringLiteral("label_17"));
-
-        verticalLayout_2->addWidget(label_17, 0, Qt::AlignBottom);
-
-        auxgraph1 = new QCustomPlot(groupBox_2);
-        auxgraph1->setObjectName(QStringLiteral("auxgraph1"));
-        auxgraph1->setMinimumSize(QSize(0, 130));
-
-        verticalLayout_2->addWidget(auxgraph1, 0, Qt::AlignVCenter);
-
-        label_18 = new QLabel(groupBox_2);
-        label_18->setObjectName(QStringLiteral("label_18"));
-
-        verticalLayout_2->addWidget(label_18, 0, Qt::AlignBottom);
-
-        auxgraph2 = new QCustomPlot(groupBox_2);
-        auxgraph2->setObjectName(QStringLiteral("auxgraph2"));
-        auxgraph2->setMinimumSize(QSize(0, 130));
-
-        verticalLayout_2->addWidget(auxgraph2, 0, Qt::AlignVCenter);
-
-
-        gridLayout->addWidget(groupBox_2, 0, 2, 1, 1);
-
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy);
-        pushButton_2->setMinimumSize(QSize(20, 70));
-        QFont font;
-        font.setPointSize(9);
-        font.setBold(true);
-        font.setWeight(75);
-        pushButton_2->setFont(font);
-
-        gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
-
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy);
         tabWidget->setTabPosition(QTabWidget::South);
         tabWidget->setTabShape(QTabWidget::Rounded);
         tab_1 = new QWidget();
@@ -245,7 +202,19 @@ public:
 
         tabWidget->addTab(tab_2, QString());
 
-        gridLayout->addWidget(tabWidget, 1, 1, 1, 1);
+        gridLayout->addWidget(tabWidget, 2, 1, 1, 1);
+
+        textBrowser_3 = new QTextBrowser(centralWidget);
+        textBrowser_3->setObjectName(QStringLiteral("textBrowser_3"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(textBrowser_3->sizePolicy().hasHeightForWidth());
+        textBrowser_3->setSizePolicy(sizePolicy1);
+        textBrowser_3->setMinimumSize(QSize(0, 26));
+        textBrowser_3->setStyleSheet(QStringLiteral("background-color:rgb(0, 255, 0);"));
+
+        gridLayout->addWidget(textBrowser_3, 0, 0, 1, 3);
 
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
@@ -479,7 +448,7 @@ public:
 
         stackedWidget->addWidget(page_6);
 
-        gridLayout->addWidget(stackedWidget, 0, 1, 1, 1);
+        gridLayout->addWidget(stackedWidget, 1, 1, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
@@ -503,7 +472,85 @@ public:
         verticalLayout->addWidget(performButton, 0, Qt::AlignTop);
 
 
-        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout->addLayout(verticalLayout, 1, 0, 1, 1);
+
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        QSizePolicy sizePolicy5(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy5);
+        pushButton_2->setMinimumSize(QSize(20, 70));
+        QFont font;
+        font.setPointSize(9);
+        font.setBold(true);
+        font.setWeight(75);
+        pushButton_2->setFont(font);
+
+        gridLayout->addWidget(pushButton_2, 2, 0, 1, 1);
+
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setMinimumSize(QSize(180, 0));
+        verticalLayout_2 = new QVBoxLayout(groupBox_2);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(-1, 9, -1, 9);
+        label_17 = new QLabel(groupBox_2);
+        label_17->setObjectName(QStringLiteral("label_17"));
+
+        verticalLayout_2->addWidget(label_17, 0, Qt::AlignBottom);
+
+        auxgraph1 = new QCustomPlot(groupBox_2);
+        auxgraph1->setObjectName(QStringLiteral("auxgraph1"));
+        auxgraph1->setMinimumSize(QSize(0, 130));
+
+        verticalLayout_2->addWidget(auxgraph1, 0, Qt::AlignVCenter);
+
+        label_18 = new QLabel(groupBox_2);
+        label_18->setObjectName(QStringLiteral("label_18"));
+
+        verticalLayout_2->addWidget(label_18, 0, Qt::AlignBottom);
+
+        auxgraph2 = new QCustomPlot(groupBox_2);
+        auxgraph2->setObjectName(QStringLiteral("auxgraph2"));
+        auxgraph2->setMinimumSize(QSize(0, 130));
+
+        verticalLayout_2->addWidget(auxgraph2, 0, Qt::AlignVCenter);
+
+
+        gridLayout->addWidget(groupBox_2, 1, 2, 1, 1);
+
+        groupBox_5 = new QGroupBox(centralWidget);
+        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
+        horizontalLayoutWidget = new QWidget(groupBox_5);
+        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(0, 20, 170, 111));
+        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        pushButton_Record = new QPushButton(horizontalLayoutWidget);
+        pushButton_Record->setObjectName(QStringLiteral("pushButton_Record"));
+
+        horizontalLayout->addWidget(pushButton_Record);
+
+        pushButton_StopRecording = new QPushButton(horizontalLayoutWidget);
+        pushButton_StopRecording->setObjectName(QStringLiteral("pushButton_StopRecording"));
+        QSizePolicy sizePolicy6(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(pushButton_StopRecording->sizePolicy().hasHeightForWidth());
+        pushButton_StopRecording->setSizePolicy(sizePolicy6);
+        pushButton_StopRecording->setMinimumSize(QSize(0, 0));
+
+        horizontalLayout->addWidget(pushButton_StopRecording);
+
+
+        gridLayout->addWidget(groupBox_5, 2, 2, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -562,15 +609,15 @@ public:
         actionNone->setText(QApplication::translate("MainWindow", "None", 0));
         actionDefault->setText(QApplication::translate("MainWindow", "Default", 0));
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
-        groupBox_2->setTitle(QString());
-        label_17->setText(QApplication::translate("MainWindow", "Velocity", 0));
-        label_18->setText(QApplication::translate("MainWindow", "Acceleration", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
-"Stop", 0));
         label_15->setText(QApplication::translate("MainWindow", "Output Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_1), QApplication::translate("MainWindow", "Output", 0));
         label_16->setText(QApplication::translate("MainWindow", "Error Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Errors", 0));
+        textBrowser_3->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">No errors detected</span></p></body></html>", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Control", 0));
         label->setText(QApplication::translate("MainWindow", "Velocity", 0));
         label_2->setText(QApplication::translate("MainWindow", "rad/sec", 0));
@@ -593,6 +640,14 @@ public:
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));
         performButton->setText(QApplication::translate("MainWindow", "Configuration", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
+"Stop", 0));
+        groupBox_2->setTitle(QString());
+        label_17->setText(QApplication::translate("MainWindow", "Velocity", 0));
+        label_18->setText(QApplication::translate("MainWindow", "Acceleration", 0));
+        groupBox_5->setTitle(QApplication::translate("MainWindow", "GroupBox", 0));
+        pushButton_Record->setText(QApplication::translate("MainWindow", "Record", 0));
+        pushButton_StopRecording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
