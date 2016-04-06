@@ -13,22 +13,30 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    goplayer = new QMediaPlayer();
+    goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
     playSounds = false;
-    mainGraphDisplay = VEL;
+    mainGraphDisplay = VEL; //enum for maingraph
     maxVel = 0;
     maxAcc = 0;
 
-    ui->label_10->setStyleSheet("QLabel {color : blue; }");
+    ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
-    mainGraph = new RTG(ui->maingraph, true);
-    velGraph = new RTG(ui->auxgraph1, false);
-    accGraph = new RTG(ui->auxgraph2, false);
-    free (mainGraph);
+    mainGraph = new RTG(ui->maingraph, true);  //initialize graphs
+    velGraph = new RTG(ui->auxVelocGraph, false);
+    accGraph = new RTG(ui->auxAccelGraph, false);
+    updtGraph = new RTG(ui->auxUpDtGraph, false);
+    lowdtGraph = new RTG(ui->auxLowDtGraph, false);
+    rotatGraph = new RTG(ui->auxRotatGraph, false);
+
+
+    free (mainGraph); //free classes
     free (velGraph);
     free (accGraph);
+    free (updtGraph);
+    free (lowdtGraph);
+    free (rotatGraph);
 
 
     // make left and bottom axes transfer their ranges to right and top axes:
@@ -57,38 +65,89 @@ void MainWindow::addMainData(double key, double value0, double value1)
     ui->maingraph->graph(1)->rescaleValueAxis(true);
 }
 
-void MainWindow::addAux1Data(double key, double value0, double value1)
+void MainWindow::addVelocData(double key, double value0, double value1)
 {
-    ui->auxgraph1->graph(0)->addData(key, value0);
-    ui->auxgraph1->graph(1)->addData(key, value1);
+    ui->auxVelocGraph->graph(0)->addData(key, value0);
+    ui->auxVelocGraph->graph(1)->addData(key, value1);
     // set data of dots:
-    ui->auxgraph1->graph(2)->clearData();
-    ui->auxgraph1->graph(2)->addData(key, value0);
-    ui->auxgraph1->graph(3)->clearData();
-    ui->auxgraph1->graph(3)->addData(key, value1);
+    ui->auxVelocGraph->graph(2)->clearData();
+    ui->auxVelocGraph->graph(2)->addData(key, value0);
+    ui->auxVelocGraph->graph(3)->clearData();
+    ui->auxVelocGraph->graph(3)->addData(key, value1);
     // remove data of lines that's outside visible range:
-    ui->auxgraph1->graph(0)->removeDataBefore(key-8);
-    ui->auxgraph1->graph(1)->removeDataBefore(key-8);
+    ui->auxVelocGraph->graph(0)->removeDataBefore(key-8);
+    ui->auxVelocGraph->graph(1)->removeDataBefore(key-8);
     // rescale value (vertical) axis to fit the current data:
-    ui->auxgraph1->graph(0)->rescaleValueAxis();
-    ui->auxgraph1->graph(1)->rescaleValueAxis(true);
+    ui->auxVelocGraph->graph(0)->rescaleValueAxis();
+    ui->auxVelocGraph->graph(1)->rescaleValueAxis(true);
 }
 
-void MainWindow::addAux2Data(double key, double value0, double value1)
+void MainWindow::addAccelData(double key, double value0, double value1)
 {
-    ui->auxgraph2->graph(0)->addData(key, value0);
-    ui->auxgraph2->graph(1)->addData(key, value1);
+    ui->auxAccelGraph->graph(0)->addData(key, value0);
+    ui->auxAccelGraph->graph(1)->addData(key, value1);
     // set data of dots:
-    ui->auxgraph2->graph(2)->clearData();
-    ui->auxgraph2->graph(2)->addData(key, value0);
-    ui->auxgraph2->graph(3)->clearData();
-    ui->auxgraph2->graph(3)->addData(key, value1);
+    ui->auxAccelGraph->graph(2)->clearData();
+    ui->auxAccelGraph->graph(2)->addData(key, value0);
+    ui->auxAccelGraph->graph(3)->clearData();
+    ui->auxAccelGraph->graph(3)->addData(key, value1);
     // remove data of lines that's outside visible range:
-    ui->auxgraph2->graph(0)->removeDataBefore(key-8);
-    ui->auxgraph2->graph(1)->removeDataBefore(key-8);
+    ui->auxAccelGraph->graph(0)->removeDataBefore(key-8);
+    ui->auxAccelGraph->graph(1)->removeDataBefore(key-8);
     // rescale value (vertical) axis to fit the current data:
-    ui->auxgraph2->graph(0)->rescaleValueAxis();
-    ui->auxgraph2->graph(1)->rescaleValueAxis(true);
+    ui->auxAccelGraph->graph(0)->rescaleValueAxis();
+    ui->auxAccelGraph->graph(1)->rescaleValueAxis(true);
+}
+
+void MainWindow::addUpdtData(double key, double value0, double value1)
+{
+    ui->auxUpDtGraph->graph(0)->addData(key, value0);
+    ui->auxUpDtGraph->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->auxUpDtGraph->graph(2)->clearData();
+    ui->auxUpDtGraph->graph(2)->addData(key, value0);
+    ui->auxUpDtGraph->graph(3)->clearData();
+    ui->auxUpDtGraph->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->auxUpDtGraph->graph(0)->removeDataBefore(key-8);
+    ui->auxUpDtGraph->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->auxUpDtGraph->graph(0)->rescaleValueAxis();
+    ui->auxUpDtGraph->graph(1)->rescaleValueAxis(true);
+}
+
+void MainWindow::addLowdtData(double key, double value0, double value1)
+{
+    ui->auxLowDtGraph->graph(0)->addData(key, value0);
+    ui->auxLowDtGraph->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->auxLowDtGraph->graph(2)->clearData();
+    ui->auxLowDtGraph->graph(2)->addData(key, value0);
+    ui->auxLowDtGraph->graph(3)->clearData();
+    ui->auxLowDtGraph->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->auxLowDtGraph->graph(0)->removeDataBefore(key-8);
+    ui->auxLowDtGraph->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->auxLowDtGraph->graph(0)->rescaleValueAxis();
+    ui->auxLowDtGraph->graph(1)->rescaleValueAxis(true);
+}
+
+void MainWindow::addRotatData(double key, double value0, double value1)
+{
+    ui->auxRotatGraph->graph(0)->addData(key, value0);
+    ui->auxRotatGraph->graph(1)->addData(key, value1);
+    // set data of dots:
+    ui->auxRotatGraph->graph(2)->clearData();
+    ui->auxRotatGraph->graph(2)->addData(key, value0);
+    ui->auxRotatGraph->graph(3)->clearData();
+    ui->auxRotatGraph->graph(3)->addData(key, value1);
+    // remove data of lines that's outside visible range:
+    ui->auxRotatGraph->graph(0)->removeDataBefore(key-8);
+    ui->auxRotatGraph->graph(1)->removeDataBefore(key-8);
+    // rescale value (vertical) axis to fit the current data:
+    ui->auxRotatGraph->graph(0)->rescaleValueAxis();
+    ui->auxRotatGraph->graph(1)->rescaleValueAxis(true);
 }
 
 void MainWindow::realtimeDataSlot()
@@ -100,6 +159,8 @@ void MainWindow::realtimeDataSlot()
 
     double value0 = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
     double value1 = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+    double x = qCos(key);
+    double y = qSin(key);
 
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
@@ -108,20 +169,39 @@ void MainWindow::realtimeDataSlot()
       switch (mainGraphDisplay)
       {
           case (VEL):
-          addMainData(key, value0, (double)ui->doubleSpinBox->value());
+          addMainData(key, value0, (double)ui->velSpinBox->value());
           ui->label_13->setText(QString::number(maxVel) + " rad/sec");
           ui->label_12->setText(QString::number(value0) + " rad/sec");
           break;
 
           case (ACC):
-          addMainData(key, value1, (double)ui->doubleSpinBox_2->value());
+          addMainData(key, value1, (double)ui->accSpinBox->value());
           ui->label_13->setText(QString::number(maxAcc) + " rad/sec<sup>2</sup>");
           ui->label_12->setText(QString::number(value1) + " rad/sec<sup>2</sup>");
           break;
+
+          case (UDT):
+          addMainData(key, x, y);
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          break;
+
+          case (LDT):
+          addMainData(key, x, y);
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          break;
+
+          case (ROT):
+          addMainData(key, value0 / 3 * 2, 0);
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          break;
       }
 
-      addAux1Data(key, value0, (double)ui->doubleSpinBox->value());
-      addAux2Data(key, value1, (double)ui->doubleSpinBox_2->value());
+      //add data to aux graphs
+      addVelocData(key, value0, (double)ui->velSpinBox->value());
+      addAccelData(key, value1, (double)ui->accSpinBox->value());
+      addUpdtData(key, x, y);
+      addLowdtData(key, x, y);
+      addRotatData(key, value0 / 3 * 2, 0);
 
       lastPointKey = key;
 
@@ -130,23 +210,34 @@ void MainWindow::realtimeDataSlot()
     ui->maingraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->maingraph->replot();
 
-    ui->auxgraph1->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
-    ui->auxgraph1->replot();
+    ui->auxVelocGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxVelocGraph->replot();
 
-    ui->auxgraph2->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
-    ui->auxgraph2->replot();
+    ui->auxAccelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxAccelGraph->replot();
+
+    ui->auxUpDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxUpDtGraph->replot();
+
+    ui->auxLowDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxLowDtGraph->replot();
+
+    ui->auxRotatGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxRotatGraph->replot();
 
     // calculate frames per second:
     static double lastFpsKey;
     static int frameCount;
     ++frameCount;
 
+    //for max values
     if (value0 > maxVel)
         maxVel = value0;
 
     if (value1 > maxAcc)
         maxAcc = value1;
 
+    //show fps and data points in statusbar
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
       ui->statusBar->showMessage(
@@ -159,6 +250,7 @@ void MainWindow::realtimeDataSlot()
       frameCount = 0;
     }
 
+    //don't show if your not on the performance view
     if(ui->stackedWidget->currentIndex() != 1)
     {
         ui->statusBar->clearMessage();
@@ -182,12 +274,12 @@ void MainWindow::on_configButton_clicked()
 
 void MainWindow::on_verticalSlider_valueChanged(int value)
 {
-    ui->doubleSpinBox->setValue(value);
+    ui->velSpinBox->setValue(value);
 }
 
 void MainWindow::on_verticalSlider_2_valueChanged(int value)
 {
-    ui->doubleSpinBox_2->setValue(value);
+    ui->accSpinBox->setValue(value);
 }
 
 void MainWindow::on_verticalSlider_3_valueChanged(int value)
@@ -221,8 +313,8 @@ void MainWindow::on_pushButton_clicked()
         goplayer->setVolume(100);
         goplayer->play();
     }
-    double vel = ui->doubleSpinBox->value();
-    double acc = ui->doubleSpinBox_2->value();
+    double vel = ui->velSpinBox->value();
+    double acc = ui->accSpinBox->value();
     double jerk = ui->doubleSpinBox_3->value();
     ui->textBrowser->append(QString("Flywheel controlled to %1 rad/sec,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
@@ -278,24 +370,72 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         ui->pushButton_2->click();
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_velocButton_clicked()
 {
     mainGraphDisplay = VEL;
     ui->label_7->setText("Velocity");
     ui->label_8->setText("Max Velocity");
-    ui->auxgraph1->setStyleSheet("QWidget {border: 4px solid grey;}");
-    ui->auxgraph2->setStyleSheet("QWidget{ border none;}");
-    ui->stackedWidget->setCurrentIndex(1);
+    clearBorder();
+    ui->label_17->setStyleSheet("color: black; font-size: 14px;");
+
+    ui->label_10->setText("Measured Value");
+    ui->label_11->setText("Expected Value");
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_accelButton_clicked()
 {
     mainGraphDisplay = ACC;
     ui->label_7->setText("Acceleration");
     ui->label_8->setText("Max Acceleration");
-    ui->auxgraph2->setStyleSheet(" QWidget{border: 4px solid grey;}");
-    ui->auxgraph1->setStyleSheet("QWidget{ border none;}");
-    ui->stackedWidget->setCurrentIndex(1);
+    clearBorder();
+    ui->label_18->setStyleSheet("color: black; font-size: 14px;");
+
+    ui->label_10->setText("Measured Value");
+    ui->label_11->setText("Expected Value");
 }
 
+void MainWindow::on_updtButton_clicked()
+{
+    mainGraphDisplay = UDT;
+    ui->label_7->setText("Upper Displacement");
+    ui->label_8->setText("Undefined");
+    clearBorder();
+    ui->label_19->setStyleSheet("color: black; font-size: 14px;");
 
+    ui->label_10->setText("X-value");
+    ui->label_11->setText("Y-Value");
+}
+
+void MainWindow::on_lowdtButton_clicked()
+{
+    mainGraphDisplay = LDT;
+    ui->label_7->setText("Lower Displacement");
+    ui->label_8->setText("Undefined");
+    clearBorder();
+    ui->label_20->setStyleSheet("color: black; font-size: 14px;");
+
+    ui->label_10->setText("X-value");
+    ui->label_11->setText("Y-Value");
+}
+
+void MainWindow::on_rotatButton_clicked()
+{
+    mainGraphDisplay = ROT;
+    ui->label_7->setText("Rotational Location");
+    ui->label_8->setText("Undefined");
+    clearBorder();
+    ui->label_21->setStyleSheet("color: black; font-size: 14px;");
+
+    ui->label_10->setText("Measured Value");
+    ui->label_11->setText("Expected Value");
+}
+
+void MainWindow::clearBorder()
+{
+    ui->label_17->setStyleSheet("color: grey; font-size: 11px;");
+    ui->label_18->setStyleSheet("color: grey; font-size: 11px;");
+    ui->label_19->setStyleSheet("color: grey; font-size: 11px;");
+    ui->label_20->setStyleSheet("color: grey; font-size: 11px;");
+    ui->label_21->setStyleSheet("color: grey; font-size: 11px;");
+    ui->stackedWidget->setCurrentIndex(1);
+}

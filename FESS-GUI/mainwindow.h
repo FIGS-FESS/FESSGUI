@@ -22,11 +22,14 @@ public:
     RTG *mainGraph;
     RTG *velGraph;
     RTG *accGraph;
+    RTG *updtGraph;
+    RTG *lowdtGraph;
+    RTG *rotatGraph;
     QTimer *dataTimer;
     bool playSounds;
     double maxVel;
     double maxAcc;
-    enum graph {VEL, ACC};
+    enum graph {VEL, ACC, UDT, LDT, ROT};
     graph mainGraphDisplay;
     ~MainWindow();
 
@@ -51,9 +54,15 @@ private slots:
 
     void addMainData(double key, double value0, double value1);
 
-    void addAux1Data(double key, double value0, double value1);
+    void addVelocData(double key, double value0, double value1);
 
-    void addAux2Data(double key, double value0, double value1);
+    void addAccelData(double key, double value0, double value1);
+
+    void addUpdtData(double key, double value0, double value1);
+
+    void addLowdtData(double key, double value0, double value1);
+
+    void addRotatData(double key, double value0, double value1);
 
     void on_pushButton_clicked();
 
@@ -67,9 +76,17 @@ private slots:
 
     void keyPressEvent(QKeyEvent *event);
 
-    void on_pushButton_3_clicked();
+    void on_velocButton_clicked();
 
-    void on_pushButton_4_clicked();
+    void on_accelButton_clicked();
+
+    void on_updtButton_clicked();
+
+    void on_lowdtButton_clicked();
+
+    void on_rotatButton_clicked();
+
+    void clearBorder();
 
 private:
     Ui::MainWindow *ui;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>882</width>
-    <height>630</height>
+    <width>970</width>
+    <height>698</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,77 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="controlButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Control</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="configButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Performance
-Monitor</string>
-        </property>
-       </widget>
-      </item>
-      <item alignment="Qt::AlignTop">
-       <widget class="QPushButton" name="performButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Configuration</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>20</width>
-        <height>70</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Emergency
-Stop</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
@@ -174,7 +103,7 @@ Stop</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="doubleSpinBox">
+              <widget class="QDoubleSpinBox" name="velSpinBox">
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
@@ -234,7 +163,7 @@ Stop</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+              <widget class="QDoubleSpinBox" name="accSpinBox">
                <property name="maximum">
                 <double>10.000000000000000</double>
                </property>
@@ -477,7 +406,7 @@ Stop</string>
       </widget>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="0" column="2" rowspan="2" alignment="Qt::AlignHCenter">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="minimumSize">
        <size>
@@ -492,37 +421,40 @@ Stop</string>
        <property name="spacing">
         <number>6</number>
        </property>
-       <property name="topMargin">
-        <number>9</number>
+       <property name="leftMargin">
+        <number>12</number>
        </property>
-       <property name="bottomMargin">
-        <number>9</number>
+       <property name="rightMargin">
+        <number>12</number>
        </property>
-       <item alignment="Qt::AlignBottom">
+       <item>
         <widget class="QLabel" name="label_17">
+         <property name="styleSheet">
+          <string notr="true">font-size: 14px</string>
+         </property>
          <property name="text">
           <string>Velocity</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignVCenter">
-        <widget class="QCustomPlot" name="auxgraph1" native="true">
+       <item>
+        <widget class="QCustomPlot" name="auxVelocGraph" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>130</height>
+           <height>100</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">border: 4px solid grey;</string>
+          <string notr="true"/>
          </property>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="velocButton">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
             <width>161</width>
-            <height>131</height>
+            <height>101</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -539,31 +471,156 @@ Stop</string>
          </widget>
         </widget>
        </item>
-       <item alignment="Qt::AlignBottom">
+       <item>
         <widget class="QLabel" name="label_18">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
          <property name="text">
           <string>Acceleration</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCustomPlot" name="auxgraph2" native="true">
+        <widget class="QCustomPlot" name="auxAccelGraph" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>130</height>
+           <height>100</height>
           </size>
          </property>
          <property name="styleSheet">
           <string notr="true"/>
          </property>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="accelButton">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>161</width>
-            <height>131</height>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <zorder>accelButton</zorder>
+         <zorder>pushButton_8</zorder>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_19">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Upper X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxUpDtGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="updtButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_20">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Lower X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxLowDtGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="lowdtButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Rotational Location</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxRotatGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="rotatButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -579,6 +636,77 @@ Stop</string>
       </layout>
      </widget>
     </item>
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Performance
+Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QPushButton" name="performButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Emergency
+Stop</string>
+      </property>
+     </widget>
+    </item>
    </layout>
    <zorder>groupBox_2</zorder>
    <zorder>pushButton_2</zorder>
@@ -590,7 +718,7 @@ Stop</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>882</width>
+     <width>970</width>
      <height>21</height>
     </rect>
    </property>
