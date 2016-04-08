@@ -67,9 +67,9 @@ private slots:
 
     void keyPressEvent(QKeyEvent *event);
 
-    void on_pushButton_Record_clicked();
+    void on_actionStart_Recording_triggered();
 
-    void on_pushButton_StopRecording_clicked();
+    void on_actionStop_Recording_triggered();
 
 private:
     Ui::MainWindow *ui;

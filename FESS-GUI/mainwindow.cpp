@@ -275,7 +275,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         ui->pushButton_2->click();
 }
 
-void MainWindow::on_pushButton_Record_clicked()
+void MainWindow::on_actionStart_Recording_triggered()
 {
     if(!isRecording){
         isRecording = true;
@@ -304,7 +304,7 @@ void MainWindow::on_pushButton_Record_clicked()
     }
 }
 
-void MainWindow::on_pushButton_StopRecording_clicked()
+void MainWindow::on_actionStop_Recording_triggered()
 {
     if (isRecording){
         rfs << std::flush;
