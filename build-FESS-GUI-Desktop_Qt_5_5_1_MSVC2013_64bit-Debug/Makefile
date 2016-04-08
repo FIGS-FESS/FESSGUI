@@ -215,8 +215,11 @@ Makefile: ..\FESS-GUI\FESS-GUI.pro C:\Qt\5.5\msvc2013_64\mkspecs\win32-msvc2013\
 		C:\Qt\5.5\msvc2013_64\mkspecs\features\lex.prf \
 		..\FESS-GUI\FESS-GUI.pro \
 		C:/Qt/5.5/msvc2013_64/lib/qtmaind.prl \
+		C:/Qt/5.5/msvc2013_64/lib/Qt5PrintSupport.prl \
 		C:/Qt/5.5/msvc2013_64/lib/Qt5Widgets.prl \
+		C:/Qt/5.5/msvc2013_64/lib/Qt5Multimedia.prl \
 		C:/Qt/5.5/msvc2013_64/lib/Qt5Gui.prl \
+		C:/Qt/5.5/msvc2013_64/lib/Qt5Network.prl \
 		C:/Qt/5.5/msvc2013_64/lib/Qt5Core.prl
 	$(QMAKE) -spec win32-msvc2013 "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ..\FESS-GUI\FESS-GUI.pro
 C:\Qt\5.5\msvc2013_64\mkspecs\features\spec_pre.prf:
@@ -361,8 +364,11 @@ C:\Qt\5.5\msvc2013_64\mkspecs\features\yacc.prf:
 C:\Qt\5.5\msvc2013_64\mkspecs\features\lex.prf:
 ..\FESS-GUI\FESS-GUI.pro:
 C:/Qt/5.5/msvc2013_64/lib/qtmaind.prl:
+C:/Qt/5.5/msvc2013_64/lib/Qt5PrintSupport.prl:
 C:/Qt/5.5/msvc2013_64/lib/Qt5Widgets.prl:
+C:/Qt/5.5/msvc2013_64/lib/Qt5Multimedia.prl:
 C:/Qt/5.5/msvc2013_64/lib/Qt5Gui.prl:
+C:/Qt/5.5/msvc2013_64/lib/Qt5Network.prl:
 C:/Qt/5.5/msvc2013_64/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -spec win32-msvc2013 "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile ..\FESS-GUI\FESS-GUI.pro

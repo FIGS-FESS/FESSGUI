@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>698</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,77 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Performance
+Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QPushButton" name="performButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Emergency
+Stop</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
@@ -267,13 +338,6 @@
            <property name="verticalSpacing">
             <number>6</number>
            </property>
-           <item row="1" column="0" alignment="Qt::AlignBottom">
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>Velocity</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="1" alignment="Qt::AlignBottom">
             <widget class="QLabel" name="label_8">
              <property name="text">
@@ -288,10 +352,10 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="label_12">
+           <item row="1" column="0" alignment="Qt::AlignBottom">
+            <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Velocity</string>
              </property>
             </widget>
            </item>
@@ -302,20 +366,17 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="label_14">
+           <item row="2" column="0" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label_12">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="4">
-            <widget class="QCustomPlot" name="maingraph" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="2" column="2" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
@@ -340,6 +401,52 @@
                </widget>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="4">
+            <widget class="QStackedWidget" name="stackedWidget_2">
+             <widget class="QWidget" name="velPage">
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <widget class="QCustomPlot" name="mainVelGraph" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="accPage">
+              <layout class="QVBoxLayout" name="verticalLayout_14">
+               <item>
+                <widget class="QCustomPlot" name="mainAccGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="ldtPage">
+              <layout class="QVBoxLayout" name="verticalLayout_15">
+               <item>
+                <widget class="QCustomPlot" name="mainUdtGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="udtPage">
+              <layout class="QVBoxLayout" name="verticalLayout_16">
+               <item>
+                <widget class="QCustomPlot" name="mainLdtGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="rotPage">
+              <layout class="QVBoxLayout" name="verticalLayout_17">
+               <item>
+                <widget class="QCustomPlot" name="mainRotGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
           </layout>
@@ -518,8 +625,6 @@
            <bool>false</bool>
           </property>
          </widget>
-         <zorder>accelButton</zorder>
-         <zorder>pushButton_8</zorder>
         </widget>
        </item>
        <item>
@@ -634,77 +739,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="controlButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Control</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="configButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Performance
-Monitor</string>
-        </property>
-       </widget>
-      </item>
-      <item alignment="Qt::AlignTop">
-       <widget class="QPushButton" name="performButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Configuration</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>20</width>
-        <height>70</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Emergency
-Stop</string>
-      </property>
      </widget>
     </item>
    </layout>

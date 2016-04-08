@@ -19,7 +19,11 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-    RTG *mainGraph;
+    RTG *mainVelGraph;
+    RTG *mainAccGraph;
+    RTG *mainUdtGraph;
+    RTG *mainLdtGraph;
+    RTG *mainRotGraph;
     RTG *velGraph;
     RTG *accGraph;
     RTG *updtGraph;
@@ -51,8 +55,6 @@ private slots:
     void on_actionEmperial_triggered();
 
     void realtimeDataSlot();
-
-    void addMainData(double key, double value0, double value1);
 
     void addVelocData(double key, double value0, double value1);
 
