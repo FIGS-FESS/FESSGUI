@@ -46,6 +46,8 @@ public:
     QAction *actionNone;
     QAction *actionDefault;
     QAction *actionDarth_Vader;
+    QAction *actionStart_Recording;
+    QAction *actionStop_Recording;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -108,17 +110,13 @@ public:
     QCustomPlot *auxgraph1;
     QLabel *label_18;
     QCustomPlot *auxgraph2;
-    QGroupBox *groupBox_5;
-    QWidget *horizontalLayoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton_Record;
-    QPushButton *pushButton_StopRecording;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuOptions;
     QMenu *menuChange_Units;
     QMenu *menuSounds;
     QMenu *menuView;
+    QMenu *menuRecording;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -151,6 +149,10 @@ public:
         actionDarth_Vader = new QAction(MainWindow);
         actionDarth_Vader->setObjectName(QStringLiteral("actionDarth_Vader"));
         actionDarth_Vader->setCheckable(true);
+        actionStart_Recording = new QAction(MainWindow);
+        actionStart_Recording->setObjectName(QStringLiteral("actionStart_Recording"));
+        actionStop_Recording = new QAction(MainWindow);
+        actionStop_Recording->setObjectName(QStringLiteral("actionStop_Recording"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -523,35 +525,6 @@ public:
 
         gridLayout->addWidget(groupBox_2, 1, 2, 1, 1);
 
-        groupBox_5 = new QGroupBox(centralWidget);
-        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
-        horizontalLayoutWidget = new QWidget(groupBox_5);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 20, 170, 111));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton_Record = new QPushButton(horizontalLayoutWidget);
-        pushButton_Record->setObjectName(QStringLiteral("pushButton_Record"));
-
-        horizontalLayout->addWidget(pushButton_Record);
-
-        pushButton_StopRecording = new QPushButton(horizontalLayoutWidget);
-        pushButton_StopRecording->setObjectName(QStringLiteral("pushButton_StopRecording"));
-        QSizePolicy sizePolicy6(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
-        sizePolicy6.setHeightForWidth(pushButton_StopRecording->sizePolicy().hasHeightForWidth());
-        pushButton_StopRecording->setSizePolicy(sizePolicy6);
-        pushButton_StopRecording->setMinimumSize(QSize(0, 0));
-
-        horizontalLayout->addWidget(pushButton_StopRecording);
-
-
-        gridLayout->addWidget(groupBox_5, 2, 2, 1, 1);
-
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -566,6 +539,8 @@ public:
         menuSounds->setObjectName(QStringLiteral("menuSounds"));
         menuView = new QMenu(menuBar);
         menuView->setObjectName(QStringLiteral("menuView"));
+        menuRecording = new QMenu(menuBar);
+        menuRecording->setObjectName(QStringLiteral("menuRecording"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -576,6 +551,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuOptions->menuAction());
         menuBar->addAction(menuView->menuAction());
+        menuBar->addAction(menuRecording->menuAction());
         menuFile->addAction(actionNew);
         menuFile->addAction(actionEdit);
         menuOptions->addAction(menuChange_Units->menuAction());
@@ -587,6 +563,8 @@ public:
         menuSounds->addAction(actionDarth_Vader);
         menuView->addAction(actionNormal);
         menuView->addAction(actionExpanded);
+        menuRecording->addAction(actionStart_Recording);
+        menuRecording->addAction(actionStop_Recording);
 
         retranslateUi(MainWindow);
 
@@ -609,6 +587,8 @@ public:
         actionNone->setText(QApplication::translate("MainWindow", "None", 0));
         actionDefault->setText(QApplication::translate("MainWindow", "Default", 0));
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
+        actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
+        actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
         label_15->setText(QApplication::translate("MainWindow", "Output Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_1), QApplication::translate("MainWindow", "Output", 0));
         label_16->setText(QApplication::translate("MainWindow", "Error Log", 0));
@@ -645,14 +625,12 @@ public:
         groupBox_2->setTitle(QString());
         label_17->setText(QApplication::translate("MainWindow", "Velocity", 0));
         label_18->setText(QApplication::translate("MainWindow", "Acceleration", 0));
-        groupBox_5->setTitle(QApplication::translate("MainWindow", "GroupBox", 0));
-        pushButton_Record->setText(QApplication::translate("MainWindow", "Record", 0));
-        pushButton_StopRecording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
         menuSounds->setTitle(QApplication::translate("MainWindow", "Sounds", 0));
         menuView->setTitle(QApplication::translate("MainWindow", "View", 0));
+        menuRecording->setTitle(QApplication::translate("MainWindow", "Recording", 0));
     } // retranslateUi
 
 };

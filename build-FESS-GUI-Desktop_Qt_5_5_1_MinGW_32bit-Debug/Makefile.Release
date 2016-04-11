@@ -2598,27 +2598,6 @@ release/mainwindow.o: ../FESS-GUI/mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:/Dev/Qt/5.5/mingw492_32/include/QtPrintSupport/qtprintsupportversion.h \
 		../FESS-GUI/rtg.h \
 		ui_mainwindow.h \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QAction \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QApplication \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QButtonGroup \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QDial \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QGridLayout \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QHBoxLayout \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QHeaderView \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QLCDNumber \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QLabel \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QMenu \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QMenuBar \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QPushButton \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QSlider \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QSpinBox \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QStatusBar \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QTabWidget \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QTextBrowser \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QToolBar \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QVBoxLayout \
-		../FESS-GUI/parametersettings.h \
-		C:/Dev/Qt/5.5/mingw492_32/include/QtWidgets/QDialog \
 		C:/Dev/Qt/5.5/mingw492_32/include/QtGui/QKeyEvent \
 		C:/Dev/Qt/5.5/mingw492_32/include/QtCore/QTime
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\FESS-GUI\mainwindow.cpp
