@@ -150,11 +150,9 @@ public:
     QLabel *label_16;
     QTextBrowser *textBrowser_2;
     QMenuBar *menuBar;
-    QMenu *menuFile;
     QMenu *menuOptions;
     QMenu *menuChange_Units;
     QMenu *menuSounds;
-    QMenu *menuView;
     QMenu *menuRecording;
     QStatusBar *statusBar;
 
@@ -758,23 +756,15 @@ public:
         gridLayout->addWidget(tabWidget, 1, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
-        groupBox_2->raise();
-        pushButton_2->raise();
-        stackedWidget->raise();
-        tabWidget->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1013, 21));
-        menuFile = new QMenu(menuBar);
-        menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QStringLiteral("menuOptions"));
         menuChange_Units = new QMenu(menuOptions);
         menuChange_Units->setObjectName(QStringLiteral("menuChange_Units"));
         menuSounds = new QMenu(menuOptions);
         menuSounds->setObjectName(QStringLiteral("menuSounds"));
-        menuView = new QMenu(menuBar);
-        menuView->setObjectName(QStringLiteral("menuView"));
         menuRecording = new QMenu(menuBar);
         menuRecording->setObjectName(QStringLiteral("menuRecording"));
         MainWindow->setMenuBar(menuBar);
@@ -784,12 +774,8 @@ public:
         QWidget::setTabOrder(performButton, configButton);
         QWidget::setTabOrder(configButton, controlButton);
 
-        menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuOptions->menuAction());
-        menuBar->addAction(menuView->menuAction());
         menuBar->addAction(menuRecording->menuAction());
-        menuFile->addAction(actionNew);
-        menuFile->addAction(actionEdit);
         menuOptions->addAction(menuChange_Units->menuAction());
         menuOptions->addAction(menuSounds->menuAction());
         menuChange_Units->addAction(actionMetric);
@@ -797,15 +783,13 @@ public:
         menuSounds->addAction(actionNone);
         menuSounds->addAction(actionDefault);
         menuSounds->addAction(actionDarth_Vader);
-        menuView->addAction(actionNormal);
-        menuView->addAction(actionExpanded);
         menuRecording->addAction(actionStart_Recording);
         menuRecording->addAction(actionStop_Recording);
 
         retranslateUi(MainWindow);
 
         stackedWidget->setCurrentIndex(1);
-        stackedWidget_2->setCurrentIndex(4);
+        stackedWidget_2->setCurrentIndex(0);
         tabWidget->setCurrentIndex(0);
 
 
@@ -820,7 +804,7 @@ public:
         actionNormal->setText(QApplication::translate("MainWindow", "Normal", 0));
         actionExpanded->setText(QApplication::translate("MainWindow", "Expanded", 0));
         actionMetric->setText(QApplication::translate("MainWindow", "Metric", 0));
-        actionEmperial->setText(QApplication::translate("MainWindow", "Emperial", 0));
+        actionEmperial->setText(QApplication::translate("MainWindow", "Imperial", 0));
         actionNone->setText(QApplication::translate("MainWindow", "None", 0));
         actionDefault->setText(QApplication::translate("MainWindow", "Default", 0));
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
@@ -851,16 +835,20 @@ public:
         label_12->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         label_13->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         label_8->setText(QApplication::translate("MainWindow", "Max Velocity", 0));
-        label_9->setText(QApplication::translate("MainWindow", "Up Time", 0));
+        label_9->setText(QApplication::translate("MainWindow", "Up Time (s)", 0));
         label_7->setText(QApplication::translate("MainWindow", "Velocity", 0));
-        label_14->setText(QApplication::translate("MainWindow", "TextLabel", 0));
+        label_14->setText(QApplication::translate("MainWindow", "0", 0));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "Legend", 0));
         label_11->setText(QApplication::translate("MainWindow", "Expected Value", 0));
         label_10->setText(QApplication::translate("MainWindow", "Measured Value", 0));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "Configuration", 0));
         label_22->setText(QApplication::translate("MainWindow", "Emergency Stop Button", 0));
         label_23->setText(QApplication::translate("MainWindow", "Maximum Velocity (rad/s)", 0));
-        label_24->setText(QApplication::translate("MainWindow", "Maximum Acceleration (rad/s^2)", 0));
+        label_24->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maximum Acceleration (rad/s<span style=\" vertical-align:super;\">2</span>)</p></body></html>", 0));
         label_25->setText(QApplication::translate("MainWindow", "Password", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
@@ -870,11 +858,9 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_1), QApplication::translate("MainWindow", "Output", 0));
         label_16->setText(QApplication::translate("MainWindow", "Error Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Errors", 0));
-        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
         menuSounds->setTitle(QApplication::translate("MainWindow", "Sounds", 0));
-        menuView->setTitle(QApplication::translate("MainWindow", "View", 0));
         menuRecording->setTitle(QApplication::translate("MainWindow", "Recording", 0));
     } // retranslateUi
 

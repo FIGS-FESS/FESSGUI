@@ -211,7 +211,7 @@ void MainWindow::realtimeDataSlot()
       addAccelData(key, value1, (double)ui->accSpinBox->value());
       addUpdtData(x, y);
       addLowdtData(y, x);
-      addRotatData(-x, -y);
+      addRotatData(qCos(key), qSin(key));
 
 	  //output data to csv if recording
       if (isRecording){
@@ -279,6 +279,8 @@ void MainWindow::realtimeDataSlot()
 
       lastFpsKey = key;
       frameCount = 0;
+      if(uptime.isValid())
+          ui->label_14->setText(QString::number(uptime.elapsed() / 1000));
     }
 
     //don't show if your not on the performance view
@@ -344,6 +346,8 @@ void MainWindow::on_pushButton_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
+
+    uptime.start();
     if (playSounds)
     {
         goplayer->setVolume(100);
@@ -372,6 +376,8 @@ void MainWindow::on_pushButton_2_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
+
+    uptime.invalidate();
     if (playSounds)
     {
         stopplayer->setVolume(100);
@@ -444,8 +450,7 @@ void MainWindow::on_updtButton_clicked()
     clearBorder();
     ui->label_19->setStyleSheet("color: black; font-size: 14px;");
 
-    ui->label_10->setText("X-value");
-    ui->label_11->setText("Y-Value");
+    ui->label_11->setText("");
 }
 
 void MainWindow::on_lowdtButton_clicked()
@@ -458,8 +463,7 @@ void MainWindow::on_lowdtButton_clicked()
     clearBorder();
     ui->label_20->setStyleSheet("color: black; font-size: 14px;");
 
-    ui->label_10->setText("X-value");
-    ui->label_11->setText("Y-Value");
+    ui->label_11->setText("");
 }
 
 void MainWindow::on_rotatButton_clicked()
@@ -472,8 +476,7 @@ void MainWindow::on_rotatButton_clicked()
     clearBorder();
     ui->label_21->setStyleSheet("color: black; font-size: 14px;");
 
-    ui->label_10->setText("Measured Value");
-    ui->label_11->setText("Expected Value");
+    ui->label_11->setText("");
 }
 
 void MainWindow::clearBorder()

@@ -42,6 +42,7 @@ public:
     enum graph {VEL, ACC, UDT, LDT, ROT};
     graph mainGraphDisplay;
     QKeySequence eStopKey;
+    QElapsedTimer uptime;
     ~MainWindow();
 
 private slots:
