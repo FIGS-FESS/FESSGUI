@@ -33,12 +33,15 @@ public:
     XYG *rotatGraph;
     QTimer *dataTimer;
     bool playSounds;
-	bool isRecording;
+    bool isRecording;
     std::ofstream rfs;
     double maxVel;
     double maxAcc;
+    double maxUpDt [2];
+    double maxLwDt [2];
     enum graph {VEL, ACC, UDT, LDT, ROT};
     graph mainGraphDisplay;
+    QKeySequence eStopKey;
     ~MainWindow();
 
 private slots:
@@ -80,7 +83,7 @@ private slots:
 
     void on_actionDefault_triggered();
 
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeySequence *event);
 
     void on_velocButton_clicked();
 
@@ -98,6 +101,14 @@ private slots:
 
     void on_actionStop_Recording_triggered();
 	
+    void on_performButton_clicked();
+
+    void on_eStopKey_keySequenceChanged(const QKeySequence &keySequence);
+
+    void on_maxVel_textChanged(const QString &arg1);
+
+    void on_maxAccel_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 };

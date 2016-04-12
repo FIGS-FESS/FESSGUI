@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     mainGraphDisplay = VEL; //enum for maingraph
     maxVel = 0;
     maxAcc = 0;
+    maxUpDt[0] = 0;
+    maxUpDt[1] = 0;
+    maxLwDt[0] = 0;
+    maxLwDt[1] = 0;
 
     ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
     ui->label_11->setStyleSheet("QLabel {color : red; }");
@@ -167,8 +171,8 @@ void MainWindow::realtimeDataSlot()
 
     double value0 = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
     double value1 = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
-    double x = qCos(key);
-    double y = qSin(key);
+    double x = 2*qCos(key) - qCos(2*key);
+    double y = 2*qSin(key) - qSin(2*key);
 
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
@@ -177,29 +181,27 @@ void MainWindow::realtimeDataSlot()
       switch (mainGraphDisplay)
       {
           case (VEL):
-          //addMainData(key, value0, (double)ui->velSpinBox->value());
           ui->label_13->setText(QString::number(maxVel) + " rad/sec");
           ui->label_12->setText(QString::number(value0) + " rad/sec");
           break;
 
           case (ACC):
-          //addMainData(key, value1, (double)ui->accSpinBox->value());
           ui->label_13->setText(QString::number(maxAcc) + " rad/sec<sup>2</sup>");
           ui->label_12->setText(QString::number(value1) + " rad/sec<sup>2</sup>");
           break;
 
           case (UDT):
-          //addMainData(key, x, y);
+          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]));
           ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
           break;
 
           case (LDT):
-          //addMainData(key, x, y);
+          ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]));
           ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
           break;
 
           case (ROT):
-          //addMainData(key, value0 / 3 * 2, 0);
+          ui->label_13->setText("");
           ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
           break;
       }
@@ -209,7 +211,7 @@ void MainWindow::realtimeDataSlot()
       addAccelData(key, value1, (double)ui->accSpinBox->value());
       addUpdtData(x, y);
       addLowdtData(y, x);
-      addRotatData(x, y);
+      addRotatData(-x, -y);
 
 	  //output data to csv if recording
       if (isRecording){
@@ -254,6 +256,18 @@ void MainWindow::realtimeDataSlot()
     if (value1 > maxAcc)
         maxAcc = value1;
 
+    if (qFabs(x) > qFabs(maxUpDt[0]))
+        maxUpDt[0] = x;
+
+    if (qFabs(y) > qFabs(maxUpDt[1]))
+        maxUpDt[1] = y;
+
+    if (qFabs(x) > qFabs(maxLwDt[0]))
+        maxLwDt[0] = x;
+
+    if (qFabs(y) > qFabs(maxLwDt[1]))
+        maxLwDt[1] = y;
+
     //show fps and data points in statusbar
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
@@ -282,6 +296,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_controlButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_performButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::on_configButton_clicked()
@@ -381,15 +400,16 @@ void MainWindow::on_actionDefault_triggered()
     ui->actionNone->setChecked(false);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
+void MainWindow::keyPressEvent(QKeySequence *event) //doesn't work
 {
-    if( event->key() == Qt::Key_Space)
+    if( event->matches(eStopKey))
         ui->pushButton_2->click();
 }
 
 void MainWindow::on_velocButton_clicked()
 {
     mainGraphDisplay = VEL;
+    ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->label_7->setText("Velocity");
     ui->label_8->setText("Max Velocity");
@@ -403,6 +423,7 @@ void MainWindow::on_velocButton_clicked()
 void MainWindow::on_accelButton_clicked()
 {
     mainGraphDisplay = ACC;
+    ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(1);
     ui->label_7->setText("Acceleration");
     ui->label_8->setText("Max Acceleration");
@@ -416,9 +437,10 @@ void MainWindow::on_accelButton_clicked()
 void MainWindow::on_updtButton_clicked()
 {
     mainGraphDisplay = UDT;
+    ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(2);
     ui->label_7->setText("Upper Displacement");
-    ui->label_8->setText("Undefined");
+    ui->label_8->setText("Max X,Y");
     clearBorder();
     ui->label_19->setStyleSheet("color: black; font-size: 14px;");
 
@@ -429,9 +451,10 @@ void MainWindow::on_updtButton_clicked()
 void MainWindow::on_lowdtButton_clicked()
 {
     mainGraphDisplay = LDT;
+    ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(3);
     ui->label_7->setText("Lower Displacement");
-    ui->label_8->setText("Undefined");
+    ui->label_8->setText("Max X,Y");
     clearBorder();
     ui->label_20->setStyleSheet("color: black; font-size: 14px;");
 
@@ -442,9 +465,10 @@ void MainWindow::on_lowdtButton_clicked()
 void MainWindow::on_rotatButton_clicked()
 {
     mainGraphDisplay = ROT;
+    ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(4);
     ui->label_7->setText("Rotational Location");
-    ui->label_8->setText("Undefined");
+    ui->label_8->setText("");
     clearBorder();
     ui->label_21->setStyleSheet("color: black; font-size: 14px;");
 
@@ -491,6 +515,9 @@ void MainWindow::on_actionStart_Recording_triggered()
 
         ui->actionStart_Recording->setEnabled(false);
         ui->actionStop_Recording->setEnabled(true);
+
+        ui->textBrowser->append(QString("Output Recording Started at %1")
+                                .arg(QTime::currentTime().toString()));
     
 	}
 }
@@ -500,8 +527,29 @@ void MainWindow::on_actionStop_Recording_triggered()
     if (isRecording){
         rfs << std::flush;
         rfs.close();
+
         isRecording = false;
         ui->actionStart_Recording->setEnabled(true);
         ui->actionStop_Recording->setEnabled(false);
+
+        ui->textBrowser->append(QString("Output Recording Stopped at %1")
+                                .arg(QTime::currentTime().toString()));
     }
+}
+
+void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
+{
+    eStopKey = keySequence;
+}
+
+void MainWindow::on_maxVel_textChanged(const QString &arg1)
+{
+    ui->velSpinBox->setMaximum(arg1.toInt());
+    ui->verticalSlider->setMaximum(arg1.toInt());
+}
+
+void MainWindow::on_maxAccel_textChanged(const QString &arg1)
+{
+    ui->accSpinBox->setMaximum(arg1.toInt());
+    ui->verticalSlider_2->setMaximum(arg1.toInt());
 }

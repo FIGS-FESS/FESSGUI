@@ -15,8 +15,8 @@ XYG::XYG(QCustomPlot *xygwidget, bool isMain)
 
 
     // set axes ranges, so we see all data:
-    xygwidget->xAxis->setRange(-1, 1);
-    xygwidget->yAxis->setRange(-1, 1);
+    xygwidget->xAxis->setRange(-5, 5);
+    xygwidget->yAxis->setRange(-5, 5);
 
     if(isMain)
     {
