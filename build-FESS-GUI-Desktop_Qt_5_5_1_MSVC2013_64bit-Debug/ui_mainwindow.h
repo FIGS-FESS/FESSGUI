@@ -46,6 +46,8 @@ public:
     QAction *actionNone;
     QAction *actionDefault;
     QAction *actionDarth_Vader;
+    QAction *actionStart_Recording;
+    QAction *actionStop_Recording;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -139,13 +141,14 @@ public:
     QMenu *menuChange_Units;
     QMenu *menuSounds;
     QMenu *menuView;
+    QMenu *menuRecording;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(970, 700);
+        MainWindow->resize(1013, 766);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionEdit = new QAction(MainWindow);
@@ -171,6 +174,11 @@ public:
         actionDarth_Vader = new QAction(MainWindow);
         actionDarth_Vader->setObjectName(QStringLiteral("actionDarth_Vader"));
         actionDarth_Vader->setCheckable(true);
+        actionStart_Recording = new QAction(MainWindow);
+        actionStart_Recording->setObjectName(QStringLiteral("actionStart_Recording"));
+        actionStop_Recording = new QAction(MainWindow);
+        actionStop_Recording->setObjectName(QStringLiteral("actionStop_Recording"));
+        actionStop_Recording->setEnabled(false);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -668,7 +676,7 @@ public:
         tabWidget->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 970, 21));
+        menuBar->setGeometry(QRect(0, 0, 1013, 31));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOptions = new QMenu(menuBar);
@@ -679,6 +687,8 @@ public:
         menuSounds->setObjectName(QStringLiteral("menuSounds"));
         menuView = new QMenu(menuBar);
         menuView->setObjectName(QStringLiteral("menuView"));
+        menuRecording = new QMenu(menuBar);
+        menuRecording->setObjectName(QStringLiteral("menuRecording"));
         MainWindow->setMenuBar(menuBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -689,6 +699,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuOptions->menuAction());
         menuBar->addAction(menuView->menuAction());
+        menuBar->addAction(menuRecording->menuAction());
         menuFile->addAction(actionNew);
         menuFile->addAction(actionEdit);
         menuOptions->addAction(menuChange_Units->menuAction());
@@ -700,6 +711,8 @@ public:
         menuSounds->addAction(actionDarth_Vader);
         menuView->addAction(actionNormal);
         menuView->addAction(actionExpanded);
+        menuRecording->addAction(actionStart_Recording);
+        menuRecording->addAction(actionStop_Recording);
 
         retranslateUi(MainWindow);
 
@@ -722,6 +735,8 @@ public:
         actionNone->setText(QApplication::translate("MainWindow", "None", 0));
         actionDefault->setText(QApplication::translate("MainWindow", "Default", 0));
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
+        actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
+        actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));
@@ -766,6 +781,7 @@ public:
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
         menuSounds->setTitle(QApplication::translate("MainWindow", "Sounds", 0));
         menuView->setTitle(QApplication::translate("MainWindow", "View", 0));
+        menuRecording->setTitle(QApplication::translate("MainWindow", "Recording", 0));
     } // retranslateUi
 
 };

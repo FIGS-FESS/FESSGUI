@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
     playSounds = false;
+    isRecording = false;
     mainGraphDisplay = VEL; //enum for maingraph
     maxVel = 0;
     maxAcc = 0;
@@ -487,6 +488,9 @@ void MainWindow::on_actionStart_Recording_triggered()
 
         rfs.open(filename.c_str());
         rfs << "Time, " << "Value0," << " Value 1," << " X," << " Y," << std::endl;
+
+        ui->actionStart_Recording->setEnabled(false);
+        ui->actionStop_Recording->setEnabled(true);
     
 	}
 }
@@ -497,5 +501,7 @@ void MainWindow::on_actionStop_Recording_triggered()
         rfs << std::flush;
         rfs.close();
         isRecording = false;
+        ui->actionStart_Recording->setEnabled(true);
+        ui->actionStop_Recording->setEnabled(false);
     }
 }

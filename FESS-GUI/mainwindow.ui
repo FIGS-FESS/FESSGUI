@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>700</height>
+    <width>1013</width>
+    <height>766</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -752,8 +752,8 @@ Stop</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>970</width>
-     <height>21</height>
+     <width>1013</width>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -877,6 +877,9 @@ Stop</string>
    </property>
   </action>
   <action name="actionStop_Recording">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Stop Recording</string>
    </property>
