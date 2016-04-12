@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
-    <height>577</height>
+    <width>970</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,90 +15,78 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="tabPosition">
-       <enum>QTabWidget::South</enum>
-      </property>
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_1">
-       <attribute name="title">
-        <string>Output</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_12">
-        <item>
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Output Log</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextBrowser" name="textBrowser"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Errors</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_16">
-          <property name="text">
-           <string>Error Log</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextBrowser" name="textBrowser_2">
-          <property name="lineWidth">
-           <number>1</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Performance
+Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QPushButton" name="performButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="0" column="0" colspan="3">
-     <widget class="QTextBrowser" name="textBrowser_3">
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
-        <width>0</width>
-        <height>26</height>
+        <width>20</width>
+        <height>70</height>
        </size>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:rgb(0, 255, 0);</string>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;No errors detected&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <property name="text">
+       <string>Emergency
+Stop</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -107,7 +95,7 @@ p, li { white-space: pre-wrap; }
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_5">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -186,7 +174,7 @@ p, li { white-space: pre-wrap; }
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="doubleSpinBox">
+              <widget class="QDoubleSpinBox" name="velSpinBox">
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
@@ -246,7 +234,7 @@ p, li { white-space: pre-wrap; }
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+              <widget class="QDoubleSpinBox" name="accSpinBox">
                <property name="maximum">
                 <double>10.000000000000000</double>
                </property>
@@ -350,13 +338,6 @@ p, li { white-space: pre-wrap; }
            <property name="verticalSpacing">
             <number>6</number>
            </property>
-           <item row="1" column="0" alignment="Qt::AlignBottom">
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>Velocity</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="1" alignment="Qt::AlignBottom">
             <widget class="QLabel" name="label_8">
              <property name="text">
@@ -371,10 +352,10 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
-           <item row="2" column="0" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="label_12">
+           <item row="1" column="0" alignment="Qt::AlignBottom">
+            <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Velocity</string>
              </property>
             </widget>
            </item>
@@ -385,20 +366,17 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
-           <item row="2" column="2" alignment="Qt::AlignTop">
-            <widget class="QLabel" name="label_14">
+           <item row="2" column="0" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label_12">
              <property name="text">
               <string>TextLabel</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="4">
-            <widget class="QCustomPlot" name="maingraph" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="2" column="2" alignment="Qt::AlignTop">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>TextLabel</string>
              </property>
             </widget>
            </item>
@@ -425,6 +403,52 @@ p, li { white-space: pre-wrap; }
              </layout>
             </widget>
            </item>
+           <item row="0" column="0" colspan="4">
+            <widget class="QStackedWidget" name="stackedWidget_2">
+             <widget class="QWidget" name="velPage">
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <widget class="QCustomPlot" name="mainVelGraph" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="accPage">
+              <layout class="QVBoxLayout" name="verticalLayout_14">
+               <item>
+                <widget class="QCustomPlot" name="mainAccGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="ldtPage">
+              <layout class="QVBoxLayout" name="verticalLayout_15">
+               <item>
+                <widget class="QCustomPlot" name="mainUdtGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="udtPage">
+              <layout class="QVBoxLayout" name="verticalLayout_16">
+               <item>
+                <widget class="QCustomPlot" name="mainLdtGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="rotPage">
+              <layout class="QVBoxLayout" name="verticalLayout_17">
+               <item>
+                <widget class="QCustomPlot" name="mainRotGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -432,78 +456,64 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
-    <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="controlButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Control</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="configButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Performance
-Monitor</string>
-        </property>
-       </widget>
-      </item>
-      <item alignment="Qt::AlignTop">
-       <widget class="QPushButton" name="performButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Configuration</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_2">
+    <item row="1" column="1">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>20</width>
-        <height>70</height>
-       </size>
+      <property name="tabPosition">
+       <enum>QTabWidget::South</enum>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
       </property>
-      <property name="text">
-       <string>Emergency
-Stop</string>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_1">
+       <attribute name="title">
+        <string>Output</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Output Log</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="textBrowser"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Errors</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_16">
+          <property name="text">
+           <string>Error Log</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="textBrowser_2">
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
-    <item row="1" column="2">
+    <item row="0" column="2" rowspan="2" alignment="Qt::AlignHCenter">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="minimumSize">
        <size>
@@ -518,57 +528,231 @@ Stop</string>
        <property name="spacing">
         <number>6</number>
        </property>
-       <property name="topMargin">
-        <number>9</number>
+       <property name="leftMargin">
+        <number>12</number>
        </property>
-       <property name="bottomMargin">
-        <number>9</number>
+       <property name="rightMargin">
+        <number>12</number>
        </property>
-       <item alignment="Qt::AlignBottom">
+       <item>
         <widget class="QLabel" name="label_17">
+         <property name="styleSheet">
+          <string notr="true">font-size: 14px</string>
+         </property>
          <property name="text">
           <string>Velocity</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignVCenter">
-        <widget class="QCustomPlot" name="auxgraph1" native="true">
+       <item>
+        <widget class="QCustomPlot" name="auxVelocGraph" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>130</height>
+           <height>100</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QPushButton" name="velocButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>161</width>
+            <height>101</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+         </widget>
         </widget>
        </item>
-       <item alignment="Qt::AlignBottom">
+       <item>
         <widget class="QLabel" name="label_18">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
          <property name="text">
           <string>Acceleration</string>
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignVCenter">
-        <widget class="QCustomPlot" name="auxgraph2" native="true">
+       <item>
+        <widget class="QCustomPlot" name="auxAccelGraph" native="true">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>130</height>
+           <height>100</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QPushButton" name="accelButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_19">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Upper X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxUpDtGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="updtButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_20">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Lower X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxLowDtGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="lowdtButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_21">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Rotational Location</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxRotatGraph" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="rotatButton">
+          <property name="geometry">
+           <rect>
+            <x>4</x>
+            <y>2</y>
+            <width>151</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
    </layout>
+   <zorder>groupBox_2</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>stackedWidget</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>802</width>
+     <width>970</width>
      <height>21</height>
     </rect>
    </property>
@@ -608,17 +792,9 @@ Stop</string>
     <addaction name="actionNormal"/>
     <addaction name="actionExpanded"/>
    </widget>
-   <widget class="QMenu" name="menuRecording">
-    <property name="title">
-     <string>Recording</string>
-    </property>
-    <addaction name="actionStart_Recording"/>
-    <addaction name="actionStop_Recording"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
    <addaction name="menuView"/>
-   <addaction name="menuRecording"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -685,16 +861,6 @@ Stop</string>
    </property>
    <property name="text">
     <string>Darth Vader</string>
-   </property>
-  </action>
-  <action name="actionStart_Recording">
-   <property name="text">
-    <string>Start Recording</string>
-   </property>
-  </action>
-  <action name="actionStop_Recording">
-   <property name="text">
-    <string>Stop Recording</string>
    </property>
   </action>
  </widget>
