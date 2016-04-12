@@ -30,6 +30,7 @@ RTG::RTG(QCustomPlot *rtgwidget, bool isMain)
     else
     {
         rtgwidget->xAxis->setTickLabels(false);
+        rtgwidget->yAxis->setTickLabels(false);
     }
     // make left and bottom axes transfer their ranges to right and top axes:
     //connect(rtgwidget->xAxis, SIGNAL(rangeChanged(QCPRange)), rtgwidget->xAxis2, SLOT(setRange(QCPRange)));
