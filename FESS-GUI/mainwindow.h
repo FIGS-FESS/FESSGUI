@@ -5,6 +5,7 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
+#include <fstream>
 #include "rtg.h"
 #include "xyg.h"
 
@@ -32,6 +33,8 @@ public:
     XYG *rotatGraph;
     QTimer *dataTimer;
     bool playSounds;
+	bool isRecording;
+    std::ofstream rfs;
     double maxVel;
     double maxAcc;
     enum graph {VEL, ACC, UDT, LDT, ROT};
@@ -91,6 +94,10 @@ private slots:
 
     void clearBorder();
 
+    void on_actionStart_Recording_triggered();
+
+    void on_actionStop_Recording_triggered();
+	
 private:
     Ui::MainWindow *ui;
 };
