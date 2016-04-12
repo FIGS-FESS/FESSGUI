@@ -5,6 +5,7 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
+#include <fstream>
 #include "rtg.h"
 
 namespace Ui {
@@ -24,6 +25,8 @@ public:
     RTG *accGraph;
     QTimer *dataTimer;
     bool playSounds;
+    bool isRecording;
+    std::ofstream rfs;
     double maxVel;
     ~MainWindow();
 
@@ -63,6 +66,10 @@ private slots:
     void on_actionDefault_triggered();
 
     void keyPressEvent(QKeyEvent *event);
+
+    void on_actionStart_Recording_triggered();
+
+    void on_actionStop_Recording_triggered();
 
 private:
     Ui::MainWindow *ui;

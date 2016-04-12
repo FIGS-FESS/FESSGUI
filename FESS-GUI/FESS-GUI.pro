@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-02-12T15:05:08
+# Project created by QtCreator 2016-02-17T09:51:10
 #
 #-------------------------------------------------
 
@@ -30,4 +30,3 @@ RC_FILE = fess.rc
 
 RESOURCES += \
     sounds.qrc
-
