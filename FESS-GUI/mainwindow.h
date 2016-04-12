@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <qcustomplot.h>
 #include "rtg.h"
+#include "xyg.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,14 +22,14 @@ public:
     QMediaPlayer *stopplayer;
     RTG *mainVelGraph;
     RTG *mainAccGraph;
-    RTG *mainUdtGraph;
-    RTG *mainLdtGraph;
-    RTG *mainRotGraph;
+    XYG *mainUdtGraph;
+    XYG *mainLdtGraph;
+    XYG *mainRotGraph;
     RTG *velGraph;
     RTG *accGraph;
-    RTG *updtGraph;
-    RTG *lowdtGraph;
-    RTG *rotatGraph;
+    XYG *updtGraph;
+    XYG *lowdtGraph;
+    XYG *rotatGraph;
     QTimer *dataTimer;
     bool playSounds;
     double maxVel;
@@ -60,11 +61,11 @@ private slots:
 
     void addAccelData(double key, double value0, double value1);
 
-    void addUpdtData(double key, double value0, double value1);
+    void addUpdtData(double x, double y);
 
-    void addLowdtData(double key, double value0, double value1);
+    void addLowdtData(double x, double y);
 
-    void addRotatData(double key, double value0, double value1);
+    void addRotatData(double x, double y);
 
     void on_pushButton_clicked();
 

@@ -25,15 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mainVelGraph = new RTG(ui->mainVelGraph, true);  //initialize graphs
     mainAccGraph = new RTG(ui->mainAccGraph, true);
-    mainUdtGraph = new RTG(ui->mainUdtGraph, true);
-    mainLdtGraph = new RTG(ui->mainLdtGraph, true);
-    mainRotGraph = new RTG(ui->mainRotGraph, true);
+    mainUdtGraph = new XYG(ui->mainUdtGraph, true);
+    mainLdtGraph = new XYG(ui->mainLdtGraph, true);
+    mainRotGraph = new XYG(ui->mainRotGraph, true);
 
     velGraph = new RTG(ui->auxVelocGraph, false);
     accGraph = new RTG(ui->auxAccelGraph, false);
-    updtGraph = new RTG(ui->auxUpDtGraph, false);
-    lowdtGraph = new RTG(ui->auxLowDtGraph, false);
-    rotatGraph = new RTG(ui->auxRotatGraph, false);
+    updtGraph = new XYG(ui->auxUpDtGraph, false);
+    lowdtGraph = new XYG(ui->auxLowDtGraph, false);
+    rotatGraph = new XYG(ui->auxRotatGraph, false);
 
 
     free (mainVelGraph); //free classes
@@ -55,15 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->mainAccGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainAccGraph->xAxis2, SLOT(setRange(QCPRange)));
     connect(ui->mainAccGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainAccGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainUdtGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainUdtGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainUdtGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainUdtGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainLdtGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainLdtGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainLdtGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainLdtGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainRotGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainRotGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainRotGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainRotGraph->yAxis2, SLOT(setRange(QCPRange)));
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
@@ -133,97 +124,34 @@ void MainWindow::addAccelData(double key, double value0, double value1)
     ui->auxAccelGraph->graph(1)->rescaleValueAxis(true);
 }
 
-void MainWindow::addUpdtData(double key, double value0, double value1)
+void MainWindow::addUpdtData(double x, double y)
 {
-    ui->mainUdtGraph->graph(0)->addData(key, value0);
-    ui->mainUdtGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->mainUdtGraph->graph(2)->clearData();
-    ui->mainUdtGraph->graph(2)->addData(key, value0);
-    ui->mainUdtGraph->graph(3)->clearData();
-    ui->mainUdtGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->mainUdtGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainUdtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainUdtGraph->graph(0)->rescaleValueAxis();
-    ui->mainUdtGraph->graph(1)->rescaleValueAxis(true);
+    ui->mainUdtGraph->graph(0)->clearData();
+    ui->mainUdtGraph->graph(0)->addData(x, y);
 
-    ui->auxUpDtGraph->graph(0)->addData(key, value0);
-    ui->auxUpDtGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->auxUpDtGraph->graph(2)->clearData();
-    ui->auxUpDtGraph->graph(2)->addData(key, value0);
-    ui->auxUpDtGraph->graph(3)->clearData();
-    ui->auxUpDtGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->auxUpDtGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxUpDtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxUpDtGraph->graph(0)->rescaleValueAxis();
-    ui->auxUpDtGraph->graph(1)->rescaleValueAxis(true);
+    ui->auxUpDtGraph->graph(0)->clearData();
+    ui->auxUpDtGraph->graph(0)->addData(x, y);
+
+
 }
 
-void MainWindow::addLowdtData(double key, double value0, double value1)
+void MainWindow::addLowdtData(double x, double y)
 {
-    ui->mainLdtGraph->graph(0)->addData(key, value0);
-    ui->mainLdtGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->mainLdtGraph->graph(2)->clearData();
-    ui->mainLdtGraph->graph(2)->addData(key, value0);
-    ui->mainLdtGraph->graph(3)->clearData();
-    ui->mainLdtGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->mainLdtGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainLdtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainLdtGraph->graph(0)->rescaleValueAxis();
-    ui->mainLdtGraph->graph(1)->rescaleValueAxis(true);
+    ui->mainLdtGraph->graph(0)->clearData();
+    ui->mainLdtGraph->graph(0)->addData(x, y);
 
-    ui->auxLowDtGraph->graph(0)->addData(key, value0);
-    ui->auxLowDtGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->auxLowDtGraph->graph(2)->clearData();
-    ui->auxLowDtGraph->graph(2)->addData(key, value0);
-    ui->auxLowDtGraph->graph(3)->clearData();
-    ui->auxLowDtGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->auxLowDtGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxLowDtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxLowDtGraph->graph(0)->rescaleValueAxis();
-    ui->auxLowDtGraph->graph(1)->rescaleValueAxis(true);
+    ui->auxLowDtGraph->graph(0)->clearData();
+    ui->auxLowDtGraph->graph(0)->addData(x, y);
+
 }
 
-void MainWindow::addRotatData(double key, double value0, double value1)
+void MainWindow::addRotatData(double x, double y)
 {
-    ui->mainRotGraph->graph(0)->addData(key, value0);
-    ui->mainRotGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->mainRotGraph->graph(2)->clearData();
-    ui->mainRotGraph->graph(2)->addData(key, value0);
-    ui->mainRotGraph->graph(3)->clearData();
-    ui->mainRotGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->mainRotGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainRotGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainRotGraph->graph(0)->rescaleValueAxis();
-    ui->mainRotGraph->graph(1)->rescaleValueAxis(true);
+    ui->mainRotGraph->graph(0)->clearData();
+    ui->mainRotGraph->graph(0)->addData(x, y);
 
-    ui->auxRotatGraph->graph(0)->addData(key, value0);
-    ui->auxRotatGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->auxRotatGraph->graph(2)->clearData();
-    ui->auxRotatGraph->graph(2)->addData(key, value0);
-    ui->auxRotatGraph->graph(3)->clearData();
-    ui->auxRotatGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->auxRotatGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxRotatGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxRotatGraph->graph(0)->rescaleValueAxis();
-    ui->auxRotatGraph->graph(1)->rescaleValueAxis(true);
+    ui->auxRotatGraph->graph(0)->clearData();
+    ui->auxRotatGraph->graph(0)->addData(x, y);
 }
 
 void MainWindow::realtimeDataSlot()
@@ -275,9 +203,9 @@ void MainWindow::realtimeDataSlot()
       //add data to graphs
       addVelocData(key, value0, (double)ui->velSpinBox->value());
       addAccelData(key, value1, (double)ui->accSpinBox->value());
-      addUpdtData(key, x, y);
-      addLowdtData(key, y, x);
-      addRotatData(key, value0 / 3 * 2, 0);
+      addUpdtData(x, y);
+      addLowdtData(y, x);
+      addRotatData(x, y);
 
       lastPointKey = key;
 
@@ -295,23 +223,15 @@ void MainWindow::realtimeDataSlot()
     ui->auxAccelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->auxAccelGraph->replot();
 
-    ui->mainUdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->mainUdtGraph->replot();
-
-    ui->auxUpDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->auxUpDtGraph->replot();
 
-    ui->mainLdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->mainLdtGraph->replot();
-
-    ui->auxLowDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->auxLowDtGraph->replot();
 
-    ui->mainRotGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->mainRotGraph->replot();
-
-    ui->auxRotatGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->auxRotatGraph->replot();
+
 
     // calculate frames per second:
     static double lastFpsKey;
