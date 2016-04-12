@@ -3,7 +3,10 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <qwidget.h>
-
+#include <ctime>
+#include <iomanip>
+#include <string>
+#include <sstream>
 
 
 
@@ -279,6 +282,11 @@ void MainWindow::realtimeDataSlot()
       addLowdtData(key, y, x);
       addRotatData(key, value0 / 3 * 2, 0);
 
+	  //output data to csv if recording
+      if (isRecording){
+          rfs << std::setprecision(4) << std::fixed << key << ", " << value0 << ", " << value1 << ", " << x << ", " << y << ", " << "\n";
+      }
+	  
       lastPointKey = key;
 
     }
@@ -531,4 +539,43 @@ void MainWindow::clearBorder()
     ui->label_20->setStyleSheet("color: grey; font-size: 11px;");
     ui->label_21->setStyleSheet("color: grey; font-size: 11px;");
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_actionStart_Recording_triggered()
+{
+    if(!isRecording){
+        isRecording = true;
+
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+
+        //Set filename using stringstream
+        std::stringstream iss;
+        iss << "FlywheelOutput_";
+        iss << std::setw(4) << std::setfill('0') << (timeinfo->tm_year)+1900; //setw() and setfill('0') ensure leading zeros are there.
+        iss << std::setw(2) << std::setfill('0') << (timeinfo->tm_mon)+1;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_mday;
+        iss << "_";
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_min;
+        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
+        iss << ".csv";
+        std::string filename = iss.str();
+
+        rfs.open(filename.c_str());
+        rfs << "Time, " << "Value0," << " Value 1," << " X," << " Y," << std::endl;
+    
+	}
+}
+
+void MainWindow::on_actionStop_Recording_triggered()
+{
+    if (isRecording){
+        rfs << std::flush;
+        rfs.close();
+        isRecording = false;
+    }
 }
