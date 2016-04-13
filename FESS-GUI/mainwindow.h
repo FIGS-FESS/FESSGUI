@@ -43,6 +43,7 @@ public:
     graph mainGraphDisplay;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
+    QAction *eStopShortcut;
     ~MainWindow();
 
 private slots:
@@ -84,7 +85,9 @@ private slots:
 
     void on_actionDefault_triggered();
 
-    void keyPressEvent(QKeySequence *event);
+    //bool eventFilter(QObject *object, QEvent *event);
+
+    void keyPressEvent(QKeyEvent *event);
 
     void on_velocButton_clicked();
 
@@ -110,7 +113,7 @@ private slots:
 
     void on_maxAccel_textChanged(const QString &arg1);
 
-private:
+public:
     Ui::MainWindow *ui;
 };
 

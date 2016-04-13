@@ -16,6 +16,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    eStopShortcut = new QAction(this);
+    addAction(eStopShortcut);
+    eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
+    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_pushButton_2_clicked()));
+
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
     playSounds = false;
@@ -406,11 +411,14 @@ void MainWindow::on_actionDefault_triggered()
     ui->actionNone->setChecked(false);
 }
 
-void MainWindow::keyPressEvent(QKeySequence *event) //doesn't work
+void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if( event->matches(eStopKey))
-        ui->pushButton_2->click();
+    if(event->key() == Qt::Key_Escape)
+    {
+       //exit
+    }
 }
+
 
 void MainWindow::on_velocButton_clicked()
 {
@@ -542,7 +550,7 @@ void MainWindow::on_actionStop_Recording_triggered()
 
 void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
 {
-    eStopKey = keySequence;
+    eStopShortcut->setShortcut(keySequence);
 }
 
 void MainWindow::on_maxVel_textChanged(const QString &arg1)

@@ -313,6 +313,7 @@ public:
         font.setBold(true);
         font.setWeight(75);
         pushButton_2->setFont(font);
+        pushButton_2->setAutoDefault(true);
 
         gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
 
@@ -788,7 +789,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        pushButton_2->setDefault(false);
+        stackedWidget->setCurrentIndex(2);
         stackedWidget_2->setCurrentIndex(0);
         tabWidget->setCurrentIndex(0);
 

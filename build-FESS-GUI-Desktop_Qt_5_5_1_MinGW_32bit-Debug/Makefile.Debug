@@ -2613,7 +2613,9 @@ debug/mainwindow.o: ../FESS-GUI/mainwindow.cpp ../FESS-GUI/mainwindow.h \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QGroupBox \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QHeaderView \
+		C:/Qt/5.5/mingw492_32/include/QtWidgets/QKeySequenceEdit \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QLabel \
+		C:/Qt/5.5/mingw492_32/include/QtWidgets/QLineEdit \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QMenu \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QMenuBar \
 		C:/Qt/5.5/mingw492_32/include/QtWidgets/QPushButton \
