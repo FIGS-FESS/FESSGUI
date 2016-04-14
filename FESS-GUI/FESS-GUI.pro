@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
         qcustomplot.cpp \
-    rtg.cpp
+    rtg.cpp \
+    xyg.cpp
 
 HEADERS  += mainwindow.h \
          qcustomplot.h \
-    rtg.h
+    rtg.h \
+    xyg.h
 
 FORMS    += mainwindow.ui
 
