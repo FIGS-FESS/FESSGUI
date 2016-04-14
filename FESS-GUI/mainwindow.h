@@ -7,6 +7,7 @@
 #include <qcustomplot.h>
 #include <fstream>
 #include "rtg.h"
+#include "xyg.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,22 +23,27 @@ public:
     QMediaPlayer *stopplayer;
     RTG *mainVelGraph;
     RTG *mainAccGraph;
-    RTG *mainUdtGraph;
-    RTG *mainLdtGraph;
-    RTG *mainRotGraph;
+    XYG *mainUdtGraph;
+    XYG *mainLdtGraph;
+    XYG *mainRotGraph;
     RTG *velGraph;
     RTG *accGraph;
-    RTG *updtGraph;
-    RTG *lowdtGraph;
-    RTG *rotatGraph;
+    XYG *updtGraph;
+    XYG *lowdtGraph;
+    XYG *rotatGraph;
     QTimer *dataTimer;
     bool playSounds;
-	bool isRecording;
+    bool isRecording;
     std::ofstream rfs;
     double maxVel;
     double maxAcc;
+    double maxUpDt [2];
+    double maxLwDt [2];
     enum graph {VEL, ACC, UDT, LDT, ROT};
     graph mainGraphDisplay;
+    QKeySequence eStopKey;
+    QElapsedTimer uptime;
+    QAction *eStopShortcut;
     ~MainWindow();
 
 private slots:
@@ -63,11 +69,11 @@ private slots:
 
     void addAccelData(double key, double value0, double value1);
 
-    void addUpdtData(double key, double value0, double value1);
+    void addUpdtData(double x, double y);
 
-    void addLowdtData(double key, double value0, double value1);
+    void addLowdtData(double x, double y);
 
-    void addRotatData(double key, double value0, double value1);
+    void addRotatData(double x, double y);
 
     void on_pushButton_clicked();
 
@@ -78,6 +84,8 @@ private slots:
     void on_actionNone_triggered();
 
     void on_actionDefault_triggered();
+
+    //bool eventFilter(QObject *object, QEvent *event);
 
     void keyPressEvent(QKeyEvent *event);
 
@@ -97,7 +105,15 @@ private slots:
 
     void on_actionStop_Recording_triggered();
 	
-private:
+    void on_performButton_clicked();
+
+    void on_eStopKey_keySequenceChanged(const QKeySequence &keySequence);
+
+    void on_maxVel_textChanged(const QString &arg1);
+
+    void on_maxAccel_textChanged(const QString &arg1);
+
+public:
     Ui::MainWindow *ui;
 };
 
