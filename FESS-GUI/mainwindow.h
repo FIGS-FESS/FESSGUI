@@ -23,14 +23,18 @@ public:
     QMediaPlayer *stopplayer;
     RTG *mainVelGraph;
     RTG *mainAccGraph;
-    XYG *mainUdtGraph;
-    XYG *mainLdtGraph;
+    RTG *mainUdtGraph;
+    RTG *mainLdtGraph;
+    XYG *mainXYGraph;
     XYG *mainRotGraph;
+
     RTG *velGraph;
     RTG *accGraph;
-    XYG *updtGraph;
-    XYG *lowdtGraph;
+    RTG *updtGraph;
+    RTG *lowdtGraph;
+    XYG *xyGraph;
     XYG *rotatGraph;
+
     QTimer *dataTimer;
     bool playSounds;
     bool isRecording;
@@ -39,7 +43,7 @@ public:
     double maxAcc;
     double maxUpDt [2];
     double maxLwDt [2];
-    enum graph {VEL, ACC, UDT, LDT, ROT};
+    enum graph {VEL, ACC, UDT, LDT, XYD, ROT};
     graph mainGraphDisplay;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
@@ -69,9 +73,11 @@ private slots:
 
     void addAccelData(double key, double value0, double value1);
 
-    void addUpdtData(double x, double y);
+    void addUpdtData(double key, double x, double y);
 
-    void addLowdtData(double x, double y);
+    void addLowdtData(double key, double x, double y);
+
+    void addXYData(double ux, double uy, double lx, double ly);
 
     void addRotatData(double x, double y);
 
@@ -112,6 +118,8 @@ private slots:
     void on_maxVel_textChanged(const QString &arg1);
 
     void on_maxAccel_textChanged(const QString &arg1);
+
+    void on_XYButton_clicked();
 
 public:
     Ui::MainWindow *ui;

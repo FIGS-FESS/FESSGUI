@@ -26,6 +26,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
@@ -52,24 +53,11 @@ public:
     QAction *actionStop_Recording;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout_2;
-    QLabel *label_17;
-    QCustomPlot *auxVelocGraph;
-    QPushButton *velocButton;
-    QLabel *label_18;
-    QCustomPlot *auxAccelGraph;
-    QPushButton *accelButton;
-    QLabel *label_19;
-    QCustomPlot *auxUpDtGraph;
-    QPushButton *updtButton;
-    QLabel *label_20;
-    QCustomPlot *auxLowDtGraph;
-    QPushButton *lowdtButton;
-    QLabel *label_21;
-    QCustomPlot *auxRotatGraph;
-    QPushButton *rotatButton;
-    QPushButton *pushButton_2;
+    QVBoxLayout *verticalLayout;
+    QSpacerItem *verticalSpacer;
+    QPushButton *configButton;
+    QPushButton *controlButton;
+    QPushButton *performButton;
     QStackedWidget *stackedWidget;
     QWidget *controlPage;
     QVBoxLayout *verticalLayout_4;
@@ -100,10 +88,10 @@ public:
     QGridLayout *gridLayout_2;
     QLabel *label_12;
     QLabel *label_13;
-    QLabel *label_8;
-    QLabel *label_9;
     QLabel *label_7;
     QLabel *label_14;
+    QLabel *label_8;
+    QLabel *label_9;
     QGroupBox *groupBox_4;
     QGridLayout *gridLayout_3;
     QLabel *label_11;
@@ -115,12 +103,15 @@ public:
     QWidget *accPage;
     QVBoxLayout *verticalLayout_14;
     QCustomPlot *mainAccGraph;
-    QWidget *ldtPage;
-    QVBoxLayout *verticalLayout_15;
-    QCustomPlot *mainUdtGraph;
     QWidget *udtPage;
     QVBoxLayout *verticalLayout_16;
     QCustomPlot *mainLdtGraph;
+    QWidget *ldtPage;
+    QVBoxLayout *verticalLayout_15;
+    QCustomPlot *mainUdtGraph;
+    QWidget *xyPage;
+    QVBoxLayout *verticalLayout_19;
+    QCustomPlot *mainXYGraph;
     QWidget *rotPage;
     QVBoxLayout *verticalLayout_17;
     QCustomPlot *mainRotGraph;
@@ -136,10 +127,7 @@ public:
     QLabel *label_24;
     QLabel *label_25;
     QLineEdit *lineEdit;
-    QVBoxLayout *verticalLayout;
-    QPushButton *controlButton;
-    QPushButton *configButton;
-    QPushButton *performButton;
+    QPushButton *pushButton_2;
     QTabWidget *tabWidget;
     QWidget *tab_1;
     QVBoxLayout *verticalLayout_12;
@@ -149,6 +137,26 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_16;
     QTextBrowser *textBrowser_2;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout_2;
+    QLabel *velLabel;
+    QCustomPlot *auxVelocGraph;
+    QPushButton *velocButton;
+    QLabel *accLabel;
+    QCustomPlot *auxAccelGraph;
+    QPushButton *accelButton;
+    QLabel *upDtLabel;
+    QCustomPlot *auxUpDtGraph;
+    QPushButton *updtButton;
+    QLabel *lowDtLabel;
+    QCustomPlot *auxLowDtGraph;
+    QPushButton *lowdtButton;
+    QLabel *xyLabel;
+    QCustomPlot *auxXYGraph;
+    QPushButton *XYButton;
+    QLabel *rotLabel;
+    QCustomPlot *auxRotatGraph;
+    QPushButton *rotatButton;
     QMenuBar *menuBar;
     QMenu *menuOptions;
     QMenu *menuChange_Units;
@@ -160,7 +168,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1013, 766);
+        MainWindow->resize(1190, 710);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionEdit = new QAction(MainWindow);
@@ -197,133 +205,41 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        groupBox_2 = new QGroupBox(centralWidget);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(180, 0));
-        verticalLayout_2 = new QVBoxLayout(groupBox_2);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(12, -1, 12, -1);
-        label_17 = new QLabel(groupBox_2);
-        label_17->setObjectName(QStringLiteral("label_17"));
-        label_17->setStyleSheet(QStringLiteral("font-size: 14px"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalSpacer = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
-        verticalLayout_2->addWidget(label_17);
+        verticalLayout->addItem(verticalSpacer);
 
-        auxVelocGraph = new QCustomPlot(groupBox_2);
-        auxVelocGraph->setObjectName(QStringLiteral("auxVelocGraph"));
-        auxVelocGraph->setMinimumSize(QSize(0, 100));
-        auxVelocGraph->setStyleSheet(QStringLiteral(""));
-        velocButton = new QPushButton(auxVelocGraph);
-        velocButton->setObjectName(QStringLiteral("velocButton"));
-        velocButton->setGeometry(QRect(0, 0, 161, 101));
-        velocButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
-"\n"
-""));
-        velocButton->setCheckable(false);
+        configButton = new QPushButton(centralWidget);
+        configButton->setObjectName(QStringLiteral("configButton"));
+        configButton->setMinimumSize(QSize(0, 45));
 
-        verticalLayout_2->addWidget(auxVelocGraph);
+        verticalLayout->addWidget(configButton);
 
-        label_18 = new QLabel(groupBox_2);
-        label_18->setObjectName(QStringLiteral("label_18"));
-        label_18->setStyleSheet(QStringLiteral("color: grey"));
+        controlButton = new QPushButton(centralWidget);
+        controlButton->setObjectName(QStringLiteral("controlButton"));
+        controlButton->setMinimumSize(QSize(0, 45));
 
-        verticalLayout_2->addWidget(label_18);
+        verticalLayout->addWidget(controlButton);
 
-        auxAccelGraph = new QCustomPlot(groupBox_2);
-        auxAccelGraph->setObjectName(QStringLiteral("auxAccelGraph"));
-        auxAccelGraph->setMinimumSize(QSize(0, 100));
-        auxAccelGraph->setStyleSheet(QStringLiteral(""));
-        accelButton = new QPushButton(auxAccelGraph);
-        accelButton->setObjectName(QStringLiteral("accelButton"));
-        accelButton->setGeometry(QRect(0, 0, 151, 91));
-        accelButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
-""));
-        accelButton->setCheckable(false);
-        accelButton->setChecked(false);
-        accelButton->setAutoExclusive(false);
+        performButton = new QPushButton(centralWidget);
+        performButton->setObjectName(QStringLiteral("performButton"));
+        performButton->setMinimumSize(QSize(100, 45));
 
-        verticalLayout_2->addWidget(auxAccelGraph);
-
-        label_19 = new QLabel(groupBox_2);
-        label_19->setObjectName(QStringLiteral("label_19"));
-        label_19->setStyleSheet(QStringLiteral("color: grey"));
-
-        verticalLayout_2->addWidget(label_19);
-
-        auxUpDtGraph = new QCustomPlot(groupBox_2);
-        auxUpDtGraph->setObjectName(QStringLiteral("auxUpDtGraph"));
-        auxUpDtGraph->setMinimumSize(QSize(0, 100));
-        updtButton = new QPushButton(auxUpDtGraph);
-        updtButton->setObjectName(QStringLiteral("updtButton"));
-        updtButton->setGeometry(QRect(4, 2, 151, 91));
-        updtButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
-""));
-
-        verticalLayout_2->addWidget(auxUpDtGraph);
-
-        label_20 = new QLabel(groupBox_2);
-        label_20->setObjectName(QStringLiteral("label_20"));
-        label_20->setStyleSheet(QStringLiteral("color: grey"));
-
-        verticalLayout_2->addWidget(label_20);
-
-        auxLowDtGraph = new QCustomPlot(groupBox_2);
-        auxLowDtGraph->setObjectName(QStringLiteral("auxLowDtGraph"));
-        auxLowDtGraph->setMinimumSize(QSize(0, 100));
-        lowdtButton = new QPushButton(auxLowDtGraph);
-        lowdtButton->setObjectName(QStringLiteral("lowdtButton"));
-        lowdtButton->setGeometry(QRect(4, 2, 151, 91));
-        lowdtButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
-""));
-
-        verticalLayout_2->addWidget(auxLowDtGraph);
-
-        label_21 = new QLabel(groupBox_2);
-        label_21->setObjectName(QStringLiteral("label_21"));
-        label_21->setStyleSheet(QStringLiteral("color: grey"));
-
-        verticalLayout_2->addWidget(label_21);
-
-        auxRotatGraph = new QCustomPlot(groupBox_2);
-        auxRotatGraph->setObjectName(QStringLiteral("auxRotatGraph"));
-        auxRotatGraph->setMinimumSize(QSize(0, 100));
-        rotatButton = new QPushButton(auxRotatGraph);
-        rotatButton->setObjectName(QStringLiteral("rotatButton"));
-        rotatButton->setGeometry(QRect(4, 2, 151, 91));
-        rotatButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
-""));
-
-        verticalLayout_2->addWidget(auxRotatGraph);
+        verticalLayout->addWidget(performButton, 0, Qt::AlignTop);
 
 
-        gridLayout->addWidget(groupBox_2, 0, 2, 2, 1, Qt::AlignHCenter);
-
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy);
-        pushButton_2->setMinimumSize(QSize(20, 70));
-        QFont font;
-        font.setPointSize(9);
-        font.setBold(true);
-        font.setWeight(75);
-        pushButton_2->setFont(font);
-        pushButton_2->setAutoDefault(true);
-
-        gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
         stackedWidget = new QStackedWidget(centralWidget);
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
-        stackedWidget->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(stackedWidget->sizePolicy().hasHeightForWidth());
+        stackedWidget->setSizePolicy(sizePolicy);
         controlPage = new QWidget();
         controlPage->setObjectName(QStringLiteral("controlPage"));
         verticalLayout_4 = new QVBoxLayout(controlPage);
@@ -475,11 +391,11 @@ public:
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         groupBox_3 = new QGroupBox(monitorPage);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
-        groupBox_3->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy1);
         gridLayout_2 = new QGridLayout(groupBox_3);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -495,16 +411,6 @@ public:
 
         gridLayout_2->addWidget(label_13, 3, 1, 1, 1, Qt::AlignTop);
 
-        label_8 = new QLabel(groupBox_3);
-        label_8->setObjectName(QStringLiteral("label_8"));
-
-        gridLayout_2->addWidget(label_8, 2, 1, 1, 1, Qt::AlignBottom);
-
-        label_9 = new QLabel(groupBox_3);
-        label_9->setObjectName(QStringLiteral("label_9"));
-
-        gridLayout_2->addWidget(label_9, 2, 2, 1, 1, Qt::AlignBottom);
-
         label_7 = new QLabel(groupBox_3);
         label_7->setObjectName(QStringLiteral("label_7"));
 
@@ -514,6 +420,16 @@ public:
         label_14->setObjectName(QStringLiteral("label_14"));
 
         gridLayout_2->addWidget(label_14, 3, 2, 1, 1, Qt::AlignTop);
+
+        label_8 = new QLabel(groupBox_3);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        gridLayout_2->addWidget(label_8, 2, 1, 1, 1, Qt::AlignBottom);
+
+        label_9 = new QLabel(groupBox_3);
+        label_9->setObjectName(QStringLiteral("label_9"));
+
+        gridLayout_2->addWidget(label_9, 2, 2, 1, 1, Qt::AlignBottom);
 
         groupBox_4 = new QGroupBox(groupBox_3);
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
@@ -536,8 +452,8 @@ public:
 
         stackedWidget_2 = new QStackedWidget(groupBox_3);
         stackedWidget_2->setObjectName(QStringLiteral("stackedWidget_2"));
-        sizePolicy2.setHeightForWidth(stackedWidget_2->sizePolicy().hasHeightForWidth());
-        stackedWidget_2->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(stackedWidget_2->sizePolicy().hasHeightForWidth());
+        stackedWidget_2->setSizePolicy(sizePolicy1);
         velPage = new QWidget();
         velPage->setObjectName(QStringLiteral("velPage"));
         verticalLayout_13 = new QVBoxLayout(velPage);
@@ -546,11 +462,11 @@ public:
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
         mainVelGraph = new QCustomPlot(velPage);
         mainVelGraph->setObjectName(QStringLiteral("mainVelGraph"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(mainVelGraph->sizePolicy().hasHeightForWidth());
-        mainVelGraph->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(mainVelGraph->sizePolicy().hasHeightForWidth());
+        mainVelGraph->setSizePolicy(sizePolicy2);
 
         verticalLayout_13->addWidget(mainVelGraph);
 
@@ -567,18 +483,6 @@ public:
         verticalLayout_14->addWidget(mainAccGraph);
 
         stackedWidget_2->addWidget(accPage);
-        ldtPage = new QWidget();
-        ldtPage->setObjectName(QStringLiteral("ldtPage"));
-        verticalLayout_15 = new QVBoxLayout(ldtPage);
-        verticalLayout_15->setSpacing(6);
-        verticalLayout_15->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
-        mainUdtGraph = new QCustomPlot(ldtPage);
-        mainUdtGraph->setObjectName(QStringLiteral("mainUdtGraph"));
-
-        verticalLayout_15->addWidget(mainUdtGraph);
-
-        stackedWidget_2->addWidget(ldtPage);
         udtPage = new QWidget();
         udtPage->setObjectName(QStringLiteral("udtPage"));
         verticalLayout_16 = new QVBoxLayout(udtPage);
@@ -591,18 +495,42 @@ public:
         verticalLayout_16->addWidget(mainLdtGraph);
 
         stackedWidget_2->addWidget(udtPage);
+        ldtPage = new QWidget();
+        ldtPage->setObjectName(QStringLiteral("ldtPage"));
+        verticalLayout_15 = new QVBoxLayout(ldtPage);
+        verticalLayout_15->setSpacing(6);
+        verticalLayout_15->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_15->setObjectName(QStringLiteral("verticalLayout_15"));
+        mainUdtGraph = new QCustomPlot(ldtPage);
+        mainUdtGraph->setObjectName(QStringLiteral("mainUdtGraph"));
+
+        verticalLayout_15->addWidget(mainUdtGraph);
+
+        stackedWidget_2->addWidget(ldtPage);
+        xyPage = new QWidget();
+        xyPage->setObjectName(QStringLiteral("xyPage"));
+        verticalLayout_19 = new QVBoxLayout(xyPage);
+        verticalLayout_19->setSpacing(6);
+        verticalLayout_19->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
+        mainXYGraph = new QCustomPlot(xyPage);
+        mainXYGraph->setObjectName(QStringLiteral("mainXYGraph"));
+
+        verticalLayout_19->addWidget(mainXYGraph);
+
+        stackedWidget_2->addWidget(xyPage);
         rotPage = new QWidget();
         rotPage->setObjectName(QStringLiteral("rotPage"));
-        sizePolicy2.setHeightForWidth(rotPage->sizePolicy().hasHeightForWidth());
-        rotPage->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(rotPage->sizePolicy().hasHeightForWidth());
+        rotPage->setSizePolicy(sizePolicy1);
         verticalLayout_17 = new QVBoxLayout(rotPage);
         verticalLayout_17->setSpacing(6);
         verticalLayout_17->setContentsMargins(11, 11, 11, 11);
         verticalLayout_17->setObjectName(QStringLiteral("verticalLayout_17"));
         mainRotGraph = new QCustomPlot(rotPage);
         mainRotGraph->setObjectName(QStringLiteral("mainRotGraph"));
-        sizePolicy2.setHeightForWidth(mainRotGraph->sizePolicy().hasHeightForWidth());
-        mainRotGraph->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(mainRotGraph->sizePolicy().hasHeightForWidth());
+        mainRotGraph->setSizePolicy(sizePolicy1);
 
         verticalLayout_17->addWidget(mainRotGraph);
 
@@ -628,15 +556,18 @@ public:
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         eStopKey = new QKeySequenceEdit(groupBox_5);
         eStopKey->setObjectName(QStringLiteral("eStopKey"));
-        sizePolicy.setHeightForWidth(eStopKey->sizePolicy().hasHeightForWidth());
-        eStopKey->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(eStopKey->sizePolicy().hasHeightForWidth());
+        eStopKey->setSizePolicy(sizePolicy3);
 
         gridLayout_4->addWidget(eStopKey, 0, 1, 1, 1);
 
         maxVel = new QLineEdit(groupBox_5);
         maxVel->setObjectName(QStringLiteral("maxVel"));
-        sizePolicy.setHeightForWidth(maxVel->sizePolicy().hasHeightForWidth());
-        maxVel->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(maxVel->sizePolicy().hasHeightForWidth());
+        maxVel->setSizePolicy(sizePolicy3);
         maxVel->setInputMethodHints(Qt::ImhDigitsOnly);
 
         gridLayout_4->addWidget(maxVel, 1, 1, 1, 1);
@@ -653,8 +584,8 @@ public:
 
         maxAccel = new QLineEdit(groupBox_5);
         maxAccel->setObjectName(QStringLiteral("maxAccel"));
-        sizePolicy.setHeightForWidth(maxAccel->sizePolicy().hasHeightForWidth());
-        maxAccel->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(maxAccel->sizePolicy().hasHeightForWidth());
+        maxAccel->setSizePolicy(sizePolicy3);
         maxAccel->setInputMethodHints(Qt::ImhDigitsOnly);
 
         gridLayout_4->addWidget(maxAccel, 2, 1, 1, 1);
@@ -671,8 +602,8 @@ public:
 
         lineEdit = new QLineEdit(groupBox_5);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        sizePolicy.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy3);
         lineEdit->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
         lineEdit->setReadOnly(false);
 
@@ -685,37 +616,25 @@ public:
 
         gridLayout->addWidget(stackedWidget, 0, 1, 1, 1);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        controlButton = new QPushButton(centralWidget);
-        controlButton->setObjectName(QStringLiteral("controlButton"));
-        controlButton->setMinimumSize(QSize(0, 40));
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        sizePolicy3.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy3);
+        pushButton_2->setMinimumSize(QSize(100, 100));
+        QFont font;
+        font.setPointSize(9);
+        font.setBold(true);
+        font.setWeight(75);
+        pushButton_2->setFont(font);
+        pushButton_2->setAutoDefault(true);
 
-        verticalLayout->addWidget(controlButton);
-
-        configButton = new QPushButton(centralWidget);
-        configButton->setObjectName(QStringLiteral("configButton"));
-        configButton->setMinimumSize(QSize(0, 40));
-
-        verticalLayout->addWidget(configButton);
-
-        performButton = new QPushButton(centralWidget);
-        performButton->setObjectName(QStringLiteral("performButton"));
-        performButton->setMinimumSize(QSize(0, 40));
-
-        verticalLayout->addWidget(performButton, 0, Qt::AlignTop);
-
-
-        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout->addWidget(pushButton_2, 1, 0, 1, 1);
 
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy1);
+        tabWidget->setMaximumSize(QSize(16777215, 200));
         tabWidget->setTabPosition(QTabWidget::South);
         tabWidget->setTabShape(QTabWidget::Rounded);
         tab_1 = new QWidget();
@@ -756,10 +675,174 @@ public:
 
         gridLayout->addWidget(tabWidget, 1, 1, 1, 1);
 
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy4);
+        groupBox_2->setMinimumSize(QSize(180, 0));
+        verticalLayout_2 = new QVBoxLayout(groupBox_2);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        velLabel = new QLabel(groupBox_2);
+        velLabel->setObjectName(QStringLiteral("velLabel"));
+        velLabel->setStyleSheet(QStringLiteral("font-size: 14px"));
+
+        verticalLayout_2->addWidget(velLabel);
+
+        auxVelocGraph = new QCustomPlot(groupBox_2);
+        auxVelocGraph->setObjectName(QStringLiteral("auxVelocGraph"));
+        sizePolicy.setHeightForWidth(auxVelocGraph->sizePolicy().hasHeightForWidth());
+        auxVelocGraph->setSizePolicy(sizePolicy);
+        auxVelocGraph->setMinimumSize(QSize(0, 0));
+        auxVelocGraph->setStyleSheet(QStringLiteral(""));
+        velocButton = new QPushButton(auxVelocGraph);
+        velocButton->setObjectName(QStringLiteral("velocButton"));
+        velocButton->setGeometry(QRect(0, -20, 161, 111));
+        sizePolicy.setHeightForWidth(velocButton->sizePolicy().hasHeightForWidth());
+        velocButton->setSizePolicy(sizePolicy);
+        velocButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+"\n"
+""));
+        velocButton->setCheckable(false);
+
+        verticalLayout_2->addWidget(auxVelocGraph);
+
+        accLabel = new QLabel(groupBox_2);
+        accLabel->setObjectName(QStringLiteral("accLabel"));
+        accLabel->setStyleSheet(QStringLiteral("color: grey"));
+
+        verticalLayout_2->addWidget(accLabel);
+
+        auxAccelGraph = new QCustomPlot(groupBox_2);
+        auxAccelGraph->setObjectName(QStringLiteral("auxAccelGraph"));
+        sizePolicy.setHeightForWidth(auxAccelGraph->sizePolicy().hasHeightForWidth());
+        auxAccelGraph->setSizePolicy(sizePolicy);
+        auxAccelGraph->setMinimumSize(QSize(0, 0));
+        auxAccelGraph->setStyleSheet(QStringLiteral(""));
+        accelButton = new QPushButton(auxAccelGraph);
+        accelButton->setObjectName(QStringLiteral("accelButton"));
+        accelButton->setGeometry(QRect(0, -20, 161, 111));
+        sizePolicy.setHeightForWidth(accelButton->sizePolicy().hasHeightForWidth());
+        accelButton->setSizePolicy(sizePolicy);
+        accelButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+""));
+        accelButton->setCheckable(false);
+        accelButton->setChecked(false);
+        accelButton->setAutoExclusive(false);
+
+        verticalLayout_2->addWidget(auxAccelGraph);
+
+        upDtLabel = new QLabel(groupBox_2);
+        upDtLabel->setObjectName(QStringLiteral("upDtLabel"));
+        upDtLabel->setStyleSheet(QStringLiteral("color: grey"));
+
+        verticalLayout_2->addWidget(upDtLabel);
+
+        auxUpDtGraph = new QCustomPlot(groupBox_2);
+        auxUpDtGraph->setObjectName(QStringLiteral("auxUpDtGraph"));
+        sizePolicy.setHeightForWidth(auxUpDtGraph->sizePolicy().hasHeightForWidth());
+        auxUpDtGraph->setSizePolicy(sizePolicy);
+        auxUpDtGraph->setMinimumSize(QSize(0, 0));
+        auxUpDtGraph->setStyleSheet(QStringLiteral(""));
+        updtButton = new QPushButton(auxUpDtGraph);
+        updtButton->setObjectName(QStringLiteral("updtButton"));
+        updtButton->setGeometry(QRect(0, -20, 161, 111));
+        sizePolicy.setHeightForWidth(updtButton->sizePolicy().hasHeightForWidth());
+        updtButton->setSizePolicy(sizePolicy);
+        updtButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+""));
+        updtButton->setCheckable(false);
+        updtButton->setChecked(false);
+        updtButton->setAutoExclusive(false);
+
+        verticalLayout_2->addWidget(auxUpDtGraph);
+
+        lowDtLabel = new QLabel(groupBox_2);
+        lowDtLabel->setObjectName(QStringLiteral("lowDtLabel"));
+        lowDtLabel->setStyleSheet(QStringLiteral("color: grey"));
+
+        verticalLayout_2->addWidget(lowDtLabel);
+
+        auxLowDtGraph = new QCustomPlot(groupBox_2);
+        auxLowDtGraph->setObjectName(QStringLiteral("auxLowDtGraph"));
+        sizePolicy.setHeightForWidth(auxLowDtGraph->sizePolicy().hasHeightForWidth());
+        auxLowDtGraph->setSizePolicy(sizePolicy);
+        auxLowDtGraph->setMinimumSize(QSize(0, 0));
+        lowdtButton = new QPushButton(auxLowDtGraph);
+        lowdtButton->setObjectName(QStringLiteral("lowdtButton"));
+        lowdtButton->setGeometry(QRect(0, -20, 161, 111));
+        sizePolicy.setHeightForWidth(lowdtButton->sizePolicy().hasHeightForWidth());
+        lowdtButton->setSizePolicy(sizePolicy);
+        lowdtButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+""));
+
+        verticalLayout_2->addWidget(auxLowDtGraph);
+
+        xyLabel = new QLabel(groupBox_2);
+        xyLabel->setObjectName(QStringLiteral("xyLabel"));
+        xyLabel->setStyleSheet(QStringLiteral("color: grey"));
+
+        verticalLayout_2->addWidget(xyLabel);
+
+        auxXYGraph = new QCustomPlot(groupBox_2);
+        auxXYGraph->setObjectName(QStringLiteral("auxXYGraph"));
+        sizePolicy.setHeightForWidth(auxXYGraph->sizePolicy().hasHeightForWidth());
+        auxXYGraph->setSizePolicy(sizePolicy);
+        auxXYGraph->setMinimumSize(QSize(0, 0));
+        XYButton = new QPushButton(auxXYGraph);
+        XYButton->setObjectName(QStringLiteral("XYButton"));
+        XYButton->setGeometry(QRect(0, -10, 161, 101));
+        sizePolicy.setHeightForWidth(XYButton->sizePolicy().hasHeightForWidth());
+        XYButton->setSizePolicy(sizePolicy);
+        XYButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+""));
+
+        verticalLayout_2->addWidget(auxXYGraph);
+
+        rotLabel = new QLabel(groupBox_2);
+        rotLabel->setObjectName(QStringLiteral("rotLabel"));
+        rotLabel->setStyleSheet(QStringLiteral("color: grey"));
+
+        verticalLayout_2->addWidget(rotLabel);
+
+        auxRotatGraph = new QCustomPlot(groupBox_2);
+        auxRotatGraph->setObjectName(QStringLiteral("auxRotatGraph"));
+        sizePolicy.setHeightForWidth(auxRotatGraph->sizePolicy().hasHeightForWidth());
+        auxRotatGraph->setSizePolicy(sizePolicy);
+        auxRotatGraph->setMinimumSize(QSize(0, 0));
+        rotatButton = new QPushButton(auxRotatGraph);
+        rotatButton->setObjectName(QStringLiteral("rotatButton"));
+        rotatButton->setGeometry(QRect(0, -20, 161, 111));
+        sizePolicy.setHeightForWidth(rotatButton->sizePolicy().hasHeightForWidth());
+        rotatButton->setSizePolicy(sizePolicy);
+        rotatButton->setStyleSheet(QLatin1String("background-color: transparent;\n"
+""));
+
+        verticalLayout_2->addWidget(auxRotatGraph);
+
+        rotLabel->raise();
+        xyLabel->raise();
+        lowDtLabel->raise();
+        upDtLabel->raise();
+        accLabel->raise();
+        velLabel->raise();
+        auxVelocGraph->raise();
+        auxAccelGraph->raise();
+        auxLowDtGraph->raise();
+        auxXYGraph->raise();
+        auxRotatGraph->raise();
+        auxUpDtGraph->raise();
+
+        gridLayout->addWidget(groupBox_2, 0, 2, 2, 1, Qt::AlignHCenter);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1013, 21));
+        menuBar->setGeometry(QRect(0, 0, 1190, 21));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QStringLiteral("menuOptions"));
         menuChange_Units = new QMenu(menuOptions);
@@ -772,8 +855,7 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        QWidget::setTabOrder(performButton, configButton);
-        QWidget::setTabOrder(configButton, controlButton);
+        QWidget::setTabOrder(performButton, controlButton);
 
         menuBar->addAction(menuOptions->menuAction());
         menuBar->addAction(menuRecording->menuAction());
@@ -789,9 +871,9 @@ public:
 
         retranslateUi(MainWindow);
 
-        pushButton_2->setDefault(false);
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(1);
         stackedWidget_2->setCurrentIndex(0);
+        pushButton_2->setDefault(false);
         tabWidget->setCurrentIndex(0);
 
 
@@ -812,19 +894,10 @@ public:
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
         actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
         actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
-        groupBox_2->setTitle(QString());
-        label_17->setText(QApplication::translate("MainWindow", "Velocity", 0));
-        velocButton->setText(QString());
-        label_18->setText(QApplication::translate("MainWindow", "Acceleration", 0));
-        accelButton->setText(QString());
-        label_19->setText(QApplication::translate("MainWindow", "Upper X/Y Displacement", 0));
-        updtButton->setText(QString());
-        label_20->setText(QApplication::translate("MainWindow", "Lower X/Y Displacement", 0));
-        lowdtButton->setText(QString());
-        label_21->setText(QApplication::translate("MainWindow", "Rotational Location", 0));
-        rotatButton->setText(QString());
-        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
-"Stop", 0));
+        configButton->setText(QApplication::translate("MainWindow", "Performance\n"
+"Monitor", 0));
+        controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
+        performButton->setText(QApplication::translate("MainWindow", "Configuration", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Control", 0));
         label->setText(QApplication::translate("MainWindow", "Velocity", 0));
         label_2->setText(QApplication::translate("MainWindow", "rad/sec", 0));
@@ -836,10 +909,10 @@ public:
         groupBox_3->setTitle(QApplication::translate("MainWindow", "Performance Monitor", 0));
         label_12->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         label_13->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        label_8->setText(QApplication::translate("MainWindow", "Max Velocity", 0));
-        label_9->setText(QApplication::translate("MainWindow", "Up Time (s)", 0));
         label_7->setText(QApplication::translate("MainWindow", "Velocity", 0));
         label_14->setText(QApplication::translate("MainWindow", "0", 0));
+        label_8->setText(QApplication::translate("MainWindow", "Max Velocity", 0));
+        label_9->setText(QApplication::translate("MainWindow", "Up Time (s)", 0));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "Legend", 0));
         label_11->setText(QApplication::translate("MainWindow", "Expected Value", 0));
         label_10->setText(QApplication::translate("MainWindow", "Measured Value", 0));
@@ -852,14 +925,25 @@ public:
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maximum Acceleration (rad/s<span style=\" vertical-align:super;\">2</span>)</p></body></html>", 0));
         label_25->setText(QApplication::translate("MainWindow", "Password", 0));
-        controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
-        configButton->setText(QApplication::translate("MainWindow", "Performance\n"
-"Monitor", 0));
-        performButton->setText(QApplication::translate("MainWindow", "Configuration", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
+"Stop", 0));
         label_15->setText(QApplication::translate("MainWindow", "Output Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_1), QApplication::translate("MainWindow", "Output", 0));
         label_16->setText(QApplication::translate("MainWindow", "Error Log", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Errors", 0));
+        groupBox_2->setTitle(QString());
+        velLabel->setText(QApplication::translate("MainWindow", "Velocity", 0));
+        velocButton->setText(QString());
+        accLabel->setText(QApplication::translate("MainWindow", "Acceleration", 0));
+        accelButton->setText(QString());
+        upDtLabel->setText(QApplication::translate("MainWindow", "Upper X/Y Displacement", 0));
+        updtButton->setText(QString());
+        lowDtLabel->setText(QApplication::translate("MainWindow", "Lower X/Y Displacement", 0));
+        lowdtButton->setText(QString());
+        xyLabel->setText(QApplication::translate("MainWindow", "X/Y Displacement", 0));
+        XYButton->setText(QString());
+        rotLabel->setText(QApplication::translate("MainWindow", "Rotational Location", 0));
+        rotatButton->setText(QString());
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
         menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
         menuSounds->setTitle(QApplication::translate("MainWindow", "Sounds", 0));

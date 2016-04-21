@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1013</width>
-    <height>766</height>
+    <width>1190</width>
+    <height>710</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,266 +15,65 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="2" rowspan="2" alignment="Qt::AlignHCenter">
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="minimumSize">
-       <size>
-        <width>180</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="leftMargin">
-        <number>12</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_17">
-         <property name="styleSheet">
-          <string notr="true">font-size: 14px</string>
-         </property>
-         <property name="text">
-          <string>Velocity</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="auxVelocGraph" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <widget class="QPushButton" name="velocButton">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>161</width>
-            <height>101</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_18">
-         <property name="styleSheet">
-          <string notr="true">color: grey</string>
-         </property>
-         <property name="text">
-          <string>Acceleration</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="auxAccelGraph" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <widget class="QPushButton" name="accelButton">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>151</width>
-            <height>91</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checkable">
-           <bool>false</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_19">
-         <property name="styleSheet">
-          <string notr="true">color: grey</string>
-         </property>
-         <property name="text">
-          <string>Upper X/Y Displacement</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="auxUpDtGraph" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <widget class="QPushButton" name="updtButton">
-          <property name="geometry">
-           <rect>
-            <x>4</x>
-            <y>2</y>
-            <width>151</width>
-            <height>91</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_20">
-         <property name="styleSheet">
-          <string notr="true">color: grey</string>
-         </property>
-         <property name="text">
-          <string>Lower X/Y Displacement</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="auxLowDtGraph" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <widget class="QPushButton" name="lowdtButton">
-          <property name="geometry">
-           <rect>
-            <x>4</x>
-            <y>2</y>
-            <width>151</width>
-            <height>91</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_21">
-         <property name="styleSheet">
-          <string notr="true">color: grey</string>
-         </property>
-         <property name="text">
-          <string>Rotational Location</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCustomPlot" name="auxRotatGraph" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <widget class="QPushButton" name="rotatButton">
-          <property name="geometry">
-           <rect>
-            <x>4</x>
-            <y>2</y>
-            <width>151</width>
-            <height>91</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;
-</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>20</width>
-        <height>70</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Emergency
-Stop</string>
-      </property>
-      <property name="autoDefault">
-       <bool>true</bool>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-     </widget>
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Performance
+Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignTop">
+       <widget class="QPushButton" name="performButton">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
@@ -285,7 +84,7 @@ Stop</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -542,20 +341,6 @@ Stop</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1" alignment="Qt::AlignBottom">
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>Max Velocity</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2" alignment="Qt::AlignBottom">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Up Time (s)</string>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0" alignment="Qt::AlignBottom">
             <widget class="QLabel" name="label_7">
              <property name="text">
@@ -567,6 +352,20 @@ Stop</string>
             <widget class="QLabel" name="label_14">
              <property name="text">
               <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" alignment="Qt::AlignBottom">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Max Velocity</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2" alignment="Qt::AlignBottom">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Up Time (s)</string>
              </property>
             </widget>
            </item>
@@ -625,6 +424,13 @@ Stop</string>
                </item>
               </layout>
              </widget>
+             <widget class="QWidget" name="udtPage">
+              <layout class="QVBoxLayout" name="verticalLayout_16">
+               <item>
+                <widget class="QCustomPlot" name="mainLdtGraph" native="true"/>
+               </item>
+              </layout>
+             </widget>
              <widget class="QWidget" name="ldtPage">
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
@@ -632,10 +438,10 @@ Stop</string>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="udtPage">
-              <layout class="QVBoxLayout" name="verticalLayout_16">
+             <widget class="QWidget" name="xyPage">
+              <layout class="QVBoxLayout" name="verticalLayout_19">
                <item>
-                <widget class="QCustomPlot" name="mainLdtGraph" native="true"/>
+                <widget class="QCustomPlot" name="mainXYGraph" native="true"/>
                </item>
               </layout>
              </widget>
@@ -765,57 +571,52 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
-    <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="controlButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Control</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="configButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Performance
-Monitor</string>
-        </property>
-       </widget>
-      </item>
-      <item alignment="Qt::AlignTop">
-       <widget class="QPushButton" name="performButton">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Configuration</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Emergency
+Stop</string>
+      </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
     <item row="1" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>200</height>
+       </size>
       </property>
       <property name="tabPosition">
        <enum>QTabWidget::South</enum>
@@ -866,6 +667,364 @@ Monitor</string>
       </widget>
      </widget>
     </item>
+    <item row="0" column="2" rowspan="2" alignment="Qt::AlignHCenter">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>180</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="velLabel">
+         <property name="styleSheet">
+          <string notr="true">font-size: 14px</string>
+         </property>
+         <property name="text">
+          <string>Velocity</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxVelocGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QPushButton" name="velocButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-20</y>
+            <width>161</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="accLabel">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Acceleration</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxAccelGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QPushButton" name="accelButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-20</y>
+            <width>161</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="upDtLabel">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Upper X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxUpDtGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QPushButton" name="updtButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-20</y>
+            <width>161</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lowDtLabel">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Lower X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxLowDtGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="lowdtButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-20</y>
+            <width>161</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="xyLabel">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>X/Y Displacement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxXYGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="XYButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-10</y>
+            <width>161</width>
+            <height>101</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="rotLabel">
+         <property name="styleSheet">
+          <string notr="true">color: grey</string>
+         </property>
+         <property name="text">
+          <string>Rotational Location</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCustomPlot" name="auxRotatGraph" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <widget class="QPushButton" name="rotatButton">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-20</y>
+            <width>161</width>
+            <height>111</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+      <zorder>rotLabel</zorder>
+      <zorder>xyLabel</zorder>
+      <zorder>lowDtLabel</zorder>
+      <zorder>upDtLabel</zorder>
+      <zorder>accLabel</zorder>
+      <zorder>velLabel</zorder>
+      <zorder>auxVelocGraph</zorder>
+      <zorder>auxAccelGraph</zorder>
+      <zorder>auxLowDtGraph</zorder>
+      <zorder>auxXYGraph</zorder>
+      <zorder>auxRotatGraph</zorder>
+      <zorder>auxUpDtGraph</zorder>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -873,7 +1032,7 @@ Monitor</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1013</width>
+     <width>1190</width>
      <height>21</height>
     </rect>
    </property>
@@ -1001,7 +1160,6 @@ Monitor</string>
  </customwidgets>
  <tabstops>
   <tabstop>performButton</tabstop>
-  <tabstop>configButton</tabstop>
   <tabstop>controlButton</tabstop>
  </tabstops>
  <resources/>
