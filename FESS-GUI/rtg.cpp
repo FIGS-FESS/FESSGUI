@@ -4,7 +4,6 @@ RTG::RTG(QCustomPlot *rtgwidget, bool isMain)
 {
     rtgwidget->addGraph(); // blue line
     rtgwidget->graph(0)->setPen(QPen(Qt::blue));
-    rtgwidget->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
     rtgwidget->graph(0)->setAntialiasedFill(false);
     rtgwidget->addGraph(); // red line
     rtgwidget->graph(1)->setPen(QPen(Qt::red));
