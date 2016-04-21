@@ -19,7 +19,8 @@ SetPasswordDialog::~SetPasswordDialog()
 
 void SetPasswordDialog::on_buttonBox_accepted()
 {
-    QSettings settings(QApplication::applicationDirPath().left(1) + ":/settings.ini", QSettings::NativeFormat);
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    //qDebug(settings.fileName().toLocal8Bit());
     //Check if old password exists
     if(settings.contains("password")){
         //Check if old password matches

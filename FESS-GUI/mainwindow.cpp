@@ -671,17 +671,20 @@ void MainWindow::on_maxAccel_textChanged(const QString &arg1)
 
 void MainWindow::on_pushButton_ApplySettings_clicked()
 {
-    QSettings settings(QApplication::applicationDirPath().left(1) + ":/settings.ini", QSettings::NativeFormat);
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    //qDebug(settings.fileName().toLocal8Bit());
+
 
     QString password = ui->lineEditPassword->text();
 
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
 
-    ui->textBrowser->append(QString(result));
+    //ui->textBrowser->append(QString(result));
 
     bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
     if(matches)
         ui->textBrowser->append("It matches!");
+    ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
