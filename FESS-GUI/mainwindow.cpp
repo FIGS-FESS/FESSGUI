@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "setpassworddialog.h"
 #include <QKeyEvent>
 #include <QTime>
+#include <QCryptographicHash>
 #include <qwidget.h>
 #include <ctime>
 #include <iomanip>
@@ -666,3 +668,19 @@ void MainWindow::on_maxAccel_textChanged(const QString &arg1)
 
 
 
+
+void MainWindow::on_pushButton_ApplySettings_clicked()
+{
+    QString password = ui->lineEditPassword->text();
+
+    QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
+
+    ui->textBrowser->append(QString(result));
+}
+
+void MainWindow::on_actionSet_Reset_Password_triggered(){
+    SetPasswordDialog* d = new SetPasswordDialog();
+
+    d->show();
+
+}
