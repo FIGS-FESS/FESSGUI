@@ -35,7 +35,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
     QLineEdit *lineEdit_confirmPassword;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QLineEdit *lineEdit_oldPassword;
@@ -84,18 +84,18 @@ public:
 
         verticalLayout_3->addWidget(lineEdit_confirmPassword);
 
-        widget = new QWidget(SetPasswordDialog);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(120, 30, 151, 61));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(SetPasswordDialog);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(120, 30, 151, 61));
+        verticalLayout = new QVBoxLayout(layoutWidget1);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget1);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout->addWidget(label, 0, Qt::AlignHCenter);
 
-        lineEdit_oldPassword = new QLineEdit(widget);
+        lineEdit_oldPassword = new QLineEdit(layoutWidget1);
         lineEdit_oldPassword->setObjectName(QStringLiteral("lineEdit_oldPassword"));
         lineEdit_oldPassword->setEchoMode(QLineEdit::Password);
 
@@ -111,11 +111,11 @@ public:
 
     void retranslateUi(QDialog *SetPasswordDialog)
     {
-        SetPasswordDialog->setWindowTitle(QApplication::translate("SetPasswordDialog", "Dialog", 0));
+        SetPasswordDialog->setWindowTitle(QApplication::translate("SetPasswordDialog", "Set/Reset Password", 0));
         label_2->setText(QApplication::translate("SetPasswordDialog", "New Password", 0));
         label_3->setText(QApplication::translate("SetPasswordDialog", "Confirm New Password", 0));
         label->setText(QApplication::translate("SetPasswordDialog", "Old Password\n"
-"(Blank if not set up)", 0));
+"(Blank if not set)", 0));
     } // retranslateUi
 
 };
