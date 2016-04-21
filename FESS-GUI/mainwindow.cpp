@@ -670,12 +670,14 @@ void MainWindow::on_maxVel_textChanged(const QString &arg1)
 {
     ui->velSpinBox->setMaximum(arg1.toInt());
     ui->verticalSlider->setMaximum(arg1.toInt());
+    ui->verticalSlider->setTickInterval(arg1.toInt() / 5);
 }
 
 void MainWindow::on_maxAccel_textChanged(const QString &arg1)
 {
     ui->accSpinBox->setMaximum(arg1.toInt());
     ui->verticalSlider_2->setMaximum(arg1.toInt());
+    ui->verticalSlider_2->setTickInterval(arg1.toInt() / 5);
 }
 
 
