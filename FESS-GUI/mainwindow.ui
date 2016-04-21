@@ -18,17 +18,20 @@
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="controlButton">
-        <property name="minimumSize">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>0</width>
-          <height>45</height>
+          <width>20</width>
+          <height>10</height>
          </size>
         </property>
-        <property name="text">
-         <string>Control</string>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item>
        <widget class="QPushButton" name="configButton">
@@ -41,6 +44,19 @@
         <property name="text">
          <string>Performance
 Monitor</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="controlButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Control</string>
         </property>
        </widget>
       </item>
@@ -1144,7 +1160,6 @@ Stop</string>
  </customwidgets>
  <tabstops>
   <tabstop>performButton</tabstop>
-  <tabstop>configButton</tabstop>
   <tabstop>controlButton</tabstop>
  </tabstops>
  <resources/>
