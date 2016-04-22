@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qsrand(time(NULL));
+
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
@@ -681,10 +683,10 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
 
     //ui->textBrowser->append(QString(result));
 
-    bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
-    if(matches)
-        ui->textBrowser->append("It matches!");
-    ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+
+    if(passwordMatches(password))
+        ui->textBrowser->append("Configuration changed");
+    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
