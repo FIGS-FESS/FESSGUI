@@ -26,6 +26,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
@@ -53,8 +54,9 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
-    QPushButton *controlButton;
+    QSpacerItem *verticalSpacer;
     QPushButton *configButton;
+    QPushButton *controlButton;
     QPushButton *performButton;
     QStackedWidget *stackedWidget;
     QWidget *controlPage;
@@ -206,17 +208,21 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        controlButton = new QPushButton(centralWidget);
-        controlButton->setObjectName(QStringLiteral("controlButton"));
-        controlButton->setMinimumSize(QSize(0, 45));
+        verticalSpacer = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
-        verticalLayout->addWidget(controlButton);
+        verticalLayout->addItem(verticalSpacer);
 
         configButton = new QPushButton(centralWidget);
         configButton->setObjectName(QStringLiteral("configButton"));
         configButton->setMinimumSize(QSize(0, 45));
 
         verticalLayout->addWidget(configButton);
+
+        controlButton = new QPushButton(centralWidget);
+        controlButton->setObjectName(QStringLiteral("controlButton"));
+        controlButton->setMinimumSize(QSize(0, 45));
+
+        verticalLayout->addWidget(controlButton);
 
         performButton = new QPushButton(centralWidget);
         performButton->setObjectName(QStringLiteral("performButton"));
@@ -849,8 +855,7 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        QWidget::setTabOrder(performButton, configButton);
-        QWidget::setTabOrder(configButton, controlButton);
+        QWidget::setTabOrder(performButton, controlButton);
 
         menuBar->addAction(menuOptions->menuAction());
         menuBar->addAction(menuRecording->menuAction());
@@ -889,9 +894,9 @@ public:
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
         actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
         actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
-        controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));
+        controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         performButton->setText(QApplication::translate("MainWindow", "Configuration", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Control", 0));
         label->setText(QApplication::translate("MainWindow", "Velocity", 0));

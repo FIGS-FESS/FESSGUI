@@ -121,9 +121,6 @@ private slots:
 
     void on_XYButton_clicked();
 
-    void on_pushButton_ApplySettings_clicked();
-
-    void on_actionSet_Reset_Password_triggered();
 public:
     Ui::MainWindow *ui;
 };
