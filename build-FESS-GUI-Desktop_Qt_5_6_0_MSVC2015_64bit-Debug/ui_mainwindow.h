@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -50,6 +50,7 @@ public:
     QAction *actionDarth_Vader;
     QAction *actionStart_Recording;
     QAction *actionStop_Recording;
+    QAction *actionSet_Reset_Password;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -117,14 +118,15 @@ public:
     QVBoxLayout *verticalLayout_18;
     QGroupBox *groupBox_5;
     QGridLayout *gridLayout_4;
-    QKeySequenceEdit *eStopKey;
     QLineEdit *maxVel;
-    QLabel *label_22;
+    QKeySequenceEdit *eStopKey;
     QLabel *label_23;
     QLineEdit *maxAccel;
-    QLabel *label_24;
+    QLabel *label_22;
     QLabel *label_25;
-    QLineEdit *lineEdit;
+    QLabel *label_24;
+    QLineEdit *lineEditPassword;
+    QPushButton *pushButton_ApplySettings;
     QPushButton *pushButton_2;
     QTabWidget *tabWidget;
     QWidget *tab_1;
@@ -197,6 +199,8 @@ public:
         actionStop_Recording = new QAction(MainWindow);
         actionStop_Recording->setObjectName(QStringLiteral("actionStop_Recording"));
         actionStop_Recording->setEnabled(false);
+        actionSet_Reset_Password = new QAction(MainWindow);
+        actionSet_Reset_Password->setObjectName(QStringLiteral("actionSet_Reset_Password"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -548,28 +552,23 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        eStopKey = new QKeySequenceEdit(groupBox_5);
-        eStopKey->setObjectName(QStringLiteral("eStopKey"));
+        maxVel = new QLineEdit(groupBox_5);
+        maxVel->setObjectName(QStringLiteral("maxVel"));
         QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(eStopKey->sizePolicy().hasHeightForWidth());
-        eStopKey->setSizePolicy(sizePolicy3);
-
-        gridLayout_4->addWidget(eStopKey, 0, 1, 1, 1);
-
-        maxVel = new QLineEdit(groupBox_5);
-        maxVel->setObjectName(QStringLiteral("maxVel"));
         sizePolicy3.setHeightForWidth(maxVel->sizePolicy().hasHeightForWidth());
         maxVel->setSizePolicy(sizePolicy3);
         maxVel->setInputMethodHints(Qt::ImhDigitsOnly);
 
         gridLayout_4->addWidget(maxVel, 1, 1, 1, 1);
 
-        label_22 = new QLabel(groupBox_5);
-        label_22->setObjectName(QStringLiteral("label_22"));
+        eStopKey = new QKeySequenceEdit(groupBox_5);
+        eStopKey->setObjectName(QStringLiteral("eStopKey"));
+        sizePolicy3.setHeightForWidth(eStopKey->sizePolicy().hasHeightForWidth());
+        eStopKey->setSizePolicy(sizePolicy3);
 
-        gridLayout_4->addWidget(label_22, 0, 0, 1, 1);
+        gridLayout_4->addWidget(eStopKey, 0, 1, 1, 1);
 
         label_23 = new QLabel(groupBox_5);
         label_23->setObjectName(QStringLiteral("label_23"));
@@ -584,24 +583,35 @@ public:
 
         gridLayout_4->addWidget(maxAccel, 2, 1, 1, 1);
 
-        label_24 = new QLabel(groupBox_5);
-        label_24->setObjectName(QStringLiteral("label_24"));
+        label_22 = new QLabel(groupBox_5);
+        label_22->setObjectName(QStringLiteral("label_22"));
 
-        gridLayout_4->addWidget(label_24, 2, 0, 1, 1);
+        gridLayout_4->addWidget(label_22, 0, 0, 1, 1);
 
         label_25 = new QLabel(groupBox_5);
         label_25->setObjectName(QStringLiteral("label_25"));
 
         gridLayout_4->addWidget(label_25, 3, 0, 1, 1);
 
-        lineEdit = new QLineEdit(groupBox_5);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        sizePolicy3.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy3);
-        lineEdit->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
-        lineEdit->setReadOnly(false);
+        label_24 = new QLabel(groupBox_5);
+        label_24->setObjectName(QStringLiteral("label_24"));
 
-        gridLayout_4->addWidget(lineEdit, 3, 1, 1, 1);
+        gridLayout_4->addWidget(label_24, 2, 0, 1, 1);
+
+        lineEditPassword = new QLineEdit(groupBox_5);
+        lineEditPassword->setObjectName(QStringLiteral("lineEditPassword"));
+        sizePolicy3.setHeightForWidth(lineEditPassword->sizePolicy().hasHeightForWidth());
+        lineEditPassword->setSizePolicy(sizePolicy3);
+        lineEditPassword->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
+        lineEditPassword->setEchoMode(QLineEdit::Password);
+        lineEditPassword->setReadOnly(false);
+
+        gridLayout_4->addWidget(lineEditPassword, 3, 1, 1, 1);
+
+        pushButton_ApplySettings = new QPushButton(groupBox_5);
+        pushButton_ApplySettings->setObjectName(QStringLiteral("pushButton_ApplySettings"));
+
+        gridLayout_4->addWidget(pushButton_ApplySettings, 4, 1, 1, 1);
 
 
         verticalLayout_18->addWidget(groupBox_5);
@@ -856,6 +866,7 @@ public:
         menuBar->addAction(menuRecording->menuAction());
         menuOptions->addAction(menuChange_Units->menuAction());
         menuOptions->addAction(menuSounds->menuAction());
+        menuOptions->addAction(actionSet_Reset_Password);
         menuChange_Units->addAction(actionMetric);
         menuChange_Units->addAction(actionEmperial);
         menuSounds->addAction(actionNone);
@@ -866,7 +877,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
         stackedWidget_2->setCurrentIndex(0);
         pushButton_2->setDefault(false);
         tabWidget->setCurrentIndex(0);
@@ -889,6 +900,7 @@ public:
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
         actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
         actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
+        actionSet_Reset_Password->setText(QApplication::translate("MainWindow", "Set/Reset Password", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));
@@ -912,14 +924,15 @@ public:
         label_11->setText(QApplication::translate("MainWindow", "Expected Value", 0));
         label_10->setText(QApplication::translate("MainWindow", "Measured Value", 0));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "Configuration", 0));
-        label_22->setText(QApplication::translate("MainWindow", "Emergency Stop Button", 0));
         label_23->setText(QApplication::translate("MainWindow", "Maximum Velocity (rad/s)", 0));
+        label_22->setText(QApplication::translate("MainWindow", "Emergency Stop Button", 0));
+        label_25->setText(QApplication::translate("MainWindow", "Password", 0));
         label_24->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maximum Acceleration (rad/s<span style=\" vertical-align:super;\">2</span>)</p></body></html>", 0));
-        label_25->setText(QApplication::translate("MainWindow", "Password", 0));
+        pushButton_ApplySettings->setText(QApplication::translate("MainWindow", "Apply", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
 "Stop", 0));
         label_15->setText(QApplication::translate("MainWindow", "Output Log", 0));
