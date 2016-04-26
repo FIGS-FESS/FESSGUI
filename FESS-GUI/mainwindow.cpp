@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "setpassworddialog.h"
+#include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
 #include <qwidget.h>
@@ -678,5 +680,29 @@ void MainWindow::on_maxAccel_textChanged(const QString &arg1)
     ui->verticalSlider_2->setMaximum(arg1.toInt());
 }
 
+void MainWindow::on_pushButton_ApplySettings_clicked()
+{
+    QSettings settings("settings.ini", QSettings::IniFormat);
+    //qDebug(settings.fileName().toLocal8Bit());
+
+
+    QString password = ui->lineEditPassword->text();
+
+    QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
+
+    //ui->textBrowser->append(QString(result));
+
+    bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
+    if(matches)
+        ui->textBrowser->append("It matches!");
+    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+}
+
+void MainWindow::on_actionSet_Reset_Password_triggered(){
+    SetPasswordDialog* d = new SetPasswordDialog();
+
+    d->show();
+
+}
 
 
