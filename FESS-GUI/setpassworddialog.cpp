@@ -27,7 +27,7 @@ void SetPasswordDialog::on_buttonBox_accepted()
         QString oldpw = settings.value("password", "").toString();
         if(QString::compare(oldpw, ui->lineEdit_oldPassword->text()) != 0){
             qDebug("Wrong old password provided");
-            return;    
+            return;
         }
         //old password correct
     }

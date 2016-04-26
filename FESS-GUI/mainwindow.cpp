@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
+#include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
-#include <QCryptographicHash>
 #include <qwidget.h>
 #include <ctime>
 #include <iomanip>
@@ -39,14 +39,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
     mainVelGraph = new RTG(ui->mainVelGraph, true);  //initialize graphs
+    ui->mainVelGraph->yAxis->setLabel("rad/s");
+    ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+
     mainAccGraph = new RTG(ui->mainAccGraph, true);
+    ui->mainAccGraph->yAxis->setLabel("rad/s^2");
+    ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+
     mainUdtGraph = new RTG(ui->mainUdtGraph, true);
+    ui->mainUdtGraph->yAxis->setLabel("mm");
+
     mainLdtGraph = new RTG(ui->mainLdtGraph, true);
+    ui->mainLdtGraph->yAxis->setLabel("mm");
+
     mainXYGraph = new XYG(ui->mainXYGraph, true);
     mainRotGraph = new XYG(ui->mainRotGraph, true);
 
     velGraph = new RTG(ui->auxVelocGraph, false);
+    ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+
     accGraph = new RTG(ui->auxAccelGraph, false);
+    ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+
     updtGraph = new RTG(ui->auxUpDtGraph, false);
     lowdtGraph = new RTG(ui->auxLowDtGraph, false);
     xyGraph = new XYG(ui->auxXYGraph, false);
@@ -254,28 +268,28 @@ void MainWindow::realtimeDataSlot()
       switch (mainGraphDisplay)
       {
           case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " rad/sec");
-          ui->label_12->setText(QString::number(value0) + " rad/sec");
+          ui->label_13->setText(QString::number(maxVel) + " rad/s");
+          ui->label_12->setText(QString::number(value0) + " rad/s");
           break;
 
           case (ACC):
-          ui->label_13->setText(QString::number(maxAcc) + " rad/sec<sup>2</sup>");
-          ui->label_12->setText(QString::number(value1) + " rad/sec<sup>2</sup>");
+          ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
+          ui->label_12->setText(QString::number(value1) + " rad/s<sup>2</sup>");
           break;
 
           case (UDT):
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]));
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
           break;
 
           case (LDT):
-          ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]));
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
           break;
 
           case (XYD):
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]));
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
           break;
 
           case (ROT):
@@ -536,7 +550,7 @@ void MainWindow::on_updtButton_clicked()
     mainGraphDisplay = UDT;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(2);
-    ui->label_7->setText("Upper Displacement");
+    ui->label_7->setText("Upper X,Y Displacement");
     ui->label_8->setText("Max X,Y");
     clearBorder();
     ui->upDtLabel->setStyleSheet("color: black; font-size: 14px;");
@@ -550,7 +564,7 @@ void MainWindow::on_lowdtButton_clicked()
     mainGraphDisplay = LDT;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(3);
-    ui->label_7->setText("Lower Displacement");
+    ui->label_7->setText("Lower X,Y Displacement");
     ui->label_8->setText("Max X,Y");
     clearBorder();
     ui->lowDtLabel->setStyleSheet("color: black; font-size: 14px;");
@@ -564,7 +578,7 @@ void MainWindow::on_XYButton_clicked()
     mainGraphDisplay = XYD;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(4);
-    ui->label_7->setText("Displacement");
+    ui->label_7->setText("X,Y Displacement");
     ui->label_8->setText("Max X,Y");
     clearBorder();
     ui->xyLabel->setStyleSheet("color: black; font-size: 14px;");
@@ -666,9 +680,6 @@ void MainWindow::on_maxAccel_textChanged(const QString &arg1)
     ui->verticalSlider_2->setMaximum(arg1.toInt());
 }
 
-
-
-
 void MainWindow::on_pushButton_ApplySettings_clicked()
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
@@ -684,7 +695,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
     bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
     if(matches)
         ui->textBrowser->append("It matches!");
-    ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
@@ -693,3 +704,5 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     d->show();
 
 }
+
+
