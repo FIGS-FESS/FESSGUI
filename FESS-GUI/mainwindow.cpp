@@ -653,19 +653,19 @@ void MainWindow::on_actionStop_Recording_triggered()
 
 void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
 {
-    eStopShortcut->setShortcut(keySequence);
+    //eStopShortcut->setShortcut(keySequence);
 }
 
 void MainWindow::on_maxVel_textChanged(const QString &arg1)
 {
-    ui->velSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider->setMaximum(arg1.toInt());
+    //ui->velSpinBox->setMaximum(arg1.toInt());
+    //ui->verticalSlider->setMaximum(arg1.toInt());
 }
 
 void MainWindow::on_maxAccel_textChanged(const QString &arg1)
 {
-    ui->accSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider_2->setMaximum(arg1.toInt());
+ //   ui->accSpinBox->setMaximum(arg1.toInt());
+   // ui->verticalSlider_2->setMaximum(arg1.toInt());
 }
 
 
@@ -684,9 +684,20 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
     //ui->textBrowser->append(QString(result));
 
 
-    if(passwordMatches(password))
+    if(passwordMatches(password)){
+        QString newMaxVel = ui->maxVel->text();
+        QString newMaxAcc = ui->maxAccel->text();
+        QKeySequence newStopKey = ui->eStopKey->keySequence();
+
+        ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+        ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+
+        ui->velSpinBox->setMaximum(newMaxVel.toInt());
+        ui->verticalSlider->setMaximum(newMaxVel.toInt());
+
+        eStopShortcut->setShortcut(newStopKey);
         ui->textBrowser->append("Configuration changed");
-    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+    }
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
