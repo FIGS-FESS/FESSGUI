@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qsrand(time(NULL));
+
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
@@ -665,19 +667,19 @@ void MainWindow::on_actionStop_Recording_triggered()
 
 void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
 {
-    eStopShortcut->setShortcut(keySequence);
+    //eStopShortcut->setShortcut(keySequence);
 }
 
 void MainWindow::on_maxVel_textChanged(const QString &arg1)
 {
-    ui->velSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider->setMaximum(arg1.toInt());
+    //ui->velSpinBox->setMaximum(arg1.toInt());
+    //ui->verticalSlider->setMaximum(arg1.toInt());
 }
 
 void MainWindow::on_maxAccel_textChanged(const QString &arg1)
 {
-    ui->accSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider_2->setMaximum(arg1.toInt());
+ //   ui->accSpinBox->setMaximum(arg1.toInt());
+   // ui->verticalSlider_2->setMaximum(arg1.toInt());
 }
 
 void MainWindow::on_pushButton_ApplySettings_clicked()
@@ -692,10 +694,21 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
 
     //ui->textBrowser->append(QString(result));
 
-    bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
-    if(matches)
-        ui->textBrowser->append("It matches!");
-    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+
+    if(passwordMatches(password)){
+        QString newMaxVel = ui->maxVel->text();
+        QString newMaxAcc = ui->maxAccel->text();
+        QKeySequence newStopKey = ui->eStopKey->keySequence();
+
+        ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+        ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+
+        ui->velSpinBox->setMaximum(newMaxVel.toInt());
+        ui->verticalSlider->setMaximum(newMaxVel.toInt());
+
+        eStopShortcut->setShortcut(newStopKey);
+        ui->textBrowser->append("Configuration changed");
+    }
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
