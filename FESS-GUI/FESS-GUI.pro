@@ -16,14 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         qcustomplot.cpp \
     rtg.cpp \
-    xyg.cpp
+    xyg.cpp \
+    setpassworddialog.cpp
 
 HEADERS  += mainwindow.h \
          qcustomplot.h \
     rtg.h \
-    xyg.h
+    xyg.h \
+    setpassworddialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    setpassworddialog.ui
 
 DISTFILES += \
     fess.rc
