@@ -37,6 +37,28 @@ MainWindow::MainWindow(QWidget *parent) :
     maxLwDt[0] = 0;
     maxLwDt[1] = 0;
 
+
+    QSettings settings("settings.ini", QSettings::IniFormat);
+
+
+
+    ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+
+    if(settings.contains("maxVel")){
+        ui->velSpinBox->setMaximum(settings.value("maxVel", "").toInt());
+        ui->verticalSlider->setMaximum(settings.value("maxVel", "").toInt());
+        ui->maxVel->setText((settings.value("maxVel", "").toString()));
+    }
+    if(settings.contains("maxAcc")){
+        ui->accSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->verticalSlider_2->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
+    }
+    if(settings.contains("stopKey")){
+        eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
+        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+    }
+
     ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
@@ -665,22 +687,6 @@ void MainWindow::on_actionStop_Recording_triggered()
     }
 }
 
-void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
-{
-    //eStopShortcut->setShortcut(keySequence);
-}
-
-void MainWindow::on_maxVel_textChanged(const QString &arg1)
-{
-    //ui->velSpinBox->setMaximum(arg1.toInt());
-    //ui->verticalSlider->setMaximum(arg1.toInt());
-}
-
-void MainWindow::on_maxAccel_textChanged(const QString &arg1)
-{
- //   ui->accSpinBox->setMaximum(arg1.toInt());
-   // ui->verticalSlider_2->setMaximum(arg1.toInt());
-}
 
 void MainWindow::on_pushButton_ApplySettings_clicked()
 {
@@ -699,15 +705,22 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         QString newMaxVel = ui->maxVel->text();
         QString newMaxAcc = ui->maxAccel->text();
         QKeySequence newStopKey = ui->eStopKey->keySequence();
+        settings.setValue("stopKey", newStopKey.toString());
 
         ui->accSpinBox->setMaximum(newMaxAcc.toInt());
         ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+        settings.setValue("maxAcc", newMaxAcc);
 
         ui->velSpinBox->setMaximum(newMaxVel.toInt());
         ui->verticalSlider->setMaximum(newMaxVel.toInt());
+        settings.setValue("maxVel", newMaxVel);
 
         eStopShortcut->setShortcut(newStopKey);
         ui->textBrowser->append("Configuration changed");
+    } else {
+        ui->maxVel->setText(QString::number(ui->verticalSlider->maximum()));
+        ui->maxAccel->setText(QString::number(ui->verticalSlider_2->maximum()));
+        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
 }
 
