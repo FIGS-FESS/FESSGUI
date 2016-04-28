@@ -84,7 +84,7 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -136,7 +136,7 @@ Monitor</string>
                 </size>
                </property>
                <property name="maximum">
-                <number>50</number>
+                <number>3500</number>
                </property>
                <property name="singleStep">
                 <number>1</number>
@@ -151,7 +151,7 @@ Monitor</string>
                 <enum>QSlider::TicksAbove</enum>
                </property>
                <property name="tickInterval">
-                <number>10</number>
+                <number>700</number>
                </property>
               </widget>
              </item>
@@ -168,7 +168,7 @@ Monitor</string>
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
                <property name="maximum">
-                <double>50.000000000000000</double>
+                <double>3500.000000000000000</double>
                </property>
                <property name="singleStep">
                 <double>0.010000000000000</double>
@@ -178,7 +178,7 @@ Monitor</string>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
               <widget class="QLabel" name="label_2">
                <property name="text">
-                <string>rad/sec</string>
+                <string>RPM</string>
                </property>
               </widget>
              </item>
@@ -202,7 +202,7 @@ Monitor</string>
                 </size>
                </property>
                <property name="maximum">
-                <number>10</number>
+                <number>1</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -225,7 +225,7 @@ Monitor</string>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
               <widget class="QDoubleSpinBox" name="accSpinBox">
                <property name="maximum">
-                <double>10.000000000000000</double>
+                <double>1.000000000000000</double>
                </property>
                <property name="singleStep">
                 <double>0.010000000000000</double>
@@ -259,7 +259,7 @@ Monitor</string>
                 </size>
                </property>
                <property name="maximum">
-                <number>5</number>
+                <number>500</number>
                </property>
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
@@ -268,7 +268,7 @@ Monitor</string>
                 <enum>QSlider::TicksAbove</enum>
                </property>
                <property name="tickInterval">
-                <number>1</number>
+                <number>100</number>
                </property>
               </widget>
              </item>
@@ -282,7 +282,7 @@ Monitor</string>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
                <property name="maximum">
-                <double>5.000000000000000</double>
+                <double>500.000000000000000</double>
                </property>
                <property name="singleStep">
                 <double>0.010000000000000</double>
@@ -563,7 +563,7 @@ p, li { white-space: pre-wrap; }
            <item row="1" column="0">
             <widget class="QLabel" name="label_23">
              <property name="text">
-              <string>Maximum Velocity (rad/s)</string>
+              <string>Maximum Velocity (RPM)</string>
              </property>
             </widget>
            </item>
@@ -1050,13 +1050,6 @@ Stop</string>
     <property name="title">
      <string>Options</string>
     </property>
-    <widget class="QMenu" name="menuChange_Units">
-     <property name="title">
-      <string>Change Units</string>
-     </property>
-     <addaction name="actionMetric"/>
-     <addaction name="actionEmperial"/>
-    </widget>
     <widget class="QMenu" name="menuSounds">
      <property name="title">
       <string>Sounds</string>
@@ -1065,7 +1058,6 @@ Stop</string>
      <addaction name="actionDefault"/>
      <addaction name="actionDarth_Vader"/>
     </widget>
-    <addaction name="menuChange_Units"/>
     <addaction name="menuSounds"/>
     <addaction name="actionSet_Reset_Password"/>
    </widget>
