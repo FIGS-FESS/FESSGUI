@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\qcustomplot.o
+./release\rtg.o
+./release\xyg.o
+./release\setpassworddialog.o
+./release\qrc_sounds.o
+./release\moc_mainwindow.o
+./release\moc_qcustomplot.o
+./release\moc_setpassworddialog.o
+);

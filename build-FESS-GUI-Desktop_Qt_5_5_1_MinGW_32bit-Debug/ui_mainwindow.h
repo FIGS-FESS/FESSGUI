@@ -51,6 +51,7 @@ public:
     QAction *actionDarth_Vader;
     QAction *actionStart_Recording;
     QAction *actionStop_Recording;
+    QAction *actionSet_Reset_Password;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
@@ -119,14 +120,15 @@ public:
     QVBoxLayout *verticalLayout_18;
     QGroupBox *groupBox_5;
     QGridLayout *gridLayout_4;
+    QLabel *label_22;
     QKeySequenceEdit *eStopKey;
     QLineEdit *maxVel;
-    QLabel *label_22;
-    QLabel *label_23;
-    QLineEdit *maxAccel;
     QLabel *label_24;
     QLabel *label_25;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEditPassword;
+    QLineEdit *maxAccel;
+    QLabel *label_23;
+    QPushButton *pushButton_ApplySettings;
     QPushButton *pushButton_2;
     QTabWidget *tabWidget;
     QWidget *tab_1;
@@ -159,7 +161,6 @@ public:
     QPushButton *rotatButton;
     QMenuBar *menuBar;
     QMenu *menuOptions;
-    QMenu *menuChange_Units;
     QMenu *menuSounds;
     QMenu *menuRecording;
     QStatusBar *statusBar;
@@ -199,6 +200,8 @@ public:
         actionStop_Recording = new QAction(MainWindow);
         actionStop_Recording->setObjectName(QStringLiteral("actionStop_Recording"));
         actionStop_Recording->setEnabled(false);
+        actionSet_Reset_Password = new QAction(MainWindow);
+        actionSet_Reset_Password->setObjectName(QStringLiteral("actionSet_Reset_Password"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -265,12 +268,12 @@ public:
         verticalSlider = new QSlider(groupBox);
         verticalSlider->setObjectName(QStringLiteral("verticalSlider"));
         verticalSlider->setMinimumSize(QSize(0, 200));
-        verticalSlider->setMaximum(50);
+        verticalSlider->setMaximum(3500);
         verticalSlider->setSingleStep(1);
         verticalSlider->setPageStep(10);
         verticalSlider->setOrientation(Qt::Vertical);
         verticalSlider->setTickPosition(QSlider::TicksAbove);
-        verticalSlider->setTickInterval(10);
+        verticalSlider->setTickInterval(700);
 
         verticalLayout_6->addWidget(verticalSlider, 0, Qt::AlignHCenter);
 
@@ -283,7 +286,7 @@ public:
         velSpinBox = new QDoubleSpinBox(groupBox);
         velSpinBox->setObjectName(QStringLiteral("velSpinBox"));
         velSpinBox->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        velSpinBox->setMaximum(50);
+        velSpinBox->setMaximum(3500);
         velSpinBox->setSingleStep(0.01);
 
         verticalLayout_7->addWidget(velSpinBox, 0, Qt::AlignLeft|Qt::AlignBottom);
@@ -307,7 +310,7 @@ public:
         verticalSlider_2 = new QSlider(groupBox);
         verticalSlider_2->setObjectName(QStringLiteral("verticalSlider_2"));
         verticalSlider_2->setMinimumSize(QSize(0, 200));
-        verticalSlider_2->setMaximum(10);
+        verticalSlider_2->setMaximum(1);
         verticalSlider_2->setOrientation(Qt::Vertical);
         verticalSlider_2->setTickPosition(QSlider::TicksAbove);
         verticalSlider_2->setTickInterval(2);
@@ -322,7 +325,7 @@ public:
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
         accSpinBox = new QDoubleSpinBox(groupBox);
         accSpinBox->setObjectName(QStringLiteral("accSpinBox"));
-        accSpinBox->setMaximum(10);
+        accSpinBox->setMaximum(1);
         accSpinBox->setSingleStep(0.01);
 
         verticalLayout_9->addWidget(accSpinBox, 0, Qt::AlignLeft|Qt::AlignBottom);
@@ -346,10 +349,10 @@ public:
         verticalSlider_3 = new QSlider(groupBox);
         verticalSlider_3->setObjectName(QStringLiteral("verticalSlider_3"));
         verticalSlider_3->setMinimumSize(QSize(0, 200));
-        verticalSlider_3->setMaximum(5);
+        verticalSlider_3->setMaximum(500);
         verticalSlider_3->setOrientation(Qt::Vertical);
         verticalSlider_3->setTickPosition(QSlider::TicksAbove);
-        verticalSlider_3->setTickInterval(1);
+        verticalSlider_3->setTickInterval(100);
 
         verticalLayout_10->addWidget(verticalSlider_3, 0, Qt::AlignHCenter);
 
@@ -361,7 +364,7 @@ public:
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
         doubleSpinBox_3 = new QDoubleSpinBox(groupBox);
         doubleSpinBox_3->setObjectName(QStringLiteral("doubleSpinBox_3"));
-        doubleSpinBox_3->setMaximum(5);
+        doubleSpinBox_3->setMaximum(500);
         doubleSpinBox_3->setSingleStep(0.01);
 
         verticalLayout_11->addWidget(doubleSpinBox_3, 0, Qt::AlignLeft|Qt::AlignBottom);
@@ -554,6 +557,11 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        label_22 = new QLabel(groupBox_5);
+        label_22->setObjectName(QStringLiteral("label_22"));
+
+        gridLayout_4->addWidget(label_22, 0, 0, 1, 1);
+
         eStopKey = new QKeySequenceEdit(groupBox_5);
         eStopKey->setObjectName(QStringLiteral("eStopKey"));
         QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -572,24 +580,6 @@ public:
 
         gridLayout_4->addWidget(maxVel, 1, 1, 1, 1);
 
-        label_22 = new QLabel(groupBox_5);
-        label_22->setObjectName(QStringLiteral("label_22"));
-
-        gridLayout_4->addWidget(label_22, 0, 0, 1, 1);
-
-        label_23 = new QLabel(groupBox_5);
-        label_23->setObjectName(QStringLiteral("label_23"));
-
-        gridLayout_4->addWidget(label_23, 1, 0, 1, 1);
-
-        maxAccel = new QLineEdit(groupBox_5);
-        maxAccel->setObjectName(QStringLiteral("maxAccel"));
-        sizePolicy3.setHeightForWidth(maxAccel->sizePolicy().hasHeightForWidth());
-        maxAccel->setSizePolicy(sizePolicy3);
-        maxAccel->setInputMethodHints(Qt::ImhDigitsOnly);
-
-        gridLayout_4->addWidget(maxAccel, 2, 1, 1, 1);
-
         label_24 = new QLabel(groupBox_5);
         label_24->setObjectName(QStringLiteral("label_24"));
 
@@ -600,14 +590,33 @@ public:
 
         gridLayout_4->addWidget(label_25, 3, 0, 1, 1);
 
-        lineEdit = new QLineEdit(groupBox_5);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        sizePolicy3.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy3);
-        lineEdit->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
-        lineEdit->setReadOnly(false);
+        lineEditPassword = new QLineEdit(groupBox_5);
+        lineEditPassword->setObjectName(QStringLiteral("lineEditPassword"));
+        sizePolicy3.setHeightForWidth(lineEditPassword->sizePolicy().hasHeightForWidth());
+        lineEditPassword->setSizePolicy(sizePolicy3);
+        lineEditPassword->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
+        lineEditPassword->setEchoMode(QLineEdit::Password);
+        lineEditPassword->setReadOnly(false);
 
-        gridLayout_4->addWidget(lineEdit, 3, 1, 1, 1);
+        gridLayout_4->addWidget(lineEditPassword, 3, 1, 1, 1);
+
+        maxAccel = new QLineEdit(groupBox_5);
+        maxAccel->setObjectName(QStringLiteral("maxAccel"));
+        sizePolicy3.setHeightForWidth(maxAccel->sizePolicy().hasHeightForWidth());
+        maxAccel->setSizePolicy(sizePolicy3);
+        maxAccel->setInputMethodHints(Qt::ImhDigitsOnly);
+
+        gridLayout_4->addWidget(maxAccel, 2, 1, 1, 1);
+
+        label_23 = new QLabel(groupBox_5);
+        label_23->setObjectName(QStringLiteral("label_23"));
+
+        gridLayout_4->addWidget(label_23, 1, 0, 1, 1);
+
+        pushButton_ApplySettings = new QPushButton(groupBox_5);
+        pushButton_ApplySettings->setObjectName(QStringLiteral("pushButton_ApplySettings"));
+
+        gridLayout_4->addWidget(pushButton_ApplySettings, 4, 1, 1, 1);
 
 
         verticalLayout_18->addWidget(groupBox_5);
@@ -845,8 +854,6 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1190, 21));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QStringLiteral("menuOptions"));
-        menuChange_Units = new QMenu(menuOptions);
-        menuChange_Units->setObjectName(QStringLiteral("menuChange_Units"));
         menuSounds = new QMenu(menuOptions);
         menuSounds->setObjectName(QStringLiteral("menuSounds"));
         menuRecording = new QMenu(menuBar);
@@ -859,10 +866,8 @@ public:
 
         menuBar->addAction(menuOptions->menuAction());
         menuBar->addAction(menuRecording->menuAction());
-        menuOptions->addAction(menuChange_Units->menuAction());
         menuOptions->addAction(menuSounds->menuAction());
-        menuChange_Units->addAction(actionMetric);
-        menuChange_Units->addAction(actionEmperial);
+        menuOptions->addAction(actionSet_Reset_Password);
         menuSounds->addAction(actionNone);
         menuSounds->addAction(actionDefault);
         menuSounds->addAction(actionDarth_Vader);
@@ -894,13 +899,14 @@ public:
         actionDarth_Vader->setText(QApplication::translate("MainWindow", "Darth Vader", 0));
         actionStart_Recording->setText(QApplication::translate("MainWindow", "Start Recording", 0));
         actionStop_Recording->setText(QApplication::translate("MainWindow", "Stop Recording", 0));
+        actionSet_Reset_Password->setText(QApplication::translate("MainWindow", "Set/Reset Password", 0));
         configButton->setText(QApplication::translate("MainWindow", "Performance\n"
 "Monitor", 0));
         controlButton->setText(QApplication::translate("MainWindow", "Control", 0));
         performButton->setText(QApplication::translate("MainWindow", "Configuration", 0));
         groupBox->setTitle(QApplication::translate("MainWindow", "Control", 0));
         label->setText(QApplication::translate("MainWindow", "Velocity", 0));
-        label_2->setText(QApplication::translate("MainWindow", "rad/sec", 0));
+        label_2->setText(QApplication::translate("MainWindow", "RPM", 0));
         label_3->setText(QApplication::translate("MainWindow", "Acceleration", 0));
         label_4->setText(QApplication::translate("MainWindow", "<html><head/><body><p>rad/sec<span style=\" vertical-align:super;\">2</span></p></body></html>", 0));
         label_5->setText(QApplication::translate("MainWindow", "Jerk", 0));
@@ -918,13 +924,14 @@ public:
         label_10->setText(QApplication::translate("MainWindow", "Measured Value", 0));
         groupBox_5->setTitle(QApplication::translate("MainWindow", "Configuration", 0));
         label_22->setText(QApplication::translate("MainWindow", "Emergency Stop Button", 0));
-        label_23->setText(QApplication::translate("MainWindow", "Maximum Velocity (rad/s)", 0));
         label_24->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Maximum Acceleration (rad/s<span style=\" vertical-align:super;\">2</span>)</p></body></html>", 0));
         label_25->setText(QApplication::translate("MainWindow", "Password", 0));
+        label_23->setText(QApplication::translate("MainWindow", "Maximum Velocity (RPM)", 0));
+        pushButton_ApplySettings->setText(QApplication::translate("MainWindow", "Apply", 0));
         pushButton_2->setText(QApplication::translate("MainWindow", "Emergency\n"
 "Stop", 0));
         label_15->setText(QApplication::translate("MainWindow", "Output Log", 0));
@@ -945,7 +952,6 @@ public:
         rotLabel->setText(QApplication::translate("MainWindow", "Rotational Location", 0));
         rotatButton->setText(QString());
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0));
-        menuChange_Units->setTitle(QApplication::translate("MainWindow", "Change Units", 0));
         menuSounds->setTitle(QApplication::translate("MainWindow", "Sounds", 0));
         menuRecording->setTitle(QApplication::translate("MainWindow", "Recording", 0));
     } // retranslateUi

@@ -63,10 +63,6 @@ private slots:
 
     void on_verticalSlider_3_valueChanged(int value);
 
-    void on_actionMetric_triggered();
-
-    void on_actionEmperial_triggered();
-
     void realtimeDataSlot();
 
     void addVelocData(double key, double value0, double value1);
@@ -90,8 +86,6 @@ private slots:
     void on_actionNone_triggered();
 
     void on_actionDefault_triggered();
-
-    //bool eventFilter(QObject *object, QEvent *event);
 
     void keyPressEvent(QKeyEvent *event);
 
