@@ -59,6 +59,10 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
 
+    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+
     ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
@@ -705,17 +709,21 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         QString newMaxVel = ui->maxVel->text();
         QString newMaxAcc = ui->maxAccel->text();
         QKeySequence newStopKey = ui->eStopKey->keySequence();
-        settings.setValue("stopKey", newStopKey.toString());
 
-        ui->accSpinBox->setMaximum(newMaxAcc.toInt());
-        ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
-        settings.setValue("maxAcc", newMaxAcc);
-
-        ui->velSpinBox->setMaximum(newMaxVel.toInt());
-        ui->verticalSlider->setMaximum(newMaxVel.toInt());
-        settings.setValue("maxVel", newMaxVel);
-
-        eStopShortcut->setShortcut(newStopKey);
+        if(!newMaxVel.isEmpty()){
+            ui->velSpinBox->setMaximum(newMaxVel.toInt());
+            ui->verticalSlider->setMaximum(newMaxVel.toInt());
+            settings.setValue("maxVel", newMaxVel);
+        }
+        if(!newMaxAcc.isEmpty()){
+            ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+            ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+            settings.setValue("maxAcc", newMaxAcc);
+        }
+        if(!newStopKey.isEmpty()){
+            settings.setValue("stopKey", newStopKey.toString());
+            eStopShortcut->setShortcut(newStopKey);
+        }
         ui->textBrowser->append("Configuration changed");
     } else {
         ui->maxVel->setText(QString::number(ui->verticalSlider->maximum()));
