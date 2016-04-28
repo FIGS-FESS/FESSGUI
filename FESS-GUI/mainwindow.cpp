@@ -67,7 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_11->setStyleSheet("QLabel {color : red; }");
 
     mainVelGraph = new RTG(ui->mainVelGraph, true);  //initialize graphs
-    ui->mainVelGraph->yAxis->setLabel("rad/s");
+    ui->mainVelGraph->yAxis->setLabel("RPM");
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
     mainAccGraph = new RTG(ui->mainAccGraph, true);
@@ -296,8 +296,8 @@ void MainWindow::realtimeDataSlot()
       switch (mainGraphDisplay)
       {
           case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " rad/s");
-          ui->label_12->setText(QString::number(value0) + " rad/s");
+          ui->label_13->setText(QString::number(maxVel) + " RPM");
+          ui->label_12->setText(QString::number(value0) + " RPM");
           break;
 
           case (ACC):
@@ -455,23 +455,6 @@ void MainWindow::on_verticalSlider_3_valueChanged(int value)
     ui->doubleSpinBox_3->setValue(value);
 }
 
-
-void MainWindow::on_actionMetric_triggered()
-{
-    ui->actionEmperial->setChecked(false);
-    ui->label_2->setText("rad/sec");
-    ui->label_4->setText("rad/sec<sup>2</sup>");
-    ui->label_6->setText("rad/sec<sup>3</sup>");
-}
-
-void MainWindow::on_actionEmperial_triggered()
-{
-    ui->actionMetric->setChecked(false);
-    ui->label_2->setText("deg/sec");
-    ui->label_4->setText("deg/sec<sup>2</sup>");
-    ui->label_6->setText("deg/sec<sup>3</sup>");
-}
-
 void MainWindow::on_pushButton_clicked()
 {
     stopplayer->stop();
@@ -486,7 +469,7 @@ void MainWindow::on_pushButton_clicked()
     double vel = ui->velSpinBox->value();
     double acc = ui->accSpinBox->value();
     double jerk = ui->doubleSpinBox_3->value();
-    ui->textBrowser->append(QString("Flywheel controlled to %1 rad/sec,"
+    ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
                             .arg(vel).arg(acc).arg(jerk)
@@ -713,11 +696,13 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         if(!newMaxVel.isEmpty()){
             ui->velSpinBox->setMaximum(newMaxVel.toInt());
             ui->verticalSlider->setMaximum(newMaxVel.toInt());
+            ui->verticalSlider->setTickInterval(newMaxVel.toInt() / 5);
             settings.setValue("maxVel", newMaxVel);
         }
         if(!newMaxAcc.isEmpty()){
             ui->accSpinBox->setMaximum(newMaxAcc.toInt());
             ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+            ui->verticalSlider_2->setTickInterval(newMaxAcc.toInt() / 5);
             settings.setValue("maxAcc", newMaxAcc);
         }
         if(!newStopKey.isEmpty()){
@@ -725,6 +710,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
             eStopShortcut->setShortcut(newStopKey);
         }
         ui->textBrowser->append("Configuration changed");
+        ui->lineEditPassword->clear();
     } else {
         ui->maxVel->setText(QString::number(ui->verticalSlider->maximum()));
         ui->maxAccel->setText(QString::number(ui->verticalSlider_2->maximum()));
