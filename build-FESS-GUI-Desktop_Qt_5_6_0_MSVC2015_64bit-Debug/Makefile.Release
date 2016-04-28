@@ -4381,10 +4381,60 @@ release\setpassworddialog.obj: ..\FESS-GUI\setpassworddialog.cpp ../FESS-GUI/set
 		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qvector2d.h \
 		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qtouchdevice.h \
 		ui_setpassworddialog.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QVariant \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QAction \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qaction.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qicon.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qactiongroup.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QApplication \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qapplication.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qcoreapplication.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qeventloop.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qdesktopwidget.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qguiapplication.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qinputmethod.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QButtonGroup \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qbuttongroup.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QDialogButtonBox \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QHeaderView \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qheaderview.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qabstractitemview.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qframe.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qabstractitemmodel.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qitemselectionmodel.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qstyleoption.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qvalidator.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qregularexpression.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qslider.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qabstractslider.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qstyle.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qtabbar.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qtabwidget.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qrubberband.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QLabel \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qlabel.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QLineEdit \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qlineedit.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qtextcursor.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qtextformat.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qpen.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtGui\qtextoption.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QVBoxLayout \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qboxlayout.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qlayout.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qlayoutitem.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\qgridlayout.h \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtWidgets\QWidget \
 		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QSettings \
 		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qsettings.h \
 		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QString \
-		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QDebug
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QDebug \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\QCryptographicHash \
+		C:\Dev\NewQt\5.6\msvc2015_64\include\QtCore\qcryptographichash.h
 
 release\qrc_sounds.obj: release\qrc_sounds.cpp 
 

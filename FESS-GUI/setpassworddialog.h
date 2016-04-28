@@ -22,4 +22,8 @@ private:
     Ui::SetPasswordDialog *ui;
 };
 
+bool passwordsMatch(QString, QString);
+bool passwordMatches(QString);
+QString GetRandomString();
+
 #endif // SETPASSWORDDIALOG_H

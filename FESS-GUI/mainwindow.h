@@ -113,12 +113,6 @@ private slots:
 	
     void on_performButton_clicked();
 
-    void on_eStopKey_keySequenceChanged(const QKeySequence &keySequence);
-
-    void on_maxVel_textChanged(const QString &arg1);
-
-    void on_maxAccel_textChanged(const QString &arg1);
-
     void on_XYButton_clicked();
 
     void on_pushButton_ApplySettings_clicked();

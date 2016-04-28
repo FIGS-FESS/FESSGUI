@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    qsrand(time(NULL));
+
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
@@ -34,6 +36,32 @@ MainWindow::MainWindow(QWidget *parent) :
     maxUpDt[1] = 0;
     maxLwDt[0] = 0;
     maxLwDt[1] = 0;
+
+
+    QSettings settings("settings.ini", QSettings::IniFormat);
+
+
+
+    ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+
+    if(settings.contains("maxVel")){
+        ui->velSpinBox->setMaximum(settings.value("maxVel", "").toInt());
+        ui->verticalSlider->setMaximum(settings.value("maxVel", "").toInt());
+        ui->maxVel->setText((settings.value("maxVel", "").toString()));
+    }
+    if(settings.contains("maxAcc")){
+        ui->accSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->verticalSlider_2->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
+    }
+    if(settings.contains("stopKey")){
+        eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
+        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+    }
+
+    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 
     ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
     ui->label_11->setStyleSheet("QLabel {color : red; }");
@@ -663,22 +691,6 @@ void MainWindow::on_actionStop_Recording_triggered()
     }
 }
 
-void MainWindow::on_eStopKey_keySequenceChanged(const QKeySequence &keySequence)
-{
-    eStopShortcut->setShortcut(keySequence);
-}
-
-void MainWindow::on_maxVel_textChanged(const QString &arg1)
-{
-    ui->velSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider->setMaximum(arg1.toInt());
-}
-
-void MainWindow::on_maxAccel_textChanged(const QString &arg1)
-{
-    ui->accSpinBox->setMaximum(arg1.toInt());
-    ui->verticalSlider_2->setMaximum(arg1.toInt());
-}
 
 void MainWindow::on_pushButton_ApplySettings_clicked()
 {
@@ -692,10 +704,32 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
 
     //ui->textBrowser->append(QString(result));
 
-    bool matches = (QString::compare(password, settings.value("password", "").toString()) == 0);
-    if(matches)
-        ui->textBrowser->append("It matches!");
-    //ui->textBrowser->append("["+password+"]["+settings.value("password", "").toString()+"]");
+
+    if(passwordMatches(password)){
+        QString newMaxVel = ui->maxVel->text();
+        QString newMaxAcc = ui->maxAccel->text();
+        QKeySequence newStopKey = ui->eStopKey->keySequence();
+
+        if(!newMaxVel.isEmpty()){
+            ui->velSpinBox->setMaximum(newMaxVel.toInt());
+            ui->verticalSlider->setMaximum(newMaxVel.toInt());
+            settings.setValue("maxVel", newMaxVel);
+        }
+        if(!newMaxAcc.isEmpty()){
+            ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+            ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
+            settings.setValue("maxAcc", newMaxAcc);
+        }
+        if(!newStopKey.isEmpty()){
+            settings.setValue("stopKey", newStopKey.toString());
+            eStopShortcut->setShortcut(newStopKey);
+        }
+        ui->textBrowser->append("Configuration changed");
+    } else {
+        ui->maxVel->setText(QString::number(ui->verticalSlider->maximum()));
+        ui->maxAccel->setText(QString::number(ui->verticalSlider_2->maximum()));
+        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+    }
 }
 
 void MainWindow::on_actionSet_Reset_Password_triggered(){
