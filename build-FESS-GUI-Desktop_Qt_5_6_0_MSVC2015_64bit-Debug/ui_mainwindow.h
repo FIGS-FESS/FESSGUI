@@ -882,7 +882,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(0);
         stackedWidget_2->setCurrentIndex(0);
         pushButton_2->setDefault(false);
         tabWidget->setCurrentIndex(0);
