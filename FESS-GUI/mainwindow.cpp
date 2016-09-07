@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
-    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_pushButton_2_clicked()));
+    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
@@ -455,7 +455,7 @@ void MainWindow::on_jerkSlider_valueChanged(int value)
     ui->doubleSpinBox_3->setValue(value);
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_goButton_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
@@ -485,7 +485,7 @@ void MainWindow::on_actionDarth_Vader_triggered()
     stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_emergencyStopButton_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
@@ -724,6 +724,10 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     d->show();
 
 }
+
+
+
+
 
 
 

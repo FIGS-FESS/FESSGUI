@@ -121,7 +121,7 @@ Monitor</string>
               <number>6</number>
              </property>
              <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="velocityLabel">
                <property name="text">
                 <string>Velocity</string>
                </property>
@@ -176,7 +176,7 @@ Monitor</string>
               </widget>
              </item>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="velocityUnitLabel">
                <property name="text">
                 <string>RPM</string>
                </property>
@@ -187,7 +187,7 @@ Monitor</string>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="accelerationLabel">
                <property name="text">
                 <string>Acceleration</string>
                </property>
@@ -233,7 +233,7 @@ Monitor</string>
               </widget>
              </item>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="accelerationUnitLabel">
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;rad/sec&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
@@ -244,7 +244,7 @@ Monitor</string>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="jerkLabel">
                <property name="text">
                 <string>Jerk</string>
                </property>
@@ -290,7 +290,7 @@ Monitor</string>
               </widget>
              </item>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
-              <widget class="QLabel" name="label_6">
+              <widget class="QLabel" name="jerkUnitLabel">
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;rad/sec&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
@@ -299,7 +299,7 @@ Monitor</string>
             </layout>
            </item>
            <item alignment="Qt::AlignBottom">
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="goButton">
              <property name="text">
               <string>Go</string>
              </property>
@@ -370,7 +370,7 @@ Monitor</string>
             </widget>
            </item>
            <item row="2" column="3" rowspan="2">
-            <widget class="QGroupBox" name="groupBox_4">
+            <widget class="QGroupBox" name="legendGroupBox">
              <property name="title">
               <string>Legend</string>
              </property>
@@ -475,13 +475,13 @@ Monitor</string>
       <widget class="QWidget" name="configPage">
        <layout class="QVBoxLayout" name="verticalLayout_18">
         <item>
-         <widget class="QGroupBox" name="groupBox_5">
+         <widget class="QGroupBox" name="configurationGroupBox">
           <property name="title">
            <string>Configuration</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_22">
+            <widget class="QLabel" name="eStopLabel">
              <property name="text">
               <string>Emergency Stop Button</string>
              </property>
@@ -511,7 +511,7 @@ Monitor</string>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_24">
+            <widget class="QLabel" name="maxAccelLabel">
              <property name="text">
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -522,7 +522,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_25">
+            <widget class="QLabel" name="passwordLabel">
              <property name="text">
               <string>Password</string>
              </property>
@@ -561,7 +561,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_23">
+            <widget class="QLabel" name="maxVelocityLabel">
              <property name="text">
               <string>Maximum Velocity (RPM)</string>
              </property>
@@ -582,7 +582,7 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="emergencyStopButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -615,7 +615,7 @@ Stop</string>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="outputLog">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -637,13 +637,13 @@ Stop</string>
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab_1">
+      <widget class="QWidget" name="outputTab">
        <attribute name="title">
         <string>Output</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
-         <widget class="QLabel" name="label_15">
+         <widget class="QLabel" name="outputLogLabel">
           <property name="text">
            <string>Output Log</string>
           </property>
@@ -654,13 +654,13 @@ Stop</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="errorTab">
        <attribute name="title">
         <string>Errors</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QLabel" name="label_16">
+         <widget class="QLabel" name="errorLogLabel">
           <property name="text">
            <string>Error Log</string>
           </property>

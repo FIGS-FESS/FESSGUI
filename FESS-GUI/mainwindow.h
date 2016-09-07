@@ -77,11 +77,11 @@ private slots:
 
     void addRotatData(double x, double y);
 
-    void on_pushButton_clicked();
+    void on_goButton_clicked();
 
     void on_actionDarth_Vader_triggered();
 
-    void on_pushButton_2_clicked();
+    void on_emergencyStopButton_clicked();
 
     void on_actionNone_triggered();
 
