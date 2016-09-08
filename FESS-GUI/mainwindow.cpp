@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
-    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_pushButton_2_clicked()));
+    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
@@ -46,12 +46,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if(settings.contains("maxVel")){
         ui->velSpinBox->setMaximum(settings.value("maxVel", "").toInt());
-        ui->verticalSlider->setMaximum(settings.value("maxVel", "").toInt());
+        ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
         ui->maxVel->setText((settings.value("maxVel", "").toString()));
     }
     if(settings.contains("maxAcc")){
         ui->accSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->verticalSlider_2->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
         ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
     }
     if(settings.contains("stopKey")){
@@ -440,22 +440,22 @@ void MainWindow::on_configButton_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void MainWindow::on_verticalSlider_valueChanged(int value)
+void MainWindow::on_velocitySlider_valueChanged(int value)
 {
     ui->velSpinBox->setValue(value);
 }
 
-void MainWindow::on_verticalSlider_2_valueChanged(int value)
+void MainWindow::on_accelerationSlider_valueChanged(int value)
 {
     ui->accSpinBox->setValue(value);
 }
 
-void MainWindow::on_verticalSlider_3_valueChanged(int value)
+void MainWindow::on_jerkSlider_valueChanged(int value)
 {
     ui->doubleSpinBox_3->setValue(value);
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_goButton_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
@@ -485,7 +485,7 @@ void MainWindow::on_actionDarth_Vader_triggered()
     stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_emergencyStopButton_clicked()
 {
     stopplayer->stop();
     goplayer->stop();
@@ -496,9 +496,9 @@ void MainWindow::on_pushButton_2_clicked()
         stopplayer->setVolume(100);
         stopplayer->play();
     }
-    ui->verticalSlider->setValue(0);
-    ui->verticalSlider_2->setValue(0);
-    ui->verticalSlider_3->setValue(0);
+    ui->velocitySlider->setValue(0);
+    ui->accelerationSlider->setValue(0);
+    ui->jerkSlider->setValue(0);
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
 }
@@ -695,14 +695,14 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
 
         if(!newMaxVel.isEmpty()){
             ui->velSpinBox->setMaximum(newMaxVel.toInt());
-            ui->verticalSlider->setMaximum(newMaxVel.toInt());
-            ui->verticalSlider->setTickInterval(newMaxVel.toInt() / 5);
+            ui->velocitySlider->setMaximum(newMaxVel.toInt());
+            ui->velocitySlider->setTickInterval(newMaxVel.toInt() / 5);
             settings.setValue("maxVel", newMaxVel);
         }
         if(!newMaxAcc.isEmpty()){
             ui->accSpinBox->setMaximum(newMaxAcc.toInt());
-            ui->verticalSlider_2->setMaximum(newMaxAcc.toInt());
-            ui->verticalSlider_2->setTickInterval(newMaxAcc.toInt() / 5);
+            ui->accelerationSlider->setMaximum(newMaxAcc.toInt());
+            ui->accelerationSlider->setTickInterval(newMaxAcc.toInt() / 5);
             settings.setValue("maxAcc", newMaxAcc);
         }
         if(!newStopKey.isEmpty()){
@@ -712,8 +712,8 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         ui->textBrowser->append("Configuration changed");
         ui->lineEditPassword->clear();
     } else {
-        ui->maxVel->setText(QString::number(ui->verticalSlider->maximum()));
-        ui->maxAccel->setText(QString::number(ui->verticalSlider_2->maximum()));
+        ui->maxVel->setText(QString::number(ui->velocitySlider->maximum()));
+        ui->maxAccel->setText(QString::number(ui->accelerationSlider->maximum()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
 }
@@ -724,5 +724,11 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     d->show();
 
 }
+
+
+
+
+
+
 
 

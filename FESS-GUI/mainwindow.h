@@ -57,11 +57,11 @@ private slots:
 
     void on_configButton_clicked();
 
-    void on_verticalSlider_valueChanged(int value);
+    void on_velocitySlider_valueChanged(int value);
 
-    void on_verticalSlider_2_valueChanged(int value);
+    void on_accelerationSlider_valueChanged(int value);
 
-    void on_verticalSlider_3_valueChanged(int value);
+    void on_jerkSlider_valueChanged(int value);
 
     void realtimeDataSlot();
 
@@ -77,11 +77,11 @@ private slots:
 
     void addRotatData(double x, double y);
 
-    void on_pushButton_clicked();
+    void on_goButton_clicked();
 
     void on_actionDarth_Vader_triggered();
 
-    void on_pushButton_2_clicked();
+    void on_emergencyStopButton_clicked();
 
     void on_actionNone_triggered();
 
@@ -112,6 +112,8 @@ private slots:
     void on_pushButton_ApplySettings_clicked();
 
     void on_actionSet_Reset_Password_triggered();
+
+
 
 public:
     Ui::MainWindow *ui;
