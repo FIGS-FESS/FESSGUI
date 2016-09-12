@@ -50,6 +50,9 @@ public:
     QAction *eStopShortcut;
     ~MainWindow();
 
+private:
+    void transferAxes(QCustomPlot* graph);
+
 private slots:
 
 

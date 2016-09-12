@@ -108,22 +108,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // make left and bottom axes transfer their ranges to right and top axes:
-    connect(ui->mainVelGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainVelGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainVelGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainVelGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainAccGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainAccGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainAccGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainAccGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainUdtGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainUdtGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainUdtGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainUdtGraph->yAxis2, SLOT(setRange(QCPRange)));
-
-    connect(ui->mainLdtGraph->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainLdtGraph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(ui->mainLdtGraph->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->mainLdtGraph->yAxis2, SLOT(setRange(QCPRange)));
+    transferAxes(ui->mainVelGraph);
+    transferAxes(ui->mainAccGraph);
+    transferAxes(ui->mainUdtGraph);
+    transferAxes(ui->mainLdtGraph);
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
+}
+
+void MainWindow::transferAxes(QCustomPlot* graph){
+    connect(graph->xAxis, SIGNAL(rangeChanged(QCPRange)), graph->xAxis2, SLOT(setRange(QCPRange)));
+    connect(graph->yAxis, SIGNAL(rangeChanged(QCPRange)), graph->yAxis2, SLOT(setRange(QCPRange)));
 }
 
 void MainWindow::addVelocData(double key, double value0, double value1)
