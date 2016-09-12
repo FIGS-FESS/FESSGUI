@@ -36,15 +36,15 @@ public:
     XYG *rotatGraph;
 
     QTimer *dataTimer;
-    bool playSounds;
-    bool isRecording;
+    bool playSounds = false;
+    bool isRecording = false;
     std::ofstream rfs;
-    double maxVel;
-    double maxAcc;
-    double maxUpDt [2];
-    double maxLwDt [2];
+    double maxVel = 0;
+    double maxAcc = 0;
+    double maxUpDt [2] = {0, 0};
+    double maxLwDt [2] = {0 ,0};
     enum graph {VEL, ACC, UDT, LDT, XYD, ROT};
-    graph mainGraphDisplay;
+    graph mainGraphDisplay = VEL;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;

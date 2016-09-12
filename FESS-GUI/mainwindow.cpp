@@ -27,20 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
-    playSounds = false;
-    isRecording = false;
-    mainGraphDisplay = VEL; //enum for maingraph
-    maxVel = 0;
-    maxAcc = 0;
-    maxUpDt[0] = 0;
-    maxUpDt[1] = 0;
-    maxLwDt[0] = 0;
-    maxLwDt[1] = 0;
-
 
     QSettings settings("settings.ini", QSettings::IniFormat);
-
-
 
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
 
@@ -91,21 +79,18 @@ MainWindow::MainWindow(QWidget *parent) :
     xyGraph = new XYG(ui->auxXYGraph, false);
     rotatGraph = new XYG(ui->auxRotatGraph, false);
 
-
     free (mainVelGraph); //free classes
     free (mainAccGraph);
     free (mainUdtGraph);
     free (mainLdtGraph);
     free (mainXYGraph);
     free (mainRotGraph);
-
     free (velGraph);
     free (accGraph);
     free (updtGraph);
     free (lowdtGraph);
     free (xyGraph);
     free (rotatGraph);
-
 
     // make left and bottom axes transfer their ranges to right and top axes:
     transferAxes(ui->mainVelGraph);
