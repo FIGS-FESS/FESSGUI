@@ -63,9 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
     connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 
-    ui->label_10->setStyleSheet("QLabel {color : blue; }"); //legend
-    ui->label_11->setStyleSheet("QLabel {color : red; }");
-
     mainVelGraph = new RTG(ui->mainVelGraph, true);  //initialize graphs
     ui->mainVelGraph->yAxis->setLabel("RPM");
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
