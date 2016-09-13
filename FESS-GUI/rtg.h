@@ -5,7 +5,8 @@
 class RTG
 {
 public:
-    RTG(QCustomPlot *rtgwidget, bool isMain);
+    void SetupRTG(QCustomPlot *rtgwidget, bool isMain);
+    RTG(){}
 };
 
 #endif // RTG_H

@@ -21,17 +21,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-    RTG *mainVelGraph;
-    RTG *mainAccGraph;
-    RTG *mainUdtGraph;
-    RTG *mainLdtGraph;
+    RTG *rtg;
     XYG *mainXYGraph;
     XYG *mainRotGraph;
-
-    RTG *velGraph;
-    RTG *accGraph;
-    RTG *updtGraph;
-    RTG *lowdtGraph;
     XYG *xyGraph;
     XYG *rotatGraph;
 
@@ -54,7 +46,6 @@ private:
     void transferAxes(QCustomPlot* graph);
 
 private slots:
-
 
     void on_controlButton_clicked();
 
@@ -115,8 +106,6 @@ private slots:
     void on_pushButton_ApplySettings_clicked();
 
     void on_actionSet_Reset_Password_triggered();
-
-
 
 public:
     Ui::MainWindow *ui;

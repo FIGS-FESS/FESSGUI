@@ -1,6 +1,6 @@
 #include "rtg.h"
 
-RTG::RTG(QCustomPlot *rtgwidget, bool isMain)
+void RTG::SetupRTG(QCustomPlot *rtgwidget, bool isMain)
 {
     rtgwidget->addGraph(); // blue line
     rtgwidget->graph(0)->setPen(QPen(Qt::blue));

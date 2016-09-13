@@ -10,8 +10,6 @@
 #include <string>
 #include <sstream>
 
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -51,44 +49,37 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
     connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 
-    mainVelGraph = new RTG(ui->mainVelGraph, true);  //initialize graphs
+    rtg = new RTG();
+    rtg->SetupRTG(ui->mainVelGraph, true);  //initialize graphs
     ui->mainVelGraph->yAxis->setLabel("RPM");
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    mainAccGraph = new RTG(ui->mainAccGraph, true);
+    rtg->SetupRTG(ui->mainAccGraph, true);
     ui->mainAccGraph->yAxis->setLabel("rad/s^2");
     ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    mainUdtGraph = new RTG(ui->mainUdtGraph, true);
+    rtg->SetupRTG(ui->mainUdtGraph, true);
     ui->mainUdtGraph->yAxis->setLabel("mm");
 
-    mainLdtGraph = new RTG(ui->mainLdtGraph, true);
+    rtg->SetupRTG(ui->mainLdtGraph, true);
     ui->mainLdtGraph->yAxis->setLabel("mm");
 
     mainXYGraph = new XYG(ui->mainXYGraph, true);
     mainRotGraph = new XYG(ui->mainRotGraph, true);
 
-    velGraph = new RTG(ui->auxVelocGraph, false);
+    rtg->SetupRTG(ui->auxVelocGraph, false);
     ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    accGraph = new RTG(ui->auxAccelGraph, false);
+    rtg->SetupRTG(ui->auxAccelGraph, false);
     ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    updtGraph = new RTG(ui->auxUpDtGraph, false);
-    lowdtGraph = new RTG(ui->auxLowDtGraph, false);
+    rtg->SetupRTG(ui->auxUpDtGraph, false);
+    rtg->SetupRTG(ui->auxLowDtGraph, false);
     xyGraph = new XYG(ui->auxXYGraph, false);
     rotatGraph = new XYG(ui->auxRotatGraph, false);
 
-    free (mainVelGraph); //free classes
-    free (mainAccGraph);
-    free (mainUdtGraph);
-    free (mainLdtGraph);
     free (mainXYGraph);
     free (mainRotGraph);
-    free (velGraph);
-    free (accGraph);
-    free (updtGraph);
-    free (lowdtGraph);
     free (xyGraph);
     free (rotatGraph);
 
