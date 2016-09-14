@@ -84,7 +84,6 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -280,7 +279,7 @@ Monitor</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+              <widget class="QDoubleSpinBox" name="jerSpinBox">
                <property name="maximum">
                 <double>500.000000000000000</double>
                </property>

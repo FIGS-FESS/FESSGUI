@@ -25,6 +25,9 @@ public:
     bool playSounds = false;
     bool isRecording = false;
     std::ofstream rfs;
+    double VELOCITY;
+    double ACCELERATION;
+    double JERK;
     double maxVel = 0;
     double maxAcc = 0;
     double maxUpDt [2] = {0, 0};
@@ -46,11 +49,11 @@ private slots:
 
     void on_configButton_clicked();
 
-    void on_velocitySlider_valueChanged(int value);
+    void on_velocitySlider_valueChanged(int velocity);
 
-    void on_accelerationSlider_valueChanged(int value);
+    void on_accelerationSlider_valueChanged(int acceleration);
 
-    void on_jerkSlider_valueChanged(int value);
+    void on_jerkSlider_valueChanged(int jerk);
 
     void realtimeDataSlot();
 
@@ -93,6 +96,12 @@ private slots:
     void on_pushButton_ApplySettings_clicked();
 
     void on_actionSet_Reset_Password_triggered();
+
+    void on_velSpinBox_valueChanged(double velocity);
+
+    void on_accSpinBox_valueChanged(double acceleration);
+
+    void on_jerSpinBox_valueChanged(double jerk);
 
 public:
     Ui::MainWindow *ui;
