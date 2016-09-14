@@ -6,8 +6,7 @@
 #include <QTimer>
 #include <qcustomplot.h>
 #include <fstream>
-#include "rtg.h"
-#include "xyg.h"
+#include "graphoperation.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,37 +20,27 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-    RTG *mainVelGraph;
-    RTG *mainAccGraph;
-    RTG *mainUdtGraph;
-    RTG *mainLdtGraph;
-    XYG *mainXYGraph;
-    XYG *mainRotGraph;
-
-    RTG *velGraph;
-    RTG *accGraph;
-    RTG *updtGraph;
-    RTG *lowdtGraph;
-    XYG *xyGraph;
-    XYG *rotatGraph;
 
     QTimer *dataTimer;
-    bool playSounds;
-    bool isRecording;
+    bool playSounds = false;
+    bool isRecording = false;
     std::ofstream rfs;
-    double maxVel;
-    double maxAcc;
-    double maxUpDt [2];
-    double maxLwDt [2];
+    double maxVel = 0;
+    double maxAcc = 0;
+    double maxUpDt [2] = {0, 0};
+    double maxLwDt [2] = {0 ,0};
     enum graph {VEL, ACC, UDT, LDT, XYD, ROT};
-    graph mainGraphDisplay;
+    graph mainGraphDisplay = VEL;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;
     ~MainWindow();
 
-private slots:
+private:
+    GraphOperation* graphOperation;
+    void transferAxes(QCustomPlot* graph);
 
+private slots:
 
     void on_controlButton_clicked();
 
@@ -64,14 +53,6 @@ private slots:
     void on_jerkSlider_valueChanged(int value);
 
     void realtimeDataSlot();
-
-    void addVelocData(double key, double value0, double value1);
-
-    void addAccelData(double key, double value0, double value1);
-
-    void addUpdtData(double key, double x, double y);
-
-    void addLowdtData(double key, double x, double y);
 
     void addXYData(double ux, double uy, double lx, double ly);
 
@@ -112,8 +93,6 @@ private slots:
     void on_pushButton_ApplySettings_clicked();
 
     void on_actionSet_Reset_Password_triggered();
-
-
 
 public:
     Ui::MainWindow *ui;
