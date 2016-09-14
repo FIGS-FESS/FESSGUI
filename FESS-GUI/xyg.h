@@ -5,7 +5,8 @@
 class XYG
 {
 public:
-    XYG(QCustomPlot *xygwidget, bool isMain);
+    XYG(){}
+    void SetupXYG(QCustomPlot *xygwidget, bool isMain);
 };
 
 #endif // XYG_H

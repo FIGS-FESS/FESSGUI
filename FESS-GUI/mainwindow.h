@@ -6,8 +6,7 @@
 #include <QTimer>
 #include <qcustomplot.h>
 #include <fstream>
-#include "rtg.h"
-#include "xyg.h"
+#include "graphoperation.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,11 +20,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-    RTG *rtg;
-    XYG *mainXYGraph;
-    XYG *mainRotGraph;
-    XYG *xyGraph;
-    XYG *rotatGraph;
 
     QTimer *dataTimer;
     bool playSounds = false;
@@ -43,6 +37,7 @@ public:
     ~MainWindow();
 
 private:
+    GraphOperation* graphOperation;
     void transferAxes(QCustomPlot* graph);
 
 private slots:
@@ -58,14 +53,6 @@ private slots:
     void on_jerkSlider_valueChanged(int value);
 
     void realtimeDataSlot();
-
-    void addVelocData(double key, double value0, double value1);
-
-    void addAccelData(double key, double value0, double value1);
-
-    void addUpdtData(double key, double x, double y);
-
-    void addLowdtData(double key, double x, double y);
 
     void addXYData(double ux, double uy, double lx, double ly);
 

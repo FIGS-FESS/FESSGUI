@@ -15,15 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
         qcustomplot.cpp \
-    rtg.cpp \
-    xyg.cpp \
-    setpassworddialog.cpp
+    setpassworddialog.cpp \
+    graphoperation.cpp
 
 HEADERS  += mainwindow.h \
          qcustomplot.h \
-    rtg.h \
-    xyg.h \
-    setpassworddialog.h
+    setpassworddialog.h \
+    graphoperation.h
 
 FORMS    += mainwindow.ui \
     setpassworddialog.ui

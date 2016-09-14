@@ -49,39 +49,34 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
     connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 
-    rtg = new RTG();
-    rtg->SetupRTG(ui->mainVelGraph, true);  //initialize graphs
+    graphOperation = new GraphOperation();
+    graphOperation->SetupRTG(ui->mainVelGraph, true);  //initialize graphs
     ui->mainVelGraph->yAxis->setLabel("RPM");
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    rtg->SetupRTG(ui->mainAccGraph, true);
+    graphOperation->SetupRTG(ui->mainAccGraph, true);
     ui->mainAccGraph->yAxis->setLabel("rad/s^2");
     ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    rtg->SetupRTG(ui->mainUdtGraph, true);
+    graphOperation->SetupRTG(ui->mainUdtGraph, true);
     ui->mainUdtGraph->yAxis->setLabel("mm");
 
-    rtg->SetupRTG(ui->mainLdtGraph, true);
+    graphOperation->SetupRTG(ui->mainLdtGraph, true);
     ui->mainLdtGraph->yAxis->setLabel("mm");
 
-    mainXYGraph = new XYG(ui->mainXYGraph, true);
-    mainRotGraph = new XYG(ui->mainRotGraph, true);
+    graphOperation->SetupXYG(ui->mainXYGraph, true);
+    graphOperation->SetupXYG(ui->mainRotGraph, true);
 
-    rtg->SetupRTG(ui->auxVelocGraph, false);
+    graphOperation->SetupRTG(ui->auxVelocGraph, false);
     ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    rtg->SetupRTG(ui->auxAccelGraph, false);
+    graphOperation->SetupRTG(ui->auxAccelGraph, false);
     ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    rtg->SetupRTG(ui->auxUpDtGraph, false);
-    rtg->SetupRTG(ui->auxLowDtGraph, false);
-    xyGraph = new XYG(ui->auxXYGraph, false);
-    rotatGraph = new XYG(ui->auxRotatGraph, false);
-
-    free (mainXYGraph);
-    free (mainRotGraph);
-    free (xyGraph);
-    free (rotatGraph);
+    graphOperation->SetupRTG(ui->auxUpDtGraph, false);
+    graphOperation->SetupRTG(ui->auxLowDtGraph, false);
+    graphOperation->SetupXYG(ui->auxXYGraph, false);
+    graphOperation->SetupXYG(ui->auxRotatGraph, false);
 
     // make left and bottom axes transfer their ranges to right and top axes:
     transferAxes(ui->mainVelGraph);
@@ -95,133 +90,10 @@ MainWindow::MainWindow(QWidget *parent) :
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
 }
 
+
 void MainWindow::transferAxes(QCustomPlot* graph){
     connect(graph->xAxis, SIGNAL(rangeChanged(QCPRange)), graph->xAxis2, SLOT(setRange(QCPRange)));
     connect(graph->yAxis, SIGNAL(rangeChanged(QCPRange)), graph->yAxis2, SLOT(setRange(QCPRange)));
-}
-
-void MainWindow::addVelocData(double key, double value0, double value1)
-{
-    ui->mainVelGraph->graph(0)->addData(key, value0);
-    ui->mainVelGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->mainVelGraph->graph(2)->clearData();
-    ui->mainVelGraph->graph(2)->addData(key, value0);
-    ui->mainVelGraph->graph(3)->clearData();
-    ui->mainVelGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->mainVelGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainVelGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainVelGraph->graph(0)->rescaleValueAxis();
-    ui->mainVelGraph->graph(1)->rescaleValueAxis(true);
-
-    ui->auxVelocGraph->graph(0)->addData(key, value0);
-    ui->auxVelocGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->auxVelocGraph->graph(2)->clearData();
-    ui->auxVelocGraph->graph(2)->addData(key, value0);
-    ui->auxVelocGraph->graph(3)->clearData();
-    ui->auxVelocGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->auxVelocGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxVelocGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxVelocGraph->graph(0)->rescaleValueAxis();
-    ui->auxVelocGraph->graph(1)->rescaleValueAxis(true);
-}
-
-void MainWindow::addAccelData(double key, double value0, double value1)
-{
-    ui->mainAccGraph->graph(0)->addData(key, value0);
-    ui->mainAccGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->mainAccGraph->graph(2)->clearData();
-    ui->mainAccGraph->graph(2)->addData(key, value0);
-    ui->mainAccGraph->graph(3)->clearData();
-    ui->mainAccGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->mainAccGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainAccGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainAccGraph->graph(0)->rescaleValueAxis();
-    ui->mainAccGraph->graph(1)->rescaleValueAxis(true);
-
-    ui->auxAccelGraph->graph(0)->addData(key, value0);
-    ui->auxAccelGraph->graph(1)->addData(key, value1);
-    // set data of dots:
-    ui->auxAccelGraph->graph(2)->clearData();
-    ui->auxAccelGraph->graph(2)->addData(key, value0);
-    ui->auxAccelGraph->graph(3)->clearData();
-    ui->auxAccelGraph->graph(3)->addData(key, value1);
-    // remove data of lines that's outside visible range:
-    ui->auxAccelGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxAccelGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxAccelGraph->graph(0)->rescaleValueAxis();
-    ui->auxAccelGraph->graph(1)->rescaleValueAxis(true);
-}
-
-void MainWindow::addUpdtData(double key, double x, double y)
-{
-    ui->mainUdtGraph->graph(0)->addData(key, x);
-    ui->mainUdtGraph->graph(1)->addData(key, y);
-    // set data of dots:
-    ui->mainUdtGraph->graph(2)->clearData();
-    ui->mainUdtGraph->graph(2)->addData(key, x);
-    ui->mainUdtGraph->graph(3)->clearData();
-    ui->mainUdtGraph->graph(3)->addData(key, y);
-    // remove data of lines that's outside visible range:
-    ui->mainUdtGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainUdtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainUdtGraph->graph(0)->rescaleValueAxis();
-    ui->mainUdtGraph->graph(1)->rescaleValueAxis(true);
-
-    ui->auxUpDtGraph->graph(0)->addData(key, x);
-    ui->auxUpDtGraph->graph(1)->addData(key, y);
-    // set data of dots:
-    ui->auxUpDtGraph->graph(2)->clearData();
-    ui->auxUpDtGraph->graph(2)->addData(key, x);
-    ui->auxUpDtGraph->graph(3)->clearData();
-    ui->auxUpDtGraph->graph(3)->addData(key, y);
-    // remove data of lines that's outside visible range:
-    ui->auxUpDtGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxUpDtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxUpDtGraph->graph(0)->rescaleValueAxis();
-    ui->auxUpDtGraph->graph(1)->rescaleValueAxis(true);
-}
-
-void MainWindow::addLowdtData(double key, double x, double y)
-{
-    ui->mainLdtGraph->graph(0)->addData(key, x);
-    ui->mainLdtGraph->graph(1)->addData(key, y);
-    // set data of dots:
-    ui->mainLdtGraph->graph(2)->clearData();
-    ui->mainLdtGraph->graph(2)->addData(key, x);
-    ui->mainLdtGraph->graph(3)->clearData();
-    ui->mainLdtGraph->graph(3)->addData(key, y);
-    // remove data of lines that's outside visible range:
-    ui->mainLdtGraph->graph(0)->removeDataBefore(key-8);
-    ui->mainLdtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->mainLdtGraph->graph(0)->rescaleValueAxis();
-    ui->mainLdtGraph->graph(1)->rescaleValueAxis(true);
-
-    ui->auxLowDtGraph->graph(0)->addData(key, x);
-    ui->auxLowDtGraph->graph(1)->addData(key, y);
-    // set data of dots:
-    ui->auxLowDtGraph->graph(2)->clearData();
-    ui->auxLowDtGraph->graph(2)->addData(key, x);
-    ui->auxLowDtGraph->graph(3)->clearData();
-    ui->auxLowDtGraph->graph(3)->addData(key, y);
-    // remove data of lines that's outside visible range:
-    ui->auxLowDtGraph->graph(0)->removeDataBefore(key-8);
-    ui->auxLowDtGraph->graph(1)->removeDataBefore(key-8);
-    // rescale value (vertical) axis to fit the current data:
-    ui->auxLowDtGraph->graph(0)->rescaleValueAxis();
-    ui->auxLowDtGraph->graph(1)->rescaleValueAxis(true);
 }
 
 void MainWindow::addXYData(double ux, double uy, double lx, double ly)
@@ -298,10 +170,15 @@ void MainWindow::realtimeDataSlot()
       }
 
       //add data to graphs
-      addVelocData(key, value0, (double)ui->velSpinBox->value());
-      addAccelData(key, value1, (double)ui->accSpinBox->value());
-      addUpdtData(key, x, y);
-      addLowdtData(key, y, x);
+      graphOperation->addRTGData(ui->mainVelGraph, key, value0, (double)ui->velSpinBox->value());
+      graphOperation->addRTGData(ui->auxVelocGraph, key, value0, (double)ui->velSpinBox->value());
+      graphOperation->addRTGData(ui->mainAccGraph, key, value1, (double)ui->accSpinBox->value());
+      graphOperation->addRTGData(ui->auxAccelGraph, key, value1, (double)ui->accSpinBox->value());
+      graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
+      graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
+      graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
+      graphOperation->addRTGData(ui->auxLowDtGraph, key, y, x);
+
       addXYData(x, y, y, x);
       addRotatData(qCos(key), qSin(key));
 
@@ -374,8 +251,8 @@ void MainWindow::realtimeDataSlot()
     {
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
-            .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
-            .arg(ui->mainVelGraph->graph(0)->data()->count()+ui->mainVelGraph->graph(1)->data()->count())
+                .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
+                .arg(ui->mainVelGraph->graph(0)->data()->count()+ui->mainVelGraph->graph(1)->data()->count())
             , 0);
 
       lastFpsKey = key;
