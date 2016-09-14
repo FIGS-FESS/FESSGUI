@@ -25,9 +25,9 @@ public:
     bool playSounds = false;
     bool isRecording = false;
     std::ofstream rfs;
-    double VELOCITY;
-    double ACCELERATION;
-    double JERK;
+    double expectedVelocity;
+    double expectedAcceleration;
+    double expectedJerk;
     double maxVel = 0;
     double maxAcc = 0;
     double maxUpDt [2] = {0, 0};

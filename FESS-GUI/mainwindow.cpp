@@ -170,10 +170,10 @@ void MainWindow::realtimeDataSlot()
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, key, actualVel, VELOCITY);
-      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVel, VELOCITY);
-      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcc, ACCELERATION);
-      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcc, ACCELERATION);
+      graphOperation->addRTGData(ui->mainVelGraph, key, actualVel, expectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVel, expectedVelocity);
+      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcc, expectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcc, expectedAcceleration);
       graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
       graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
       graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
@@ -292,37 +292,37 @@ void MainWindow::on_configButton_clicked()
 void MainWindow::on_velocitySlider_valueChanged(int velocity)
 {
     ui->velSpinBox->setValue(velocity);
-    VELOCITY = velocity;
+    expectedVelocity = velocity;
 }
 
 void MainWindow::on_accelerationSlider_valueChanged(int acceleration)
 {
     ui->accSpinBox->setValue(acceleration);
-    ACCELERATION = acceleration;
+    expectedAcceleration = acceleration;
 }
 
 void MainWindow::on_jerkSlider_valueChanged(int jerk)
 {
     ui->jerSpinBox->setValue(jerk);
-    JERK = jerk;
+    expectedJerk = jerk;
 }
 
 void MainWindow::on_velSpinBox_valueChanged(double velocity)
 {
     ui->velocitySlider->setValue((int)velocity);
-    VELOCITY = velocity;
+    expectedVelocity = velocity;
 }
 
 void MainWindow::on_accSpinBox_valueChanged(double acceleration)
 {
     ui->accelerationSlider->setValue((int)acceleration);
-    ACCELERATION = acceleration;
+    expectedAcceleration = acceleration;
 }
 
 void MainWindow::on_jerSpinBox_valueChanged(double jerk)
 {
     ui->jerkSlider->setValue((int)jerk);
-    JERK = jerk;
+    expectedJerk = jerk;
 }
 
 void MainWindow::on_goButton_clicked()
@@ -339,7 +339,7 @@ void MainWindow::on_goButton_clicked()
     ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(VELOCITY).arg(ACCELERATION).arg(JERK)
+                            .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
