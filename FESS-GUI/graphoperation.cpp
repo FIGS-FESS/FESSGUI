@@ -62,7 +62,7 @@ void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain)
     }
 }
 
-void GraphOperation::addRTGData(QCustomPlot *rtgwidget, double key, double value0, double value1){
+void GraphOperation::addRTGData(QCustomPlot *rtgwidget, double key, double value0, double value1){ //value0 is actual
     rtgwidget->graph(0)->addData(key, value0);
     rtgwidget->graph(1)->addData(key, value1);
     // set data of dots:
