@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
+    expectedVelocity = ui->velocitySlider->value();
+    expectedAcceleration = ui->accelerationSlider->value();
+    expectedJerk = ui->jerkSlider->value();
+
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
