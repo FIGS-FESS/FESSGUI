@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
+    expectedVelocity = ui->velocitySlider->value();
+    expectedAcceleration = ui->accelerationSlider->value();
+    expectedJerk = ui->jerkSlider->value();
+
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
     eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
@@ -127,8 +131,8 @@ void MainWindow::realtimeDataSlot()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
 
-    double value0 = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-    double value1 = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+    double actualVelocity = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
+    double actualAcceleration = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
     double x = 2*qCos(key) - qCos(2*key);
     double y = 2*qSin(key) - qSin(2*key);
 
@@ -140,12 +144,12 @@ void MainWindow::realtimeDataSlot()
       {
           case (VEL):
           ui->label_13->setText(QString::number(maxVel) + " RPM");
-          ui->label_12->setText(QString::number(value0) + " RPM");
+          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
           break;
 
           case (ACC):
           ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
-          ui->label_12->setText(QString::number(value1) + " rad/s<sup>2</sup>");
+          ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
           break;
 
           case (UDT):
@@ -170,10 +174,10 @@ void MainWindow::realtimeDataSlot()
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, key, value0, (double)ui->velSpinBox->value());
-      graphOperation->addRTGData(ui->auxVelocGraph, key, value0, (double)ui->velSpinBox->value());
-      graphOperation->addRTGData(ui->mainAccGraph, key, value1, (double)ui->accSpinBox->value());
-      graphOperation->addRTGData(ui->auxAccelGraph, key, value1, (double)ui->accSpinBox->value());
+      graphOperation->addRTGData(ui->mainVelGraph, key, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
       graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
       graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
@@ -184,7 +188,8 @@ void MainWindow::realtimeDataSlot()
 
 	  //output data to csv if recording
       if (isRecording){
-          rfs << std::setprecision(4) << std::fixed << key << ", " << value0 << ", " << value1 << ", " << x << ", " << y << ", " << "\n";
+          rfs << std::setprecision(4) << std::fixed << key << ", " << actualVelocity << ", " << actualAcceleration
+              << ", " << x << ", " << y << ", " << "\n";
       }
 	  
       lastPointKey = key;
@@ -228,11 +233,11 @@ void MainWindow::realtimeDataSlot()
     ++frameCount;
 
     //for max values
-    if (value0 > maxVel)
-        maxVel = value0;
+    if (actualVelocity > maxVel)
+        maxVel = actualVelocity;
 
-    if (value1 > maxAcc)
-        maxAcc = value1;
+    if (actualAcceleration > maxAcc)
+        maxAcc = actualAcceleration;
 
     if (qFabs(x) > qFabs(maxUpDt[0]))
         maxUpDt[0] = x;
@@ -288,19 +293,40 @@ void MainWindow::on_configButton_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void MainWindow::on_velocitySlider_valueChanged(int value)
+void MainWindow::on_velocitySlider_valueChanged(int velocity)
 {
-    ui->velSpinBox->setValue(value);
+    ui->velSpinBox->setValue(velocity);
+    expectedVelocity = velocity;
 }
 
-void MainWindow::on_accelerationSlider_valueChanged(int value)
+void MainWindow::on_accelerationSlider_valueChanged(int acceleration)
 {
-    ui->accSpinBox->setValue(value);
+    ui->accSpinBox->setValue(acceleration);
+    expectedAcceleration = acceleration;
 }
 
-void MainWindow::on_jerkSlider_valueChanged(int value)
+void MainWindow::on_jerkSlider_valueChanged(int jerk)
 {
-    ui->doubleSpinBox_3->setValue(value);
+    ui->jerSpinBox->setValue(jerk);
+    expectedJerk = jerk;
+}
+
+void MainWindow::on_velSpinBox_valueChanged(double velocity)
+{
+    ui->velocitySlider->setValue((int)velocity);
+    expectedVelocity = velocity;
+}
+
+void MainWindow::on_accSpinBox_valueChanged(double acceleration)
+{
+    ui->accelerationSlider->setValue((int)acceleration);
+    expectedAcceleration = acceleration;
+}
+
+void MainWindow::on_jerSpinBox_valueChanged(double jerk)
+{
+    ui->jerkSlider->setValue((int)jerk);
+    expectedJerk = jerk;
 }
 
 void MainWindow::on_goButton_clicked()
@@ -314,13 +340,10 @@ void MainWindow::on_goButton_clicked()
         goplayer->setVolume(100);
         goplayer->play();
     }
-    double vel = ui->velSpinBox->value();
-    double acc = ui->accSpinBox->value();
-    double jerk = ui->doubleSpinBox_3->value();
     ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(vel).arg(acc).arg(jerk)
+                            .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
@@ -496,7 +519,7 @@ void MainWindow::on_actionStart_Recording_triggered()
         std::string filename = iss.str();
 
         rfs.open(filename.c_str());
-        rfs << "Time, " << "Value0," << " Value 1," << " X," << " Y," << std::endl;
+        rfs << "Time, " << " Actual Vel " << " Actual Acc " << " X," << " Y," << std::endl;
 
         ui->actionStart_Recording->setEnabled(false);
         ui->actionStop_Recording->setEnabled(true);
@@ -572,11 +595,5 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     d->show();
 
 }
-
-
-
-
-
-
 
 

@@ -62,14 +62,14 @@ void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain)
     }
 }
 
-void GraphOperation::addRTGData(QCustomPlot *rtgwidget, double key, double value0, double value1){
-    rtgwidget->graph(0)->addData(key, value0);
-    rtgwidget->graph(1)->addData(key, value1);
+void GraphOperation::addRTGData(QCustomPlot *rtgwidget, double key, double actual, double expected){
+    rtgwidget->graph(0)->addData(key, actual);
+    rtgwidget->graph(1)->addData(key, expected);
     // set data of dots:
     rtgwidget->graph(2)->clearData();
-    rtgwidget->graph(2)->addData(key, value0);
+    rtgwidget->graph(2)->addData(key, actual);
     rtgwidget->graph(3)->clearData();
-    rtgwidget->graph(3)->addData(key, value1);
+    rtgwidget->graph(3)->addData(key, expected);
     // remove data of lines that's outside visible range:
     rtgwidget->graph(0)->removeDataBefore(key-8);
     rtgwidget->graph(1)->removeDataBefore(key-8);
