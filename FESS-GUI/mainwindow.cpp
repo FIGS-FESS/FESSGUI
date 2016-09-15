@@ -131,8 +131,8 @@ void MainWindow::realtimeDataSlot()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
 
-    double actualVel = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-    double actualAcc = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+    double actualVelocity = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
+    double actualAcceleration = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
     double x = 2*qCos(key) - qCos(2*key);
     double y = 2*qSin(key) - qSin(2*key);
 
@@ -144,12 +144,12 @@ void MainWindow::realtimeDataSlot()
       {
           case (VEL):
           ui->label_13->setText(QString::number(maxVel) + " RPM");
-          ui->label_12->setText(QString::number(actualVel) + " RPM");
+          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
           break;
 
           case (ACC):
           ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
-          ui->label_12->setText(QString::number(actualAcc) + " rad/s<sup>2</sup>");
+          ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
           break;
 
           case (UDT):
@@ -174,10 +174,10 @@ void MainWindow::realtimeDataSlot()
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, key, actualVel, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVel, expectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcc, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcc, expectedAcceleration);
+      graphOperation->addRTGData(ui->mainVelGraph, key, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
       graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
       graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
@@ -188,7 +188,7 @@ void MainWindow::realtimeDataSlot()
 
 	  //output data to csv if recording
       if (isRecording){
-          rfs << std::setprecision(4) << std::fixed << key << ", " << actualVel << ", " << actualAcc
+          rfs << std::setprecision(4) << std::fixed << key << ", " << actualVelocity << ", " << actualAcceleration
               << ", " << x << ", " << y << ", " << "\n";
       }
 	  
@@ -233,11 +233,11 @@ void MainWindow::realtimeDataSlot()
     ++frameCount;
 
     //for max values
-    if (actualVel > maxVel)
-        maxVel = actualVel;
+    if (actualVelocity > maxVel)
+        maxVel = actualVelocity;
 
-    if (actualAcc > maxAcc)
-        maxAcc = actualAcc;
+    if (actualAcceleration > maxAcc)
+        maxAcc = actualAcceleration;
 
     if (qFabs(x) > qFabs(maxUpDt[0]))
         maxUpDt[0] = x;
