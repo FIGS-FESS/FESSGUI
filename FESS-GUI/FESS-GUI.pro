@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia serialport
 
 TARGET = FESS-GUI
 TEMPLATE = app
@@ -16,12 +16,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         qcustomplot.cpp \
     setpassworddialog.cpp \
-    graphoperation.cpp
+    graphoperation.cpp \
+    flywheel.cpp \
+    serial.cpp
 
 HEADERS  += mainwindow.h \
          qcustomplot.h \
     setpassworddialog.h \
-    graphoperation.h
+    graphoperation.h \
+    flywheel.h \
+    serial.h
 
 FORMS    += mainwindow.ui \
     setpassworddialog.ui
