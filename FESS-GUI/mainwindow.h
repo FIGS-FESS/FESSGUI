@@ -103,6 +103,8 @@ private slots:
 
     void on_jerkSpinBox_valueChanged(double jerk);
 
+    void on_lineEditPassword_textEdited(const QString &password);
+
 public:
     Ui::MainWindow *ui;
 };
