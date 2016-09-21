@@ -84,6 +84,7 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
+       <number>0</number>
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -162,7 +163,7 @@ Monitor</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="velSpinBox">
+              <widget class="QDoubleSpinBox" name="velocitySpinBox">
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
@@ -222,7 +223,7 @@ Monitor</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="accSpinBox">
+              <widget class="QDoubleSpinBox" name="accelerationSpinBox">
                <property name="maximum">
                 <double>1.000000000000000</double>
                </property>
@@ -279,7 +280,7 @@ Monitor</string>
               <number>3</number>
              </property>
              <item alignment="Qt::AlignLeft|Qt::AlignBottom">
-              <widget class="QDoubleSpinBox" name="jerSpinBox">
+              <widget class="QDoubleSpinBox" name="jerkSpinBox">
                <property name="maximum">
                 <double>500.000000000000000</double>
                </property>
