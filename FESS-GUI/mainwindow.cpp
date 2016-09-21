@@ -271,11 +271,6 @@ void MainWindow::realtimeDataSlot()
     {
         ui->statusBar->clearMessage();
     }
-
-    if (!ui->lineEditPassword->text().isEmpty() | passwordMatches(""))
-        ui->pushButton_ApplySettings->setEnabled(true);
-    else
-        ui->pushButton_ApplySettings->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -597,6 +592,8 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
+
+
 }
 
 
