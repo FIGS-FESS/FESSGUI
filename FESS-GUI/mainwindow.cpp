@@ -32,8 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QSettings settings("settings.ini", QSettings::IniFormat);
 
-    ui->pushButton_ApplySettings->setEnabled(false);
-
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
 
     if(settings.contains("maxVel")){
@@ -581,10 +579,8 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
             eStopShortcut->setShortcut(newStopKey);
         }
         ui->textBrowser->append("Configuration changed");
-        ui->pushButton_ApplySettings->setEnabled(false);
         ui->lineEditPassword->clear();
     } else {
-        ui->textBrowser->append("Wrong password");
         ui->maxVel->setText(QString::number(ui->velocitySlider->maximum()));
         ui->maxAccel->setText(QString::number(ui->accelerationSlider->maximum()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
@@ -596,12 +592,4 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
 
     d->show();
 
-}
-
-void MainWindow::on_lineEditPassword_textEdited(const QString &password)
-{
-    if (password.isEmpty())
-        ui->pushButton_ApplySettings->setEnabled(false);
-    else
-        ui->pushButton_ApplySettings->setEnabled(true);
 }
