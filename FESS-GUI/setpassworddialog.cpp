@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QCryptographicHash>
 #include <iostream>
+#include <mainwindow.h>
 
 SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     QDialog(parent),
@@ -43,6 +44,7 @@ void SetPasswordDialog::on_buttonBox_accepted()
         qDebug("Password set to "+ui->lineEdit_newPassword->text().toLocal8Bit());
         qDebug(settings.value("password", "").toString().toLocal8Bit());
     }
+
 }
 
 bool passwordsMatch(QString old, QString provided){

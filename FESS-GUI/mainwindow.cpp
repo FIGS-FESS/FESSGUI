@@ -32,8 +32,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QSettings settings("settings.ini", QSettings::IniFormat);
 
-    ui->pushButton_ApplySettings->setEnabled(false);
-
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
 
     if(settings.contains("maxVel")){
@@ -273,6 +271,11 @@ void MainWindow::realtimeDataSlot()
     {
         ui->statusBar->clearMessage();
     }
+
+    if (!ui->lineEditPassword->text().isEmpty() | passwordMatches(""))
+        ui->pushButton_ApplySettings->setEnabled(true);
+    else
+        ui->pushButton_ApplySettings->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -581,7 +584,6 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
             eStopShortcut->setShortcut(newStopKey);
         }
         ui->textBrowser->append("Configuration changed");
-        ui->pushButton_ApplySettings->setEnabled(false);
         ui->lineEditPassword->clear();
     } else {
         ui->textBrowser->append("Wrong password");
@@ -595,13 +597,6 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
-
 }
 
-void MainWindow::on_lineEditPassword_textEdited(const QString &password)
-{
-    if (password.isEmpty())
-        ui->pushButton_ApplySettings->setEnabled(false);
-    else
-        ui->pushButton_ApplySettings->setEnabled(true);
-}
+
