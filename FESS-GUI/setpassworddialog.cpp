@@ -4,8 +4,6 @@
 #include <QString>
 #include <QDebug>
 #include <QCryptographicHash>
-#include <iostream>
-#include <mainwindow.h>
 
 SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     QDialog(parent),
