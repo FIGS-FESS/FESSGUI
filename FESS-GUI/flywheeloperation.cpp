@@ -27,3 +27,6 @@ float FlywheelOperation::getJerk()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     return key;
 }
+
+QPointF getUpperDisplacement();
+QPointF getLowerDisplacement();

@@ -99,11 +99,11 @@ private slots:
 
     void on_actionSet_Reset_Password_triggered();
 
-    void on_velSpinBox_valueChanged(double velocity);
+    void on_velocitySpinBox_valueChanged(double velocity);
 
-    void on_accSpinBox_valueChanged(double acceleration);
+    void on_accelerationSpinBox_valueChanged(double acceleration);
 
-    void on_jerSpinBox_valueChanged(double jerk);
+    void on_jerkSpinBox_valueChanged(double jerk);
 
 public:
     Ui::MainWindow *ui;

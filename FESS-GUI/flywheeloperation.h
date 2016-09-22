@@ -1,7 +1,7 @@
 #ifndef FLYWHEELOPERATION_H
 #define FLYWHEELOPERATION_H
 
-
+#include <QPointF>
 
 class FlywheelOperation
 {
@@ -11,6 +11,8 @@ public:
     float getVelocity();
     float getAcceleration();
     float getJerk();
+    QPointF getUpperDisplacement();
+    QPointF getLowerDisplacement();
 };
 
 #endif // FLYWHEELOPERATION_H

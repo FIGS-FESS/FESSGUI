@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flywheelOperation = new FlywheelOperation();
 
-    expectedVelocity = ui->velocitySlider->value();
-    expectedAcceleration = ui->accelerationSlider->value();
-    expectedJerk = ui->jerkSlider->value();
+    expectedVelocity = ui->velocitySpinBox->value();
+    expectedAcceleration = ui->accelerationSpinBox->value();
+    expectedJerk = ui->jerkSpinBox->value();
 
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
@@ -38,12 +38,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
 
     if(settings.contains("maxVel")){
-        ui->velSpinBox->setMaximum(settings.value("maxVel", "").toInt());
+        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
         ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
         ui->maxVel->setText((settings.value("maxVel", "").toString()));
     }
     if(settings.contains("maxAcc")){
-        ui->accSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
         ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
         ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
     }
@@ -298,42 +298,40 @@ void MainWindow::on_configButton_clicked()
 
 void MainWindow::on_velocitySlider_valueChanged(int velocity)
 {
-    ui->velSpinBox->setValue(velocity);
-    expectedVelocity = velocity;
+    ui->velocitySpinBox->setValue(velocity);
 }
 
 void MainWindow::on_accelerationSlider_valueChanged(int acceleration)
 {
-    ui->accSpinBox->setValue(acceleration);
-    expectedAcceleration = acceleration;
+    ui->accelerationSpinBox->setValue(acceleration);
 }
 
 void MainWindow::on_jerkSlider_valueChanged(int jerk)
 {
-    ui->jerSpinBox->setValue(jerk);
-    expectedJerk = jerk;
+    ui->jerkSpinBox->setValue(jerk);
 }
 
-void MainWindow::on_velSpinBox_valueChanged(double velocity)
+void MainWindow::on_velocitySpinBox_valueChanged(double velocity)
 {
     ui->velocitySlider->setValue((int)velocity);
-    expectedVelocity = velocity;
 }
 
-void MainWindow::on_accSpinBox_valueChanged(double acceleration)
+void MainWindow::on_accelerationSpinBox_valueChanged(double acceleration)
 {
     ui->accelerationSlider->setValue((int)acceleration);
-    expectedAcceleration = acceleration;
 }
 
-void MainWindow::on_jerSpinBox_valueChanged(double jerk)
+void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 {
     ui->jerkSlider->setValue((int)jerk);
-    expectedJerk = jerk;
 }
 
 void MainWindow::on_goButton_clicked()
 {
+    expectedVelocity = ui->velocitySpinBox->value();
+    expectedAcceleration = ui->accelerationSpinBox->value();
+    expectedJerk = ui->jerkSpinBox->value();
+
     stopplayer->stop();
     goplayer->stop();
 
@@ -568,13 +566,13 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         QKeySequence newStopKey = ui->eStopKey->keySequence();
 
         if(!newMaxVel.isEmpty()){
-            ui->velSpinBox->setMaximum(newMaxVel.toInt());
+            ui->velocitySpinBox->setMaximum(newMaxVel.toInt());
             ui->velocitySlider->setMaximum(newMaxVel.toInt());
             ui->velocitySlider->setTickInterval(newMaxVel.toInt() / 5);
             settings.setValue("maxVel", newMaxVel);
         }
         if(!newMaxAcc.isEmpty()){
-            ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+            ui->accelerationSpinBox->setMaximum(newMaxAcc.toInt());
             ui->accelerationSlider->setMaximum(newMaxAcc.toInt());
             ui->accelerationSlider->setTickInterval(newMaxAcc.toInt() / 5);
             settings.setValue("maxAcc", newMaxAcc);
@@ -586,6 +584,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         ui->textBrowser->append("Configuration changed");
         ui->lineEditPassword->clear();
     } else {
+        ui->textBrowser->append("Wrong password");
         ui->maxVel->setText(QString::number(ui->velocitySlider->maximum()));
         ui->maxAccel->setText(QString::number(ui->accelerationSlider->maximum()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
@@ -596,6 +595,7 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
+
 
 }
 
