@@ -13,6 +13,11 @@ public:
     float getJerk();
     QPointF getUpperDisplacement();
     QPointF getLowerDisplacement();
+    QPointF getRotationalPosition();
+private:
+    QPointF* upperDisplacement;
+    QPointF* lowerDisplacement;
+    QPointF* rotationalPosition;
 };
 
 #endif // FLYWHEELOPERATION_H

@@ -136,8 +136,9 @@ void MainWindow::realtimeDataSlot()
 
     double actualVelocity = flywheelOperation->getVelocity();
     double actualAcceleration = flywheelOperation->getAcceleration();
-    double x = 2*qCos(key) - qCos(2*key);
-    double y = 2*qSin(key) - qSin(2*key);
+    QPointF upperDisplacement = flywheelOperation->getUpperDisplacement();
+    QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
+    QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
@@ -157,22 +158,22 @@ void MainWindow::realtimeDataSlot()
 
           case (UDT):
           ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
           break;
 
           case (LDT):
           ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
           break;
 
           case (XYD):
           ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
           break;
 
           case (ROT):
           ui->label_13->setText("");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
           break;
       }
 
@@ -181,18 +182,18 @@ void MainWindow::realtimeDataSlot()
       graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
       graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
-      graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
-      graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
-      graphOperation->addRTGData(ui->auxLowDtGraph, key, y, x);
+      graphOperation->addRTGData(ui->mainUdtGraph, key, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->auxUpDtGraph, key, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->mainLdtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->auxLowDtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
 
-      addXYData(x, y, y, x);
-      addRotatData(qCos(key), qSin(key));
+      addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
+      addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
 	  //output data to csv if recording
       if (isRecording){
           rfs << std::setprecision(4) << std::fixed << key << ", " << actualVelocity << ", " << actualAcceleration
-              << ", " << x << ", " << y << ", " << "\n";
+              << ", " << upperDisplacement.x() << ", " << upperDisplacement.y() << ", " << "\n";
       }
 	  
       lastPointKey = key;
@@ -242,17 +243,17 @@ void MainWindow::realtimeDataSlot()
     if (actualAcceleration > maxAcc)
         maxAcc = actualAcceleration;
 
-    if (qFabs(x) > qFabs(maxUpDt[0]))
-        maxUpDt[0] = x;
+    if (qFabs(upperDisplacement.x()) > qFabs(maxUpDt[0]))
+        maxUpDt[0] = upperDisplacement.x();
 
-    if (qFabs(y) > qFabs(maxUpDt[1]))
-        maxUpDt[1] = y;
+    if (qFabs(upperDisplacement.y()) > qFabs(maxUpDt[1]))
+        maxUpDt[1] = upperDisplacement.y();
 
-    if (qFabs(x) > qFabs(maxLwDt[0]))
-        maxLwDt[0] = x;
+    if (qFabs(lowerDisplacement.x()) > qFabs(maxLwDt[0]))
+        maxLwDt[0] = lowerDisplacement.x();
 
-    if (qFabs(y) > qFabs(maxLwDt[1]))
-        maxLwDt[1] = y;
+    if (qFabs(lowerDisplacement.y()) > qFabs(maxLwDt[1]))
+        maxLwDt[1] = lowerDisplacement.y();
 
     //show fps and data points in statusbar
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
