@@ -1,13 +1,13 @@
 #ifndef FLYWHEEL_H
 #define FLYWHEEL_H
 
+#include <queue>
 #include "serial.h"
 
 class Flywheel
 {
     public:
         Flywheel();
-        Flywheel(Serial &swsettings);
 
         ~Flywheel();
 
@@ -47,13 +47,13 @@ class Flywheel
 
         // Private Variables
 
-        float vel;
-        float acc;
-        float jer;
-        float udx;
-        float udy;
-        float ldx;
-        float ldy;
+        std::queue<float> vel;
+        std::queue<float> acc;
+        std::queue<float> jer;
+        std::queue<float> udx;
+        std::queue<float> udy;
+        std::queue<float> ldx;
+        std::queue<float> ldy;
         Serial serial;
 
         // Private Setters
@@ -73,6 +73,8 @@ class Flywheel
         void setAJP(float x, float y);
 
         void setVAJP(float x, float y, float z);
+
+        void sync();
 };
 
 #endif // FLYWHEEL_H

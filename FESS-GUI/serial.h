@@ -1,7 +1,13 @@
-#ifndef SERIAL_H
-#define SERIAL_H
+#ifndef FLY_SERIAL_H
+#define FLY_SERIAL_H
 
-#define MAX 32
+// C Libraries
+#include <queue>
+
+// QT Libraries
+#include <QSerialPort>
+
+// Custom Libraries
 
 class Serial
 {
@@ -9,11 +15,31 @@ class Serial
         Serial();
         ~Serial();
 
-        bool append(char x);
+        char pop();
+        void push(char);
+
         bool getInterfaces();
 
+        bool setInterfaces(int);
+        bool setBaudRate(int);
+        bool setParity(int);
+        bool setFlowControl(int);
+        bool setDataBits(int);
+        bool setStopBits(int);
+        void setDefaults();
+
     private:
-        int len;
+        int  interfac;
+        int  baudrate;
+        char parity;
+        char flowctrl;
+        char databits;
+        char stopbits;
+
+        std::queue<char> in;
+        std::queue<char> out;
+
+        QSerialPort s;
 };
 
-#endif // SERIAL_H
+#endif // FLY_SERIAL_H
