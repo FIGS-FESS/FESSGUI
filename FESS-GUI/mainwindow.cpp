@@ -167,6 +167,7 @@ void MainWindow::realtimeDataSlot()
           break;
 
           case (XYD):
+          //todo: correct this
           ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
           ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
           break;
