@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
+#include "flywheeloperation.h"
 #include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
@@ -17,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     qsrand(time(NULL));
+
+    flywheelOperation = new FlywheelOperation();
 
     expectedVelocity = ui->velocitySlider->value();
     expectedAcceleration = ui->accelerationSlider->value();
@@ -131,8 +134,8 @@ void MainWindow::realtimeDataSlot()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
 
-    double actualVelocity = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-    double actualAcceleration = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+    double actualVelocity = flywheelOperation->getVelocity();
+    double actualAcceleration = flywheelOperation->getAcceleration();
     double x = 2*qCos(key) - qCos(2*key);
     double y = 2*qSin(key) - qSin(2*key);
 

@@ -7,6 +7,7 @@
 #include <qcustomplot.h>
 #include <fstream>
 #include "graphoperation.h"
+#include "flywheeloperation.h"
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +42,7 @@ public:
 
 private:
     GraphOperation* graphOperation;
+    FlywheelOperation* flywheelOperation;
     void transferAxes(QCustomPlot* graph);
 
 private slots:
