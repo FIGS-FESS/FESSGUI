@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     recording = new RecordingOperation();
 
+    ui->pushButton_ApplySettings->setEnabled(false);
+
     QSettings settings("settings.ini", QSettings::IniFormat);
 
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
@@ -568,6 +570,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         }
         ui->textBrowser->append("Configuration changed");
         ui->lineEditPassword->clear();
+        ui->pushButton_ApplySettings->setEnabled(false);
     } else {
         ui->textBrowser->append("Wrong password");
         ui->maxVel->setText(QString::number(ui->velocitySlider->maximum()));
@@ -582,6 +585,14 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     d->show();
 
 
+}
+
+void MainWindow::on_lineEditPassword_textEdited(const QString &password)
+{
+    if (password.isEmpty())
+        ui->pushButton_ApplySettings->setEnabled(false);
+    else
+        ui->pushButton_ApplySettings->setEnabled(true);
 }
 
 
