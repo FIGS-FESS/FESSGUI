@@ -5,9 +5,9 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
-#include <fstream>
 #include "graphoperation.h"
 #include "flywheeloperation.h"
+#include "recordingoperation.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,11 +21,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-
+    RecordingOperation *recording;
     QTimer *dataTimer;
     bool playSounds = false;
     bool isRecording = false;
-    std::ofstream rfs;
     double expectedVelocity;
     double expectedAcceleration;
     double expectedJerk;

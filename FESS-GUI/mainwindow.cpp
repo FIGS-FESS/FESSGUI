@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
+    recording = new RecordingOperation();
+
     QSettings settings("settings.ini", QSettings::IniFormat);
 
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
@@ -193,13 +195,15 @@ void MainWindow::realtimeDataSlot()
 
 	  //output data to csv if recording
       if (isRecording){
-          rfs << std::setprecision(4) << std::fixed << key << ", " << actualVelocity << ", " << actualAcceleration
-              << ", " << upperDisplacement.x() << ", " << upperDisplacement.y() << ", " << "\n";
+          recording->Record(key, actualVelocity, actualAcceleration,
+                            upperDisplacement.x(), upperDisplacement.y(),
+                            lowerDisplacement.x(), lowerDisplacement.y(),
+                            rotationalPosition.x(), rotationalPosition.y());
       }
 	  
       lastPointKey = key;
-
     }
+
     // make key axis range scroll with the data (at a constant range size of 8):
     ui->mainVelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->mainVelGraph->replot();
@@ -502,27 +506,7 @@ void MainWindow::on_actionStart_Recording_triggered()
 {
     if(!isRecording){
         isRecording = true;
-
-        time_t rawtime;
-        struct tm * timeinfo;
-        time ( &rawtime );
-        timeinfo = localtime ( &rawtime );
-
-        //Set filename using stringstream
-        std::stringstream iss;
-        iss << "FlywheelOutput_";
-        iss << std::setw(4) << std::setfill('0') << (timeinfo->tm_year)+1900; //setw() and setfill('0') ensure leading zeros are there.
-        iss << std::setw(2) << std::setfill('0') << (timeinfo->tm_mon)+1;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_mday;
-        iss << "_";
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_min;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
-        iss << ".csv";
-        std::string filename = iss.str();
-
-        rfs.open(filename.c_str());
-        rfs << "Time, " << " Actual Vel " << " Actual Acc " << " X," << " Y," << std::endl;
+        recording->Start();
 
         ui->actionStart_Recording->setEnabled(false);
         ui->actionStop_Recording->setEnabled(true);
@@ -536,8 +520,7 @@ void MainWindow::on_actionStart_Recording_triggered()
 void MainWindow::on_actionStop_Recording_triggered()
 {
     if (isRecording){
-        rfs << std::flush;
-        rfs.close();
+
 
         isRecording = false;
         ui->actionStart_Recording->setEnabled(true);

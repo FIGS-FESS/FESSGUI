@@ -17,13 +17,15 @@ SOURCES += main.cpp\
         qcustomplot.cpp \
     setpassworddialog.cpp \
     graphoperation.cpp \
-    flywheeloperation.cpp
+    flywheeloperation.cpp \
+    recordingoperation.cpp
 
 HEADERS  += mainwindow.h \
          qcustomplot.h \
     setpassworddialog.h \
     graphoperation.h \
-    flywheeloperation.h
+    flywheeloperation.h \
+    recordingoperation.h
 
 FORMS    += mainwindow.ui \
     setpassworddialog.ui
