@@ -72,8 +72,6 @@ private slots:
 
     void on_actionDefault_triggered();
 
-    void keyPressEvent(QKeyEvent *event);
-
     void on_velocButton_clicked();
 
     void on_accelButton_clicked();
