@@ -581,6 +581,9 @@ p, li { white-space: pre-wrap; }
              <property name="checkable">
               <bool>false</bool>
              </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
              <property name="autoDefault">
               <bool>false</bool>
              </property>
