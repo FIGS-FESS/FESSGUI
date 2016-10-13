@@ -18,8 +18,13 @@ SOURCES += main.cpp\
     setpassworddialog.cpp \
     graphoperation.cpp \
 <<<<<<< HEAD
+<<<<<<< HEAD
     flywheel.cpp \
     serial.cpp
+=======
+    flywheeloperation.cpp \
+    recordingoperation.cpp
+>>>>>>> master
 =======
     flywheeloperation.cpp \
     recordingoperation.cpp
@@ -30,8 +35,13 @@ HEADERS  += mainwindow.h \
     setpassworddialog.h \
     graphoperation.h \
 <<<<<<< HEAD
+<<<<<<< HEAD
     flywheel.h \
     serial.h
+=======
+    flywheeloperation.h \
+    recordingoperation.h
+>>>>>>> master
 =======
     flywheeloperation.h \
     recordingoperation.h
