@@ -5,8 +5,9 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
-#include <fstream>
 #include "graphoperation.h"
+#include "flywheeloperation.h"
+#include "recordingoperation.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,11 +21,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
-
+    RecordingOperation *recording;
     QTimer *dataTimer;
     bool playSounds = false;
     bool isRecording = false;
-    std::ofstream rfs;
     double expectedVelocity;
     double expectedAcceleration;
     double expectedJerk;
@@ -41,6 +41,7 @@ public:
 
 private:
     GraphOperation* graphOperation;
+    FlywheelOperation* flywheelOperation;
     void transferAxes(QCustomPlot* graph);
 
 private slots:
@@ -97,11 +98,11 @@ private slots:
 
     void on_actionSet_Reset_Password_triggered();
 
-    void on_velSpinBox_valueChanged(double velocity);
+    void on_velocitySpinBox_valueChanged(double velocity);
 
-    void on_accSpinBox_valueChanged(double acceleration);
+    void on_accelerationSpinBox_valueChanged(double acceleration);
 
-    void on_jerSpinBox_valueChanged(double jerk);
+    void on_jerkSpinBox_valueChanged(double jerk);
 
 public:
     Ui::MainWindow *ui;

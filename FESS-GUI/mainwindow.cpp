@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
+#include "flywheeloperation.h"
 #include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
@@ -18,9 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    expectedVelocity = ui->velocitySlider->value();
-    expectedAcceleration = ui->accelerationSlider->value();
-    expectedJerk = ui->jerkSlider->value();
+    flywheelOperation = new FlywheelOperation();
+
+    expectedVelocity = ui->velocitySpinBox->value();
+    expectedAcceleration = ui->accelerationSpinBox->value();
+    expectedJerk = ui->jerkSpinBox->value();
 
     eStopShortcut = new QAction(this);
     addAction(eStopShortcut);
@@ -30,17 +33,19 @@ MainWindow::MainWindow(QWidget *parent) :
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
+    recording = new RecordingOperation();
+
     QSettings settings("settings.ini", QSettings::IniFormat);
 
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
 
     if(settings.contains("maxVel")){
-        ui->velSpinBox->setMaximum(settings.value("maxVel", "").toInt());
+        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
         ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
         ui->maxVel->setText((settings.value("maxVel", "").toString()));
     }
     if(settings.contains("maxAcc")){
-        ui->accSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
         ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
         ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
     }
@@ -131,10 +136,11 @@ void MainWindow::realtimeDataSlot()
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
     static double lastPointKey = 0;
 
-    double actualVelocity = /*qSin(key);*/ qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
-    double actualAcceleration = /*qCos(key); */qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
-    double x = 2*qCos(key) - qCos(2*key);
-    double y = 2*qSin(key) - qSin(2*key);
+    double actualVelocity = flywheelOperation->getVelocity();
+    double actualAcceleration = flywheelOperation->getAcceleration();
+    QPointF upperDisplacement = flywheelOperation->getUpperDisplacement();
+    QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
+    QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
     if (key-lastPointKey > 0.01) // at most add point every 10 ms
     {
@@ -154,22 +160,23 @@ void MainWindow::realtimeDataSlot()
 
           case (UDT):
           ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
           break;
 
           case (LDT):
           ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
           break;
 
           case (XYD):
+          //todo: correct this
           ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y) + " mm");
+          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
           break;
 
           case (ROT):
           ui->label_13->setText("");
-          ui->label_12->setText(QString::number(x) + ", " + QString::number(y));
+          ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
           break;
       }
 
@@ -178,23 +185,25 @@ void MainWindow::realtimeDataSlot()
       graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
       graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, key, x, y);
-      graphOperation->addRTGData(ui->auxUpDtGraph, key, x, y);
-      graphOperation->addRTGData(ui->mainLdtGraph, key, y, x);
-      graphOperation->addRTGData(ui->auxLowDtGraph, key, y, x);
+      graphOperation->addRTGData(ui->mainUdtGraph, key, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->auxUpDtGraph, key, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->mainLdtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->auxLowDtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
 
-      addXYData(x, y, y, x);
-      addRotatData(qCos(key), qSin(key));
+      addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
+      addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
 	  //output data to csv if recording
       if (isRecording){
-          rfs << std::setprecision(4) << std::fixed << key << ", " << actualVelocity << ", " << actualAcceleration
-              << ", " << x << ", " << y << ", " << "\n";
+          recording->Record(key, actualVelocity, actualAcceleration,
+                            upperDisplacement.x(), upperDisplacement.y(),
+                            lowerDisplacement.x(), lowerDisplacement.y(),
+                            rotationalPosition.x(), rotationalPosition.y());
       }
 	  
       lastPointKey = key;
-
     }
+
     // make key axis range scroll with the data (at a constant range size of 8):
     ui->mainVelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
     ui->mainVelGraph->replot();
@@ -239,17 +248,17 @@ void MainWindow::realtimeDataSlot()
     if (actualAcceleration > maxAcc)
         maxAcc = actualAcceleration;
 
-    if (qFabs(x) > qFabs(maxUpDt[0]))
-        maxUpDt[0] = x;
+    if (qFabs(upperDisplacement.x()) > qFabs(maxUpDt[0]))
+        maxUpDt[0] = upperDisplacement.x();
 
-    if (qFabs(y) > qFabs(maxUpDt[1]))
-        maxUpDt[1] = y;
+    if (qFabs(upperDisplacement.y()) > qFabs(maxUpDt[1]))
+        maxUpDt[1] = upperDisplacement.y();
 
-    if (qFabs(x) > qFabs(maxLwDt[0]))
-        maxLwDt[0] = x;
+    if (qFabs(lowerDisplacement.x()) > qFabs(maxLwDt[0]))
+        maxLwDt[0] = lowerDisplacement.x();
 
-    if (qFabs(y) > qFabs(maxLwDt[1]))
-        maxLwDt[1] = y;
+    if (qFabs(lowerDisplacement.y()) > qFabs(maxLwDt[1]))
+        maxLwDt[1] = lowerDisplacement.y();
 
     //show fps and data points in statusbar
     if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
@@ -295,42 +304,40 @@ void MainWindow::on_configButton_clicked()
 
 void MainWindow::on_velocitySlider_valueChanged(int velocity)
 {
-    ui->velSpinBox->setValue(velocity);
-    expectedVelocity = velocity;
+    ui->velocitySpinBox->setValue(velocity);
 }
 
 void MainWindow::on_accelerationSlider_valueChanged(int acceleration)
 {
-    ui->accSpinBox->setValue(acceleration);
-    expectedAcceleration = acceleration;
+    ui->accelerationSpinBox->setValue(acceleration);
 }
 
 void MainWindow::on_jerkSlider_valueChanged(int jerk)
 {
-    ui->jerSpinBox->setValue(jerk);
-    expectedJerk = jerk;
+    ui->jerkSpinBox->setValue(jerk);
 }
 
-void MainWindow::on_velSpinBox_valueChanged(double velocity)
+void MainWindow::on_velocitySpinBox_valueChanged(double velocity)
 {
     ui->velocitySlider->setValue((int)velocity);
-    expectedVelocity = velocity;
 }
 
-void MainWindow::on_accSpinBox_valueChanged(double acceleration)
+void MainWindow::on_accelerationSpinBox_valueChanged(double acceleration)
 {
     ui->accelerationSlider->setValue((int)acceleration);
-    expectedAcceleration = acceleration;
 }
 
-void MainWindow::on_jerSpinBox_valueChanged(double jerk)
+void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 {
     ui->jerkSlider->setValue((int)jerk);
-    expectedJerk = jerk;
 }
 
 void MainWindow::on_goButton_clicked()
 {
+    expectedVelocity = ui->velocitySpinBox->value();
+    expectedAcceleration = ui->accelerationSpinBox->value();
+    expectedJerk = ui->jerkSpinBox->value();
+
     stopplayer->stop();
     goplayer->stop();
 
@@ -499,27 +506,7 @@ void MainWindow::on_actionStart_Recording_triggered()
 {
     if(!isRecording){
         isRecording = true;
-
-        time_t rawtime;
-        struct tm * timeinfo;
-        time ( &rawtime );
-        timeinfo = localtime ( &rawtime );
-
-        //Set filename using stringstream
-        std::stringstream iss;
-        iss << "FlywheelOutput_";
-        iss << std::setw(4) << std::setfill('0') << (timeinfo->tm_year)+1900; //setw() and setfill('0') ensure leading zeros are there.
-        iss << std::setw(2) << std::setfill('0') << (timeinfo->tm_mon)+1;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_mday;
-        iss << "_";
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_hour;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_min;
-        iss << std::setw(2) << std::setfill('0') << timeinfo->tm_sec;
-        iss << ".csv";
-        std::string filename = iss.str();
-
-        rfs.open(filename.c_str());
-        rfs << "Time, " << " Actual Vel " << " Actual Acc " << " X," << " Y," << std::endl;
+        recording->Start();
 
         ui->actionStart_Recording->setEnabled(false);
         ui->actionStop_Recording->setEnabled(true);
@@ -533,8 +520,7 @@ void MainWindow::on_actionStart_Recording_triggered()
 void MainWindow::on_actionStop_Recording_triggered()
 {
     if (isRecording){
-        rfs << std::flush;
-        rfs.close();
+
 
         isRecording = false;
         ui->actionStart_Recording->setEnabled(true);
@@ -565,13 +551,13 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         QKeySequence newStopKey = ui->eStopKey->keySequence();
 
         if(!newMaxVel.isEmpty()){
-            ui->velSpinBox->setMaximum(newMaxVel.toInt());
+            ui->velocitySpinBox->setMaximum(newMaxVel.toInt());
             ui->velocitySlider->setMaximum(newMaxVel.toInt());
             ui->velocitySlider->setTickInterval(newMaxVel.toInt() / 5);
             settings.setValue("maxVel", newMaxVel);
         }
         if(!newMaxAcc.isEmpty()){
-            ui->accSpinBox->setMaximum(newMaxAcc.toInt());
+            ui->accelerationSpinBox->setMaximum(newMaxAcc.toInt());
             ui->accelerationSlider->setMaximum(newMaxAcc.toInt());
             ui->accelerationSlider->setTickInterval(newMaxAcc.toInt() / 5);
             settings.setValue("maxAcc", newMaxAcc);
@@ -583,6 +569,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked()
         ui->textBrowser->append("Configuration changed");
         ui->lineEditPassword->clear();
     } else {
+        ui->textBrowser->append("Wrong password");
         ui->maxVel->setText(QString::number(ui->velocitySlider->maximum()));
         ui->maxAccel->setText(QString::number(ui->accelerationSlider->maximum()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
@@ -593,6 +580,7 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
+
 
 }
 

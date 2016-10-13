@@ -1,10 +1,13 @@
-#include <queue>
-
+// THIS Header
 #include "flywheel.h"
 
-Flywheel::Flywheel()
+// Custom Libraries
+#include "commands.h"
+
+Flywheel::Flywheel(Interface *inter)
 {
-    setDefaults();
+   interface = inter;
+   //setDefaults();
 }
 
 Flywheel::~Flywheel()
@@ -12,45 +15,59 @@ Flywheel::~Flywheel()
 
 // Setters
 
-void Flywheel::setV(float vel)
+void Flywheel::setV(float x)
 {
-    setVP(vel);
+    interface->push(COMMAND_SET_V);
+    interface->push(x);
 }
 
-void Flywheel::setA(float acc)
+void Flywheel::setA(float x)
 {
-    setAP(acc);
+    interface->push(COMMAND_SET_A);
+    interface->push(x);
 }
 
-void Flywheel::setJ(float jer)
+void Flywheel::setJ(float x)
 {
-    setJP(jer);
+    interface->push(COMMAND_SET_J);
+    interface->push(x);
 }
 
-void Flywheel::setVA(float vel, float acc)
+void Flywheel::setVA(float x, float y)
 {
-    setVAP(vel,acc);
+    interface->push(COMMAND_SET_VA);
+    interface->push(x);
+    interface->push(y);
 }
 
-void Flywheel::setVJ(float vel, float jer)
+void Flywheel::setVJ(float x, float y)
 {
-    setVJP(vel,jer);
+    interface->push(COMMAND_SET_VJ);
+    interface->push(x);
+    interface->push(y);
 }
 
-void Flywheel::setAJ(float acc, float jer)
+void Flywheel::setAJ(float x, float y)
 {
-    setAJP(acc,jer);
+    interface->push(COMMAND_SET_AJ);
+    interface->push(x);
+    interface->push(y);
 }
 
-void Flywheel::setVAJ(float vel, float acc, float jer)
+void Flywheel::setVAJ(float x, float y, float z)
 {
-    setVAJP(vel,acc,jer);
+    interface->push(COMMAND_SET_VAJ);
+    interface->push(x);
+    interface->push(y);
+    interface->push(z);
 }
 
 // Getters
 
 float Flywheel::getV()
 {
+    sync();
+
     float val = vel.front();
 
     if (!(vel.empty()-1))
@@ -63,6 +80,8 @@ float Flywheel::getV()
 
 float Flywheel::getA()
 {
+    sync();
+
     float val = acc.front();
 
     if (!(acc.empty()-1))
@@ -75,6 +94,8 @@ float Flywheel::getA()
 
 float Flywheel::getJ()
 {
+    sync();
+
     float val = jer.front();
 
     if (!(jer.empty()-1))
@@ -87,6 +108,8 @@ float Flywheel::getJ()
 
 float Flywheel::getLDX()
 {
+    sync();
+
     float val = ldx.front();
 
     if (!(ldx.empty()-1))
@@ -99,6 +122,8 @@ float Flywheel::getLDX()
 
 float Flywheel::getLDY()
 {
+    sync();
+
     float val = ldy.front();
 
     if (!(ldy.empty()-1))
@@ -111,6 +136,8 @@ float Flywheel::getLDY()
 
 float Flywheel::getUPX()
 {
+    sync();
+
     float val = udx.front();
 
     if (!(udx.empty()-1))
@@ -123,6 +150,8 @@ float Flywheel::getUPX()
 
 float Flywheel::getUPY()
 {
+    sync();
+
     float val = udy.front();
 
     if (!(udy.empty()-1))
@@ -146,153 +175,104 @@ void Flywheel::setDefaults()
     ldy.push(0.0);
 }
 
-void Flywheel::setVP(float x)
-{
-    serial.push(0x29);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setAP(float x)
-{
-    serial.push(0x2A);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setJP(float x)
-{
-    serial.push(0x2B);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setVAP(float x, float y)
-{
-    serial.push(0x2C);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-    serial.push(((((char)y) & 0x0F) >> 0x0));
-    serial.push(((((char)y) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setVJP(float x, float y)
-{
-    serial.push(0x2D);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-    serial.push(((((char)y) & 0x0F) >> 0x0));
-    serial.push(((((char)y) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setAJP(float x, float y)
-{
-    serial.push(0x2E);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-    serial.push(((((char)y) & 0x0F) >> 0x0));
-    serial.push(((((char)y) & 0xF0) >> 0x8));
-}
-
-void Flywheel::setVAJP(float x, float y, float z)
-{
-    serial.push(0x2C);
-    serial.push(((((char)x) & 0x0F) >> 0x0));
-    serial.push(((((char)x) & 0xF0) >> 0x8));
-    serial.push(((((char)y) & 0x0F) >> 0x0));
-    serial.push(((((char)y) & 0xF0) >> 0x8));
-    serial.push(((((char)z) & 0x0F) >> 0x0));
-    serial.push(((((char)z) & 0xF0) >> 0x8));
-}
-
 void Flywheel::sync()
 {
-    char len = serial.pop();
-    char cod = serial.pop();
+    char cod = 1;
+    char len = 1;
 
-    if ((len << 3) == 8)
+    while(cod)
     {
-        len = len >> 1;
+        cod = interface->pop();
+        len = (cod >> 5);
+        cod = cod & 0x1F;
 
         switch(cod)
         {
-            case 0x0: // Emergency Stop
+            case 0x10: // Emergency Stop
             {
                 break;
             }
 
-            case 0x5: // FIFO Full
+            case 0x11: // FIFO Full
             {
                 break;
             }
 
-            case 0x9: // Velocity
+            case 0x19: // Velocity
             {
                 for (int i = 0; i<len; i++)
                 {
-                    vel.push((float)((serial.pop() << 8) & (serial.pop())));
+                    vel.push(getData());
                 }
                 break;
             }
 
-            case 0xA: // Acceleration
+            case 0x1A: // Acceleration
             {
                 for (int i = 0; i<len; i++)
                 {
-                    acc.push((float)((serial.pop() << 8) & (serial.pop())));
+                    acc.push(getData());
                 }
                 break;
             }
 
-            case 0xB: // Jerk
+            case 0x1B: // Jerk
             {
                 for (int i = 0; i<len; i++)
                 {
-                    jer.push((float)((serial.pop() << 8) & (serial.pop())));
+                    jer.push(getData());
                 }
                 break;
             }
 
-            case 0xC:  // Lower Displacement
+            case 0x1C: // Lower Displacement
             {
                 for (int i = 0; i<len; i++)
                 {
-                    ldx.push((float)((serial.pop() << 8) & (serial.pop())));
-                    ldy.push((float)((serial.pop() << 8) & (serial.pop())));
+                    ldx.push(getData());
+                    ldy.push(getData());
                 }
                 break;
             }
 
-            case 0xD: // Upper Displacement
+            case 0x1D: // Upper Displacement
             {
                 for (int i = 0; i<len; i++)
                 {
-                    udx.push((float)((serial.pop() << 8) & (serial.pop())));
-                    udy.push((float)((serial.pop() << 8) & (serial.pop())));
+                    udx.push(getData());
+                    udy.push(getData());
                 }
                 break;
             }
 
-            case 0xE:  // All
+            case 0x1E:  // All
             {
-                vel.push((float)((serial.pop() << 8) & (serial.pop())));
-                acc.push((float)((serial.pop() << 8) & (serial.pop())));
-                jer.push((float)((serial.pop() << 8) & (serial.pop())));
-                ldx.push((float)((serial.pop() << 8) & (serial.pop())));
-                ldy.push((float)((serial.pop() << 8) & (serial.pop())));
-                udx.push((float)((serial.pop() << 8) & (serial.pop())));
-                udy.push((float)((serial.pop() << 8) & (serial.pop())));
+                vel.push(getData());
+                acc.push(getData());
+                jer.push(getData());
+                ldx.push(getData());
+                ldy.push(getData());
+                udx.push(getData());
+                udy.push(getData());
                 break;
             }
 
             default: // Error: Unknown Commands
             {
+                interface->flush();
                 break;
             }
         }
     }
-    else
-    {
-        // Error: Invalid Data
-    }
+}
+
+float Flywheel::getData()
+{
+    unsigned char val[4];
+    val[0] = interface->pop();
+    val[1] = interface->pop();
+    val[2] = interface->pop();
+    val[3] = interface->pop();
+
+    return *reinterpret_cast<float *>(&val);
 }

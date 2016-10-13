@@ -1,49 +1,10 @@
-// C Libraries
-#include <queue>
-
-// QT Libraries
-#include <QtGui>
-#include <QSerialPort>
-#include <QSerialPortInfo>
-
-// Custom Libraries
+// THIS Header
 #include "serial.h"
-
-
 
 Serial::Serial()
 {
+    getDevices();
     setDefaults();
-
-    qDebug() << "Serial: Searching for Devices";
-
-    // Example use QSerialPortInfo
-    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
-    {
-        qDebug() << "Name : " << info.portName();
-        qDebug() << "Description : " << info.description();
-        qDebug() << "Manufacturer: " << info.manufacturer();
-
-        // Example use QSerialPort
-
-        s.setPort(info);
-
-        if (s.open(QIODevice::ReadWrite))
-        {
-            s.putChar('a');
-            s.flush();
-
-            //if (serial.readyRead())
-            {
-                qDebug() << "Read:" << s.readAll();
-            }
-
-            s.close();
-        }
-    }
-
-    qDebug() << "Serial: Done";
-
 }
 
 Serial::~Serial()
@@ -51,28 +12,35 @@ Serial::~Serial()
 
 }
 
-char Serial::pop()
+bool Serial::getDevices()
 {
-    char val = 0;
+    portlist = QSerialPortInfo::availablePorts();
+    available = portlist.size();
 
-    if(!in.empty())
+    if (available > 0)
     {
-        val = in.front();
-        in.pop();
+        return true;
     }
-
-    return val;
+    else
+    {
+        return false;
+    }
 }
 
-
-void Serial::push(char byt)
+bool Serial::setDevice(int interface)
 {
-    out.push(byt);
+    if ((available > 0) && (available >= interface) && (interface >= 0))
+    {
+        port = portlist[interface];
+        device.setPort(port);
+        return true;
+    }
+    return false;
 }
 
 bool Serial::setBaudRate(int rate)
 {
-    s.setBaudRate(rate);
+    return device.setBaudRate(rate,QSerialPort::AllDirections);
 }
 
 bool Serial::setParity(int pari)
@@ -81,23 +49,27 @@ bool Serial::setParity(int pari)
     {
         case 0:
         {
-            s.setParity(QSerialPort::NoParity);
+            device.setParity(QSerialPort::NoParity);
+            return true;
             break;
         }
         case 1:
         {
-            s.setParity(QSerialPort::OddParity);
+            device.setParity(QSerialPort::OddParity);
+            return true;
             break;
         }
 
         case 2:
         {
-            s.setParity(QSerialPort::EvenParity);
+            device.setParity(QSerialPort::EvenParity);
+            return true;
             break;
         }
         default:
         {
-            // Error
+            return false;
+            break;
         }
     }
 }
@@ -108,43 +80,157 @@ bool Serial::setFlowControl(int flow)
     {
         case 0:
         {
-            s.setFlowControl(QSerialPort::NoFlowControl);
+            device.setFlowControl(QSerialPort::NoFlowControl);
+            return true;
             break;
         }
         case 1:
         {
-            s.setFlowControl(QSerialPort::HardwareControl);
+            device.setFlowControl(QSerialPort::HardwareControl);
+            return true;
             break;
         }
 
         case 2:
         {
-            s.setFlowControl(QSerialPort::SoftwareControl);
+            device.setFlowControl(QSerialPort::SoftwareControl);
+            return true;
             break;
         }
         default:
         {
-            // Error
+            return false;
+            break;
         }
     }
 }
 
 bool Serial::setDataBits(int bits)
 {
-    s.setDataBits(bits);
+    switch(bits)
+    {
+        case 5:
+        {
+            device.setDataBits(QSerialPort::Data5);
+            return true;
+            break;
+        }
+
+        case 6:
+        {
+            device.setDataBits(QSerialPort::Data6);
+            return true;
+            break;
+        }
+        case 7:
+        {
+            device.setDataBits(QSerialPort::Data7);
+            return true;
+            break;
+        }
+
+        case 8:
+        {
+            device.setDataBits(QSerialPort::Data8);
+            return true;
+            break;
+        }
+        default:
+        {
+            return false;
+            break;
+        }
+    }
 }
 
 bool Serial::setStopBits(int bits)
 {
-    s.setStopBits(bits);
+    switch(bits)
+    {
+        case 1:
+        {
+            device.setStopBits(QSerialPort::OneStop);
+            return true;
+            break;
+        }
+
+        case 2:
+        {
+            device.setStopBits(QSerialPort::TwoStop);
+            return true;
+            break;
+        }
+        case 3:
+        {
+            device.setStopBits(QSerialPort::OneAndHalfStop);
+            return true;
+            break;
+        }
+        default:
+        {
+            return false;
+            break;
+        }
+    }
 }
 
 void Serial::setDefaults()
 {
-    setInterfaces(-1);
+    setDevice(0);
     setBaudRate(9600);
     setParity(0);
     setFlowControl(0);
     setDataBits(8);
     setStopBits(1);
+
+    qDebug() << "Serial: Searching for Devices";
+
+    // Example use QSerialPortInfo
+    foreach (const QSerialPortInfo &info, portlist)
+    {
+        qDebug() << "Name : " << info.portName();
+        qDebug() << "Description : " << info.description();
+        qDebug() << "Manufacturer: " << info.manufacturer();
+
+        // Example use QSerialPort
+
+    //    device.setPort(info);
+
+     //   if (device.open(QIODevice::ReadWrite))
+     //   {
+     //       device.putChar('a');
+     //       device.flush();
+
+            //qDebug() << "Read:" << device.readAll();
+
+     //       device.close();
+     //   }
+    }
+
+    qDebug() << "Serial: Done";
+
+}
+
+void Serial::syncDevice()
+{
+    char val;
+
+    while(!internalEmpty())
+    {
+        val = internalPop();
+        qDebug() << "Value:" << val;
+        device.putChar(val);
+        device.flush();
+    }
+}
+
+void Serial::startDevice()
+{
+    device.setPort(port);
+    device.open(QIODevice::ReadWrite);
+}
+
+void Serial::stopDevice()
+{
+    device.close();
 }
