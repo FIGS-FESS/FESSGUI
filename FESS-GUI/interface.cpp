@@ -1,80 +1,143 @@
-#include "interface.h"
-
+// QT Libraries
 #include <QtGui>
 #include <QApplication>
 
+// Custom Libraries
+#include "interface.h"
+
+Interface::Interface(){}
+Interface::~Interface(){}
+
+//--------------------------------------------------------------------
+// Public
+//--------------------------------------------------------------------
+
+void Interface::sync(){}
 
 unsigned char Interface::pop()
 {
-    if(!in.empty())
-    {
-        char val = in.front();
-        in.pop();
-        return val;
-    }
-    else
-    {
-        return 0;
-    }
+    return popRX();
 }
 
-
-void Interface::push(unsigned char byte)
+void Interface::pushChar(unsigned char byte)
 {
-    out.push(byte);
+    qDebug() << "TX Char:" << byte;
+    pushTXChar(byte);
 }
 
-void Interface::push(int val)
+void Interface::pushInt(int val)
 {
-    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
-
-    push(bytes[0]);
-    push(bytes[1]);
-    push(bytes[2]);
-    push(bytes[3]);
+    qDebug() << "TX Int:" << val;
+    pushTXInt(val);
 }
 
-void Interface::push(float val)
+void Interface::pushFloat(float val)
 {
-    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
-
-    qDebug() << "INT: " << bytes[0];
-    qDebug() << "INT: " << bytes[1];
-    qDebug() << "INT: " << bytes[2];
-    qDebug() << "INT: " << bytes[3];
-
-    push(bytes[0]);
-    push(bytes[1]);
-    push(bytes[2]);
-    push(bytes[3]);
+    qDebug() << "TX Float:" << val;
+    pushTXFloat(val);
 }
 
 void Interface::flush()
 {
-    while(!in.empty())
-    {
-        in.pop();
-    }
+    flushRX();
 }
 
-bool Interface::internalEmpty()
+bool Interface::empty()
 {
-    return out.empty();
+    return emptyRX();
 }
 
-unsigned char Interface::internalPop()
+//--------------------------------------------------------------------
+// Protected
+//--------------------------------------------------------------------
+
+
+// TX Methods
+//--------------------------------------------------------------------
+bool Interface::emptyTX()
 {
-    if(!out.empty())
-    {
-        unsigned char val = out.front();
-        out.pop();
-        return val;
-    }
+    return tx.empty();
 }
 
-void Interface::internalPush(unsigned char byt)
+unsigned char Interface::popTX()
 {
-     in.push(byt);
+    unsigned char val = tx.front();
+    tx.pop();
+    return val;
 }
 
+void Interface::pushTXChar(unsigned char byt)
+{
+     tx.push(byt);
+}
 
+void Interface::pushTXInt(int val)
+{
+    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+
+    tx.push(bytes[0]);
+    tx.push(bytes[1]);
+    tx.push(bytes[2]);
+    tx.push(bytes[3]);
+}
+
+void Interface::pushTXFloat(float val)
+{
+    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+
+    tx.push(bytes[0]);
+    tx.push(bytes[1]);
+    tx.push(bytes[2]);
+    tx.push(bytes[3]);
+}
+
+void Interface::flushTX()
+{
+    std::queue<unsigned char> empty;
+    std::swap(tx, empty);
+}
+
+// RX Methods
+//--------------------------------------------------------------------
+bool Interface::emptyRX()
+{
+    return rx.empty();
+}
+
+unsigned char Interface::popRX()
+{
+    unsigned char val = rx.front();
+    rx.pop();
+    return val;
+}
+
+void Interface::pushRXChar(unsigned char byt)
+{
+     rx.push(byt);
+}
+
+void Interface::pushRXInt(int val)
+{
+    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+
+    rx.push(bytes[0]);
+    rx.push(bytes[1]);
+    rx.push(bytes[2]);
+    rx.push(bytes[3]);
+}
+
+void Interface::pushRXFloat(float val)
+{
+    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+
+    rx.push(bytes[0]);
+    rx.push(bytes[1]);
+    rx.push(bytes[2]);
+    rx.push(bytes[3]);
+}
+
+void Interface::flushRX()
+{
+    std::queue<unsigned char> empty;
+    std::swap(rx, empty);
+}

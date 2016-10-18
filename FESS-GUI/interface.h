@@ -6,24 +6,41 @@
 
 class Interface
 {
-    public:
-        // Used to get and recieve data from an interface
-        unsigned char pop();
+    public: // Used to get and recieve data from an interface
+
+        Interface();
+        ~Interface();
+
+        virtual void sync();
+
+        bool empty();
         void flush();
+        void pushInt(int);
+        void pushFloat(float);
+        void pushChar(unsigned char);
+        unsigned char pop();
 
-        void push(int);
-        void push(float);
-        void push(unsigned char);
+    protected: // For use by subclasses to manage queues
 
-    protected:
-        // For use by subclasses to manage queues
-        bool internalEmpty();
-        unsigned char internalPop();
-        void internalPush(unsigned char);
+        // TX
+        bool emptyTX();
+        unsigned char popTX();
+        void pushTXChar(unsigned char byt);
+        void pushTXInt(int val);
+        void pushTXFloat(float val);
+        void flushTX();
+
+        // RX
+        bool emptyRX();
+        unsigned char popRX();
+        void pushRXChar(unsigned char byt);
+        void pushRXInt(int val);
+        void pushRXFloat(float val);
+        void flushRX();
 
     private:
-        std::queue<unsigned char> in;
-        std::queue<unsigned char> out;
+        std::queue<unsigned char> rx;
+        std::queue<unsigned char> tx;
 };
 
 #endif // INTERFACE_H

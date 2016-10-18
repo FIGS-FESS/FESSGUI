@@ -6,6 +6,9 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+// C++ Libraries
+#include <string>
+
 // Custom Libraries
 #include "interface.h"
 
@@ -15,8 +18,7 @@ class Serial : public Interface
         Serial();
         ~Serial();
 
-        bool getDevices();
-
+        bool findDevices();
         bool setDevice(int);
         bool setBaudRate(int);
         bool setParity(int);
@@ -25,9 +27,12 @@ class Serial : public Interface
         bool setStopBits(int);
         void setDefaults();
 
-        void syncDevice();
+        void sync();
+
         void startDevice();
         void stopDevice();
+
+        std::string getDevices();
 
     private:
         int  interfac;

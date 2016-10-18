@@ -14,14 +14,13 @@ class Flywheel
 
         ~Flywheel();
 
+        void sync();
+
         // Setters
 
         void setV(float vel);
         void setA(float acc);
         void setJ(float jer);
-        void setVA(float vel, float acc);
-        void setVJ(float vel, float jer);
-        void setAJ(float acc, float jer);
         void setVAJ(float vel, float acc, float jer);
 
         // Getters
@@ -51,13 +50,8 @@ class Flywheel
 
         void setDefaults();
 
-        void sync();
-
         // Helper Functions
-
         float getData();
-
-        void sendData(float);
 };
 
 #endif // FLYWHEEL_H

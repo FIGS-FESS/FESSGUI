@@ -3,7 +3,7 @@
 
 Serial::Serial()
 {
-    getDevices();
+    findDevices();
     setDefaults();
 }
 
@@ -12,7 +12,7 @@ Serial::~Serial()
 
 }
 
-bool Serial::getDevices()
+bool Serial::findDevices()
 {
     portlist = QSerialPortInfo::availablePorts();
     available = portlist.size();
@@ -211,13 +211,13 @@ void Serial::setDefaults()
 
 }
 
-void Serial::syncDevice()
+void Serial::sync()
 {
     char val;
 
-    while(!internalEmpty())
+    while(!emptyTX())
     {
-        val = internalPop();
+        val = popTX();
         qDebug() << "Value:" << val;
         device.putChar(val);
         device.flush();

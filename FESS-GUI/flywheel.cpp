@@ -1,3 +1,6 @@
+#include <QtGui>
+#include <QApplication>
+
 // THIS Header
 #include "flywheel.h"
 
@@ -7,7 +10,7 @@
 Flywheel::Flywheel(Interface *inter)
 {
    interface = inter;
-   //setDefaults();
+   setDefaults();
 }
 
 Flywheel::~Flywheel()
@@ -17,60 +20,37 @@ Flywheel::~Flywheel()
 
 void Flywheel::setV(float x)
 {
-    interface->push(COMMAND_SET_V);
-    interface->push(x);
+    interface->pushChar(COMMAND_SET_VELO_FLOA);
+    interface->pushFloat(x);
 }
 
 void Flywheel::setA(float x)
 {
-    interface->push(COMMAND_SET_A);
-    interface->push(x);
+    interface->pushChar(COMMAND_SET_ACCE_FLOA);
+    interface->pushFloat(x);
 }
 
 void Flywheel::setJ(float x)
 {
-    interface->push(COMMAND_SET_J);
-    interface->push(x);
-}
-
-void Flywheel::setVA(float x, float y)
-{
-    interface->push(COMMAND_SET_VA);
-    interface->push(x);
-    interface->push(y);
-}
-
-void Flywheel::setVJ(float x, float y)
-{
-    interface->push(COMMAND_SET_VJ);
-    interface->push(x);
-    interface->push(y);
-}
-
-void Flywheel::setAJ(float x, float y)
-{
-    interface->push(COMMAND_SET_AJ);
-    interface->push(x);
-    interface->push(y);
+    interface->pushChar(COMMAND_SET_JERK_FLOA);
+    interface->pushFloat(x);
 }
 
 void Flywheel::setVAJ(float x, float y, float z)
 {
-    interface->push(COMMAND_SET_VAJ);
-    interface->push(x);
-    interface->push(y);
-    interface->push(z);
+    interface->pushChar(COMMAND_SET_ALLD_FLOA);
+    interface->pushFloat(x);
+    interface->pushFloat(y);
+    interface->pushFloat(z);
 }
 
 // Getters
 
 float Flywheel::getV()
 {
-    sync();
-
     float val = vel.front();
 
-    if (!(vel.empty()-1))
+    if (!vel.empty())
     {
         vel.pop();
     }
@@ -80,11 +60,9 @@ float Flywheel::getV()
 
 float Flywheel::getA()
 {
-    sync();
-
     float val = acc.front();
 
-    if (!(acc.empty()-1))
+    if (!acc.empty())
     {
         acc.pop();
     }
@@ -94,11 +72,9 @@ float Flywheel::getA()
 
 float Flywheel::getJ()
 {
-    sync();
-
     float val = jer.front();
 
-    if (!(jer.empty()-1))
+    if (!jer.empty())
     {
         jer.pop();
     }
@@ -108,11 +84,9 @@ float Flywheel::getJ()
 
 float Flywheel::getLDX()
 {
-    sync();
-
     float val = ldx.front();
 
-    if (!(ldx.empty()-1))
+    if (!ldx.empty())
     {
         ldx.pop();
     }
@@ -122,11 +96,9 @@ float Flywheel::getLDX()
 
 float Flywheel::getLDY()
 {
-    sync();
-
     float val = ldy.front();
 
-    if (!(ldy.empty()-1))
+    if (!ldy.empty())
     {
         ldy.pop();
     }
@@ -136,11 +108,9 @@ float Flywheel::getLDY()
 
 float Flywheel::getUPX()
 {
-    sync();
-
     float val = udx.front();
 
-    if (!(udx.empty()-1))
+    if (!udx.empty())
     {
         udx.pop();
     }
@@ -150,11 +120,9 @@ float Flywheel::getUPX()
 
 float Flywheel::getUPY()
 {
-    sync();
-
     float val = udy.front();
 
-    if (!(udy.empty()-1))
+    if (!udy.empty())
     {
         udy.pop();
     }
@@ -177,75 +145,58 @@ void Flywheel::setDefaults()
 
 void Flywheel::sync()
 {
-    char cod = 1;
-    char len = 1;
+    bool loop = true;
+    interface->sync();
 
-    while(cod)
+    while(!interface->empty() && loop)
     {
-        cod = interface->pop();
-        len = (cod >> 5);
-        cod = cod & 0x1F;
-
-        switch(cod)
+        switch(interface->pop())
         {
-            case 0x10: // Emergency Stop
+            case COMMAND_ERR_EMER_STOP: // Emergency Stop
             {
+                loop = false;
                 break;
             }
 
-            case 0x11: // FIFO Full
+            case COMMAND_ERR_FIFO_FULL: // FIFO Full
             {
+                loop = false;
                 break;
             }
 
-            case 0x19: // Velocity
+            case COMMAND_RES_VELO_FLOA: // Velocity
             {
-                for (int i = 0; i<len; i++)
-                {
-                    vel.push(getData());
-                }
+                vel.push(getData());
                 break;
             }
 
-            case 0x1A: // Acceleration
+            case COMMAND_RES_ACCE_FLOA: // Acceleration
             {
-                for (int i = 0; i<len; i++)
-                {
-                    acc.push(getData());
-                }
+                acc.push(getData());
                 break;
             }
 
-            case 0x1B: // Jerk
+            case COMMAND_RES_JERK_FLOA: // Jerk
             {
-                for (int i = 0; i<len; i++)
-                {
-                    jer.push(getData());
-                }
+                jer.push(getData());
                 break;
             }
 
-            case 0x1C: // Lower Displacement
+            case COMMAND_RES_LOWE_DISP: // Lower Displacement
             {
-                for (int i = 0; i<len; i++)
-                {
-                    ldx.push(getData());
-                    ldy.push(getData());
-                }
+                ldx.push(getData());
+                ldy.push(getData());
                 break;
             }
 
-            case 0x1D: // Upper Displacement
+            case COMMAND_RES_UPPE_DISP: // Upper Displacement
             {
-                for (int i = 0; i<len; i++)
-                {
-                    udx.push(getData());
-                    udy.push(getData());
-                }
+                udx.push(getData());
+                udy.push(getData());
                 break;
             }
 
-            case 0x1E:  // All
+            case COMMAND_RES_ALLD_FLOA:  // All
             {
                 vel.push(getData());
                 acc.push(getData());
@@ -259,6 +210,7 @@ void Flywheel::sync()
 
             default: // Error: Unknown Commands
             {
+                loop = false;
                 interface->flush();
                 break;
             }
@@ -274,5 +226,14 @@ float Flywheel::getData()
     val[2] = interface->pop();
     val[3] = interface->pop();
 
-    return *reinterpret_cast<float *>(&val);
+    qDebug() << val[0]
+             << " "
+             << val[1]
+             << " "
+             << val[2]
+             << " "
+             << val[3]
+             << "\n";
+
+    return *reinterpret_cast<float*>(&val);
 }
