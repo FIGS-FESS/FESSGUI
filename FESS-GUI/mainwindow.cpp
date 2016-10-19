@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
+#include "demo.h"
 #include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
@@ -19,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
+    interface = new Demo();
+    flywheelOperation = new FlywheelOperation(interface); //contains methods for getting and setting flywheel variables
 
     expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
     expectedAcceleration = ui->accelerationSpinBox->value();
@@ -145,6 +147,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //key is the current time
     static double lastPointKey = 0;
 
+    flywheelOperation->sync();
     double actualVelocity = flywheelOperation->getVelocity();               //get all the actual values
     double actualAcceleration = flywheelOperation->getAcceleration();
     QPointF upperDisplacement = flywheelOperation->getUpperDisplacement();
@@ -390,6 +393,8 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
     //Pass information on to text browswer
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
+
+   flywheelOperation->emergencyStop();
 }
 
 void MainWindow::on_actionNone_triggered() //no sounds

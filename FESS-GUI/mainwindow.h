@@ -5,6 +5,7 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
+#include "interface.h"
 #include "graphoperation.h"
 #include "flywheeloperation.h"
 #include "recordingoperation.h"
@@ -40,6 +41,7 @@ public:
     ~MainWindow();
 
 private:
+    Interface *interface;
     GraphOperation* graphOperation;
     FlywheelOperation* flywheelOperation;
     void transferAxes(QCustomPlot* graph);

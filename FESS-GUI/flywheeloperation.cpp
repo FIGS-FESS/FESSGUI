@@ -1,58 +1,257 @@
 #include "flywheeloperation.h"
-#include <cmath>
-#include <QTime>
-#include <QtMath>
 
-FlywheelOperation::FlywheelOperation()
+FlywheelOperation::FlywheelOperation(Interface *inter)
 {
     upperDisplacement = new QPointF();
     lowerDisplacement = new QPointF();
     rotationalPosition = new QPointF();
+
+    interface = inter;
+    setDefaults();
 }
 
-void FlywheelOperation::setMotion(float velocity = NAN, float acceleration = NAN, float jerk = NAN)
+void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk)
 {
+    interface->pushCommand(COMMAND_SET_ALLD_FLOA);
+    interface->pushData(velocity);
+    interface->pushData(acceleration);
+    interface->pushData(jerk);
+}
 
+void FlywheelOperation::setVelocity(float velocity)
+{
+    interface->pushCommand(COMMAND_SET_VELO_FLOA);
+    interface->pushData(velocity);
+}
+
+void FlywheelOperation::setAcceleration(float acceleration)
+{
+    interface->pushCommand(COMMAND_SET_ACCE_FLOA);
+    interface->pushData(acceleration);
+}
+
+void FlywheelOperation::setJerk(float jerk)
+{
+    interface->pushCommand(COMMAND_SET_JERK_FLOA);
+    interface->pushData(jerk);
 }
 
 float FlywheelOperation::getVelocity()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    return qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
+    float val = vel.front();
+
+    if (!vel.empty())
+    {
+        vel.pop();
+    }
+
+    return val;
 }
 
 float FlywheelOperation::getAcceleration()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    return qSin(key*1.3+qCos(key*1.2)*1.2)*7 + qSin(key*0.9+0.26)*24 + 26;
+    float val = acc.front();
+
+    if (!acc.empty())
+    {
+        acc.pop();
+    }
+
+    return val;
 }
 
 float FlywheelOperation::getJerk()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    return key;
+    float val = jer.front();
+
+    if (!jer.empty())
+    {
+        jer.pop();
+    }
+
+    return val;
 }
 
 QPointF FlywheelOperation::getUpperDisplacement()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    upperDisplacement->setX(2*qCos(key) - qCos(2*key));
-    upperDisplacement->setY(2*qSin(key) - qSin(2*key));
+    upperDisplacement->setX(udx.front());
+    upperDisplacement->setY(udy.front());
+
+    if (!udx.empty())
+    {
+        udx.pop();
+    }
+
+    if (!udy.empty())
+    {
+        udy.pop();
+    }
+
     return *upperDisplacement;
 }
 
 QPointF FlywheelOperation::getLowerDisplacement()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    lowerDisplacement->setX(2*qCos(key + 0.1) - qCos(2*key + 0.1));
-    lowerDisplacement->setY(2*qSin(key + 0.1) - qSin(2*key + 0.1));
+    lowerDisplacement->setX(ldx.front());
+    lowerDisplacement->setY(ldy.front());
+
+    if (!ldx.empty())
+    {
+        ldx.pop();
+    }
+
+    if (!ldy.empty())
+    {
+        ldy.pop();
+    }
+
     return *lowerDisplacement;
 }
 
 QPointF FlywheelOperation::getRotationalPosition()
 {
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
-    rotationalPosition->setX(qSin(key));
-    rotationalPosition->setY(qCos(key));
+    rotationalPosition->setX(rpx.front());
+    rotationalPosition->setY(rpy.front());
+
+    if (!rpx.empty())
+    {
+        rpx.pop();
+    }
+
+    if (!rpy.empty())
+    {
+        rpy.pop();
+    }
+
     return *rotationalPosition;
+}
+
+void FlywheelOperation::emergencyStop() // Tells the controller to stop and checks to confirm it stopped
+{
+    emergency_retries = emergency_timeout;
+
+    interface->flushTX();
+    interface->pushCommand(COMMAND_SET_EMER_STOP);
+    interface->sync();
+}
+
+void FlywheelOperation::setDefaults()
+{
+    vel.push(0.0);
+    acc.push(0.0);
+    jer.push(0.0);
+    udx.push(0.0);
+    udy.push(0.0);
+    ldx.push(0.0);
+    ldy.push(0.0);
+    rpx.push(0.0);
+    rpy.push(0.0);
+
+    emergency_retries = 0;
+    emergency_timeout = 100; //Attempts
+
+    emergency_acknowlegded = false;
+}
+
+void FlywheelOperation::sync()
+{
+    bool loop = true;
+    interface->sync();
+
+    while(( !interface->empty() )&&( loop ))
+    {
+        switch(interface->pop())
+        {
+            case COMMAND_ERR_EMER_STOP: // Emergency Stop
+            {
+                emergency_acknowlegded = true;
+                loop = false;
+                break;
+            }
+
+            case COMMAND_ERR_FIFO_FULL: // FIFO Full
+            {
+                loop = false;
+                break;
+            }
+
+            case COMMAND_RES_VELO_FLOA: // Velocity
+            {
+                vel.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_ACCE_FLOA: // Acceleration
+            {
+                acc.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_JERK_FLOA: // Jerk
+            {
+                jer.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_LOWE_DISP: // Lower Displacement
+            {
+                ldx.push(getData());
+                ldy.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_UPPE_DISP: // Upper Displacement
+            {
+                udx.push(getData());
+                udy.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_ROTA_POSI: // Lower Displacement
+            {
+                rpx.push(getData());
+                rpy.push(getData());
+                break;
+            }
+
+            case COMMAND_RES_ALLD_FLOA:  // All
+            {
+                vel.push(getData());
+                acc.push(getData());
+                jer.push(getData());
+                ldx.push(getData());
+                ldy.push(getData());
+                udx.push(getData());
+                udy.push(getData());
+                rpx.push(getData());
+                rpy.push(getData());
+                break;
+            }
+
+            default: // Error: Unknown Commands
+            {
+                loop = false;
+                interface->flush();
+                break;
+            }
+        }
+
+        if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
+        {
+            interface->pushCommand(COMMAND_SET_EMER_STOP);
+            interface->sync();
+            emergency_retries--;
+        }
+    }
+}
+
+float FlywheelOperation::getData()
+{
+    unsigned char val[4];
+    val[0] = interface->pop();
+    val[1] = interface->pop();
+    val[2] = interface->pop();
+    val[3] = interface->pop();
+
+    return *reinterpret_cast<float*>(&val);
 }

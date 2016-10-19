@@ -1,7 +1,3 @@
-// QT Libraries
-#include <QtGui>
-#include <QApplication>
-
 // Custom Libraries
 #include "interface.h"
 
@@ -19,21 +15,18 @@ unsigned char Interface::pop()
     return popRX();
 }
 
-void Interface::pushChar(unsigned char byte)
+void Interface::pushCommand(unsigned char byte)
 {
-    qDebug() << "TX Char:" << byte;
     pushTXChar(byte);
 }
 
-void Interface::pushInt(int val)
+void Interface::pushData(int val)
 {
-    qDebug() << "TX Int:" << val;
     pushTXInt(val);
 }
 
-void Interface::pushFloat(float val)
+void Interface::pushData(float val)
 {
-    qDebug() << "TX Float:" << val;
     pushTXFloat(val);
 }
 

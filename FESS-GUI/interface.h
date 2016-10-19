@@ -15,28 +15,31 @@ class Interface
 
         bool empty();
         void flush();
-        void pushInt(int);
-        void pushFloat(float);
-        void pushChar(unsigned char);
+        void pushData(int);
+        void pushData(float);
+        void pushCommand(unsigned char);
         unsigned char pop();
+
+        bool emptyTX();
+        void flushTX();
+
+        bool emptyRX();
+        void flushRX();
 
     protected: // For use by subclasses to manage queues
 
         // TX
-        bool emptyTX();
         unsigned char popTX();
         void pushTXChar(unsigned char byt);
         void pushTXInt(int val);
         void pushTXFloat(float val);
-        void flushTX();
 
         // RX
-        bool emptyRX();
         unsigned char popRX();
         void pushRXChar(unsigned char byt);
         void pushRXInt(int val);
         void pushRXFloat(float val);
-        void flushRX();
+
 
     private:
         std::queue<unsigned char> rx;
