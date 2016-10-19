@@ -1,9 +1,12 @@
-#include "setpassworddialog.h"
-#include "ui_setpassworddialog.h"
+// QT Libraries
 #include <QSettings>
 #include <QString>
 #include <QDebug>
 #include <QCryptographicHash>
+
+// Custom Libraries
+#include "setpassworddialog.h"
+#include "ui_setpassworddialog.h"
 
 SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     QDialog(parent),

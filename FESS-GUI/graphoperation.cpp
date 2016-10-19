@@ -1,3 +1,4 @@
+// Custom Libraries
 #include "graphoperation.h"
 
 void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain)

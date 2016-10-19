@@ -84,7 +84,7 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -178,7 +178,7 @@ Monitor</string>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
               <widget class="QLabel" name="velocityUnitLabel">
                <property name="text">
-                <string>RPM</string>
+                <string>rad/sec</string>
                </property>
               </widget>
              </item>
@@ -569,7 +569,7 @@ p, li { white-space: pre-wrap; }
            <item row="1" column="0">
             <widget class="QLabel" name="maxVelocityLabel">
              <property name="text">
-              <string>Maximum Velocity (RPM)</string>
+              <string>Maximum Velocity (rad/s)</string>
              </property>
             </widget>
            </item>
@@ -1064,7 +1064,7 @@ Stop</string>
      <x>0</x>
      <y>0</y>
      <width>1190</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">

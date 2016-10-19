@@ -1,13 +1,13 @@
 #ifndef FLY_SERIAL_H
 #define FLY_SERIAL_H
 
+// C/C++ Libraries
+#include <string>
+
 // QT Libraries
 #include <QtGui>
 #include <QSerialPort>
 #include <QSerialPortInfo>
-
-// C++ Libraries
-#include <string>
 
 // Custom Libraries
 #include "interface.h"

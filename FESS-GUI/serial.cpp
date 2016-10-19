@@ -1,4 +1,4 @@
-// THIS Header
+// Custom Libraries
 #include "serial.h"
 
 Serial::Serial()

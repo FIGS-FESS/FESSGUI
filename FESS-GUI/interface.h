@@ -1,7 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-// C++ Libraries
+// C/C++ Libraries
 #include <queue>
 
 class Interface

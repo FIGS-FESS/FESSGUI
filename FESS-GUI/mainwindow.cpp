@@ -1,16 +1,21 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "setpassworddialog.h"
-#include "flywheeloperation.h"
-#include "demo.h"
-#include <QCryptographicHash>
-#include <QKeyEvent>
-#include <QTime>
-#include <qwidget.h>
+// C/C++ Libraries
 #include <ctime>
 #include <iomanip>
 #include <string>
 #include <sstream>
+
+// QT Libraries
+#include <QCryptographicHash>
+#include <QKeyEvent>
+#include <QTime>
+#include <qwidget.h>
+
+// Custom Libraries
+#include "demo.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "setpassworddialog.h"
+#include "flywheeloperation.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
     graphOperation->SetupRTG(ui->mainVelGraph, true);
-    ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
+    ui->mainVelGraph->yAxis->setLabel("rad/s");  //velocity
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
 
     graphOperation->SetupRTG(ui->mainAccGraph, true);
@@ -161,8 +166,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       switch (mainGraphDisplay)
       {
           case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " RPM");
-          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
+          ui->label_13->setText(QString::number(maxVel) + " rad/s");
+          ui->label_12->setText(QString::number(actualVelocity) + " rad/s");
           break;
 
           case (ACC):
@@ -360,8 +365,8 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
         goplayer->play();
     }
     //Pass information on to text browser to be displayed
-    ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
-                                    " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
+    ui->textBrowser->append(QString("Flywheel controlled to %1 rad/s,"
+                                    " %2 rad/s<sup>2</sup>, %3 rad/s<sup>3</sup>"
                                     " at %4")
                             .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
                             .arg(QTime::currentTime().toString()));

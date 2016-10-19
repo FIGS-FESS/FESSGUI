@@ -1,9 +1,13 @@
 #ifndef FLYWHEELOPERATION_H
 #define FLYWHEELOPERATION_H
 
+// QT Libraries
 #include <QPointF>
+
+// C++ Libraries
 #include <queue>
 
+// Custom Libraries
 #include "commands.h"
 #include "interface.h"
 

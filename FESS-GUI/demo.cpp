@@ -1,10 +1,7 @@
-//C Libraries
+// C/C++ Libraries
 #include <cmath>
 
-//QT Libraries
-#include <QtMath>
-
-//Custom Libraries
+// Custom Libraries
 #include "demo.h"
 #include "commands.h"
 
@@ -60,7 +57,7 @@ void Demo::sync()
     {
         case RANDOM:
         {
-            vel = qSin(key*1.6+qCos(key*1.7)*2)*10 + qSin(key*1.2+0.56)*20 + 26;
+            vel = sin(key*1.6+cos(key*1.7)*2)*10 + sin(key*1.2+0.56)*20 + 26;
             acc = derivative(vel,prev_vel);
             jer = derivative(acc,prev_acc);
             break;
@@ -95,12 +92,12 @@ void Demo::sync()
 
     position += vel;
 
-    udx = 2*qCos(key) - qCos(2*key);
-    udy = 2*qSin(key) - qSin(2*key);
-    ldx = 2*qCos(key + 0.1) - qCos(2*key + 0.1);
-    ldy = 2*qSin(key + 0.1) - qSin(2*key + 0.1);
-    rpx = qSin(position/1000);
-    rpy = qCos(position/1000);
+    udx = 2*cos(key) - cos(2*key);
+    udy = 2*sin(key) - sin(2*key);
+    ldx = 2*cos(key + 0.1) - cos(2*key + 0.1);
+    ldy = 2*sin(key + 0.1) - sin(2*key + 0.1);
+    rpx = sin(position/1000);
+    rpy = cos(position/1000);
 
     key += 0.01;
     prev_vel = vel;
