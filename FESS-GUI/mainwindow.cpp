@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     are also initialized here.
     *******************************************************/
 
-    graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
+    graphOperation = new GraphOperation(this);    //GraphOperation has methods for setting up the graphs
     graphOperation->SetupRTG(ui->mainVelGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
     ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
@@ -97,22 +97,10 @@ MainWindow::MainWindow(QWidget *parent) :
     graphOperation->SetupXYG(ui->auxXYGraph, false, graphOperation->upperColor, graphOperation->lowerColor);  //auxillary xy graph
     graphOperation->SetupXYG(ui->auxRotatGraph, false, graphOperation->rotationalColor, graphOperation->rotationalColor);  //auxillary rotational location
 
-    // make left and bottom axes transfer their ranges to right and top axes:
-    transferAxes(ui->mainVelGraph);
-    transferAxes(ui->mainAccGraph);
-    transferAxes(ui->mainUdtGraph);
-    transferAxes(ui->mainLdtGraph);
-
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
-}
-
-
-void MainWindow::transferAxes(QCustomPlot* graph){  //these functions change the screen size of the graph to fit the data
-    connect(graph->xAxis, SIGNAL(rangeChanged(QCPRange)), graph->xAxis2, SLOT(setRange(QCPRange)));
-    connect(graph->yAxis, SIGNAL(rangeChanged(QCPRange)), graph->yAxis2, SLOT(setRange(QCPRange)));
 }
 
 void MainWindow::addXYData(double ux, double uy, double lx, double ly)  //function to add xy data to graphs

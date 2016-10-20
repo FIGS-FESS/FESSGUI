@@ -1,5 +1,9 @@
 #include "graphoperation.h"
 
+GraphOperation::GraphOperation(QMainWindow* mw){
+    mainWindow = mw;
+}
+
 void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, QColor primaryColor, QColor secondaryColor)
 {
     rtgwidget->addGraph(); // blue line
@@ -25,6 +29,9 @@ void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, QColor primar
         rtgwidget->xAxis->setAutoTickStep(false);
         rtgwidget->xAxis->setTickStep(2);
         rtgwidget->axisRect()->setupFullAxesBox();
+        // make left and bottom axes transfer their ranges to right and top axes:
+        mainWindow->connect(rtgwidget->xAxis, SIGNAL(rangeChanged(QCPRange)), rtgwidget->xAxis2, SLOT(setRange(QCPRange)));
+        mainWindow->connect(rtgwidget->yAxis, SIGNAL(rangeChanged(QCPRange)), rtgwidget->yAxis2, SLOT(setRange(QCPRange)));
     }
     else
     {

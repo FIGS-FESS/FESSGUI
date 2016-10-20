@@ -42,7 +42,6 @@ public:
 private:
     GraphOperation* graphOperation;
     FlywheelOperation* flywheelOperation;
-    void transferAxes(QCustomPlot* graph);
 
 private slots:
 
