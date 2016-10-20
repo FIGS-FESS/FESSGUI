@@ -76,33 +76,38 @@ MainWindow::MainWindow(QWidget *parent) :
     *******************************************************/
 
     graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
+<<<<<<< HEAD
     graphOperation->SetupRTG(ui->mainVelGraph, true);
     ui->mainVelGraph->yAxis->setLabel("rad/s");  //velocity
+=======
+    graphOperation->SetupRTG(ui->mainVelGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
+    ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
+>>>>>>> master
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
 
-    graphOperation->SetupRTG(ui->mainAccGraph, true);
+    graphOperation->SetupRTG(ui->mainAccGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
     ui->mainAccGraph->yAxis->setLabel("rad/s^2");   //acceleration
     ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->mainUdtGraph, true); //main upper displacement
+    graphOperation->SetupRTG(ui->mainUdtGraph, true, graphOperation->xColor, graphOperation->yColor); //main upper displacement
     ui->mainUdtGraph->yAxis->setLabel("mm");
 
-    graphOperation->SetupRTG(ui->mainLdtGraph, true); //main lower displacement
+    graphOperation->SetupRTG(ui->mainLdtGraph, true, graphOperation->xColor, graphOperation->yColor); //main lower displacement
     ui->mainLdtGraph->yAxis->setLabel("mm");
 
-    graphOperation->SetupXYG(ui->mainXYGraph, true); //main xy
-    graphOperation->SetupXYG(ui->mainRotGraph, true);  //main rotational location
+    graphOperation->SetupXYG(ui->mainXYGraph, true, graphOperation->upperColor, graphOperation->lowerColor); //main xy
+    graphOperation->SetupXYG(ui->mainRotGraph, true, graphOperation->rotationalColor, graphOperation->rotationalColor);  //main rotational location
 
-    graphOperation->SetupRTG(ui->auxVelocGraph, false);  //auxillary velocity graph
+    graphOperation->SetupRTG(ui->auxVelocGraph, false, graphOperation->measuredColor, graphOperation->expectedColor);  //auxillary velocity graph
     ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->auxAccelGraph, false);  //auxillary acceleration
+    graphOperation->SetupRTG(ui->auxAccelGraph, false, graphOperation->measuredColor, graphOperation->expectedColor);  //auxillary acceleration
     ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->auxUpDtGraph, false);  //auxillary upper displacement
-    graphOperation->SetupRTG(ui->auxLowDtGraph, false);  //auxillary lower displacement
-    graphOperation->SetupXYG(ui->auxXYGraph, false);  //auxillary xy graph
-    graphOperation->SetupXYG(ui->auxRotatGraph, false);  //auxillary rotational location
+    graphOperation->SetupRTG(ui->auxUpDtGraph, false, graphOperation->xColor, graphOperation->yColor);  //auxillary upper displacement
+    graphOperation->SetupRTG(ui->auxLowDtGraph, false, graphOperation->xColor, graphOperation->yColor);  //auxillary lower displacement
+    graphOperation->SetupXYG(ui->auxXYGraph, false, graphOperation->upperColor, graphOperation->lowerColor);  //auxillary xy graph
+    graphOperation->SetupXYG(ui->auxRotatGraph, false, graphOperation->rotationalColor, graphOperation->rotationalColor);  //auxillary rotational location
 
     // make left and bottom axes transfer their ranges to right and top axes:
     transferAxes(ui->mainVelGraph);
@@ -149,8 +154,8 @@ void MainWindow::addRotatData(double x, double y) //add rotational data to graph
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
 {                                    //as quickly as it can by the timer (line 107)
     // calculate two new data points:
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //key is the current time
-    static double lastPointKey = 0;
+    double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
+    static double lastPointTime = 0;
 
     flywheelOperation->sync();
     double actualVelocity = flywheelOperation->getVelocity();               //get all the actual values
@@ -159,7 +164,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
     QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
-    if (key-lastPointKey > 0.01) // at most add point every 10 ms
+    if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
     {
 
       //this switch is necessary because the text changes depending on what graph you have in the main display
@@ -198,52 +203,52 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, key, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, key, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->auxUpDtGraph, key, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->mainLdtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
-      graphOperation->addRTGData(ui->auxLowDtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
       addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
       addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
 	  //output data to csv if recording
       if (isRecording){
-          recording->Record(key, actualVelocity, actualAcceleration,
+          recording->Record(currentTime, actualVelocity, actualAcceleration,
                             upperDisplacement.x(), upperDisplacement.y(),
                             lowerDisplacement.x(), lowerDisplacement.y(),
                             rotationalPosition.x(), rotationalPosition.y());
       }
 	  
-      lastPointKey = key;
+      lastPointTime = currentTime;
     }
 
-    // make key axis range scroll with the data (at a constant range size of 8):
-    ui->mainVelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    // make currentTime axis range scroll with the data (at a constant range size of 8):
+    ui->mainVelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainVelGraph->replot();
 
-    ui->auxVelocGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxVelocGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxVelocGraph->replot();
 
-    ui->mainAccGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainAccGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainAccGraph->replot();
 
-    ui->auxAccelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxAccelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxAccelGraph->replot();
 
-    ui->mainUdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainUdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainUdtGraph->replot();
 
-    ui->auxUpDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxUpDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxUpDtGraph->replot();
 
-    ui->mainLdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainLdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainLdtGraph->replot();
 
-    ui->auxLowDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxLowDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxLowDtGraph->replot();
 
     ui->mainXYGraph->replot();
@@ -254,7 +259,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 
     // calculate frames per second:
-    static double lastFpsKey;
+    static double lastFpsTime;
     static int frameCount;
     ++frameCount;
 
@@ -278,15 +283,15 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
         maxLwDt[1] = lowerDisplacement.y();
 
     //show fps and data points in statusbar
-    if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
+    if (currentTime-lastFpsTime > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
-                .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
+                .arg(frameCount/(currentTime-lastFpsTime), 0, 'f', 0)
                 .arg(ui->mainVelGraph->graph(0)->data()->count()+ui->mainVelGraph->graph(1)->data()->count())
             , 0);
 
-      lastFpsKey = key;
+      lastFpsTime = currentTime;
       frameCount = 0;
       if(uptime.isValid())
           ui->label_14->setText(QString::number(uptime.elapsed() / 1000)); //uptime is given in milliseconds
@@ -429,7 +434,9 @@ void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary g
     ui->velLabel->setStyleSheet("color: black; font-size: 14px;"); //make the label larger to emphasize focus
 
     ui->label_10->setText("Measured Value");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->measuredColor.name() + "; }");
     ui->label_11->setText("Expected Value");
+    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->expectedColor.name() + "; }");
 }
 
 void MainWindow::on_accelButton_clicked()
@@ -443,7 +450,9 @@ void MainWindow::on_accelButton_clicked()
     ui->accLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured Value");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->measuredColor.name() + "; }");
     ui->label_11->setText("Expected Value");
+    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->expectedColor.name() + "; }");
 }
 
 void MainWindow::on_updtButton_clicked()
@@ -457,7 +466,9 @@ void MainWindow::on_updtButton_clicked()
     ui->upDtLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured X");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->xColor.name() + "; }");
     ui->label_11->setText("Measured Y");
+    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->yColor.name() + "; }");
 }
 
 void MainWindow::on_lowdtButton_clicked()
@@ -471,7 +482,9 @@ void MainWindow::on_lowdtButton_clicked()
     ui->lowDtLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured X");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->xColor.name() + "; }");
     ui->label_11->setText("Measured Y");
+    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->yColor.name() + "; }");
 }
 
 void MainWindow::on_XYButton_clicked()
@@ -485,7 +498,9 @@ void MainWindow::on_XYButton_clicked()
     ui->xyLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Upper Displacement");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->upperColor.name() + "; }");
     ui->label_11->setText("Lower Displacement");
+    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->lowerColor.name() + "; }");
 }
 
 void MainWindow::on_rotatButton_clicked()
@@ -499,6 +514,7 @@ void MainWindow::on_rotatButton_clicked()
     ui->rotLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Rotational Location");
+    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->rotationalColor.name() + "; }");
     ui->label_11->setText("");
 }
 

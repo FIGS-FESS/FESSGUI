@@ -84,7 +84,11 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
+<<<<<<< HEAD
        <number>0</number>
+=======
+       <number>1</number>
+>>>>>>> master
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
