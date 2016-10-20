@@ -142,8 +142,8 @@ void MainWindow::addRotatData(double x, double y) //add rotational data to graph
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
 {                                    //as quickly as it can by the timer (line 107)
     // calculate two new data points:
-    double key = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //key is the current time
-    static double lastPointKey = 0;
+    double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
+    static double lastPointTime = 0;
 
     double actualVelocity = flywheelOperation->getVelocity();               //get all the actual values
     double actualAcceleration = flywheelOperation->getAcceleration();
@@ -151,7 +151,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
     QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
-    if (key-lastPointKey > 0.01) // at most add point every 10 ms
+    if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
     {
 
       //this switch is necessary because the text changes depending on what graph you have in the main display
@@ -190,52 +190,52 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, key, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, key, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, key, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, key, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->auxUpDtGraph, key, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->mainLdtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
-      graphOperation->addRTGData(ui->auxLowDtGraph, key, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+      graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
+      graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
       addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
       addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
 	  //output data to csv if recording
       if (isRecording){
-          recording->Record(key, actualVelocity, actualAcceleration,
+          recording->Record(currentTime, actualVelocity, actualAcceleration,
                             upperDisplacement.x(), upperDisplacement.y(),
                             lowerDisplacement.x(), lowerDisplacement.y(),
                             rotationalPosition.x(), rotationalPosition.y());
       }
 	  
-      lastPointKey = key;
+      lastPointTime = currentTime;
     }
 
-    // make key axis range scroll with the data (at a constant range size of 8):
-    ui->mainVelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    // make currentTime axis range scroll with the data (at a constant range size of 8):
+    ui->mainVelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainVelGraph->replot();
 
-    ui->auxVelocGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxVelocGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxVelocGraph->replot();
 
-    ui->mainAccGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainAccGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainAccGraph->replot();
 
-    ui->auxAccelGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxAccelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxAccelGraph->replot();
 
-    ui->mainUdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainUdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainUdtGraph->replot();
 
-    ui->auxUpDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxUpDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxUpDtGraph->replot();
 
-    ui->mainLdtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->mainLdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->mainLdtGraph->replot();
 
-    ui->auxLowDtGraph->xAxis->setRange(key+0.25, 8, Qt::AlignRight);
+    ui->auxLowDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
     ui->auxLowDtGraph->replot();
 
     ui->mainXYGraph->replot();
@@ -246,7 +246,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 
     // calculate frames per second:
-    static double lastFpsKey;
+    static double lastFpsTime;
     static int frameCount;
     ++frameCount;
 
@@ -270,15 +270,15 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
         maxLwDt[1] = lowerDisplacement.y();
 
     //show fps and data points in statusbar
-    if (key-lastFpsKey > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
+    if (currentTime-lastFpsTime > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {
       ui->statusBar->showMessage(
             QString("%1 FPS, Total Data points: %2")
-                .arg(frameCount/(key-lastFpsKey), 0, 'f', 0)
+                .arg(frameCount/(currentTime-lastFpsTime), 0, 'f', 0)
                 .arg(ui->mainVelGraph->graph(0)->data()->count()+ui->mainVelGraph->graph(1)->data()->count())
             , 0);
 
-      lastFpsKey = key;
+      lastFpsTime = currentTime;
       frameCount = 0;
       if(uptime.isValid())
           ui->label_14->setText(QString::number(uptime.elapsed() / 1000)); //uptime is given in milliseconds
