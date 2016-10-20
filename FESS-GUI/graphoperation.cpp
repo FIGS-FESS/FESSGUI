@@ -1,6 +1,6 @@
 #include "graphoperation.h"
 
-void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, Qt::GlobalColor primaryColor, Qt::GlobalColor secondaryColor)
+void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, QColor primaryColor, QColor secondaryColor)
 {
     rtgwidget->addGraph(); // blue line
     rtgwidget->graph(0)->setPen(QPen(primaryColor));
@@ -33,7 +33,7 @@ void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, Qt::GlobalCol
     }
 }
 
-void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain, Qt::GlobalColor primaryColor, Qt::GlobalColor secondaryColor)
+void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain, QColor primaryColor, QColor secondaryColor)
 {
 
     xygwidget->addGraph(); // blue dot
