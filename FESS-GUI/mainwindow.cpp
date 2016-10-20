@@ -1,21 +1,16 @@
-// C/C++ Libraries
-#include <ctime>
-#include <iomanip>
-#include <string>
-#include <sstream>
-
-// QT Libraries
-#include <QCryptographicHash>
-#include <QKeyEvent>
-#include <QTime>
-#include <qwidget.h>
-
-// Custom Libraries
 #include "demo.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
+#include <QCryptographicHash>
+#include <QKeyEvent>
+#include <QTime>
+#include <qwidget.h>
+#include <ctime>
+#include <iomanip>
+#include <string>
+#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    interface = new Demo();
+    interface = new Demo;
     flywheelOperation = new FlywheelOperation(interface); //contains methods for getting and setting flywheel variables
 
     expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
@@ -76,13 +71,8 @@ MainWindow::MainWindow(QWidget *parent) :
     *******************************************************/
 
     graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
-<<<<<<< HEAD
-    graphOperation->SetupRTG(ui->mainVelGraph, true);
-    ui->mainVelGraph->yAxis->setLabel("rad/s");  //velocity
-=======
     graphOperation->SetupRTG(ui->mainVelGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
-    ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
->>>>>>> master
+    ui->mainVelGraph->yAxis->setLabel("rad/s");  //velocity
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
 
     graphOperation->SetupRTG(ui->mainAccGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
@@ -215,14 +205,14 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
       addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
-	  //output data to csv if recording
+      //output data to csv if recording
       if (isRecording){
           recording->Record(currentTime, actualVelocity, actualAcceleration,
                             upperDisplacement.x(), upperDisplacement.y(),
                             lowerDisplacement.x(), lowerDisplacement.y(),
                             rotationalPosition.x(), rotationalPosition.y());
       }
-	  
+
       lastPointTime = currentTime;
     }
 
@@ -371,7 +361,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     }
     //Pass information on to text browser to be displayed
     ui->textBrowser->append(QString("Flywheel controlled to %1 rad/s,"
-                                    " %2 rad/s<sup>2</sup>, %3 rad/s<sup>3</sup>"
+                                    " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
                             .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
                             .arg(QTime::currentTime().toString()));
@@ -404,7 +394,7 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
 
-   flywheelOperation->emergencyStop();
+    flywheelOperation->emergencyStop();
 }
 
 void MainWindow::on_actionNone_triggered() //no sounds
@@ -542,8 +532,8 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
         //put information into text browser
         ui->textBrowser->append(QString("Output Recording Started at %1")
                                 .arg(QTime::currentTime().toString()));
-    
-	}
+
+    }
 }
 
 void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options
@@ -622,5 +612,3 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
     else
         ui->pushButton_ApplySettings->setEnabled(true);
 }
-
-

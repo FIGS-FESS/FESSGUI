@@ -84,11 +84,7 @@ Monitor</string>
        </sizepolicy>
       </property>
       <property name="currentIndex">
-<<<<<<< HEAD
-       <number>0</number>
-=======
        <number>1</number>
->>>>>>> master
       </property>
       <widget class="QWidget" name="controlPage">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -182,7 +178,7 @@ Monitor</string>
              <item alignment="Qt::AlignLeft|Qt::AlignTop">
               <widget class="QLabel" name="velocityUnitLabel">
                <property name="text">
-                <string>rad/sec</string>
+                <string>rad/s</string>
                </property>
               </widget>
              </item>
@@ -1068,7 +1064,7 @@ Stop</string>
      <x>0</x>
      <y>0</y>
      <width>1190</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
