@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
 
-    expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
+    currentExpectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
     expectedAcceleration = ui->accelerationSpinBox->value();
     expectedJerk = ui->jerkSpinBox->value();
 
@@ -106,9 +106,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-    dataTimer->start(0); // Interval 0 means to refresh as fast as possible
-}
+    dataTimer->start(10); // Refresh every 10 milliseconds
 
+    // this timer manages the velocity slope. it starts when you hit the go button
+    slopeTimer = new QTimer(this);
+    connect(slopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
+
+}
 
 void MainWindow::transferAxes(QCustomPlot* graph){  //these functions change the screen size of the graph to fit the data
     connect(graph->xAxis, SIGNAL(rangeChanged(QCPRange)), graph->xAxis2, SLOT(setRange(QCPRange)));
@@ -140,7 +144,7 @@ void MainWindow::addRotatData(double x, double y) //add rotational data to graph
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
-{                                    //as quickly as it can by the timer (line 107)
+{                                    //every 10 milliseconds by the timer (line 107)
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
     static double lastPointTime = 0;
@@ -153,7 +157,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
     if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
     {
-
       //this switch is necessary because the text changes depending on what graph you have in the main display
       switch (mainGraphDisplay)
       {
@@ -190,8 +193,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, expectedVelocity);
+      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity);
+      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
       graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
       graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
@@ -343,9 +346,14 @@ void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 
 void MainWindow::on_goButton_clicked()  //when you hit the go button
 {
-    expectedVelocity = ui->velocitySpinBox->value();  //get the expected values
+    slopeTimer->stop();
+    targetVelocity = ui->velocitySpinBox->value();  //get the expected values
+    currentExpectedVelocityRads = currentExpectedVelocity * 6.2831 / 60; //convert to Rad/s
     expectedAcceleration = ui->accelerationSpinBox->value();
     expectedJerk = ui->jerkSpinBox->value();
+
+    slopeTimer->start(10); //run every 10ms
+
 
     stopplayer->stop();  //stop sounds so they dont overlap
     goplayer->stop();
@@ -360,8 +368,29 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
+                            .arg(targetVelocity).arg(expectedAcceleration).arg(expectedJerk)
                             .arg(QTime::currentTime().toString()));
+}
+
+/*this function manages the slope. It is called every 10ms when you click the go button,
+and stops when you get to your target velocity*/
+void MainWindow::velocitySlope(){
+    if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
+        currentExpectedVelocityRads += expectedAcceleration/100; //the function runs every 10ms so divide by 100 to get the correct increment
+        currentExpectedVelocity = currentExpectedVelocityRads / 6.2831 * 60; //convert back to RPM
+        if(currentExpectedVelocity >= targetVelocity){
+            slopeTimer->stop();
+            currentExpectedVelocity = targetVelocity;//incase the numbers don't round nicely
+        }
+    }
+    else {
+        currentExpectedVelocityRads-=expectedAcceleration/100;
+        currentExpectedVelocity = currentExpectedVelocityRads / 6.2831 * 60;
+        if(currentExpectedVelocity<=targetVelocity){
+            slopeTimer->stop();
+            currentExpectedVelocity = targetVelocity;
+        }
+    }
 }
 
 void MainWindow::on_actionDarth_Vader_triggered() //darth vader option
@@ -377,7 +406,7 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
 {
     stopplayer->stop(); //stop sounds
     goplayer->stop();
-
+    slopeTimer->stop(); //if your in the middle of changing velocity
     uptime.invalidate();  //stop uptime
     if (playSounds)
     {
@@ -385,8 +414,11 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
         stopplayer->play();
     }
     ui->velocitySlider->setValue(0);      //set all values to zero
+    currentExpectedVelocity = 0;
     ui->accelerationSlider->setValue(0);
+    expectedAcceleration = 0;
     ui->jerkSlider->setValue(0);
+    expectedJerk = 0;
     //Pass information on to text browswer
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));

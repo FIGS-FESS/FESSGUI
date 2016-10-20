@@ -23,9 +23,12 @@ public:
     QMediaPlayer *stopplayer;
     RecordingOperation *recording;
     QTimer *dataTimer;
+    QTimer *slopeTimer;
     bool playSounds = false;
     bool isRecording = false;
-    double expectedVelocity;
+    double targetVelocity;
+    double currentExpectedVelocityRads;
+    double currentExpectedVelocity;
     double expectedAcceleration;
     double expectedJerk;
     double maxVel = 0;
@@ -45,6 +48,8 @@ private:
     void transferAxes(QCustomPlot* graph);
 
 private slots:
+
+    void velocitySlope();
 
     void on_controlButton_clicked();
 
