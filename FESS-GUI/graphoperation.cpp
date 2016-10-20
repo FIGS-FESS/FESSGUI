@@ -1,20 +1,20 @@
 #include "graphoperation.h"
 
-void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain)
+void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain, Qt::GlobalColor primaryColor, Qt::GlobalColor secondaryColor)
 {
     rtgwidget->addGraph(); // blue line
-    rtgwidget->graph(0)->setPen(QPen(Qt::blue));
+    rtgwidget->graph(0)->setPen(QPen(primaryColor));
     rtgwidget->graph(0)->setAntialiasedFill(false);
     rtgwidget->addGraph(); // red line
-    rtgwidget->graph(1)->setPen(QPen(Qt::red));
+    rtgwidget->graph(1)->setPen(QPen(secondaryColor));
     rtgwidget->graph(0)->setChannelFillGraph(rtgwidget->graph(1));
 
     rtgwidget->addGraph(); // blue dot
-    rtgwidget->graph(2)->setPen(QPen(Qt::blue));
+    rtgwidget->graph(2)->setPen(QPen(primaryColor));
     rtgwidget->graph(2)->setLineStyle(QCPGraph::lsNone);
     rtgwidget->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
     rtgwidget->addGraph(); // red dot
-    rtgwidget->graph(3)->setPen(QPen(Qt::red));
+    rtgwidget->graph(3)->setPen(QPen(secondaryColor));
     rtgwidget->graph(3)->setLineStyle(QCPGraph::lsNone);
     rtgwidget->graph(3)->setScatterStyle(QCPScatterStyle::ssDisc);
 
@@ -33,16 +33,16 @@ void GraphOperation::SetupRTG(QCustomPlot *rtgwidget, bool isMain)
     }
 }
 
-void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain)
+void GraphOperation::SetupXYG(QCustomPlot *xygwidget, bool isMain, Qt::GlobalColor primaryColor, Qt::GlobalColor secondaryColor)
 {
 
     xygwidget->addGraph(); // blue dot
-    xygwidget->graph(0)->setPen(QPen(Qt::blue));
+    xygwidget->graph(0)->setPen(QPen(primaryColor));
     xygwidget->graph(0)->setLineStyle(QCPGraph::lsNone);
     xygwidget->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
 
     xygwidget->addGraph(); // red dot
-    xygwidget->graph(1)->setPen(QPen(Qt::red));
+    xygwidget->graph(1)->setPen(QPen(secondaryColor));
     xygwidget->graph(1)->setLineStyle(QCPGraph::lsNone);
     xygwidget->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
 

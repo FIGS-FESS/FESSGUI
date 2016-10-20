@@ -69,33 +69,33 @@ MainWindow::MainWindow(QWidget *parent) :
     *******************************************************/
 
     graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
-    graphOperation->SetupRTG(ui->mainVelGraph, true);
+    graphOperation->SetupRTG(ui->mainVelGraph, true, Qt::blue, Qt::red);
     ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
 
-    graphOperation->SetupRTG(ui->mainAccGraph, true);
+    graphOperation->SetupRTG(ui->mainAccGraph, true, Qt::blue, Qt::red);
     ui->mainAccGraph->yAxis->setLabel("rad/s^2");   //acceleration
     ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->mainUdtGraph, true); //main upper displacement
+    graphOperation->SetupRTG(ui->mainUdtGraph, true, Qt::green, Qt::magenta); //main upper displacement
     ui->mainUdtGraph->yAxis->setLabel("mm");
 
-    graphOperation->SetupRTG(ui->mainLdtGraph, true); //main lower displacement
+    graphOperation->SetupRTG(ui->mainLdtGraph, true, Qt::green, Qt::magenta); //main lower displacement
     ui->mainLdtGraph->yAxis->setLabel("mm");
 
-    graphOperation->SetupXYG(ui->mainXYGraph, true); //main xy
-    graphOperation->SetupXYG(ui->mainRotGraph, true);  //main rotational location
+    graphOperation->SetupXYG(ui->mainXYGraph, true, Qt::blue, Qt::red); //main xy
+    graphOperation->SetupXYG(ui->mainRotGraph, true, Qt::blue, Qt::red);  //main rotational location
 
-    graphOperation->SetupRTG(ui->auxVelocGraph, false);  //auxillary velocity graph
+    graphOperation->SetupRTG(ui->auxVelocGraph, false, Qt::blue, Qt::red);  //auxillary velocity graph
     ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->auxAccelGraph, false);  //auxillary acceleration
+    graphOperation->SetupRTG(ui->auxAccelGraph, false, Qt::blue, Qt::red);  //auxillary acceleration
     ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
-    graphOperation->SetupRTG(ui->auxUpDtGraph, false);  //auxillary upper displacement
-    graphOperation->SetupRTG(ui->auxLowDtGraph, false);  //auxillary lower displacement
-    graphOperation->SetupXYG(ui->auxXYGraph, false);  //auxillary xy graph
-    graphOperation->SetupXYG(ui->auxRotatGraph, false);  //auxillary rotational location
+    graphOperation->SetupRTG(ui->auxUpDtGraph, false, Qt::green, Qt::magenta);  //auxillary upper displacement
+    graphOperation->SetupRTG(ui->auxLowDtGraph, false, Qt::green, Qt::magenta);  //auxillary lower displacement
+    graphOperation->SetupXYG(ui->auxXYGraph, false, Qt::blue, Qt::red);  //auxillary xy graph
+    graphOperation->SetupXYG(ui->auxRotatGraph, false, Qt::blue, Qt::red);  //auxillary rotational location
 
     // make left and bottom axes transfer their ranges to right and top axes:
     transferAxes(ui->mainVelGraph);
