@@ -23,14 +23,15 @@ public:
     QMediaPlayer *stopplayer;
     RecordingOperation *recording;
     QTimer *dataTimer;
-    QTimer *slopeTimer;
+    QTimer *velocitySlopeTimer;
+    QTimer *accelerationSlopeTimer;
     bool playSounds = false;
     bool isRecording = false;
     double targetVelocity;
-    double currentExpectedVelocityRads;
     double currentExpectedVelocity;
-    double expectedAcceleration;
-    double expectedJerk;
+    double targetAcceleration;
+    double currentExpectedAcceleration;
+    double currentExpectedJerk;
     double maxVel = 0;
     double maxAcc = 0;
     double maxUpDt [2] = {0, 0};
@@ -50,6 +51,8 @@ private:
 private slots:
 
     void velocitySlope();
+
+    void accelerationSlope();
 
     void on_controlButton_clicked();
 

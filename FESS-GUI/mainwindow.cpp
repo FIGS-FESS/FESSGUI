@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
 
-    currentExpectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
-    expectedAcceleration = ui->accelerationSpinBox->value();
-    expectedJerk = ui->jerkSpinBox->value();
+    currentExpectedVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;    //initialize expected values based on spinbox values
+    currentExpectedAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
 
     eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
     addAction(eStopShortcut);
@@ -109,8 +109,12 @@ MainWindow::MainWindow(QWidget *parent) :
     dataTimer->start(10); // Refresh every 10 milliseconds
 
     // this timer manages the velocity slope. it starts when you hit the go button
-    slopeTimer = new QTimer(this);
-    connect(slopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
+    velocitySlopeTimer = new QTimer(this);
+    connect(velocitySlopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
+
+    accelerationSlopeTimer = new QTimer(this);
+    connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
+
 
 }
 
@@ -193,10 +197,10 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       }
 
       //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity);
+      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity * 60 / 6.2831); // display in RPM
       graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
+      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
+      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
       graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
       graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
       graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
@@ -346,13 +350,15 @@ void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 
 void MainWindow::on_goButton_clicked()  //when you hit the go button
 {
-    slopeTimer->stop();
-    targetVelocity = ui->velocitySpinBox->value();  //get the expected values
-    currentExpectedVelocityRads = currentExpectedVelocity * 6.2831 / 60; //convert to Rad/s
-    expectedAcceleration = ui->accelerationSpinBox->value();
-    expectedJerk = ui->jerkSpinBox->value();
+    velocitySlopeTimer->stop();
+    accelerationSlopeTimer->stop();
 
-    slopeTimer->start(10); //run every 10ms
+    targetVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;  //get the expected values, get velocity in rad/s
+    targetAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
+
+    velocitySlopeTimer->start(10); //run every 10ms
+    accelerationSlopeTimer->start(10);
 
 
     stopplayer->stop();  //stop sounds so they dont overlap
@@ -368,7 +374,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(targetVelocity).arg(expectedAcceleration).arg(expectedJerk)
+                            .arg(targetVelocity).arg(targetAcceleration).arg(currentExpectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
@@ -376,19 +382,34 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
 and stops when you get to your target velocity*/
 void MainWindow::velocitySlope(){
     if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
-        currentExpectedVelocityRads += expectedAcceleration/100; //the function runs every 10ms so divide by 100 to get the correct increment
-        currentExpectedVelocity = currentExpectedVelocityRads / 6.2831 * 60; //convert back to RPM
+        currentExpectedVelocity += currentExpectedAcceleration/100; //the function runs every 10ms so divide by 100 to get the correct increment
         if(currentExpectedVelocity >= targetVelocity){
-            slopeTimer->stop();
+            velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity;//incase the numbers don't round nicely
         }
     }
     else {
-        currentExpectedVelocityRads-=expectedAcceleration/100;
-        currentExpectedVelocity = currentExpectedVelocityRads / 6.2831 * 60;
+        currentExpectedVelocity -= currentExpectedAcceleration/100;
         if(currentExpectedVelocity<=targetVelocity){
-            slopeTimer->stop();
+            velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity;
+        }
+    }
+}
+
+void MainWindow::accelerationSlope(){
+    if(currentExpectedAcceleration <= targetAcceleration){ //if the target velocity is greater than the current
+        currentExpectedAcceleration += currentExpectedJerk/100; //the function runs every 10ms so divide by 100 to get the correct increment
+        if(currentExpectedAcceleration >= targetAcceleration){
+            accelerationSlopeTimer->stop();
+            currentExpectedAcceleration = targetAcceleration;//incase the numbers don't round nicely
+        }
+    }
+    else {
+        currentExpectedAcceleration -= currentExpectedJerk/100;
+        if(currentExpectedAcceleration<=targetAcceleration){
+            accelerationSlopeTimer->stop();
+            currentExpectedAcceleration = targetAcceleration;
         }
     }
 }
@@ -406,7 +427,9 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
 {
     stopplayer->stop(); //stop sounds
     goplayer->stop();
-    slopeTimer->stop(); //if your in the middle of changing velocity
+    velocitySlopeTimer->stop(); //if your in the middle of changing values
+    accelerationSlopeTimer->stop();
+
     uptime.invalidate();  //stop uptime
     if (playSounds)
     {
@@ -416,9 +439,9 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
     ui->velocitySlider->setValue(0);      //set all values to zero
     currentExpectedVelocity = 0;
     ui->accelerationSlider->setValue(0);
-    expectedAcceleration = 0;
+    targetAcceleration = 0;
     ui->jerkSlider->setValue(0);
-    expectedJerk = 0;
+    currentExpectedJerk = 0;
     //Pass information on to text browswer
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
