@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     graphOperation = new GraphOperation();    //GraphOperation has methods for setting up the graphs
     graphOperation->SetupRTG(ui->mainVelGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
-    ui->mainVelGraph->yAxis->setLabel("rad/s");  //velocity
+    ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
     ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
 
     graphOperation->SetupRTG(ui->mainAccGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
@@ -161,8 +161,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       switch (mainGraphDisplay)
       {
           case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " rad/s");
-          ui->label_12->setText(QString::number(actualVelocity) + " rad/s");
+          ui->label_13->setText(QString::number(maxVel) + " RPM");
+          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
           break;
 
           case (ACC):
@@ -360,7 +360,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
         goplayer->play();
     }
     //Pass information on to text browser to be displayed
-    ui->textBrowser->append(QString("Flywheel controlled to %1 rad/s,"
+    ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
                             .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
