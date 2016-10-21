@@ -159,66 +159,64 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
     QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
-    if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
+    //this switch is necessary because the text changes depending on what graph you have in the main display
+    switch (mainGraphDisplay)
     {
-      //this switch is necessary because the text changes depending on what graph you have in the main display
-      switch (mainGraphDisplay)
-      {
-          case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " RPM");
-          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
-          break;
+    case (VEL):
+        ui->label_13->setText(QString::number(maxVel) + " RPM");
+        ui->label_12->setText(QString::number(actualVelocity) + " RPM");
+        break;
 
-          case (ACC):
-          ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
-          ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
-          break;
+    case (ACC):
+        ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
+        ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
+        break;
 
-          case (UDT):
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
-          break;
+    case (UDT):
+        ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+        ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
+        break;
 
-          case (LDT):
-          ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
-          ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-          break;
+    case (LDT):
+        ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
+        ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
+        break;
 
-          case (XYD):
-          //todo: correct this
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-          break;
+    case (XYD):
+        //todo: correct this
+        ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+        ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
+        break;
 
-          case (ROT):
-          ui->label_13->setText("");
-          ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
-          break;
+    case (ROT):
+        ui->label_13->setText("");
+        ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
+        break;
       }
 
-      //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity * 60 / 6.2831); // display in RPM
-      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
-      graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
+    //    add data to graphs
+    graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity * 60 / 6.2831); // display in RPM
+    graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
+    graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
+    graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
+    graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+    graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
+    graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
+    graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
-      addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
-      addRotatData(rotationalPosition.x(), rotationalPosition.y());
+    addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
+    addRotatData(rotationalPosition.x(), rotationalPosition.y());
 
-	  //output data to csv if recording
-      if (isRecording){
-          recording->Record(currentTime, actualVelocity, actualAcceleration,
-                            upperDisplacement.x(), upperDisplacement.y(),
-                            lowerDisplacement.x(), lowerDisplacement.y(),
-                            rotationalPosition.x(), rotationalPosition.y());
+    //output data to csv if recording
+    if (isRecording){
+        recording->Record(currentTime, actualVelocity, actualAcceleration,
+                          upperDisplacement.x(), upperDisplacement.y(),
+                          lowerDisplacement.x(), lowerDisplacement.y(),
+                          rotationalPosition.x(), rotationalPosition.y());
       }
-	  
-      lastPointTime = currentTime;
-    }
+
+    lastPointTime = currentTime;
+
 
     // make currentTime axis range scroll with the data (at a constant range size of 8):
     ui->mainVelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
