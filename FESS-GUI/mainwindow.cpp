@@ -351,7 +351,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     velocitySlopeTimer->stop();
     accelerationSlopeTimer->stop();
 
-    targetVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;  //get the expected values, get velocity in rad/s
+    targetVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;  //get the expected/target values, get velocity in rad/s
     targetAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
 
@@ -383,7 +383,7 @@ void MainWindow::velocitySlope(){
         currentExpectedVelocity += currentExpectedAcceleration/100; //the function runs every 10ms so divide by 100 to get the correct increment
         if(currentExpectedVelocity >= targetVelocity){
             velocitySlopeTimer->stop();
-            currentExpectedVelocity = targetVelocity;//incase the numbers don't round nicely
+            currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
         }
     }
     else {
@@ -396,11 +396,11 @@ void MainWindow::velocitySlope(){
 }
 
 void MainWindow::accelerationSlope(){
-    if(currentExpectedAcceleration <= targetAcceleration){ //if the target velocity is greater than the current
-        currentExpectedAcceleration += currentExpectedJerk/100; //the function runs every 10ms so divide by 100 to get the correct increment
+    if(currentExpectedAcceleration <= targetAcceleration){
+        currentExpectedAcceleration += currentExpectedJerk/100;
         if(currentExpectedAcceleration >= targetAcceleration){
             accelerationSlopeTimer->stop();
-            currentExpectedAcceleration = targetAcceleration;//incase the numbers don't round nicely
+            currentExpectedAcceleration = targetAcceleration;
         }
     }
     else {
