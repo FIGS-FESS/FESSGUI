@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    interface = new Demo;
+    interface = new Serial;
     interface->startDevice();
     flywheelOperation = new FlywheelOperation(interface); //contains methods for getting and setting flywheel variables
 

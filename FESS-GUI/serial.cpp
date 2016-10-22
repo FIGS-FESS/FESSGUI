@@ -169,6 +169,7 @@ void Serial::readRX()
 
     for (int i = 0; i < rx.size(); i++)
     {
+        qDebug() << rx[i];
         pushRXChar(rx[i]);
     }
 }

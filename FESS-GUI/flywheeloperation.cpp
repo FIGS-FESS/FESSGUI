@@ -186,7 +186,7 @@ void FlywheelOperation::setDefaults()
     emergency_acknowlegded = false;
 }
 
-void FlywheelOperation::sync()
+void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
 {
     bool loop = true;
     interface->sync();

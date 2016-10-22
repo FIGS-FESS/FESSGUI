@@ -102,8 +102,13 @@ bool Interface::emptyRX()
 
 unsigned char Interface::popRX()
 {
-    unsigned char val = rx.front();
-    rx.pop();
+    unsigned char val = 0;
+
+    if(!rx.empty())
+    {
+        val = rx.front();
+        rx.pop();
+    }
     return val;
 }
 
