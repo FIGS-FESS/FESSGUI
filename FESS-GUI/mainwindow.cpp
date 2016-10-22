@@ -1,4 +1,5 @@
 #include "demo.h"
+#include "serial.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
@@ -21,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(time(NULL));
 
     interface = new Demo;
+    interface->startDevice();
     flywheelOperation = new FlywheelOperation(interface); //contains methods for getting and setting flywheel variables
 
     expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
@@ -296,6 +298,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 MainWindow::~MainWindow()  //destructor
 {
+    interface->stopDevice();
     delete ui;
 }
 

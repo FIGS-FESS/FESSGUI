@@ -118,3 +118,6 @@ void Demo::sync()
     pushRXFloat(rpx);
     pushRXFloat(rpy);
 }
+
+void Demo::startDevice(){}
+void Demo::stopDevice(){}

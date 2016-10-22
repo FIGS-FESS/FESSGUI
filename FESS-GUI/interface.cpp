@@ -9,6 +9,9 @@ Interface::~Interface(){}
 //--------------------------------------------------------------------
 
 void Interface::sync(){}
+void Interface::startDevice(){}
+void Interface::stopDevice(){}
+
 
 unsigned char Interface::pop()
 {

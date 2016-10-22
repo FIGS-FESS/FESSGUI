@@ -14,6 +14,8 @@ class Demo : public Interface
         Demo();
 
         void sync();
+        void startDevice();
+        void stopDevice();
 
     private:
         bool broadcast;

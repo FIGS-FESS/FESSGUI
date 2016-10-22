@@ -1,9 +1,6 @@
 #ifndef FLY_SERIAL_H
 #define FLY_SERIAL_H
 
-// C/C++ Libraries
-#include <string>
-
 // QT Libraries
 #include <QtGui>
 #include <QSerialPort>
@@ -18,34 +15,31 @@ class Serial : public Interface
         Serial();
         ~Serial();
 
-        bool findDevices();
-        bool setDevice(int);
-        bool setBaudRate(int);
-        bool setParity(int);
-        bool setFlowControl(int);
-        bool setDataBits(int);
-        bool setStopBits(int);
-        void setDefaults();
-
+        // Overriden Interface Methods
         void sync();
-
         void startDevice();
         void stopDevice();
 
-        std::string getDevices();
+        // Unique Methods
+        void setDevice(int);
+        void setBaudRate(int);
+        void setParity(int);
+        void setFlowControl(int);
+        void setDataBits(int);
+        void setStopBits(int);
+
+        void setPort(QSerialPortInfo*);
 
     private:
-        int  interfac;
-        int  baudrate;
-        int  available;
-        char parity;
-        char flowctrl;
-        char databits;
-        char stopbits;
 
-        QSerialPort device;
-        QSerialPortInfo port;
-        QList<QSerialPortInfo> portlist;
+        // Internal Helper Functions
+        void sendTX();
+        void readRX();
+        void setDefaults();
+
+        // Internal variables
+        QSerialPort* device;
+
 };
 
 #endif // FLY_SERIAL_H

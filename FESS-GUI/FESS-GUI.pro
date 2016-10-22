@@ -21,7 +21,8 @@ SOURCES     +=  main.cpp \
                 recordingoperation.cpp \
                 serial.cpp \
                 interface.cpp \
-    demo.cpp
+    demo.cpp \
+    interfacemanager.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -32,7 +33,8 @@ HEADERS     +=  mainwindow.h \
                 interface.h \
                 serial.h \
                 commands.h \
-    demo.h
+    demo.h \
+    interfacemanager.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui

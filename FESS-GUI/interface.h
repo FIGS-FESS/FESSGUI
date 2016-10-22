@@ -12,6 +12,8 @@ class Interface
         ~Interface();
 
         virtual void sync();
+        virtual void startDevice();
+        virtual void stopDevice();
 
         bool empty();
         void flush();

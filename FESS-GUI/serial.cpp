@@ -3,172 +3,134 @@
 
 Serial::Serial()
 {
-    findDevices();
+    device = new QSerialPort("/dev/pts/1");
     setDefaults();
 }
 
 Serial::~Serial()
 {
-
+    delete device;
 }
 
-bool Serial::findDevices()
+void Serial::setPort(QSerialPortInfo* port)
 {
-    portlist = QSerialPortInfo::availablePorts();
-    available = portlist.size();
-
-    if (available > 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    device->setPort(*port);
 }
 
-bool Serial::setDevice(int interface)
+void Serial::setBaudRate(int rate)
 {
-    if ((available > 0) && (available >= interface) && (interface >= 0))
-    {
-        port = portlist[interface];
-        device.setPort(port);
-        return true;
-    }
-    return false;
+    device->setBaudRate(rate,QSerialPort::AllDirections);
 }
 
-bool Serial::setBaudRate(int rate)
-{
-    return device.setBaudRate(rate,QSerialPort::AllDirections);
-}
-
-bool Serial::setParity(int pari)
+void Serial::setParity(int pari)
 {
     switch(pari)
     {
         case 0:
         {
-            device.setParity(QSerialPort::NoParity);
-            return true;
+            device->setParity(QSerialPort::NoParity);
             break;
         }
         case 1:
         {
-            device.setParity(QSerialPort::OddParity);
-            return true;
+            device->setParity(QSerialPort::OddParity);
             break;
         }
 
         case 2:
         {
-            device.setParity(QSerialPort::EvenParity);
-            return true;
+            device->setParity(QSerialPort::EvenParity);
             break;
         }
         default:
         {
-            return false;
             break;
         }
     }
 }
 
-bool Serial::setFlowControl(int flow)
+void Serial::setFlowControl(int flow)
 {
     switch(flow)
     {
         case 0:
         {
-            device.setFlowControl(QSerialPort::NoFlowControl);
-            return true;
+            device->setFlowControl(QSerialPort::NoFlowControl);
             break;
         }
         case 1:
         {
-            device.setFlowControl(QSerialPort::HardwareControl);
-            return true;
+            device->setFlowControl(QSerialPort::HardwareControl);
             break;
         }
 
         case 2:
         {
-            device.setFlowControl(QSerialPort::SoftwareControl);
-            return true;
+            device->setFlowControl(QSerialPort::SoftwareControl);
             break;
         }
         default:
         {
-            return false;
             break;
         }
     }
 }
 
-bool Serial::setDataBits(int bits)
+void Serial::setDataBits(int bits)
 {
     switch(bits)
     {
         case 5:
         {
-            device.setDataBits(QSerialPort::Data5);
-            return true;
+            device->setDataBits(QSerialPort::Data5);
             break;
         }
 
         case 6:
         {
-            device.setDataBits(QSerialPort::Data6);
-            return true;
+            device->setDataBits(QSerialPort::Data6);
             break;
         }
         case 7:
         {
-            device.setDataBits(QSerialPort::Data7);
-            return true;
+            device->setDataBits(QSerialPort::Data7);
             break;
         }
 
         case 8:
         {
-            device.setDataBits(QSerialPort::Data8);
-            return true;
+            device->setDataBits(QSerialPort::Data8);
             break;
         }
         default:
         {
-            return false;
             break;
         }
     }
 }
 
-bool Serial::setStopBits(int bits)
+void Serial::setStopBits(int bits)
 {
     switch(bits)
     {
         case 1:
         {
-            device.setStopBits(QSerialPort::OneStop);
-            return true;
+            device->setStopBits(QSerialPort::OneStop);
             break;
         }
 
         case 2:
         {
-            device.setStopBits(QSerialPort::TwoStop);
-            return true;
+            device->setStopBits(QSerialPort::TwoStop);
             break;
         }
         case 3:
         {
-            device.setStopBits(QSerialPort::OneAndHalfStop);
-            return true;
+            device->setStopBits(QSerialPort::OneAndHalfStop);
             break;
         }
         default:
         {
-            return false;
             break;
         }
     }
@@ -176,61 +138,47 @@ bool Serial::setStopBits(int bits)
 
 void Serial::setDefaults()
 {
-    setDevice(0);
     setBaudRate(9600);
     setParity(0);
     setFlowControl(0);
     setDataBits(8);
     setStopBits(1);
-
-    qDebug() << "Serial: Searching for Devices";
-
-    // Example use QSerialPortInfo
-    foreach (const QSerialPortInfo &info, portlist)
-    {
-        qDebug() << "Name : " << info.portName();
-        qDebug() << "Description : " << info.description();
-        qDebug() << "Manufacturer: " << info.manufacturer();
-
-        // Example use QSerialPort
-
-    //    device.setPort(info);
-
-     //   if (device.open(QIODevice::ReadWrite))
-     //   {
-     //       device.putChar('a');
-     //       device.flush();
-
-            //qDebug() << "Read:" << device.readAll();
-
-     //       device.close();
-     //   }
-    }
-
-    qDebug() << "Serial: Done";
-
 }
 
 void Serial::sync()
 {
-    char val;
+    sendTX();
+    readRX();
+}
 
+void Serial::sendTX()
+{
     while(!emptyTX())
     {
-        val = popTX();
-        qDebug() << "Value:" << val;
-        device.putChar(val);
-        device.flush();
+        device->putChar(popTX());
+    }
+
+    device->waitForBytesWritten(1);
+}
+
+void Serial::readRX()
+{
+    device->waitForReadyRead(1);
+
+    QByteArray rx = device->readAll();
+
+    for (int i = 0; i < rx.size(); i++)
+    {
+        pushRXChar(rx[i]);
     }
 }
 
 void Serial::startDevice()
 {
-    device.setPort(port);
-    device.open(QIODevice::ReadWrite);
+    device->open(QIODevice::ReadWrite);
 }
 
 void Serial::stopDevice()
 {
-    device.close();
+    device->close();
 }

@@ -39,11 +39,16 @@ void FlywheelOperation::setJerk(float jerk)
 
 float FlywheelOperation::getVelocity()
 {
-    float val = vel.front();
+    float val = 0.0;
 
     if (!vel.empty())
     {
-        vel.pop();
+        val = vel.front();
+
+        if (vel.size() > 1)
+        {
+            vel.pop();
+        }
     }
 
     return val;
@@ -51,11 +56,16 @@ float FlywheelOperation::getVelocity()
 
 float FlywheelOperation::getAcceleration()
 {
-    float val = acc.front();
+    float val = 0.0;
 
     if (!acc.empty())
     {
-        acc.pop();
+        val = acc.front();
+
+        if (acc.size() > 1)
+        {
+            acc.pop();
+        }
     }
 
     return val;
@@ -63,11 +73,16 @@ float FlywheelOperation::getAcceleration()
 
 float FlywheelOperation::getJerk()
 {
-    float val = jer.front();
+    float val = 0.0;
 
-    if (!jer.empty())
+    if (jer.empty())
     {
-        jer.pop();
+        val = jer.front();
+
+        if (jer.size() > 1)
+        {
+            jer.pop();
+        }
     }
 
     return val;
@@ -75,53 +90,70 @@ float FlywheelOperation::getJerk()
 
 QPointF FlywheelOperation::getUpperDisplacement()
 {
-    upperDisplacement->setX(udx.front());
-    upperDisplacement->setY(udy.front());
+    upperDisplacement->setX(0);
+    upperDisplacement->setY(0);
 
-    if (!udx.empty())
+    if(!udx.empty() && !udy.empty())
     {
-        udx.pop();
-    }
+        upperDisplacement->setX(udx.front());
+        upperDisplacement->setY(udy.front());
 
-    if (!udy.empty())
-    {
-        udy.pop();
-    }
+        if (udx.size() > 1)
+        {
+            udx.pop();
+        }
+
+        if (udy.size() > 1)
+        {
+            udy.pop();
+        }
+   }
 
     return *upperDisplacement;
 }
 
 QPointF FlywheelOperation::getLowerDisplacement()
 {
-    lowerDisplacement->setX(ldx.front());
-    lowerDisplacement->setY(ldy.front());
+    lowerDisplacement->setX(0);
+    lowerDisplacement->setY(0);
 
-    if (!ldx.empty())
+    if(!ldx.empty() && !ldy.empty())
     {
-        ldx.pop();
-    }
+        lowerDisplacement->setX(ldx.front());
+        lowerDisplacement->setY(ldy.front());
 
-    if (!ldy.empty())
-    {
-        ldy.pop();
-    }
+        if (ldx.size() > 1)
+        {
+            ldx.pop();
+        }
 
+        if (ldy.size() > 1)
+        {
+            ldy.pop();
+        }
+    }
     return *lowerDisplacement;
 }
 
 QPointF FlywheelOperation::getRotationalPosition()
 {
-    rotationalPosition->setX(rpx.front());
-    rotationalPosition->setY(rpy.front());
+    rotationalPosition->setX(0);
+    rotationalPosition->setY(0);
 
-    if (!rpx.empty())
+    if(!rpx.empty() && !rpy.empty())
     {
-        rpx.pop();
-    }
+        rotationalPosition->setX(rpx.front());
+        rotationalPosition->setY(rpy.front());
 
-    if (!rpy.empty())
-    {
-        rpy.pop();
+        if (rpx.size() > 1)
+        {
+            rpx.pop();
+        }
+
+        if (rpy.size() > 1)
+        {
+            rpy.pop();
+        }
     }
 
     return *rotationalPosition;
@@ -138,15 +170,15 @@ void FlywheelOperation::emergencyStop() // Tells the controller to stop and chec
 
 void FlywheelOperation::setDefaults()
 {
-    vel.push(0.0);
-    acc.push(0.0);
-    jer.push(0.0);
-    udx.push(0.0);
-    udy.push(0.0);
-    ldx.push(0.0);
-    ldy.push(0.0);
-    rpx.push(0.0);
-    rpy.push(0.0);
+    vel.push(1.0);
+    acc.push(1.0);
+    jer.push(1.0);
+    udx.push(1.0);
+    udy.push(1.0);
+    ldx.push(1.0);
+    ldy.push(1.0);
+    rpx.push(1.0);
+    rpy.push(1.0);
 
     emergency_retries = 0;
     emergency_timeout = 100; //Attempts
