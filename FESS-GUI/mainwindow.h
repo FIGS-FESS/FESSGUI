@@ -27,6 +27,7 @@ public:
     QTimer *accelerationSlopeTimer;
     bool playSounds = false;
     bool isRecording = false;
+    double refreshRate = 10;
     double targetVelocity;
     double currentExpectedVelocity;
     double targetAcceleration;
@@ -111,6 +112,10 @@ private slots:
     void on_jerkSpinBox_valueChanged(double jerk);
 
     void on_lineEditPassword_textEdited(const QString &password);
+
+    void on_actionLock_frame_rate_at_30FPS_triggered(bool checked);
+
+    void on_actionLock_graph_scale_to_max_value_triggered(bool checked);
 
 public:
     Ui::MainWindow *ui;

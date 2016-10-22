@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-    dataTimer->start(10); // Refresh every 10 milliseconds
+    dataTimer->start(refreshRate); // Refresh every 10 milliseconds
 
     // this timer manages the velocity slope. it starts when you hit the go button
     velocitySlopeTimer = new QTimer(this);
@@ -148,7 +148,7 @@ void MainWindow::addRotatData(double x, double y) //add rotational data to graph
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
-{                                    //every 10 milliseconds by the timer (line 107)
+{                                    //at the refresh rate defined by the timer (line 107)
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
     static double lastPointTime = 0;
@@ -662,3 +662,18 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
 }
 
 
+
+void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
+{
+    dataTimer->stop();
+    if(checked)
+        refreshRate = 30;
+    else
+        refreshRate = 10;
+    dataTimer->start(refreshRate);
+}
+
+void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
+{
+
+}
