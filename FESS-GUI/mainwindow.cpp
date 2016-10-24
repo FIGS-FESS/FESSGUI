@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
+#include "conversions.h"
 #include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
@@ -195,7 +196,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
       }
 
     //    add data to graphs
-    graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, currentExpectedVelocity * 60 / 6.2831); // display in RPM
+    graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity)); // display in RPM
     graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
     graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
     graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, currentExpectedAcceleration);
@@ -377,17 +378,19 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
 }
 
 /*this function manages the slope. It is called every 10ms when you click the go button,
-and stops when you get to your target velocity*/
+  and stops when you get to your target velocity */
 void MainWindow::velocitySlope(){
+    double intervalIncrement = 1000 / velocitySlopeTimer->interval();
+
     if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
-        currentExpectedVelocity += currentExpectedAcceleration/100; //the function runs every 10ms so divide by 100 to get the correct increment
+        currentExpectedVelocity += currentExpectedAcceleration/intervalIncrement; //the function runs every 10ms so divide by 100 to get the correct increment
         if(currentExpectedVelocity >= targetVelocity){
             velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
         }
     }
     else {
-        currentExpectedVelocity -= currentExpectedAcceleration/100;
+        currentExpectedVelocity -= currentExpectedAcceleration/intervalIncrement;
         if(currentExpectedVelocity<=targetVelocity){
             velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity;
@@ -396,15 +399,17 @@ void MainWindow::velocitySlope(){
 }
 
 void MainWindow::accelerationSlope(){
+    double intervalIncrement = 1000 / velocitySlopeTimer->interval();
+
     if(currentExpectedAcceleration <= targetAcceleration){
-        currentExpectedAcceleration += currentExpectedJerk/100;
+        currentExpectedAcceleration += currentExpectedJerk/intervalIncrement;
         if(currentExpectedAcceleration >= targetAcceleration){
             accelerationSlopeTimer->stop();
             currentExpectedAcceleration = targetAcceleration;
         }
     }
     else {
-        currentExpectedAcceleration -= currentExpectedJerk/100;
+        currentExpectedAcceleration -= currentExpectedJerk/intervalIncrement;
         if(currentExpectedAcceleration<=targetAcceleration){
             accelerationSlopeTimer->stop();
             currentExpectedAcceleration = targetAcceleration;
@@ -437,7 +442,7 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
     ui->velocitySlider->setValue(0);      //set all values to zero
     currentExpectedVelocity = 0;
     ui->accelerationSlider->setValue(0);
-    targetAcceleration = 0;
+    currentExpectedAcceleration = 0;
     ui->jerkSlider->setValue(0);
     currentExpectedJerk = 0;
     //Pass information on to text browswer
