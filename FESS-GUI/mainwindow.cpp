@@ -119,7 +119,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-void MainWindow::transferAxes(QCustomPlot* graph){  //these functions change the screen size of the graph to fit the data
+void MainWindow::transferAxes(QCustomPlot* graph)
+{  //these functions change the screen size of the graph to fit the data
     connect(graph->xAxis, SIGNAL(rangeChanged(QCPRange)), graph->xAxis2, SLOT(setRange(QCPRange)));
     connect(graph->yAxis, SIGNAL(rangeChanged(QCPRange)), graph->yAxis2, SLOT(setRange(QCPRange)));
 }
@@ -214,7 +215,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
                           upperDisplacement.x(), upperDisplacement.y(),
                           lowerDisplacement.x(), lowerDisplacement.y(),
                           rotationalPosition.x(), rotationalPosition.y());
-      }
+    }
 
     lastPointTime = currentTime;
 
@@ -379,7 +380,8 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
 
 /*this function manages the slope. It is called every 10ms when you click the go button,
   and stops when you get to your target velocity */
-void MainWindow::velocitySlope(){
+void MainWindow::velocitySlope()
+{
     double intervalIncrement = 1000 / velocitySlopeTimer->interval(); //get the correct increment
 
     if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
@@ -400,7 +402,8 @@ void MainWindow::velocitySlope(){
     }
 }
 
-void MainWindow::accelerationSlope(){
+void MainWindow::accelerationSlope()
+{
     double intervalIncrement = 1000 / velocitySlopeTimer->interval();
 
     if(currentExpectedAcceleration <= targetAcceleration){
@@ -587,14 +590,12 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
         //put information into text browser
         ui->textBrowser->append(QString("Output Recording Started at %1")
                                 .arg(QTime::currentTime().toString()));
-    
 	}
 }
 
 void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options
 {
     if (isRecording){
-
         //recording->Stop(); <-should this be here?
         isRecording = false;
         ui->actionStart_Recording->setEnabled(true);
@@ -611,13 +612,11 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
     QSettings settings("settings.ini", QSettings::IniFormat);
     //qDebug(settings.fileName().toLocal8Bit());
 
-
     QString password = ui->lineEditPassword->text();
 
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
 
     //ui->textBrowser->append(QString(result));
-
 
     if(passwordMatches(password)){  //if the password is correct
         QString newMaxVel = ui->maxVel->text();   //update values
@@ -655,8 +654,6 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){  //show the password d
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
-
-
 }
 
 void MainWindow::on_lineEditPassword_textEdited(const QString &password)
