@@ -1,51 +1,24 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-// C/C++ Libraries
-#include <queue>
-
 class Interface
 {
-    public: // Used to get and recieve data from an interface
+    public:
+        virtual void sync() = 0;
+        virtual void startDevice() = 0;
+        virtual void stopDevice() = 0;
+        virtual void setDefaults() = 0;
 
-        Interface();
-        ~Interface();
+        virtual bool empty() = 0;
+        virtual void flush() = 0;
+        virtual void pushInt(int) = 0;
+        virtual void pushFloat(float) = 0;
+        virtual void pushCommand(unsigned char) = 0;
+        virtual void pushCommandImmediate(unsigned char) = 0;
 
-        virtual void sync();
-        virtual void startDevice();
-        virtual void stopDevice();
-
-        bool empty();
-        void flush();
-        void pushData(int);
-        void pushData(float);
-        void pushCommand(unsigned char);
-        unsigned char pop();
-
-        bool emptyTX();
-        void flushTX();
-
-        bool emptyRX();
-        void flushRX();
-
-    protected: // For use by subclasses to manage queues
-
-        // TX
-        unsigned char popTX();
-        void pushTXChar(unsigned char byt);
-        void pushTXInt(int val);
-        void pushTXFloat(float val);
-
-        // RX
-        unsigned char popRX();
-        void pushRXChar(unsigned char byt);
-        void pushRXInt(int val);
-        void pushRXFloat(float val);
-
-
-    private:
-        std::queue<unsigned char> rx;
-        std::queue<unsigned char> tx;
+        virtual int popInt() = 0;
+        virtual float popFloat() = 0;
+        virtual unsigned char popCommand() = 0;
 };
 
 #endif // INTERFACE_H

@@ -14,27 +14,27 @@ FlywheelOperation::FlywheelOperation(Interface *inter)
 void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk)
 {
     interface->pushCommand(COMMAND_SET_ALLD_FLOA);
-    interface->pushData(velocity);
-    interface->pushData(acceleration);
-    interface->pushData(jerk);
+    interface->pushFloat(velocity);
+    interface->pushFloat(acceleration);
+    interface->pushFloat(jerk);
 }
 
 void FlywheelOperation::setVelocity(float velocity)
 {
     interface->pushCommand(COMMAND_SET_VELO_FLOA);
-    interface->pushData(velocity);
+    interface->pushFloat(velocity);
 }
 
 void FlywheelOperation::setAcceleration(float acceleration)
 {
     interface->pushCommand(COMMAND_SET_ACCE_FLOA);
-    interface->pushData(acceleration);
+    interface->pushFloat(acceleration);
 }
 
 void FlywheelOperation::setJerk(float jerk)
 {
     interface->pushCommand(COMMAND_SET_JERK_FLOA);
-    interface->pushData(jerk);
+    interface->pushFloat(jerk);
 }
 
 float FlywheelOperation::getVelocity()
@@ -163,9 +163,7 @@ void FlywheelOperation::emergencyStop() // Tells the controller to stop and chec
 {
     emergency_retries = emergency_timeout;
 
-    interface->flushTX();
-    interface->pushCommand(COMMAND_SET_EMER_STOP);
-    interface->sync();
+    interface->pushCommandImmediate(COMMAND_SET_EMER_STOP);
 }
 
 void FlywheelOperation::setDefaults()
@@ -193,7 +191,7 @@ void FlywheelOperation::sync() // Fix issue where one or more bytes in a data se
 
     while(( !interface->empty() )&&( loop ))
     {
-        switch(interface->pop())
+        switch(interface->popCommand())
         {
             case COMMAND_ERR_EMER_STOP: // Emergency Stop
             {
@@ -210,54 +208,54 @@ void FlywheelOperation::sync() // Fix issue where one or more bytes in a data se
 
             case COMMAND_RES_VELO_FLOA: // Velocity
             {
-                vel.push(getData());
+                vel.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_ACCE_FLOA: // Acceleration
             {
-                acc.push(getData());
+                acc.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_JERK_FLOA: // Jerk
             {
-                jer.push(getData());
+                jer.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_LOWE_DISP: // Lower Displacement
             {
-                ldx.push(getData());
-                ldy.push(getData());
+                ldx.push(interface->popFloat());
+                ldy.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_UPPE_DISP: // Upper Displacement
             {
-                udx.push(getData());
-                udy.push(getData());
+                udx.push(interface->popFloat());
+                udy.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_ROTA_POSI: // Lower Displacement
             {
-                rpx.push(getData());
-                rpy.push(getData());
+                rpx.push(interface->popFloat());
+                rpy.push(interface->popFloat());
                 break;
             }
 
             case COMMAND_RES_ALLD_FLOA:  // All
             {
-                vel.push(getData());
-                acc.push(getData());
-                jer.push(getData());
-                ldx.push(getData());
-                ldy.push(getData());
-                udx.push(getData());
-                udy.push(getData());
-                rpx.push(getData());
-                rpy.push(getData());
+                vel.push(interface->popFloat());
+                acc.push(interface->popFloat());
+                jer.push(interface->popFloat());
+                ldx.push(interface->popFloat());
+                ldy.push(interface->popFloat());
+                udx.push(interface->popFloat());
+                udy.push(interface->popFloat());
+                rpx.push(interface->popFloat());
+                rpy.push(interface->popFloat());
                 break;
             }
 
@@ -276,15 +274,4 @@ void FlywheelOperation::sync() // Fix issue where one or more bytes in a data se
             emergency_retries--;
         }
     }
-}
-
-float FlywheelOperation::getData()
-{
-    unsigned char val[4];
-    val[0] = interface->pop();
-    val[1] = interface->pop();
-    val[2] = interface->pop();
-    val[3] = interface->pop();
-
-    return *reinterpret_cast<float*>(&val);
 }

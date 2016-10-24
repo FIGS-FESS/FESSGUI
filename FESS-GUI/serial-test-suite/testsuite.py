@@ -46,6 +46,9 @@ def writeData(device, data):
 	device.write(struct.pack('!B',int(sdat[8:16],2)))
 	device.write(struct.pack('!B',int(sdat[0:8],2)))
 
+def readCommand(device):
+	command = device.read()		
+
 key = 0
 vel = 0
 acc = 0
@@ -56,6 +59,9 @@ path = sys.argv[1]
 s = serial.Serial(path)
 
 while(True):
+
+	
+
 	prev_vel = vel
 	prev_acc = acc
 
@@ -88,9 +94,9 @@ while(True):
 	writeData(s, rpx)
 	writeData(s, rpy)
 
-	time.sleep(0.01)
+	time.sleep(0.10)
 
 # Citations: 
-#	Function: 	Binary()
+#	Function: 	binary()
 #	Author:		Dan Lecocq
 #	URL:		http://stackoverflow.com/questions/16444726/binary-representation-of-float-in-python-bits-not-hex

@@ -2,12 +2,12 @@
 #define FLY_SERIAL_H
 
 // QT Libraries
-#include <QtGui>
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
 // Custom Libraries
 #include "interface.h"
+#include "transmitbuffer.h"
 
 class Serial : public Interface
 {
@@ -19,6 +19,18 @@ class Serial : public Interface
         void sync();
         void startDevice();
         void stopDevice();
+        void setDefaults();
+
+        bool empty();
+        void flush();
+        void pushInt(int);
+        void pushFloat(float);
+        void pushCommand(unsigned char);
+        void pushCommandImmediate(unsigned char);
+
+        int popInt();
+        float popFloat();
+        unsigned char popCommand();
 
         // Unique Methods
         void setDevice(int);
@@ -27,18 +39,16 @@ class Serial : public Interface
         void setFlowControl(int);
         void setDataBits(int);
         void setStopBits(int);
-
         void setPort(QSerialPortInfo*);
 
     private:
-
-        // Internal Helper Functions
         void sendTX();
         void readRX();
-        void setDefaults();
 
         // Internal variables
         QSerialPort* device;
+        TransmitBuffer rx;
+        TransmitBuffer tx;
 
 };
 

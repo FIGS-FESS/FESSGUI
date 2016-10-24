@@ -26,9 +26,9 @@ void Demo::sync()
 
     bool loop = true;
 
-    while(!emptyTX() && loop)
+    while(!tx.empty() && loop)
     {
-        char val = popTX();
+        char val = tx.popChar();
 
         switch(val)
         {
@@ -36,14 +36,14 @@ void Demo::sync()
             {
                 loop = false;
                 type = STOP;
-                pushRXChar(COMMAND_ERR_EMER_STOP);
+                rx.pushFrontChar(COMMAND_ERR_EMER_STOP);
                 break;
             }
 
             default: // Error: Unknown Commands
             {
                 loop = false;
-                flushTX();
+                tx.flush();
                 break;
             }
         }
@@ -96,8 +96,8 @@ void Demo::sync()
     udy = 2*sin(key) - sin(2*key);
     ldx = 2*cos(key + 0.1) - cos(2*key + 0.1);
     ldy = 2*sin(key + 0.1) - sin(2*key + 0.1);
-    rpx = sin(position/1000);
-    rpy = cos(position/1000);
+    rpx = sin(position/100);
+    rpy = cos(position/100);
 
     key += 0.01;
     prev_vel = vel;
@@ -107,17 +107,78 @@ void Demo::sync()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    pushRXChar(COMMAND_RES_ALLD_FLOA);
-    pushRXFloat(vel);
-    pushRXFloat(acc);
-    pushRXFloat(jer);
-    pushRXFloat(ldx);
-    pushRXFloat(ldy);
-    pushRXFloat(udx);
-    pushRXFloat(udy);
-    pushRXFloat(rpx);
-    pushRXFloat(rpy);
+    rx.pushChar(COMMAND_RES_ALLD_FLOA);
+    rx.pushFloat(vel);
+    rx.pushFloat(acc);
+    rx.pushFloat(jer);
+    rx.pushFloat(ldx);
+    rx.pushFloat(ldy);
+    rx.pushFloat(udx);
+    rx.pushFloat(udy);
+    rx.pushFloat(rpx);
+    rx.pushFloat(rpy);
 }
 
-void Demo::startDevice(){}
-void Demo::stopDevice(){}
+//--------------------------------------------------------------------
+// Interface Overedload Functions
+//--------------------------------------------------------------------
+
+void Demo::startDevice()
+{
+}
+
+void Demo::stopDevice()
+{
+}
+
+void Demo::setDefaults()
+{
+}
+
+
+int Demo::popInt()
+{
+    return rx.popInt();
+}
+
+float Demo::popFloat()
+{
+    return rx.popFloat();
+}
+
+unsigned char Demo::popCommand()
+{
+    return rx.popChar();
+}
+
+
+void Demo::pushInt(int val)
+{
+    tx.pushInt(val);
+}
+
+void Demo::pushFloat(float val)
+{
+    tx.pushFloat(val);
+}
+
+void Demo::pushCommand(unsigned char byte)
+{
+    tx.pushChar(byte);
+}
+
+void Demo::pushCommandImmediate(unsigned char byte)
+{
+    tx.pushFrontChar(byte);
+}
+
+
+void Demo::flush()
+{
+    rx.flush();
+}
+
+bool Demo::empty()
+{
+    return rx.empty();
+}

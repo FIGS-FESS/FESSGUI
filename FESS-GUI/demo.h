@@ -3,6 +3,7 @@
 
 // Custom Libraries
 #include "interface.h"
+#include "transmitbuffer.h"
 
 #define RANDOM      0
 #define STOP        1
@@ -13,9 +14,23 @@ class Demo : public Interface
     public:
         Demo();
 
+        // Overriden Interface Methods
         void sync();
         void startDevice();
         void stopDevice();
+        void setDefaults();
+
+        bool empty();
+        void flush();
+        void pushInt(int);
+        void pushFloat(float);
+        void pushCommand(unsigned char);
+        void pushCommandImmediate(unsigned char);
+
+        int popInt();
+        float popFloat();
+        unsigned char popCommand();
+
 
     private:
         bool broadcast;
@@ -39,6 +54,9 @@ class Demo : public Interface
         float key;
 
         int type;
+
+        TransmitBuffer rx;
+        TransmitBuffer tx;
 };
 
 #endif // DEMO_H

@@ -16,7 +16,7 @@ Port 0: /dev/pts/0
 Port 1: /dev/pts/1
 
 Set the serial interface to <Your Port 0> in the QT Interface.
-Run the following command from the python-test-suite dir in another terminal:
+Run the following command from the serial-test-suite dir in another terminal:
 
 python testsuite.py <Your Port 1>
 

@@ -1,5 +1,9 @@
-// Custom Libraries
+// Custom Libraries --------------------------------------------------
 #include "serial.h"
+
+//--------------------------------------------------------------------
+// Serial Constructors
+//--------------------------------------------------------------------
 
 Serial::Serial()
 {
@@ -7,10 +11,20 @@ Serial::Serial()
     setDefaults();
 }
 
+//--------------------------------------------------------------------
+// Serial Destructors
+//--------------------------------------------------------------------
+
 Serial::~Serial()
 {
     delete device;
 }
+
+//--------------------------------------------------------------------
+// Public
+//--------------------------------------------------------------------
+
+// Serial Device Settings --------------------------------------------
 
 void Serial::setPort(QSerialPortInfo* port)
 {
@@ -136,42 +150,45 @@ void Serial::setStopBits(int bits)
     }
 }
 
-void Serial::setDefaults()
+
+//--------------------------------------------------------------------
+// Private
+//--------------------------------------------------------------------
+
+// Serial Device Send and Receive ----------------------------------
+
+
+void Serial::sendTX()
 {
-    setBaudRate(9600);
-    setParity(0);
-    setFlowControl(0);
-    setDataBits(8);
-    setStopBits(1);
+    while(!tx.empty())
+    {
+        device->putChar(tx.popChar());
+    }
+
+    device->waitForBytesWritten(0);
 }
+
+void Serial::readRX()
+{
+    device->waitForReadyRead(0);
+
+    QByteArray in = device->readAll();
+
+    for (int i = 0; i < in.size(); i++)
+    {
+        rx.pushChar(in[i]);
+    }
+}
+
+
+//--------------------------------------------------------------------
+// Interface Overedload Functions
+//--------------------------------------------------------------------
 
 void Serial::sync()
 {
     sendTX();
     readRX();
-}
-
-void Serial::sendTX()
-{
-    while(!emptyTX())
-    {
-        device->putChar(popTX());
-    }
-
-    device->waitForBytesWritten(1);
-}
-
-void Serial::readRX()
-{
-    device->waitForReadyRead(1);
-
-    QByteArray rx = device->readAll();
-
-    for (int i = 0; i < rx.size(); i++)
-    {
-        qDebug() << rx[i];
-        pushRXChar(rx[i]);
-    }
 }
 
 void Serial::startDevice()
@@ -182,4 +199,62 @@ void Serial::startDevice()
 void Serial::stopDevice()
 {
     device->close();
+}
+
+void Serial::setDefaults()
+{
+    setBaudRate(9600);
+    setParity(0);
+    setFlowControl(0);
+    setDataBits(8);
+    setStopBits(1);
+}
+
+
+int Serial::popInt()
+{
+    return rx.popInt();
+}
+
+float Serial::popFloat()
+{
+    return rx.popFloat();
+}
+
+unsigned char Serial::popCommand()
+{
+    return rx.popChar();
+}
+
+
+void Serial::pushInt(int val)
+{
+    tx.pushInt(val);
+}
+
+void Serial::pushFloat(float val)
+{
+    tx.pushFloat(val);
+}
+
+void Serial::pushCommand(unsigned char byte)
+{
+    tx.pushChar(byte);
+}
+
+void Serial::pushCommandImmediate(unsigned char byte)
+{
+    tx.pushFrontChar(byte);
+    sendTX();
+}
+
+
+void Serial::flush()
+{
+    rx.flush();
+}
+
+bool Serial::empty()
+{
+    return rx.empty();
 }
