@@ -380,10 +380,10 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
 /*this function manages the slope. It is called every 10ms when you click the go button,
   and stops when you get to your target velocity */
 void MainWindow::velocitySlope(){
-    double intervalIncrement = 1000 / velocitySlopeTimer->interval();
+    double intervalIncrement = 1000 / velocitySlopeTimer->interval(); //get the correct increment
 
     if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
-        currentExpectedVelocity += currentExpectedAcceleration / intervalIncrement; //the function runs every 10ms so divide by 100 to get the correct increment
+        currentExpectedVelocity += currentExpectedAcceleration / intervalIncrement; //increment the velocity
         if(currentExpectedVelocity >= targetVelocity){
             velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
