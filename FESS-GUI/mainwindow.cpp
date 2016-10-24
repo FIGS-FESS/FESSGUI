@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     velocityGraph = new ScrollingTimeGraph(this, ui->mainVelGraph, ui->auxVelocGraph, measuredColor, expectedColor, "RPM");
     velocityGraph->setFill(fillColor);
-    accelerationGraph = new ScrollingTimeGraph(this, ui->mainAccGraph, ui->auxAccelGraph, measuredColor, expectedColor, "rad/s^2");
+    accelerationGraph = new ScrollingTimeGraph(this, ui->mainAccGraph, ui->auxAccelGraph, measuredColor, expectedColor, "rad/s²");
     accelerationGraph->setFill(fillColor);
     lowerDisplacementGraph =  new ScrollingTimeGraph(this, ui->mainLdtGraph, ui->auxLowDtGraph, xColor, yColor, "mm");
     upperDisplacementGraph = new ScrollingTimeGraph(this, ui->mainUdtGraph, ui->auxUpDtGraph, xColor, yColor, "mm");
@@ -112,8 +112,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
             break;
 
             case (ACC):
-            ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
-            ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
+            ui->label_13->setText(QString::number(maxAcc) + " rad/s²");
+            ui->label_12->setText(QString::number(actualAcceleration) + " rad/s²");
             break;
 
             case (UDT):
