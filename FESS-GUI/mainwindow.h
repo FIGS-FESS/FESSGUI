@@ -5,7 +5,7 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
-#include "graphoperation.h"
+#include "graph.h"
 #include "flywheeloperation.h"
 #include "recordingoperation.h"
 
@@ -40,7 +40,8 @@ public:
     ~MainWindow();
 
 private:
-    GraphOperation* graphOperation;
+    ScrollingTimeGraph *velocityGraph, *accelerationGraph, *lowerDisplacementGraph, *upperDisplacementGraph;
+    LocationGraph *displacementGraph, *rotationGraph;
     FlywheelOperation* flywheelOperation;
 
 private slots:
@@ -56,10 +57,6 @@ private slots:
     void on_jerkSlider_valueChanged(int jerk);
 
     void realtimeDataSlot();
-
-    void addXYData(double ux, double uy, double lx, double ly);
-
-    void addRotatData(double x, double y);
 
     void on_goButton_clicked();
 

@@ -63,68 +63,29 @@ MainWindow::MainWindow(QWidget *parent) :
     /*******************************************************
     The following code initializes all the graphs. There are
     5 graphs, with a main window and auxillary window each.
-    The bool value in the Setup functions indicates if it
-    is the main window. Parameters like labels and fill colors
+    Parameters like labels and fill colors
     are also initialized here.
     *******************************************************/
 
-    graphOperation = new GraphOperation(this);    //GraphOperation has methods for setting up the graphs
-    graphOperation->SetupRTG(ui->mainVelGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
-    ui->mainVelGraph->yAxis->setLabel("RPM");  //velocity
-    ui->mainVelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));   //fill color between expected and measured
+    QColor measuredColor = QColor(Qt::blue), expectedColor = QColor(Qt::red);
+    QColor xColor = QColor(Qt::green), yColor = QColor(Qt::magenta);
+    QColor upperColor = QColor(255, 165, 0), lowerColor = QColor(Qt::cyan), rotationalColor = QColor(Qt::black);
+    QColor fillColor = QColor(240, 255, 200);
 
-    graphOperation->SetupRTG(ui->mainAccGraph, true, graphOperation->measuredColor, graphOperation->expectedColor);
-    ui->mainAccGraph->yAxis->setLabel("rad/s^2");   //acceleration
-    ui->mainAccGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
+    velocityGraph = new ScrollingTimeGraph(this, ui->mainVelGraph, ui->auxVelocGraph, measuredColor, expectedColor, "RPM");
+    velocityGraph->setFill(fillColor);
+    accelerationGraph = new ScrollingTimeGraph(this, ui->mainAccGraph, ui->auxAccelGraph, measuredColor, expectedColor, "rad/s^2");
+    accelerationGraph->setFill(fillColor);
+    lowerDisplacementGraph =  new ScrollingTimeGraph(this, ui->mainLdtGraph, ui->auxLowDtGraph, xColor, yColor, "mm");
+    upperDisplacementGraph = new ScrollingTimeGraph(this, ui->mainUdtGraph, ui->auxUpDtGraph, xColor, yColor, "mm");
 
-    graphOperation->SetupRTG(ui->mainUdtGraph, true, graphOperation->xColor, graphOperation->yColor); //main upper displacement
-    ui->mainUdtGraph->yAxis->setLabel("mm");
-
-    graphOperation->SetupRTG(ui->mainLdtGraph, true, graphOperation->xColor, graphOperation->yColor); //main lower displacement
-    ui->mainLdtGraph->yAxis->setLabel("mm");
-
-    graphOperation->SetupXYG(ui->mainXYGraph, true, graphOperation->upperColor, graphOperation->lowerColor); //main xy
-    graphOperation->SetupXYG(ui->mainRotGraph, true, graphOperation->rotationalColor, graphOperation->rotationalColor);  //main rotational location
-
-    graphOperation->SetupRTG(ui->auxVelocGraph, false, graphOperation->measuredColor, graphOperation->expectedColor);  //auxillary velocity graph
-    ui->auxVelocGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
-
-    graphOperation->SetupRTG(ui->auxAccelGraph, false, graphOperation->measuredColor, graphOperation->expectedColor);  //auxillary acceleration
-    ui->auxAccelGraph->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
-
-    graphOperation->SetupRTG(ui->auxUpDtGraph, false, graphOperation->xColor, graphOperation->yColor);  //auxillary upper displacement
-    graphOperation->SetupRTG(ui->auxLowDtGraph, false, graphOperation->xColor, graphOperation->yColor);  //auxillary lower displacement
-    graphOperation->SetupXYG(ui->auxXYGraph, false, graphOperation->upperColor, graphOperation->lowerColor);  //auxillary xy graph
-    graphOperation->SetupXYG(ui->auxRotatGraph, false, graphOperation->rotationalColor, graphOperation->rotationalColor);  //auxillary rotational location
+    displacementGraph = new LocationGraph(ui->mainXYGraph, ui->auxXYGraph, upperColor, lowerColor);
+    rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, rotationalColor);
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
     dataTimer->start(0); // Interval 0 means to refresh as fast as possible
-}
-
-void MainWindow::addXYData(double ux, double uy, double lx, double ly)  //function to add xy data to graphs
-{
-    ui->mainXYGraph->graph(0)->clearData();   //wipe the current points
-    ui->mainXYGraph->graph(0)->addData(ux, uy); //add uppper x and y points
-
-    ui->auxXYGraph->graph(0)->clearData();
-    ui->auxXYGraph->graph(0)->addData(ux, uy);
-
-    ui->mainXYGraph->graph(1)->clearData();
-    ui->mainXYGraph->graph(1)->addData(lx, ly);  //add lower x and y points
-
-    ui->auxXYGraph->graph(1)->clearData();
-    ui->auxXYGraph->graph(1)->addData(lx, ly);
-}
-
-void MainWindow::addRotatData(double x, double y) //add rotational data to graphs
-{
-    ui->mainRotGraph->graph(0)->clearData();
-    ui->mainRotGraph->graph(0)->addData(x, y);
-
-    ui->auxRotatGraph->graph(0)->clearData();
-    ui->auxRotatGraph->graph(0)->addData(x, y);
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
@@ -142,96 +103,60 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
     {
 
-      //this switch is necessary because the text changes depending on what graph you have in the main display
-      switch (mainGraphDisplay)
-      {
-          case (VEL):
-          ui->label_13->setText(QString::number(maxVel) + " RPM");
-          ui->label_12->setText(QString::number(actualVelocity) + " RPM");
-          break;
+        //this switch is necessary because the text changes depending on what graph you have in the main display
+        switch (mainGraphDisplay)
+        {
+            case (VEL):
+            ui->label_13->setText(QString::number(maxVel) + " RPM");
+            ui->label_12->setText(QString::number(actualVelocity) + " RPM");
+            break;
 
-          case (ACC):
-          ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
-          ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
-          break;
+            case (ACC):
+            ui->label_13->setText(QString::number(maxAcc) + " rad/s<sup>2</sup>");
+            ui->label_12->setText(QString::number(actualAcceleration) + " rad/s<sup>2</sup>");
+            break;
 
-          case (UDT):
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
-          break;
+            case (UDT):
+            ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+            ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
+            break;
 
-          case (LDT):
-          ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
-          ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-          break;
+            case (LDT):
+            ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
+            ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
+            break;
 
-          case (XYD):
-          //todo: correct this
-          ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-          ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-          break;
+            case (XYD):
+            //todo: correct this
+            ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
+            ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
+            break;
 
-          case (ROT):
-          ui->label_13->setText("");
-          ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
-          break;
-      }
+            case (ROT):
+            ui->label_13->setText("");
+            ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
+            break;
+        }
 
-      //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
-      graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
+        //add data to graphs
+        velocityGraph->addData(currentTime, actualVelocity, expectedVelocity);
+        accelerationGraph->addData(currentTime, actualAcceleration, expectedAcceleration);
+        upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
+        lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
-      addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
-      addRotatData(rotationalPosition.x(), rotationalPosition.y());
+        displacementGraph->addData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
+        rotationGraph->addData(rotationalPosition.x(), rotationalPosition.y());
 
-	  //output data to csv if recording
-      if (isRecording){
-          recording->Record(currentTime, actualVelocity, actualAcceleration,
-                            upperDisplacement.x(), upperDisplacement.y(),
-                            lowerDisplacement.x(), lowerDisplacement.y(),
-                            rotationalPosition.x(), rotationalPosition.y());
-      }
-	  
-      lastPointTime = currentTime;
+        //output data to csv if recording
+        if (isRecording){
+            recording->Record(currentTime, actualVelocity, actualAcceleration,
+                              upperDisplacement.x(), upperDisplacement.y(),
+                              lowerDisplacement.x(), lowerDisplacement.y(),
+                              rotationalPosition.x(), rotationalPosition.y());
+        }
+
+        lastPointTime = currentTime;
     }
-
-    // make currentTime axis range scroll with the data (at a constant range size of 8):
-    ui->mainVelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->mainVelGraph->replot();
-
-    ui->auxVelocGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->auxVelocGraph->replot();
-
-    ui->mainAccGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->mainAccGraph->replot();
-
-    ui->auxAccelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->auxAccelGraph->replot();
-
-    ui->mainUdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->mainUdtGraph->replot();
-
-    ui->auxUpDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->auxUpDtGraph->replot();
-
-    ui->mainLdtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->mainLdtGraph->replot();
-
-    ui->auxLowDtGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
-    ui->auxLowDtGraph->replot();
-
-    ui->mainXYGraph->replot();
-    ui->auxXYGraph->replot();
-
-    ui->mainRotGraph->replot();
-    ui->auxRotatGraph->replot();
-
 
     // calculate frames per second:
     static double lastFpsTime;
@@ -407,9 +332,9 @@ void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary g
     ui->velLabel->setStyleSheet("color: black; font-size: 14px;"); //make the label larger to emphasize focus
 
     ui->label_10->setText("Measured Value");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->measuredColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + velocityGraph->primaryColor.name() + "; }");
     ui->label_11->setText("Expected Value");
-    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->expectedColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + velocityGraph->secondaryColor.name() + "; }");
 }
 
 void MainWindow::on_accelButton_clicked()
@@ -423,9 +348,9 @@ void MainWindow::on_accelButton_clicked()
     ui->accLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured Value");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->measuredColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + accelerationGraph->primaryColor.name() + "; }");
     ui->label_11->setText("Expected Value");
-    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->expectedColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + accelerationGraph->secondaryColor.name() + "; }");
 }
 
 void MainWindow::on_updtButton_clicked()
@@ -439,9 +364,9 @@ void MainWindow::on_updtButton_clicked()
     ui->upDtLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured X");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->xColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + upperDisplacementGraph->primaryColor.name() + "; }");
     ui->label_11->setText("Measured Y");
-    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->yColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + upperDisplacementGraph->secondaryColor.name() + "; }");
 }
 
 void MainWindow::on_lowdtButton_clicked()
@@ -455,9 +380,9 @@ void MainWindow::on_lowdtButton_clicked()
     ui->lowDtLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Measured X");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->xColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + lowerDisplacementGraph->primaryColor.name() + "; }");
     ui->label_11->setText("Measured Y");
-    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->yColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + lowerDisplacementGraph->secondaryColor.name() + "; }");
 }
 
 void MainWindow::on_XYButton_clicked()
@@ -471,9 +396,9 @@ void MainWindow::on_XYButton_clicked()
     ui->xyLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Upper Displacement");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->upperColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + displacementGraph->primaryColor.name() + "; }");
     ui->label_11->setText("Lower Displacement");
-    ui->label_11->setStyleSheet("QLabel {color :" + graphOperation->lowerColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + displacementGraph->secondaryColor.name() + "; }");
 }
 
 void MainWindow::on_rotatButton_clicked()
@@ -487,7 +412,7 @@ void MainWindow::on_rotatButton_clicked()
     ui->rotLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Rotational Location");
-    ui->label_10->setStyleSheet("QLabel {color :" + graphOperation->rotationalColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + rotationGraph->primaryColor.name() + "; }");
     ui->label_11->setText("");
 }
 
