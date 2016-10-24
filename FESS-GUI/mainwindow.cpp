@@ -352,7 +352,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     velocitySlopeTimer->stop();
     accelerationSlopeTimer->stop();
 
-    targetVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;  //get the expected/target values, get velocity in rad/s
+    targetVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());  //get the expected/target values, get velocity in rad/s
     targetAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
 
