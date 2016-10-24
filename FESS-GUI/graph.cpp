@@ -6,14 +6,16 @@ Graph::Graph()
 }
 
 ScrollingTimeGraph::ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot,
-                                       QColor primaryColor, QColor secondaryColor, QString yAxisLabel){
+                                       QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues){
     this->mainPlot = mainPlot;
     this->auxPlot = auxPlot;
     this->primaryColor = primaryColor;
     this->secondaryColor = secondaryColor;
+    this->displayUnit = displayUnit;
+    this->numDisplayValues = numDisplayValues;
 
     setupPlot(mainWindow, mainPlot, true, primaryColor, secondaryColor);
-    mainPlot->yAxis->setLabel(yAxisLabel);
+    mainPlot->yAxis->setLabel(displayUnit);
     setupPlot(mainWindow, auxPlot, false, primaryColor, secondaryColor);
 }
 
@@ -59,6 +61,14 @@ void ScrollingTimeGraph::setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, b
 }
 
 void ScrollingTimeGraph::addData(double time, double primaryData, double secondaryData){
+    currentPrimary = primaryData;
+    currentSecondary = secondaryData;
+
+    if(primaryData > maxPrimary)
+        maxPrimary = primaryData;
+    if(secondaryData > maxSecondary)
+        maxSecondary = secondaryData;
+
     addData(mainPlot, time, primaryData, secondaryData);
     addData(auxPlot, time, primaryData, secondaryData);
 }
@@ -86,60 +96,45 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     plot->replot();
 }
 
+QString ScrollingTimeGraph::maxDisplay(){
+    QString ret = QString::number(maxPrimary);
+    if (numDisplayValues >= 1)
+        ret += ", " + QString::number(maxSecondary);
+    return ret + " " + displayUnit;
+}
 
-LocationGraph::LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor){
+QString ScrollingTimeGraph::currentDisplay(){
+    QString ret = QString::number(currentPrimary);
+    if (numDisplayValues >= 1)
+        ret += ", " + QString::number(currentSecondary);
+    return ret + " " + displayUnit;
+}
+
+
+/*********************************************************************************************/
+
+LocationGraph::LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, std::vector<QColor> colors, QString displayUnit, int numPoints){
     this->mainPlot = mainPlot;
     this->auxPlot = auxPlot;
-    this->primaryColor = primaryColor;
-    this->secondaryColor = secondaryColor;
-    setupPlot(mainPlot, true, primaryColor, secondaryColor);
-    setupPlot(auxPlot, false, primaryColor, secondaryColor);
+    this->colors = colors;
+    this->displayUnit = displayUnit;
+    this->numPoints = numPoints;
+    maxPoints = std::vector<QPointF> (numPoints, QPointF(std::numeric_limits<qreal>::min(), std::numeric_limits<qreal>::min()));
+    currentPoints = std::vector<QPointF> (numPoints);
+
+    setupPlot(mainPlot, true, colors, numPoints);
+    setupPlot(auxPlot, false, colors, numPoints);
 }
 
-LocationGraph::LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor){
-    this->mainPlot = mainPlot;
-    this->auxPlot = auxPlot;
-    this->primaryColor = primaryColor;
-    setupPlot(mainPlot, true, primaryColor);
-    setupPlot(auxPlot, false, primaryColor);
-}
 
-void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor)
+void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, std::vector<QColor> colors, int numPoints)
 {
-
-    plot->addGraph(); // blue dot
-    plot->graph(0)->setPen(QPen(primaryColor));
-    plot->graph(0)->setLineStyle(QCPGraph::lsNone);
-    plot->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
-
-    plot->addGraph(); // red dot
-    plot->graph(1)->setPen(QPen(secondaryColor));
-    plot->graph(1)->setLineStyle(QCPGraph::lsNone);
-    plot->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
-
-    // set axes ranges, so we see all data:
-    plot->xAxis->setRange(-5, 5);
-    plot->yAxis->setRange(-5, 5);
-
-    if(isMain)
-    {
-        plot->xAxis->setLabel("x");
-        plot->yAxis->setLabel("y");
+    for(int i = 0; i < numPoints; i++){
+        plot->addGraph(); // blue dot
+        plot->graph(i)->setPen(QPen(colors[i]));
+        plot->graph(i)->setLineStyle(QCPGraph::lsNone);
+        plot->graph(i)->setScatterStyle(QCPScatterStyle::ssDisc);
     }
-    else
-    {
-        plot->xAxis->setTickLabels(false);
-        plot->yAxis->setTickLabels(false);
-    }
-}
-
-void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor)
-{
-
-    plot->addGraph(); // main dot
-    plot->graph(0)->setPen(QPen(primaryColor));
-    plot->graph(0)->setLineStyle(QCPGraph::lsNone);
-    plot->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
 
     // set axes ranges, so we see all data:
     plot->xAxis->setRange(-5, 5);
@@ -159,7 +154,11 @@ void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColo
 
 void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy data to graphs
 {
-    for(int i = 0; i < points.size(); i++){
+    for(int i = 0; i < points.size() && i < numPoints; i++){
+        currentPoints[i] = points[i];
+        if(points[i].manhattanLength() > maxPoints[i].manhattanLength())
+            maxPoints[i] = points[i];
+
         mainPlot->graph(i)->clearData();
         mainPlot->graph(i)->addData(points[i].x(), points[i].y());
 
@@ -169,4 +168,25 @@ void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy d
 
     mainPlot->replot();
     auxPlot->replot();
+}
+
+
+QString LocationGraph::maxDisplay(){
+    QString ret = "(" + QString::number(maxPoints[0].x()) + ", " + QString::number(maxPoints[0].y()) + ")";
+
+    for(int i = 1; i < numPoints; i++){
+        ret += ", (" + QString::number(maxPoints[i].x()) + ", " + QString::number(maxPoints[i].y()) + ")";
+    }
+
+    return ret + " " + displayUnit;
+}
+
+QString LocationGraph::currentDisplay(){
+    QString ret = "(" + QString::number(currentPoints[0].x()) + ", " + QString::number(currentPoints[0].y()) + ")";
+
+    for(int i = 1; i < numPoints; i++){
+        ret += ", (" + QString::number(currentPoints[i].x()) + ", " + QString::number(currentPoints[i].y()) + ")";
+    }
+
+    return ret + " " + displayUnit;
 }

@@ -73,15 +73,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QColor upperColor = QColor(255, 165, 0), lowerColor = QColor(Qt::cyan), rotationalColor = QColor(Qt::black);
     QColor fillColor = QColor(240, 255, 200);
 
-    velocityGraph = new ScrollingTimeGraph(this, ui->mainVelGraph, ui->auxVelocGraph, measuredColor, expectedColor, "RPM");
+    velocityGraph = new ScrollingTimeGraph(this, ui->mainVelGraph, ui->auxVelocGraph, measuredColor, expectedColor, "RPM", 1);
     velocityGraph->setFill(fillColor);
-    accelerationGraph = new ScrollingTimeGraph(this, ui->mainAccGraph, ui->auxAccelGraph, measuredColor, expectedColor, "rad/s²");
+    selectedGraph = velocityGraph;
+    accelerationGraph = new ScrollingTimeGraph(this, ui->mainAccGraph, ui->auxAccelGraph, measuredColor, expectedColor, "rad/s²", 1);
     accelerationGraph->setFill(fillColor);
-    lowerDisplacementGraph =  new ScrollingTimeGraph(this, ui->mainLdtGraph, ui->auxLowDtGraph, xColor, yColor, "mm");
-    upperDisplacementGraph = new ScrollingTimeGraph(this, ui->mainUdtGraph, ui->auxUpDtGraph, xColor, yColor, "mm");
+    lowerDisplacementGraph =  new ScrollingTimeGraph(this, ui->mainLdtGraph, ui->auxLowDtGraph, xColor, yColor, "mm", 2);
+    upperDisplacementGraph = new ScrollingTimeGraph(this, ui->mainUdtGraph, ui->auxUpDtGraph, xColor, yColor, "mm", 2);
 
-    displacementGraph = new LocationGraph(ui->mainXYGraph, ui->auxXYGraph, upperColor, lowerColor);
-    rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, rotationalColor);
+    displacementGraph = new LocationGraph(ui->mainXYGraph, ui->auxXYGraph, std::vector<QColor>{upperColor, lowerColor}, "mm", 2);
+    rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, std::vector<QColor>{rotationalColor}, "mm", 1);
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
@@ -101,67 +102,27 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     QPointF lowerDisplacement = flywheelOperation->getLowerDisplacement();
     QPointF rotationalPosition = flywheelOperation->getRotationalPosition();
 
-    if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
-    {
-        ui->label_13->setText(selectedGraph->maxDisplay());
-        ui->label_12->setText(selectedGraph->currentDisplay());
+    ui->label_13->setText(selectedGraph->maxDisplay());
+    ui->label_12->setText(selectedGraph->currentDisplay());
 
-        /*
-        //this switch is necessary because the text changes depending on what graph you have in the main display
-        switch (mainGraphDisplay)
-        {
-            case (VEL):
-            ui->label_13->setText(QString::number(maxVel) + " RPM");
-            ui->label_12->setText(QString::number(actualVelocity) + " RPM");
-            break;
+    //add data to graphs
+    velocityGraph->addData(currentTime, actualVelocity, expectedVelocity);
+    accelerationGraph->addData(currentTime, actualAcceleration, expectedAcceleration);
+    upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
+    lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
-            case (ACC):
-            ui->label_13->setText(QString::number(maxAcc) + " rad/s²");
-            ui->label_12->setText(QString::number(actualAcceleration) + " rad/s²");
-            break;
+    displacementGraph->addData(std::vector<QPointF> {upperDisplacement, lowerDisplacement});
+    rotationGraph->addData(std::vector<QPointF> {rotationalPosition});
 
-            case (UDT):
-            ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-            ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(upperDisplacement.y()) + " mm");
-            break;
-
-            case (LDT):
-            ui->label_13->setText(QString::number(maxLwDt[0]) + ", " + QString::number(maxLwDt[1]) + " mm");
-            ui->label_12->setText(QString::number(lowerDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-            break;
-
-            case (XYD):
-            //todo: correct this
-            ui->label_13->setText(QString::number(maxUpDt[0]) + ", " + QString::number(maxUpDt[1]) + " mm");
-            ui->label_12->setText(QString::number(upperDisplacement.x()) + ", " + QString::number(lowerDisplacement.y()) + " mm");
-            break;
-
-            case (ROT):
-            ui->label_13->setText("");
-            ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
-            break;
-        }
-        */
-
-        //add data to graphs
-        velocityGraph->addData(currentTime, actualVelocity, expectedVelocity);
-        accelerationGraph->addData(currentTime, actualAcceleration, expectedAcceleration);
-        upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
-        lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
-
-        displacementGraph->addData(std::vector<QPointF> {upperDisplacement, lowerDisplacement});
-        rotationGraph->addData(std::vector<QPointF> {rotationalPosition});
-
-        //output data to csv if recording
-        if (isRecording){
-            recording->Record(currentTime, actualVelocity, actualAcceleration,
-                              upperDisplacement.x(), upperDisplacement.y(),
-                              lowerDisplacement.x(), lowerDisplacement.y(),
-                              rotationalPosition.x(), rotationalPosition.y());
-        }
-
-        lastPointTime = currentTime;
+    //output data to csv if recording
+    if (isRecording){
+        recording->Record(currentTime, actualVelocity, actualAcceleration,
+                          upperDisplacement.x(), upperDisplacement.y(),
+                          lowerDisplacement.x(), lowerDisplacement.y(),
+                          rotationalPosition.x(), rotationalPosition.y());
     }
+
+    lastPointTime = currentTime;
 
     // calculate frames per second:
     static double lastFpsTime;
@@ -401,9 +362,9 @@ void MainWindow::on_XYButton_clicked()
     ui->xyLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Upper Displacement");
-    ui->label_10->setStyleSheet("QLabel {color :" + displacementGraph->primaryColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + displacementGraph->colors[0].name() + "; }");
     ui->label_11->setText("Lower Displacement");
-    ui->label_11->setStyleSheet("QLabel {color :" + displacementGraph->secondaryColor.name() + "; }");
+    ui->label_11->setStyleSheet("QLabel {color :" + displacementGraph->colors[1].name() + "; }");
 }
 
 void MainWindow::on_rotatButton_clicked()
@@ -417,7 +378,7 @@ void MainWindow::on_rotatButton_clicked()
     ui->rotLabel->setStyleSheet("color: black; font-size: 14px;");
 
     ui->label_10->setText("Rotational Location");
-    ui->label_10->setStyleSheet("QLabel {color :" + rotationGraph->primaryColor.name() + "; }");
+    ui->label_10->setStyleSheet("QLabel {color :" + rotationGraph->colors[0].name() + "; }");
     ui->label_11->setText("");
 }
 

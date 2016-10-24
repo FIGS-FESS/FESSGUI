@@ -10,20 +10,25 @@ class Graph
 {
 protected:
     QCustomPlot *mainPlot, *auxPlot;
+    QString displayUnit;
 public:
     Graph();
     QColor primaryColor, secondaryColor;
-    QString maxDisplay();
-    QString currentDisplay();
+    virtual QString maxDisplay(){return "";}
+    virtual QString currentDisplay(){return "";}
 };
 
 
 class ScrollingTimeGraph : public Graph {
 public:
-    ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor, QString yAxisLabel);
+    ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues);
     void addData(double time, double primaryData, double secondDaryData);
     void setFill(QColor fillColor);
+    QString maxDisplay() override;
+    QString currentDisplay() override;
 private:
+    double maxPrimary, maxSecondary, currentPrimary, currentSecondary;
+    int numDisplayValues;
     void setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor);
     void addData(QCustomPlot* plot, double time, double primaryData, double secondaryData);
 };
@@ -31,12 +36,15 @@ private:
 
 class LocationGraph : public Graph {
 public:
-    LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor);
-    LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor);
+    LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, std::vector<QColor> colors, QString displayUnit, int numPoints);
     void addData(std::vector<QPointF> points);
+    QString maxDisplay() override;
+    QString currentDisplay() override;
+    std::vector<QColor> colors;
 private:
-    void setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor);
-    void setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor);
+    int numPoints;
+    std::vector<QPointF> maxPoints, currentPoints;
+    void setupPlot(QCustomPlot *plot, bool isMain, std::vector<QColor> colors, int numPoints);
 };
 
 #endif // GRAPH_H
