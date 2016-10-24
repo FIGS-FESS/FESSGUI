@@ -25,8 +25,7 @@ HEADERS  += mainwindow.h \
     setpassworddialog.h \
     graphoperation.h \
     flywheeloperation.h \
-    recordingoperation.h \
-    conversions.h
+    recordingoperation.h
 
 FORMS    += mainwindow.ui \
     setpassworddialog.ui
