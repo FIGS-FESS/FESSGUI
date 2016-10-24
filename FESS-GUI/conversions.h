@@ -5,7 +5,12 @@
 
 double radsPerSecondToRPM(double rads)
 {
-    return rads * 60 / M_PI;
+    return rads * (60 / (2 * M_PI));
+}
+
+double RPMtoRadsPerSecond(double RPM)
+{
+    return RPM * ((2 * M_PI) / 60);
 }
 
 #endif // CONVERSIONS_H

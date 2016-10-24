@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
 
-    currentExpectedVelocity = ui->velocitySpinBox->value() * 6.2831 / 60;    //initialize expected values based on spinbox values
+    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
 
@@ -383,17 +383,19 @@ void MainWindow::velocitySlope(){
     double intervalIncrement = 1000 / velocitySlopeTimer->interval();
 
     if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
-        currentExpectedVelocity += currentExpectedAcceleration/intervalIncrement; //the function runs every 10ms so divide by 100 to get the correct increment
+        currentExpectedVelocity += currentExpectedAcceleration / intervalIncrement; //the function runs every 10ms so divide by 100 to get the correct increment
         if(currentExpectedVelocity >= targetVelocity){
             velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
+            currentExpectedAcceleration = 0;
         }
     }
     else {
-        currentExpectedVelocity -= currentExpectedAcceleration/intervalIncrement;
+        currentExpectedVelocity -= currentExpectedAcceleration / intervalIncrement;
         if(currentExpectedVelocity<=targetVelocity){
             velocitySlopeTimer->stop();
             currentExpectedVelocity = targetVelocity;
+            currentExpectedAcceleration = 0;
         }
     }
 }
@@ -402,14 +404,14 @@ void MainWindow::accelerationSlope(){
     double intervalIncrement = 1000 / velocitySlopeTimer->interval();
 
     if(currentExpectedAcceleration <= targetAcceleration){
-        currentExpectedAcceleration += currentExpectedJerk/intervalIncrement;
+        currentExpectedAcceleration += currentExpectedJerk / intervalIncrement;
         if(currentExpectedAcceleration >= targetAcceleration){
             accelerationSlopeTimer->stop();
             currentExpectedAcceleration = targetAcceleration;
         }
     }
     else {
-        currentExpectedAcceleration -= currentExpectedJerk/intervalIncrement;
+        currentExpectedAcceleration -= currentExpectedJerk / intervalIncrement;
         if(currentExpectedAcceleration<=targetAcceleration){
             accelerationSlopeTimer->stop();
             currentExpectedAcceleration = targetAcceleration;
