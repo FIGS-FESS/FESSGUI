@@ -32,8 +32,6 @@ public:
     double maxAcc = 0;
     double maxUpDt [2] = {0, 0};
     double maxLwDt [2] = {0 ,0};
-    enum graph {VEL, ACC, UDT, LDT, XYD, ROT};
-    graph mainGraphDisplay = VEL;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;
@@ -42,6 +40,7 @@ public:
 private:
     ScrollingTimeGraph *velocityGraph, *accelerationGraph, *lowerDisplacementGraph, *upperDisplacementGraph;
     LocationGraph *displacementGraph, *rotationGraph;
+    Graph* selectedGraph = velocityGraph;
     FlywheelOperation* flywheelOperation;
 
 private slots:

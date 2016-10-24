@@ -157,32 +157,16 @@ void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColo
     }
 }
 
-void LocationGraph::addData(double ux, double uy, double lx, double ly)  //function to add xy data to graphs
+void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy data to graphs
 {
-    mainPlot->graph(0)->clearData();   //wipe the current points
-    mainPlot->graph(0)->addData(ux, uy); //add uppper x and y points
+    for(int i = 0; i < points.size(); i++){
+        mainPlot->graph(i)->clearData();
+        mainPlot->graph(i)->addData(points[i].x(), points[i].y());
 
-    auxPlot->graph(0)->clearData();
-    auxPlot->graph(0)->addData(ux, uy);
-
-    mainPlot->graph(1)->clearData();
-    mainPlot->graph(1)->addData(lx, ly);  //add lower x and y points
-
-    auxPlot->graph(1)->clearData();
-    auxPlot->graph(1)->addData(lx, ly);
+        auxPlot->graph(i)->clearData();
+        auxPlot->graph(i)->addData(points[i].x(), points[i].y());
+    }
 
     mainPlot->replot();
     auxPlot->replot();
 }
-
-void LocationGraph::addData(double x, double y) //add rotational data to graphs
-{
-    mainPlot->graph(0)->clearData();
-    mainPlot->graph(0)->addData(x, y);
-    mainPlot->replot();
-
-    auxPlot->graph(0)->clearData();
-    auxPlot->graph(0)->addData(x, y);
-    auxPlot->replot();
-}
-

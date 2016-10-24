@@ -2,7 +2,9 @@
 #define GRAPH_H
 
 #include"qcustomplot.h"
+#include <vector>
 #include <QString>
+#include <QPointF>
 
 class Graph
 {
@@ -11,6 +13,8 @@ protected:
 public:
     Graph();
     QColor primaryColor, secondaryColor;
+    QString maxDisplay();
+    QString currentDisplay();
 };
 
 
@@ -29,8 +33,7 @@ class LocationGraph : public Graph {
 public:
     LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor);
     LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor);
-    void addData(double ux, double uy, double lx, double ly);
-    void addData(double x, double y);
+    void addData(std::vector<QPointF> points);
 private:
     void setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor);
     void setupPlot(QCustomPlot *plot, bool isMain, QColor primaryColor);

@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <qwidget.h>
+#include <vector>
 #include <ctime>
 #include <iomanip>
 #include <string>
@@ -102,7 +103,10 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
     if (currentTime-lastPointTime > 0.01) // at most add point every 10 ms
     {
+        ui->label_13->setText(selectedGraph->maxDisplay());
+        ui->label_12->setText(selectedGraph->currentDisplay());
 
+        /*
         //this switch is necessary because the text changes depending on what graph you have in the main display
         switch (mainGraphDisplay)
         {
@@ -137,6 +141,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
             ui->label_12->setText(QString::number(rotationalPosition.x()) + ", " + QString::number(rotationalPosition.y()));
             break;
         }
+        */
 
         //add data to graphs
         velocityGraph->addData(currentTime, actualVelocity, expectedVelocity);
@@ -144,8 +149,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
         upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
         lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
-        displacementGraph->addData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
-        rotationGraph->addData(rotationalPosition.x(), rotationalPosition.y());
+        displacementGraph->addData(std::vector<QPointF> {upperDisplacement, lowerDisplacement});
+        rotationGraph->addData(std::vector<QPointF> {rotationalPosition});
 
         //output data to csv if recording
         if (isRecording){
@@ -323,7 +328,7 @@ void MainWindow::on_actionDefault_triggered() //default sounds
 
 void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary graphs
 {
-    mainGraphDisplay = VEL;             //enum for which display you're on
+    selectedGraph = velocityGraph;             //pointer for which display you're on
     ui->stackedWidget->setCurrentIndex(2); //if you hit an auxillary graph it brings the performance page into focus
     ui->stackedWidget_2->setCurrentIndex(0); //this stacked widget has all the main graphs. index zero is the velocity graph
     ui->label_7->setText("Velocity");
@@ -339,7 +344,7 @@ void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary g
 
 void MainWindow::on_accelButton_clicked()
 {
-    mainGraphDisplay = ACC;
+    selectedGraph = accelerationGraph;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(1); //index one is the acceleration graph
     ui->label_7->setText("Acceleration");
@@ -355,7 +360,7 @@ void MainWindow::on_accelButton_clicked()
 
 void MainWindow::on_updtButton_clicked()
 {
-    mainGraphDisplay = UDT;
+    selectedGraph = upperDisplacementGraph;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(2);   //index two is the upper displacement graph
     ui->label_7->setText("Upper X,Y Displacement");
@@ -371,7 +376,7 @@ void MainWindow::on_updtButton_clicked()
 
 void MainWindow::on_lowdtButton_clicked()
 {
-    mainGraphDisplay = LDT;
+    selectedGraph = lowerDisplacementGraph;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(3); //index three is the lower displacement graph
     ui->label_7->setText("Lower X,Y Displacement");
@@ -387,7 +392,7 @@ void MainWindow::on_lowdtButton_clicked()
 
 void MainWindow::on_XYButton_clicked()
 {
-    mainGraphDisplay = XYD;
+    selectedGraph = displacementGraph;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(4);  //index four is the xy graph
     ui->label_7->setText("X,Y Displacement");
@@ -403,7 +408,7 @@ void MainWindow::on_XYButton_clicked()
 
 void MainWindow::on_rotatButton_clicked()
 {
-    mainGraphDisplay = ROT;
+    selectedGraph = rotationGraph;
     ui->stackedWidget->setCurrentIndex(2);
     ui->stackedWidget_2->setCurrentIndex(5);  //index five is the rotational location graph
     ui->label_7->setText("Rotational Location");
@@ -462,15 +467,10 @@ void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recor
 void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply settings button
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
-    //qDebug(settings.fileName().toLocal8Bit());
-
 
     QString password = ui->lineEditPassword->text();
 
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
-
-    //ui->textBrowser->append(QString(result));
-
 
     if(passwordMatches(password)){  //if the password is correct
         QString newMaxVel = ui->maxVel->text();   //update values
