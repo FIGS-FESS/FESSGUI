@@ -1,8 +1,7 @@
 // Custom Libraries
-#include "conversions.h"
+#include "datatypes.h"
+#include "flypacketlib.h"
 #include "flywheeloperation.h"
-
-#include <QtGui>
 
 FlywheelOperation::FlywheelOperation(CommonDeviceInterface* cdi)
 {
@@ -155,10 +154,6 @@ void FlywheelOperation::setDefaults()
     rotationalPosition->setX(0.0);
     rotationalPosition->setY(0.0);
 
-    sync_state = 0;
-    sync_data = false;
-    sync_buffer.clear();
-
     emergency_retries = 0;
     emergency_timeout = 100; //Attempts
 
@@ -167,79 +162,81 @@ void FlywheelOperation::setDefaults()
 
 void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
 {
-    uint8_t byte;
-    bool error = false;
-
     communicationDevice->sync();
 
     while(!communicationDevice->empty())
     {
-        byte = communicationDevice->popCommand();
+        flybyte rx_data = communicationDevice->popCommand();
+        flypacket rx_packet = buildFlyPacket(rx_data);
 
-        if (error)
+        switch(rx_packet.type)
         {
-            communicationDevice->flush();
-            sync_state = 0;
-            sync_data = false;
-            break;
+            case VELOCITY:
+            {
+                if (vel.size() > 64) vel.pop();
+                vel.push(rx_packet.value);
+                break;
+            }
+
+            case ACCELERATION:
+            {
+                if (acc.size() > 64) acc.pop();
+                acc.push(rx_packet.value);
+                break;
+            }
+
+            case JERK:
+            {
+                if (jer.size() > 64) jer.pop();
+                jer.push(rx_packet.value);
+                break;
+            }
+
+            case LOWER_DISPLACMENT_X:
+            {
+                if (ldx.size() > 64) ldx.pop();
+                ldx.push(rx_packet.value);
+                break;
+            }
+
+            case LOWER_DISPLACMENT_Y:
+            {
+                if (ldy.size() > 64) ldy.pop();
+                ldy.push(rx_packet.value);
+                break;
+            }
+
+            case UPPER_DISPLACMENT_X:
+            {
+                if (udx.size() > 64) udx.pop();
+                udx.push(rx_packet.value);
+                break;
+            }
+
+            case UPPER_DISPLACMENT_Y:
+            {
+                if (udy.size() > 64) udy.pop();
+                udy.push(rx_packet.value);
+                break;
+            }
+
+            case ROTATIONAL_POSITION_X:
+            {
+                if (rpx.size() > 64) rpx.pop();
+                rpx.push(rx_packet.value);
+                break;
+            }
+
+            case ROTATIONAL_POSITION_Y:
+            {
+                if (rpy.size() > 64) rpy.pop();
+                rpy.push(rx_packet.value);
+                break;
+            }
+
+            default: break;
         }
 
-        else if (sync_data)
-        {
-            if (sync_count == 0)
-            {
-                switch(byte) // Look for Complete Command
-                {
-                    case CDM_SEND_VELOCITY:
-                    {
-                        if (sync_state == IDM_SEND_VELOCITY)
-                        {
-                            vel.push(bytesToFloat(sync_buffer));
-                            sync_buffer.clear();
-                            sync_state = 0;
-                            sync_data = false;
-                        }
-
-                        else
-                        {
-                            error = true;
-                        }
-
-                        break;
-                    }
-
-                    default:
-                    {
-                        error = true;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                sync_count--;
-                sync_buffer.push_back(byte);
-            }
-        }
-        else
-        {
-            switch(byte) // Look for Initiate Command
-            {
-                case IDM_SEND_VELOCITY:
-                {
-                    sync_data = true;
-                    sync_state = IDM_SEND_VELOCITY;
-                    sync_count = 4;
-                    break;
-                }
-
-                default: // Error: Unknown Commands
-                {
-                    error = true;
-                    break;
-                }
-            }
-        }
 
        // if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
        // {

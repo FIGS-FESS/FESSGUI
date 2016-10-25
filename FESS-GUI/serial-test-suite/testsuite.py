@@ -35,7 +35,7 @@ IDM_SEND_LOWER_DISPLACEMENT_Y    = 0b01000101
 IDM_SEND_UPPER_DISPLACEMENT_X    = 0b01000110
 IDM_SEND_UPPER_DISPLACEMENT_Y    = 0b01000111
 IDM_SEND_ROTATIONAL_POSITION_X   = 0b01001000
-IDM_SEND_ROTATIONAL_POSITION_y   = 0b01001001
+IDM_SEND_ROTATIONAL_POSITION_Y   = 0b01001001
 
 CDM_SEND_VELOCITY                = 0b11000001
 CDM_SEND_ACCELERATION            = 0b11000010
@@ -45,7 +45,7 @@ CDM_SEND_LOWER_DISPLACEMENT_Y    = 0b11000101
 CDM_SEND_UPPER_DISPLACEMENT_X    = 0b11000110
 CDM_SEND_UPPER_DISPLACEMENT_Y    = 0b11000111
 CDM_SEND_ROTATIONAL_POSITION_X   = 0b11001000
-CDM_SEND_ROTATIONAL_POSITION_y   = 0b11001001
+CDM_SEND_ROTATIONAL_POSITION_Y   = 0b11001001
 
 #endif // COMMANDS_H
 
@@ -106,18 +106,40 @@ while(True):
 	writeCommand(s, IDM_SEND_VELOCITY)
 	writeData(s, vel)
 	writeCommand(s, CDM_SEND_VELOCITY)
-	#writeData(s, acc)
-	#writeData(s, jer)
 
-	#writeData(s, ldx)
-	#writeData(s, ldy)
-	#writeData(s, udx)
-	#writeData(s, udy)
+	writeCommand(s, IDM_SEND_ACCELERATION)
+	writeData(s, acc)
+	writeCommand(s, CDM_SEND_ACCELERATION)
 
-	#writeData(s, rpx)
-	#writeData(s, rpy)
+	writeCommand(s, IDM_SEND_JERK)
+	writeData(s, jer)
+	writeCommand(s, CDM_SEND_JERK)
 
-	time.sleep(0.02)
+	writeCommand(s, IDM_SEND_LOWER_DISPLACEMENT_X)
+	writeData(s, ldx)
+	writeCommand(s, CDM_SEND_LOWER_DISPLACEMENT_X)
+
+	writeCommand(s, IDM_SEND_LOWER_DISPLACEMENT_Y)
+	writeData(s, ldy)
+	writeCommand(s, CDM_SEND_LOWER_DISPLACEMENT_Y)
+
+	writeCommand(s, IDM_SEND_UPPER_DISPLACEMENT_X)
+	writeData(s, udx)
+	writeCommand(s, CDM_SEND_UPPER_DISPLACEMENT_X)
+
+	writeCommand(s, IDM_SEND_UPPER_DISPLACEMENT_Y)
+	writeData(s, udy)
+	writeCommand(s, CDM_SEND_UPPER_DISPLACEMENT_Y)
+
+	writeCommand(s, IDM_SEND_ROTATIONAL_POSITION_X)
+	writeData(s, rpx)
+	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_X)
+
+	writeCommand(s, IDM_SEND_ROTATIONAL_POSITION_Y)
+	writeData(s, rpy)
+	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_Y)
+
+	time.sleep(0.01)
 
 # Citations: 
 #	Function: 	binary()

@@ -6,7 +6,6 @@
 
 // C++ Libraries
 #include <queue>
-#include <vector>
 
 // Custom Libraries
 #include "commands.h"
@@ -58,10 +57,6 @@ private:
     std::queue<float> rpy;
 
     // Sync Flags and Buffers
-    int sync_state;
-    bool sync_data;
-    int sync_count;
-    std::vector<uint8_t> sync_buffer;
 
     float vel_prev;
     float acc_prev;

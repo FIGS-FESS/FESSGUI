@@ -111,14 +111,37 @@ void Demo::sync()
     rx.pushFloat(vel);
     rx.pushByte(CDM_SEND_VELOCITY);
 
-    //rx.pushFloat(acc);
-    //rx.pushFloat(jer);
-    //rx.pushFloat(ldx);
-    //rx.pushFloat(ldy);
-    //rx.pushFloat(udx);
-    //rx.pushFloat(udy);
-    //rx.pushFloat(rpx);
-    //rx.pushFloat(rpy);
+    rx.pushByte(IDM_SEND_ACCELERATION);
+    rx.pushFloat(acc);
+    rx.pushByte(CDM_SEND_ACCELERATION);
+
+    rx.pushByte(IDM_SEND_JERK);
+    rx.pushFloat(jer);
+    rx.pushByte(CDM_SEND_JERK);
+
+    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_X);
+    rx.pushFloat(ldx);
+    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_X);
+
+    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_Y);
+    rx.pushFloat(ldy);
+    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_Y);
+
+    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_X);
+    rx.pushFloat(udx);
+    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_X);
+
+    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_Y);
+    rx.pushFloat(udy);
+    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_Y);
+
+    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_X);
+    rx.pushFloat(rpx);
+    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_X);
+
+    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_Y);
+    rx.pushFloat(rpy);
+    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_Y);
 }
 
 //--------------------------------------------------------------------

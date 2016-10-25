@@ -1,24 +1,10 @@
 
 #include <cstdint>
+#include "conversionlib.h"
 #include "transmitbuffer.h"
 
 TransmitBuffer::TransmitBuffer(){}
 TransmitBuffer::~TransmitBuffer(){}
-
-/*
-int TransmitBuffer::popInt()
-{
-    uint8_t val[] = { popbyte(), popbyte(), popbyte(),popbyte() };
-    return *reinterpret_cast<int*>(&val);
-
-}
-
-float TransmitBuffer::popFloat()
-{
-    uint8_t val[] = { popByte(), popByte(), popByte(),popByte() };
-    return *reinterpret_cast<float*>(&val);
-}
-*/
 
 uint8_t TransmitBuffer::popByte()
 {
@@ -42,9 +28,11 @@ void TransmitBuffer::pushByteFront(uint8_t byt)
      buffer.push_front(byt);
 }
 
-void TransmitBuffer::pushInt(int32_t val)
+void TransmitBuffer::pushInt(int val)
 {
-    uint8_t *bytes = reinterpret_cast<uint8_t*>(&val);
+    uint8_t bytes[4];
+
+    intToByteArray(bytes,&val);
 
     buffer.push_back(bytes[0]);
     buffer.push_back(bytes[1]);
@@ -54,7 +42,9 @@ void TransmitBuffer::pushInt(int32_t val)
 
 void TransmitBuffer::pushFloat(float val)
 {
-    uint8_t *bytes = reinterpret_cast<uint8_t*>(&val);
+    uint8_t bytes[4];
+
+    floatToByteArray(bytes,&val);
 
     buffer.push_back(bytes[0]);
     buffer.push_back(bytes[1]);
