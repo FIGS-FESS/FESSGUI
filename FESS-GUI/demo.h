@@ -2,14 +2,14 @@
 #define DEMO_H
 
 // Custom Libraries
-#include "interface.h"
+#include "commondeviceinterface.h"
 #include "transmitbuffer.h"
 
 #define RANDOM      0
 #define STOP        1
 #define COMMAND     2
 
-class Demo : public Interface
+class Demo : public CommonDeviceInterface
 {
     public:
         Demo();

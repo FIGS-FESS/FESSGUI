@@ -28,15 +28,15 @@ void Demo::sync()
 
     while(!tx.empty() && loop)
     {
-        char val = tx.popChar();
+        char val = tx.popByte();
 
         switch(val)
         {
-            case COMMAND_SET_EMER_STOP: // Emergency Stop
+            case ICM_EMERGENCY_STOP: // Emergency Stop
             {
                 loop = false;
                 type = STOP;
-                rx.pushFrontChar(COMMAND_ERR_EMER_STOP);
+                //rx.pushFrontChar(COMMAND_ERR_EMER_STOP);
                 break;
             }
 
@@ -107,16 +107,18 @@ void Demo::sync()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    rx.pushChar(COMMAND_RES_ALLD_FLOA);
+    rx.pushByte(IDM_SEND_VELOCITY);
     rx.pushFloat(vel);
-    rx.pushFloat(acc);
-    rx.pushFloat(jer);
-    rx.pushFloat(ldx);
-    rx.pushFloat(ldy);
-    rx.pushFloat(udx);
-    rx.pushFloat(udy);
-    rx.pushFloat(rpx);
-    rx.pushFloat(rpy);
+    rx.pushByte(CDM_SEND_VELOCITY);
+
+    //rx.pushFloat(acc);
+    //rx.pushFloat(jer);
+    //rx.pushFloat(ldx);
+    //rx.pushFloat(ldy);
+    //rx.pushFloat(udx);
+    //rx.pushFloat(udy);
+    //rx.pushFloat(rpx);
+    //rx.pushFloat(rpy);
 }
 
 //--------------------------------------------------------------------
@@ -135,24 +137,12 @@ void Demo::setDefaults()
 {
 }
 
-
-int Demo::popInt()
+uint8_t Demo::popCommand()
 {
-    return rx.popInt();
+    return rx.popByte();
 }
 
-float Demo::popFloat()
-{
-    return rx.popFloat();
-}
-
-unsigned char Demo::popCommand()
-{
-    return rx.popChar();
-}
-
-
-void Demo::pushInt(int val)
+void Demo::pushInt(int32_t val)
 {
     tx.pushInt(val);
 }
@@ -162,14 +152,14 @@ void Demo::pushFloat(float val)
     tx.pushFloat(val);
 }
 
-void Demo::pushCommand(unsigned char byte)
+void Demo::pushCommand(uint8_t byte)
 {
-    tx.pushChar(byte);
+    tx.pushByte(byte);
 }
 
-void Demo::pushCommandImmediate(unsigned char byte)
+void Demo::pushCommandImmediate(uint8_t byte)
 {
-    tx.pushFrontChar(byte);
+    tx.pushByteFront(byte);
 }
 
 

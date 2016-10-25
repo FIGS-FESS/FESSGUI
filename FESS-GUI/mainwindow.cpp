@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    interface = new Serial;
-    interface->startDevice();
-    flywheelOperation = new FlywheelOperation(interface); //contains methods for getting and setting flywheel variables
+    flywheelCommunicationDevice = new Serial;
+    flywheelCommunicationDevice->startDevice();
+    flywheelOperation = new FlywheelOperation(flywheelCommunicationDevice); //contains methods for getting and setting flywheel variables
 
     expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
     expectedAcceleration = ui->accelerationSpinBox->value();
@@ -298,7 +298,7 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 MainWindow::~MainWindow()  //destructor
 {
-    interface->stopDevice();
+    flywheelCommunicationDevice->stopDevice();
     delete ui;
 }
 

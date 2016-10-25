@@ -1,24 +1,28 @@
+
+#include <cstdint>
 #include "transmitbuffer.h"
 
 TransmitBuffer::TransmitBuffer(){}
 TransmitBuffer::~TransmitBuffer(){}
 
+/*
 int TransmitBuffer::popInt()
 {
-    unsigned char val[] = { popChar(), popChar(), popChar(),popChar() };
-    return *reinterpret_cast<float*>(&val);
+    uint8_t val[] = { popbyte(), popbyte(), popbyte(),popbyte() };
+    return *reinterpret_cast<int*>(&val);
 
 }
 
 float TransmitBuffer::popFloat()
 {
-    unsigned char val[] = { popChar(), popChar(), popChar(),popChar() };
+    uint8_t val[] = { popByte(), popByte(), popByte(),popByte() };
     return *reinterpret_cast<float*>(&val);
 }
+*/
 
-unsigned char TransmitBuffer::popChar()
+uint8_t TransmitBuffer::popByte()
 {
-    unsigned char val = 0;
+    uint8_t val = 0;
 
     if(!buffer.empty())
     {
@@ -28,20 +32,19 @@ unsigned char TransmitBuffer::popChar()
     return val;
 }
 
-
-void TransmitBuffer::pushChar(unsigned char byt)
+void TransmitBuffer::pushByte(uint8_t byt)
 {
      buffer.push_back(byt);
 }
 
-void TransmitBuffer::pushFrontChar(unsigned char byt)
+void TransmitBuffer::pushByteFront(uint8_t byt)
 {
      buffer.push_front(byt);
 }
 
-void TransmitBuffer::pushInt(int val)
+void TransmitBuffer::pushInt(int32_t val)
 {
-    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+    uint8_t *bytes = reinterpret_cast<uint8_t*>(&val);
 
     buffer.push_back(bytes[0]);
     buffer.push_back(bytes[1]);
@@ -51,7 +54,7 @@ void TransmitBuffer::pushInt(int val)
 
 void TransmitBuffer::pushFloat(float val)
 {
-    unsigned char *bytes = reinterpret_cast<unsigned char *>(&val);
+    uint8_t *bytes = reinterpret_cast<uint8_t*>(&val);
 
     buffer.push_back(bytes[0]);
     buffer.push_back(bytes[1]);
@@ -64,9 +67,9 @@ bool TransmitBuffer::empty()
     return buffer.empty();
 }
 
-
 void TransmitBuffer::flush()
 {
     buffer.clear();
 }
+
 

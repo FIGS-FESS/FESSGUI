@@ -4,30 +4,52 @@ import time
 import serial
 import struct
 
-COMMAND_GET_VELO_FLOA = 0b00000000
-COMMAND_GET_ACCE_FLOA = 0b00000001
-COMMAND_GET_JERK_FLOA = 0b00000010
-COMMAND_GET_LOWE_DISP = 0b00000011
-COMMAND_GET_UPPE_DISP = 0b00000100
-COMMAND_GET_ROTA_POSI = 0b00000101
-COMMAND_GET_ALLD_FLOA = 0b00111111
+# Machine Command Codes
+#------------------------------------------------
+ICM_START                        = 0b00000001
+ICM_STOP                         = 0b00000010
+ICM_EMERGENCY_STOP               = 0b00000011
+ICM_SET_VELOCITY                 = 0b00000100
+ICM_SET_ACCELERATION             = 0b00000101
+ICM_SET_JERK                     = 0b00000110
 
-COMMAND_SET_EMER_STOP = 0b01000000
-COMMAND_SET_VELO_FLOA = 0b01000001
-COMMAND_SET_ACCE_FLOA = 0b01000010
-COMMAND_SET_JERK_FLOA = 0b01000011
-COMMAND_SET_ALLD_FLOA = 0b01111111
+CCM_START                        = 0b10000001
+CCM_STOP                         = 0b10000010
+CCM_EMERGENCY_STOP               = 0b10000011
+CCM_SET_VELOCITY                 = 0b10000100
+CCM_SET_ACCELERATION             = 0b10000101
+CCM_SET_JERK                     = 0b10000110
 
-COMMAND_ERR_EMER_STOP = 0b10000000
-COMMAND_ERR_FIFO_FULL = 0b10000001
+# Controller Command Codes
+#------------------------------------------------
+ICC_ERROR                        = 0b00100001
+CCC_ERROR                        = 0b10100001
 
-COMMAND_RES_VELO_FLOA = 0b11000000
-COMMAND_RES_ACCE_FLOA = 0b11000001
-COMMAND_RES_JERK_FLOA = 0b11000010
-COMMAND_RES_LOWE_DISP = 0b11000011
-COMMAND_RES_UPPE_DISP = 0b11000100
-COMMAND_RES_ROTA_POSI = 0b11000101
-COMMAND_RES_ALLD_FLOA = 0b11111111
+# Machine Data Codes
+#------------------------------------------------
+IDM_SEND_VELOCITY                = 0b01000001
+IDM_SEND_ACCELERATION            = 0b01000010
+IDM_SEND_JERK                    = 0b01000011
+IDM_SEND_LOWER_DISPLACEMENT_X    = 0b01000100
+IDM_SEND_LOWER_DISPLACEMENT_Y    = 0b01000101
+IDM_SEND_UPPER_DISPLACEMENT_X    = 0b01000110
+IDM_SEND_UPPER_DISPLACEMENT_Y    = 0b01000111
+IDM_SEND_ROTATIONAL_POSITION_X   = 0b01001000
+IDM_SEND_ROTATIONAL_POSITION_y   = 0b01001001
+
+CDM_SEND_VELOCITY                = 0b11000001
+CDM_SEND_ACCELERATION            = 0b11000010
+CDM_SEND_JERK                    = 0b11000011
+CDM_SEND_LOWER_DISPLACEMENT_X    = 0b11000100
+CDM_SEND_LOWER_DISPLACEMENT_Y    = 0b11000101
+CDM_SEND_UPPER_DISPLACEMENT_X    = 0b11000110
+CDM_SEND_UPPER_DISPLACEMENT_Y    = 0b11000111
+CDM_SEND_ROTATIONAL_POSITION_X   = 0b11001000
+CDM_SEND_ROTATIONAL_POSITION_y   = 0b11001001
+
+#endif // COMMANDS_H
+
+
 
 
 def binary(num): 
@@ -81,20 +103,21 @@ while(True):
 
 	key += 0.01
 
-	writeCommand(s, COMMAND_RES_ALLD_FLOA)
+	writeCommand(s, IDM_SEND_VELOCITY)
 	writeData(s, vel)
-	writeData(s, acc)
-	writeData(s, jer)
+	writeCommand(s, CDM_SEND_VELOCITY)
+	#writeData(s, acc)
+	#writeData(s, jer)
 
-	writeData(s, ldx)
-	writeData(s, ldy)
-	writeData(s, udx)
-	writeData(s, udy)
+	#writeData(s, ldx)
+	#writeData(s, ldy)
+	#writeData(s, udx)
+	#writeData(s, udy)
 
-	writeData(s, rpx)
-	writeData(s, rpy)
+	#writeData(s, rpx)
+	#writeData(s, rpy)
 
-	time.sleep(0.10)
+	time.sleep(0.02)
 
 # Citations: 
 #	Function: 	binary()

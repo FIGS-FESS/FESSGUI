@@ -22,7 +22,8 @@ SOURCES     +=  main.cpp \
                 serial.cpp \
     demo.cpp \
     interfacemanager.cpp \
-    transmitbuffer.cpp
+    transmitbuffer.cpp \
+    conversions.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -30,12 +31,13 @@ HEADERS     +=  mainwindow.h \
                 graphoperation.h \
                 flywheeloperation.h \
                 recordingoperation.h \
-                interface.h \
                 serial.h \
                 commands.h \
     demo.h \
     interfacemanager.h \
-    transmitbuffer.h
+    transmitbuffer.h \
+    conversions.h \
+    commondeviceinterface.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui

@@ -1,7 +1,9 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-class Interface
+#include <cinttypes>
+
+class CommonDeviceInterface
 {
     public:
         virtual void sync() = 0;
@@ -11,14 +13,12 @@ class Interface
 
         virtual bool empty() = 0;
         virtual void flush() = 0;
-        virtual void pushInt(int) = 0;
+        virtual void pushInt(int32_t) = 0;
         virtual void pushFloat(float) = 0;
-        virtual void pushCommand(unsigned char) = 0;
-        virtual void pushCommandImmediate(unsigned char) = 0;
+        virtual void pushCommand(uint8_t) = 0;
+        virtual void pushCommandImmediate(uint8_t) = 0;
 
-        virtual int popInt() = 0;
-        virtual float popFloat() = 0;
-        virtual unsigned char popCommand() = 0;
+        virtual uint8_t popCommand() = 0;
 };
 
 #endif // INTERFACE_H

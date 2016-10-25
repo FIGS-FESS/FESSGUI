@@ -1,112 +1,96 @@
 // Custom Libraries
+#include "conversions.h"
 #include "flywheeloperation.h"
 
-FlywheelOperation::FlywheelOperation(Interface *inter)
+#include <QtGui>
+
+FlywheelOperation::FlywheelOperation(CommonDeviceInterface* cdi)
 {
     upperDisplacement = new QPointF();
     lowerDisplacement = new QPointF();
     rotationalPosition = new QPointF();
 
-    interface = inter;
+    communicationDevice = cdi;
     setDefaults();
+}
+
+FlywheelOperation::~FlywheelOperation()
+{
+    delete upperDisplacement;
+    delete lowerDisplacement;
+    delete rotationalPosition;
 }
 
 void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk)
 {
-    interface->pushCommand(COMMAND_SET_ALLD_FLOA);
-    interface->pushFloat(velocity);
-    interface->pushFloat(acceleration);
-    interface->pushFloat(jerk);
+    setVelocity(velocity);
+    setAcceleration(acceleration);
+    setJerk(jerk);
 }
 
 void FlywheelOperation::setVelocity(float velocity)
 {
-    interface->pushCommand(COMMAND_SET_VELO_FLOA);
-    interface->pushFloat(velocity);
+    communicationDevice->pushCommand(ICM_SET_VELOCITY);
+    communicationDevice->pushFloat(velocity);
+    communicationDevice->pushCommand(CCM_SET_VELOCITY);
 }
 
 void FlywheelOperation::setAcceleration(float acceleration)
 {
-    interface->pushCommand(COMMAND_SET_ACCE_FLOA);
-    interface->pushFloat(acceleration);
+    communicationDevice->pushCommand(ICM_SET_ACCELERATION);
+    communicationDevice->pushFloat(acceleration);
+    communicationDevice->pushCommand(CCM_SET_ACCELERATION);
 }
 
 void FlywheelOperation::setJerk(float jerk)
 {
-    interface->pushCommand(COMMAND_SET_JERK_FLOA);
-    interface->pushFloat(jerk);
+    communicationDevice->pushCommand(ICM_SET_JERK);
+    communicationDevice->pushFloat(jerk);
+    communicationDevice->pushCommand(CCM_SET_JERK);
 }
 
 float FlywheelOperation::getVelocity()
 {
-    float val = 0.0;
-
     if (!vel.empty())
     {
-        val = vel.front();
-
-        if (vel.size() > 1)
-        {
-            vel.pop();
-        }
+        vel_prev = vel.front();
+        vel.pop();
     }
 
-    return val;
+    return vel_prev;
 }
 
 float FlywheelOperation::getAcceleration()
 {
-    float val = 0.0;
-
     if (!acc.empty())
     {
-        val = acc.front();
-
-        if (acc.size() > 1)
-        {
-            acc.pop();
-        }
+        acc_prev = acc.front();
+        acc.pop();
     }
 
-    return val;
+    return acc_prev;
 }
 
 float FlywheelOperation::getJerk()
 {
-    float val = 0.0;
-
     if (jer.empty())
     {
-        val = jer.front();
-
-        if (jer.size() > 1)
-        {
-            jer.pop();
-        }
+        jer_prev = jer.front();
+        jer.pop();
     }
 
-    return val;
+    return jer_prev;
 }
 
 QPointF FlywheelOperation::getUpperDisplacement()
 {
-    upperDisplacement->setX(0);
-    upperDisplacement->setY(0);
-
     if(!udx.empty() && !udy.empty())
     {
         upperDisplacement->setX(udx.front());
         upperDisplacement->setY(udy.front());
 
-        if (udx.size() > 1)
-        {
-            udx.pop();
-        }
-
-        if (udy.size() > 1)
-        {
-            udy.pop();
-        }
+        udx.pop();
+        udy.pop();
    }
 
     return *upperDisplacement;
@@ -114,46 +98,26 @@ QPointF FlywheelOperation::getUpperDisplacement()
 
 QPointF FlywheelOperation::getLowerDisplacement()
 {
-    lowerDisplacement->setX(0);
-    lowerDisplacement->setY(0);
-
     if(!ldx.empty() && !ldy.empty())
     {
         lowerDisplacement->setX(ldx.front());
         lowerDisplacement->setY(ldy.front());
 
-        if (ldx.size() > 1)
-        {
-            ldx.pop();
-        }
-
-        if (ldy.size() > 1)
-        {
-            ldy.pop();
-        }
+        ldx.pop();
+        ldy.pop();
     }
     return *lowerDisplacement;
 }
 
 QPointF FlywheelOperation::getRotationalPosition()
 {
-    rotationalPosition->setX(0);
-    rotationalPosition->setY(0);
-
     if(!rpx.empty() && !rpy.empty())
     {
         rotationalPosition->setX(rpx.front());
         rotationalPosition->setY(rpy.front());
 
-        if (rpx.size() > 1)
-        {
-            rpx.pop();
-        }
-
-        if (rpy.size() > 1)
-        {
-            rpy.pop();
-        }
+        rpx.pop();
+        rpy.pop();
     }
 
     return *rotationalPosition;
@@ -163,20 +127,37 @@ void FlywheelOperation::emergencyStop() // Tells the controller to stop and chec
 {
     emergency_retries = emergency_timeout;
 
-    interface->pushCommandImmediate(COMMAND_SET_EMER_STOP);
+    communicationDevice->pushCommandImmediate(ICM_EMERGENCY_STOP);
 }
 
 void FlywheelOperation::setDefaults()
 {
-    vel.push(1.0);
-    acc.push(1.0);
-    jer.push(1.0);
-    udx.push(1.0);
-    udy.push(1.0);
-    ldx.push(1.0);
-    ldy.push(1.0);
-    rpx.push(1.0);
-    rpy.push(1.0);
+    vel_prev = 0.0;
+    acc_prev = 0.0;
+    jer_prev = 0.0;
+
+    vel.push(0.0);
+    acc.push(0.0);
+    jer.push(0.0);
+    udx.push(0.0);
+    udy.push(0.0);
+    ldx.push(0.0);
+    ldy.push(0.0);
+    rpx.push(0.0);
+    rpy.push(0.0);
+
+    lowerDisplacement->setX(0.0);
+    lowerDisplacement->setY(0.0);
+
+    upperDisplacement->setX(0.0);
+    upperDisplacement->setY(0.0);
+
+    rotationalPosition->setX(0.0);
+    rotationalPosition->setY(0.0);
+
+    sync_state = 0;
+    sync_data = false;
+    sync_buffer.clear();
 
     emergency_retries = 0;
     emergency_timeout = 100; //Attempts
@@ -186,92 +167,85 @@ void FlywheelOperation::setDefaults()
 
 void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
 {
-    bool loop = true;
-    interface->sync();
+    uint8_t byte;
+    bool error = false;
 
-    while(( !interface->empty() )&&( loop ))
+    communicationDevice->sync();
+
+    while(!communicationDevice->empty())
     {
-        switch(interface->popCommand())
+        byte = communicationDevice->popCommand();
+
+        if (error)
         {
-            case COMMAND_ERR_EMER_STOP: // Emergency Stop
-            {
-                emergency_acknowlegded = true;
-                loop = false;
-                break;
-            }
+            communicationDevice->flush();
+            sync_state = 0;
+            sync_data = false;
+            break;
+        }
 
-            case COMMAND_ERR_FIFO_FULL: // FIFO Full
+        else if (sync_data)
+        {
+            if (sync_count == 0)
             {
-                loop = false;
-                break;
-            }
+                switch(byte) // Look for Complete Command
+                {
+                    case CDM_SEND_VELOCITY:
+                    {
+                        if (sync_state == IDM_SEND_VELOCITY)
+                        {
+                            vel.push(bytesToFloat(sync_buffer));
+                            sync_buffer.clear();
+                            sync_state = 0;
+                            sync_data = false;
+                        }
 
-            case COMMAND_RES_VELO_FLOA: // Velocity
-            {
-                vel.push(interface->popFloat());
-                break;
-            }
+                        else
+                        {
+                            error = true;
+                        }
 
-            case COMMAND_RES_ACCE_FLOA: // Acceleration
-            {
-                acc.push(interface->popFloat());
-                break;
-            }
+                        break;
+                    }
 
-            case COMMAND_RES_JERK_FLOA: // Jerk
-            {
-                jer.push(interface->popFloat());
-                break;
+                    default:
+                    {
+                        error = true;
+                        break;
+                    }
+                }
             }
-
-            case COMMAND_RES_LOWE_DISP: // Lower Displacement
+            else
             {
-                ldx.push(interface->popFloat());
-                ldy.push(interface->popFloat());
-                break;
+                sync_count--;
+                sync_buffer.push_back(byte);
             }
-
-            case COMMAND_RES_UPPE_DISP: // Upper Displacement
+        }
+        else
+        {
+            switch(byte) // Look for Initiate Command
             {
-                udx.push(interface->popFloat());
-                udy.push(interface->popFloat());
-                break;
-            }
+                case IDM_SEND_VELOCITY:
+                {
+                    sync_data = true;
+                    sync_state = IDM_SEND_VELOCITY;
+                    sync_count = 4;
+                    break;
+                }
 
-            case COMMAND_RES_ROTA_POSI: // Lower Displacement
-            {
-                rpx.push(interface->popFloat());
-                rpy.push(interface->popFloat());
-                break;
-            }
-
-            case COMMAND_RES_ALLD_FLOA:  // All
-            {
-                vel.push(interface->popFloat());
-                acc.push(interface->popFloat());
-                jer.push(interface->popFloat());
-                ldx.push(interface->popFloat());
-                ldy.push(interface->popFloat());
-                udx.push(interface->popFloat());
-                udy.push(interface->popFloat());
-                rpx.push(interface->popFloat());
-                rpy.push(interface->popFloat());
-                break;
-            }
-
-            default: // Error: Unknown Commands
-            {
-                loop = false;
-                interface->flush();
-                break;
+                default: // Error: Unknown Commands
+                {
+                    error = true;
+                    break;
+                }
             }
         }
 
-        if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
-        {
-            interface->pushCommand(COMMAND_SET_EMER_STOP);
-            interface->sync();
-            emergency_retries--;
-        }
+       // if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
+       // {
+       //     communicationDevice->pushCommand(COMMAND_SET_EMER_STOP);
+       //     communicationDevice->sync();
+       //     emergency_retries--;
+       // }
     }
 }

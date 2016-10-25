@@ -162,7 +162,7 @@ void Serial::sendTX()
 {
     while(!tx.empty())
     {
-        device->putChar(tx.popChar());
+        device->putChar(tx.popByte());
     }
 
     device->waitForBytesWritten(0);
@@ -176,7 +176,7 @@ void Serial::readRX()
 
     for (int i = 0; i < in.size(); i++)
     {
-        rx.pushChar(in[i]);
+        rx.pushByte(in[i]);
     }
 }
 
@@ -211,23 +211,13 @@ void Serial::setDefaults()
 }
 
 
-int Serial::popInt()
+uint8_t Serial::popCommand()
 {
-    return rx.popInt();
-}
-
-float Serial::popFloat()
-{
-    return rx.popFloat();
-}
-
-unsigned char Serial::popCommand()
-{
-    return rx.popChar();
+    return rx.popByte();
 }
 
 
-void Serial::pushInt(int val)
+void Serial::pushInt(int32_t val)
 {
     tx.pushInt(val);
 }
@@ -237,14 +227,14 @@ void Serial::pushFloat(float val)
     tx.pushFloat(val);
 }
 
-void Serial::pushCommand(unsigned char byte)
+void Serial::pushCommand(uint8_t byte)
 {
-    tx.pushChar(byte);
+    tx.pushByte(byte);
 }
 
-void Serial::pushCommandImmediate(unsigned char byte)
+void Serial::pushCommandImmediate(uint8_t byte)
 {
-    tx.pushFrontChar(byte);
+    tx.pushByteFront(byte);
     sendTX();
 }
 

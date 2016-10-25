@@ -1,6 +1,9 @@
 #ifndef TRANSMITBUFFER_H
 #define TRANSMITBUFFER_H
 
+// C Libraries
+#include <cinttypes>
+
 // C++ Libaries
 #include <deque>
 
@@ -10,20 +13,18 @@ class TransmitBuffer
         TransmitBuffer();
         ~TransmitBuffer();
 
-        void pushInt(int);
+        void pushInt(int32_t);
         void pushFloat(float);
-        void pushChar(unsigned char);
-        void pushFrontChar(unsigned char);
+        void pushByte(uint8_t);
+        void pushByteFront(uint8_t);
 
-        int popInt();
-        float popFloat();
-        unsigned char popChar();
+        uint8_t popByte();
 
         void flush();
         bool empty();
 
     private:
-        std::deque<unsigned char> buffer;
+        std::deque<uint8_t> buffer;
 
 };
 

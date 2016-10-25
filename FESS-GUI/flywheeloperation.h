@@ -6,15 +6,17 @@
 
 // C++ Libraries
 #include <queue>
+#include <vector>
 
 // Custom Libraries
 #include "commands.h"
-#include "interface.h"
+#include "commondeviceinterface.h"
 
 class FlywheelOperation
 {
 public:
-    FlywheelOperation(Interface *inter);
+    FlywheelOperation(CommonDeviceInterface*);
+    ~FlywheelOperation();
 
     void sync();
 
@@ -44,7 +46,7 @@ private:
     QPointF* lowerDisplacement;
     QPointF* rotationalPosition;
 
-    Interface* interface;
+    CommonDeviceInterface* communicationDevice;
     std::queue<float> vel;
     std::queue<float> acc;
     std::queue<float> jer;
@@ -54,6 +56,16 @@ private:
     std::queue<float> ldy;
     std::queue<float> rpx;
     std::queue<float> rpy;
+
+    // Sync Flags and Buffers
+    int sync_state;
+    bool sync_data;
+    int sync_count;
+    std::vector<uint8_t> sync_buffer;
+
+    float vel_prev;
+    float acc_prev;
+    float jer_prev;
 
     // Private Setters
 

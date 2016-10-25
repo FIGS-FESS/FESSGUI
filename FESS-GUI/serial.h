@@ -6,10 +6,10 @@
 #include <QSerialPortInfo>
 
 // Custom Libraries
-#include "interface.h"
+#include "commondeviceinterface.h"
 #include "transmitbuffer.h"
 
-class Serial : public Interface
+class Serial : public CommonDeviceInterface
 {
     public:
         Serial();
