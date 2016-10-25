@@ -129,25 +129,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     static int frameCount;
     ++frameCount;
 
-    //for max values
-    if (actualVelocity > maxVel)
-        maxVel = actualVelocity;
-
-    if (actualAcceleration > maxAcc)
-        maxAcc = actualAcceleration;
-
-    if (qFabs(upperDisplacement.x()) > qFabs(maxUpDt[0]))
-        maxUpDt[0] = upperDisplacement.x();
-
-    if (qFabs(upperDisplacement.y()) > qFabs(maxUpDt[1]))
-        maxUpDt[1] = upperDisplacement.y();
-
-    if (qFabs(lowerDisplacement.x()) > qFabs(maxLwDt[0]))
-        maxLwDt[0] = lowerDisplacement.x();
-
-    if (qFabs(lowerDisplacement.y()) > qFabs(maxLwDt[1]))
-        maxLwDt[1] = lowerDisplacement.y();
-
     //show fps and data points in statusbar
     if (currentTime-lastFpsTime > .5 && ui->stackedWidget->currentIndex() == 1) // average fps over .5 seconds
     {

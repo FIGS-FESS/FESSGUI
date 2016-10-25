@@ -98,14 +98,14 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
 
 QString ScrollingTimeGraph::maxDisplay(){
     QString ret = QString::number(maxPrimary);
-    if (numDisplayValues >= 1)
+    if (numDisplayValues >= 2)
         ret += ", " + QString::number(maxSecondary);
     return ret + " " + displayUnit;
 }
 
 QString ScrollingTimeGraph::currentDisplay(){
     QString ret = QString::number(currentPrimary);
-    if (numDisplayValues >= 1)
+    if (numDisplayValues >= 2)
         ret += ", " + QString::number(currentSecondary);
     return ret + " " + displayUnit;
 }

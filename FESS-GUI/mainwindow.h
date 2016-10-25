@@ -28,10 +28,6 @@ public:
     double expectedVelocity;
     double expectedAcceleration;
     double expectedJerk;
-    double maxVel = 0;
-    double maxAcc = 0;
-    double maxUpDt [2] = {0, 0};
-    double maxLwDt [2] = {0 ,0};
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;
