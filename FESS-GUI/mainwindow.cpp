@@ -388,6 +388,7 @@ void MainWindow::velocitySlope()
         currentExpectedVelocity += currentExpectedAcceleration / intervalIncrement; //increment the velocity
         if(currentExpectedVelocity >= targetVelocity){
             velocitySlopeTimer->stop();
+            accelerationSlopeTimer->stop();
             currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
             currentExpectedAcceleration = 0;
         }
@@ -396,6 +397,7 @@ void MainWindow::velocitySlope()
         currentExpectedVelocity -= currentExpectedAcceleration / intervalIncrement;
         if(currentExpectedVelocity<=targetVelocity){
             velocitySlopeTimer->stop();
+            accelerationSlopeTimer->stop();
             currentExpectedVelocity = targetVelocity;
             currentExpectedAcceleration = 0;
         }
@@ -671,7 +673,7 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
     dataTimer->stop();
     if(checked)
-        refreshRate = 30;
+        refreshRate = 33;
     else
         refreshRate = 10;
     dataTimer->start(refreshRate);
