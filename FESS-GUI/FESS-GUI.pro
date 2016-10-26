@@ -4,7 +4,6 @@
 #
 #-------------------------------------------------
 
-<<<<<<< HEAD
 QT          +=  core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia serialport
@@ -53,39 +52,3 @@ RC_FILE     =   fess.rc
 RESOURCES   +=  sounds.qrc
 
 CONFIG      +=  c++11
-=======
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia
-
-TARGET = FESS-GUI
-TEMPLATE = app
-
-
-SOURCES += main.cpp\
-        mainwindow.cpp \
-        qcustomplot.cpp \
-    setpassworddialog.cpp \
-    graphoperation.cpp \
-    flywheeloperation.cpp \
-    recordingoperation.cpp
-
-HEADERS  += mainwindow.h \
-         qcustomplot.h \
-    setpassworddialog.h \
-    graphoperation.h \
-    flywheeloperation.h \
-    recordingoperation.h \
-    conversions.h
-
-FORMS    += mainwindow.ui \
-    setpassworddialog.ui
-
-DISTFILES += \
-    fess.rc
-
-RC_FILE = fess.rc
-
-RESOURCES += \
-    sounds.qrc
->>>>>>> origin/master

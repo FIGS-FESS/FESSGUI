@@ -201,30 +201,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
         break;
       }
 
-<<<<<<< HEAD
-      //add data to graphs
-      graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, expectedVelocity);
-      graphOperation->addRTGData(ui->mainAccGraph, currentTime, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->auxAccelGraph, currentTime, actualAcceleration, expectedAcceleration);
-      graphOperation->addRTGData(ui->mainUdtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->auxUpDtGraph, currentTime, upperDisplacement.x(), upperDisplacement.y());
-      graphOperation->addRTGData(ui->mainLdtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
-      graphOperation->addRTGData(ui->auxLowDtGraph, currentTime, lowerDisplacement.x(), lowerDisplacement.y());
-
-      addXYData(upperDisplacement.x(), upperDisplacement.x(), lowerDisplacement.x(), lowerDisplacement.y());
-      addRotatData(rotationalPosition.x(), rotationalPosition.y());
-
-      //output data to csv if recording
-      if (isRecording){
-          recording->Record(currentTime, actualVelocity, actualAcceleration,
-                            upperDisplacement.x(), upperDisplacement.y(),
-                            lowerDisplacement.x(), lowerDisplacement.y(),
-                            rotationalPosition.x(), rotationalPosition.y());
-      }
-
-      lastPointTime = currentTime;
-=======
     //    add data to graphs
     graphOperation->addRTGData(ui->mainVelGraph, currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity)); // display in RPM
     graphOperation->addRTGData(ui->auxVelocGraph, currentTime, actualVelocity, currentExpectedVelocity);
@@ -244,11 +220,9 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
                           upperDisplacement.x(), upperDisplacement.y(),
                           lowerDisplacement.x(), lowerDisplacement.y(),
                           rotationalPosition.x(), rotationalPosition.y());
->>>>>>> origin/master
     }
 
     lastPointTime = currentTime;
-
 
     // make currentTime axis range scroll with the data (at a constant range size of 8):
     ui->mainVelGraph->xAxis->setRange(currentTime+0.25, 8, Qt::AlignRight);
@@ -625,12 +599,7 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
         //put information into text browser
         ui->textBrowser->append(QString("Output Recording Started at %1")
                                 .arg(QTime::currentTime().toString()));
-<<<<<<< HEAD
-
     }
-=======
-	}
->>>>>>> origin/master
 }
 
 void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options
@@ -704,10 +673,6 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
     else
         ui->pushButton_ApplySettings->setEnabled(true);
 }
-<<<<<<< HEAD
-=======
-
-
 
 void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
@@ -723,4 +688,3 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
 
 }
->>>>>>> origin/master
