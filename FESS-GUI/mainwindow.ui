@@ -1081,6 +1081,8 @@ Stop</string>
     </widget>
     <addaction name="menuSounds"/>
     <addaction name="actionSet_Reset_Password"/>
+    <addaction name="actionLock_frame_rate_at_30FPS"/>
+    <addaction name="actionLock_graph_scale_to_max_value"/>
    </widget>
    <widget class="QMenu" name="menuRecording">
     <property name="title">
@@ -1175,6 +1177,25 @@ Stop</string>
   <action name="actionSet_Reset_Password">
    <property name="text">
     <string>Set/Reset Password</string>
+   </property>
+  </action>
+  <action name="actionLock_frame_rate_at_30FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock frame rate at 30FPS</string>
+   </property>
+  </action>
+  <action name="actionLock_graph_scale_to_max_value">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Lock graph scale to max value</string>
    </property>
   </action>
  </widget>
