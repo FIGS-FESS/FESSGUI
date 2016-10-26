@@ -99,14 +99,14 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
 QString ScrollingTimeGraph::maxDisplay(){
     QString ret = QString::number(maxPrimary);
     if (numDisplayValues >= 2)
-        ret += ", " + QString::number(maxSecondary);
+        ret += ", " + QString::number(maxSecondary, 'f', 4);
     return ret + " " + displayUnit;
 }
 
 QString ScrollingTimeGraph::currentDisplay(){
     QString ret = QString::number(currentPrimary);
     if (numDisplayValues >= 2)
-        ret += ", " + QString::number(currentSecondary);
+        ret += ", " + QString::number(currentSecondary, 'f', 4);
     return ret + " " + displayUnit;
 }
 
@@ -172,20 +172,20 @@ void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy d
 
 
 QString LocationGraph::maxDisplay(){
-    QString ret = "(" + QString::number(maxPoints[0].x()) + ", " + QString::number(maxPoints[0].y()) + ")";
+    QString ret = "(" + QString::number(maxPoints[0].x(), 'f', 4) + ", " + QString::number(maxPoints[0].y(), 'f', 4) + ")";
 
     for(int i = 1; i < numPoints; i++){
-        ret += ", (" + QString::number(maxPoints[i].x()) + ", " + QString::number(maxPoints[i].y()) + ")";
+        ret += ", (" + QString::number(maxPoints[i].x(), 'f', 4) + ", " + QString::number(maxPoints[i].y(), 'f', 4) + ")";
     }
 
     return ret + " " + displayUnit;
 }
 
 QString LocationGraph::currentDisplay(){
-    QString ret = "(" + QString::number(currentPoints[0].x()) + ", " + QString::number(currentPoints[0].y()) + ")";
+    QString ret = "(" + QString::number(currentPoints[0].x(), 'f', 4) + ", " + QString::number(currentPoints[0].y(), 'f', 4) + ")";
 
     for(int i = 1; i < numPoints; i++){
-        ret += ", (" + QString::number(currentPoints[i].x()) + ", " + QString::number(currentPoints[i].y()) + ")";
+        ret += ", (" + QString::number(currentPoints[i].x(), 'f', 4) + ", " + QString::number(currentPoints[i].y(), 'f', 4) + ")";
     }
 
     return ret + " " + displayUnit;

@@ -94,7 +94,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 {                                    //as quickly as it can by the timer (line 107)
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
-    static double lastPointTime = 0;
 
     double actualVelocity = flywheelOperation->getVelocity();               //get all the actual values
     double actualAcceleration = flywheelOperation->getAcceleration();
@@ -121,8 +120,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
                           lowerDisplacement.x(), lowerDisplacement.y(),
                           rotationalPosition.x(), rotationalPosition.y());
     }
-
-    lastPointTime = currentTime;
 
     // calculate frames per second:
     static double lastFpsTime;
