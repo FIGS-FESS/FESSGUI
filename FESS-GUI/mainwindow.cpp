@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
+#include "conversions.h"
 #include <QCryptographicHash>
 #include <QKeyEvent>
 #include <QTime>
@@ -22,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
 
-    expectedVelocity = ui->velocitySpinBox->value();    //initialize expected values based on spinbox values
-    expectedAcceleration = ui->accelerationSpinBox->value();
-    expectedJerk = ui->jerkSpinBox->value();
+    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
+    currentExpectedAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
 
     eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
     addAction(eStopShortcut);
@@ -87,11 +88,18 @@ MainWindow::MainWindow(QWidget *parent) :
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
     dataTimer = new QTimer(this);
     connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-    dataTimer->start(0); // Interval 0 means to refresh as fast as possible
+    dataTimer->start(refreshRate); // Refresh every 10 milliseconds
+
+    // this timer manages the velocity slope. it starts when you hit the go button
+    velocitySlopeTimer = new QTimer(this);
+    connect(velocitySlopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
+
+    accelerationSlopeTimer = new QTimer(this);
+    connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
-{                                    //as quickly as it can by the timer (line 107)
+{                                    //at the refresh rate defined by the timer (line 107)
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
 
@@ -105,8 +113,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     ui->label_12->setText(selectedGraph->currentDisplay());
 
     //add data to graphs
-    velocityGraph->addData(currentTime, actualVelocity, expectedVelocity);
-    accelerationGraph->addData(currentTime, actualAcceleration, expectedAcceleration);
+    velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
+    accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration);
     upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
     lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
@@ -200,9 +208,16 @@ void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 
 void MainWindow::on_goButton_clicked()  //when you hit the go button
 {
-    expectedVelocity = ui->velocitySpinBox->value();  //get the expected values
-    expectedAcceleration = ui->accelerationSpinBox->value();
-    expectedJerk = ui->jerkSpinBox->value();
+    velocitySlopeTimer->stop();
+    accelerationSlopeTimer->stop();
+
+    targetVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());  //get the expected/target values, get velocity in rad/s
+    targetAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
+
+    velocitySlopeTimer->start(10); //run every 10ms
+    accelerationSlopeTimer->start(10);
+
 
     stopplayer->stop();  //stop sounds so they dont overlap
     goplayer->stop();
@@ -217,8 +232,54 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->textBrowser->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(expectedVelocity).arg(expectedAcceleration).arg(expectedJerk)
+                            .arg(targetVelocity).arg(targetAcceleration).arg(currentExpectedJerk)
                             .arg(QTime::currentTime().toString()));
+}
+
+/*this function manages the slope. It is called every 10ms when you click the go button,
+  and stops when you get to your target velocity */
+void MainWindow::velocitySlope()
+{
+    double intervalIncrement = 1000 / velocitySlopeTimer->interval(); //get the correct increment
+
+    if(currentExpectedVelocity <= targetVelocity){ //if the target velocity is greater than the current
+        currentExpectedVelocity += currentExpectedAcceleration / intervalIncrement; //increment the velocity
+        if(currentExpectedVelocity >= targetVelocity){
+            velocitySlopeTimer->stop();
+            accelerationSlopeTimer->stop();
+            currentExpectedVelocity = targetVelocity; //in case the numbers don't round nicely
+            currentExpectedAcceleration = 0;
+        }
+    }
+    else {
+        currentExpectedVelocity -= currentExpectedAcceleration / intervalIncrement;
+        if(currentExpectedVelocity<=targetVelocity){
+            velocitySlopeTimer->stop();
+            accelerationSlopeTimer->stop();
+            currentExpectedVelocity = targetVelocity;
+            currentExpectedAcceleration = 0;
+        }
+    }
+}
+
+void MainWindow::accelerationSlope()
+{
+    double intervalIncrement = 1000 / velocitySlopeTimer->interval();
+
+    if(currentExpectedAcceleration <= targetAcceleration){
+        currentExpectedAcceleration += currentExpectedJerk / intervalIncrement;
+        if(currentExpectedAcceleration >= targetAcceleration){
+            accelerationSlopeTimer->stop();
+            currentExpectedAcceleration = targetAcceleration;
+        }
+    }
+    else {
+        currentExpectedAcceleration -= currentExpectedJerk / intervalIncrement;
+        if(currentExpectedAcceleration<=targetAcceleration){
+            accelerationSlopeTimer->stop();
+            currentExpectedAcceleration = targetAcceleration;
+        }
+    }
 }
 
 void MainWindow::on_actionDarth_Vader_triggered() //darth vader option
@@ -234,6 +295,8 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
 {
     stopplayer->stop(); //stop sounds
     goplayer->stop();
+    velocitySlopeTimer->stop(); //if your in the middle of changing values
+    accelerationSlopeTimer->stop();
 
     uptime.invalidate();  //stop uptime
     if (playSounds)
@@ -242,8 +305,11 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
         stopplayer->play();
     }
     ui->velocitySlider->setValue(0);      //set all values to zero
+    currentExpectedVelocity = 0;
     ui->accelerationSlider->setValue(0);
+    currentExpectedAcceleration = 0;
     ui->jerkSlider->setValue(0);
+    currentExpectedJerk = 0;
     //Pass information on to text browswer
     ui->textBrowser->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
@@ -384,14 +450,12 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
         //put information into text browser
         ui->textBrowser->append(QString("Output Recording Started at %1")
                                 .arg(QTime::currentTime().toString()));
-    
 	}
 }
 
 void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options
 {
     if (isRecording){
-
         //recording->Stop(); <-should this be here?
         isRecording = false;
         ui->actionStart_Recording->setEnabled(true);
@@ -406,9 +470,7 @@ void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recor
 void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply settings button
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
-
     QString password = ui->lineEditPassword->text();
-
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
 
     if(passwordMatches(password)){  //if the password is correct
@@ -447,8 +509,6 @@ void MainWindow::on_actionSet_Reset_Password_triggered(){  //show the password d
     SetPasswordDialog* d = new SetPasswordDialog();
 
     d->show();
-
-
 }
 
 void MainWindow::on_lineEditPassword_textEdited(const QString &password)
@@ -461,3 +521,18 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
 }
 
 
+
+void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
+{
+    dataTimer->stop();
+    if(checked)
+        refreshRate = 33;
+    else
+        refreshRate = 10;
+    dataTimer->start(refreshRate);
+}
+
+void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
+{
+
+}
