@@ -2,7 +2,7 @@
 #include <cmath>
 
 // Custom Libraries
-#include "demo.h"
+#include "demodevice.h"
 #include "commands.h"
 
 
@@ -11,14 +11,14 @@ float derivative(float value, float prev)
     return value-prev;
 }
 
-Demo::Demo()
+DemoDevice::DemoDevice()
 {
     type = RANDOM;
     ve_rate = 0.1;
     key = 0;
 }
 
-void Demo::sync()
+void DemoDevice::sync()
 {
 //---------------------------------------------------------------------
 // Command Interpertation
@@ -148,50 +148,50 @@ void Demo::sync()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
-void Demo::startDevice()
+void DemoDevice::startDevice()
 {
 }
 
-void Demo::stopDevice()
+void DemoDevice::stopDevice()
 {
 }
 
-void Demo::setDefaults()
+void DemoDevice::setDefaults()
 {
 }
 
-uint8_t Demo::popCommand()
+uint8_t DemoDevice::popCommand()
 {
     return rx.popByte();
 }
 
-void Demo::pushInt(int32_t val)
+void DemoDevice::pushInt(int32_t val)
 {
     tx.pushInt(val);
 }
 
-void Demo::pushFloat(float val)
+void DemoDevice::pushFloat(float val)
 {
     tx.pushFloat(val);
 }
 
-void Demo::pushCommand(uint8_t byte)
+void DemoDevice::pushCommand(uint8_t byte)
 {
     tx.pushByte(byte);
 }
 
-void Demo::pushCommandImmediate(uint8_t byte)
+void DemoDevice::pushCommandImmediate(uint8_t byte)
 {
     tx.pushByteFront(byte);
 }
 
 
-void Demo::flush()
+void DemoDevice::flush()
 {
     rx.flush();
 }
 
-bool Demo::empty()
+bool DemoDevice::empty()
 {
     return rx.empty();
 }

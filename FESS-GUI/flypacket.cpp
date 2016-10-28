@@ -1,6 +1,6 @@
 #include "commands.h"
-#include "flypacketlib.h"
-#include "conversionlib.h"
+#include "flypacket.h"
+#include "conversions.h"
 
 flypacket buildFlyPacket(flybyte byte)
 {

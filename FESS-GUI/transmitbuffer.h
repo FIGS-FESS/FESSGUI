@@ -1,11 +1,11 @@
 #ifndef TRANSMITBUFFER_H
 #define TRANSMITBUFFER_H
 
-// C Libraries
-#include <cinttypes>
-
 // C++ Libaries
 #include <deque>
+
+// Custom Libraries
+#include "datatypes.h"
 
 class TransmitBuffer
 {
@@ -13,18 +13,18 @@ class TransmitBuffer
         TransmitBuffer();
         ~TransmitBuffer();
 
-        void pushInt(int32_t);
+        void pushInt(int);
         void pushFloat(float);
-        void pushByte(uint8_t);
-        void pushByteFront(uint8_t);
+        void pushByte(flybyte);
+        void pushByteFront(flybyte);
 
-        uint8_t popByte();
+        flybyte popByte();
 
         void flush();
         bool empty();
 
     private:
-        std::deque<uint8_t> buffer;
+        std::deque<flybyte> buffer;
 
 };
 

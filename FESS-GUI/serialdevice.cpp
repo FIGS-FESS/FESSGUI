@@ -1,22 +1,83 @@
 // Custom Libraries --------------------------------------------------
-#include "serial.h"
+#include "serialdevice.h"
+
+#include <QtGui>
 
 //--------------------------------------------------------------------
-// Serial Constructors
+// SerialDevice Constructors
 //--------------------------------------------------------------------
 
-Serial::Serial()
+SerialDevice::SerialDevice()
 {
     device = new QSerialPort("/dev/pts/1");
     setDefaults();
 }
 
+SerialDevice::SerialDevice(QSerialPortInfo* port)
+{
+    device = new QSerialPort();
+    setDefaults();
+    setPort(port);
+}
+
+SerialDevice::SerialDevice(QSerialPortInfo* port, int baud)
+{
+    device = new QSerialPort();
+    setDefaults();
+    setPort(port);
+    setBaudRate(baud);
+
+}
+
+SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity)
+{
+    device = new QSerialPort();
+    setDefaults();
+    setPort(port);
+    setBaudRate(baud);
+    setParity(parity);
+
+}
+
+SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits)
+{
+    device = new QSerialPort();
+    setDefaults();
+    setPort(port);
+    setBaudRate(baud);
+    setParity(parity);
+    setDataBits(databits);
+}
+
+SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits, int stopbits)
+{
+    device = new QSerialPort();
+    setDefaults();
+    setPort(port);
+    setBaudRate(baud);
+    setParity(parity);
+    setDataBits(databits);
+    setStopBits(stopbits);
+}
+
+SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits, int stopbits, int flowcon)
+{
+    device = new QSerialPort();
+    setPort(port);
+    setBaudRate(baud);
+    setParity(parity);
+    setDataBits(databits);
+    setStopBits(stopbits);
+    setFlowControl(flowcon);
+}
+
 //--------------------------------------------------------------------
-// Serial Destructors
+// SerialDevice Destructors
 //--------------------------------------------------------------------
 
-Serial::~Serial()
+SerialDevice::~SerialDevice()
 {
+    stopDevice();
     delete device;
 }
 
@@ -24,19 +85,19 @@ Serial::~Serial()
 // Public
 //--------------------------------------------------------------------
 
-// Serial Device Settings --------------------------------------------
+// SerialDevice Device Settings --------------------------------------------
 
-void Serial::setPort(QSerialPortInfo* port)
+void SerialDevice::setPort(QSerialPortInfo* port)
 {
     device->setPort(*port);
 }
 
-void Serial::setBaudRate(int rate)
+void SerialDevice::setBaudRate(int rate)
 {
     device->setBaudRate(rate,QSerialPort::AllDirections);
 }
 
-void Serial::setParity(int pari)
+void SerialDevice::setParity(int pari)
 {
     switch(pari)
     {
@@ -63,7 +124,7 @@ void Serial::setParity(int pari)
     }
 }
 
-void Serial::setFlowControl(int flow)
+void SerialDevice::setFlowControl(int flow)
 {
     switch(flow)
     {
@@ -90,7 +151,7 @@ void Serial::setFlowControl(int flow)
     }
 }
 
-void Serial::setDataBits(int bits)
+void SerialDevice::setDataBits(int bits)
 {
     switch(bits)
     {
@@ -123,7 +184,7 @@ void Serial::setDataBits(int bits)
     }
 }
 
-void Serial::setStopBits(int bits)
+void SerialDevice::setStopBits(int bits)
 {
     switch(bits)
     {
@@ -155,10 +216,10 @@ void Serial::setStopBits(int bits)
 // Private
 //--------------------------------------------------------------------
 
-// Serial Device Send and Receive ----------------------------------
+// SerialDevice Device Send and Receive ----------------------------------
 
 
-void Serial::sendTX()
+void SerialDevice::sendTX()
 {
     while(!tx.empty())
     {
@@ -168,7 +229,7 @@ void Serial::sendTX()
     device->waitForBytesWritten(0);
 }
 
-void Serial::readRX()
+void SerialDevice::readRX()
 {
     device->waitForReadyRead(0);
 
@@ -185,23 +246,23 @@ void Serial::readRX()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
-void Serial::sync()
+void SerialDevice::sync()
 {
     sendTX();
     readRX();
 }
 
-void Serial::startDevice()
+void SerialDevice::startDevice()
 {
     device->open(QIODevice::ReadWrite);
 }
 
-void Serial::stopDevice()
+void SerialDevice::stopDevice()
 {
     device->close();
 }
 
-void Serial::setDefaults()
+void SerialDevice::setDefaults()
 {
     setBaudRate(9600);
     setParity(0);
@@ -211,40 +272,40 @@ void Serial::setDefaults()
 }
 
 
-uint8_t Serial::popCommand()
+flybyte SerialDevice::popCommand()
 {
     return rx.popByte();
 }
 
 
-void Serial::pushInt(int32_t val)
+void SerialDevice::pushInt(int32_t val)
 {
     tx.pushInt(val);
 }
 
-void Serial::pushFloat(float val)
+void SerialDevice::pushFloat(float val)
 {
     tx.pushFloat(val);
 }
 
-void Serial::pushCommand(uint8_t byte)
+void SerialDevice::pushCommand(flybyte byte)
 {
     tx.pushByte(byte);
 }
 
-void Serial::pushCommandImmediate(uint8_t byte)
+void SerialDevice::pushCommandImmediate(flybyte byte)
 {
     tx.pushByteFront(byte);
     sendTX();
 }
 
 
-void Serial::flush()
+void SerialDevice::flush()
 {
     rx.flush();
 }
 
-bool Serial::empty()
+bool SerialDevice::empty()
 {
     return rx.empty();
 }

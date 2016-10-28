@@ -1,5 +1,5 @@
-#include "demo.h"
-#include "serial.h"
+#include "demodevice.h"
+#include "serialdevice.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "setpassworddialog.h"
@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    flywheelCommunicationDevice = new Demo;
+    flywheelCommunicationDevice = new DemoDevice;
     flywheelCommunicationDevice->startDevice();
     flywheelOperation = new FlywheelOperation(flywheelCommunicationDevice); //contains methods for getting and setting flywheel variables
 
@@ -304,7 +304,6 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 MainWindow::~MainWindow()  //destructor
 {
-    flywheelCommunicationDevice->stopDevice();
     delete ui;
 }
 

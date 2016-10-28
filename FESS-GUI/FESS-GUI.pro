@@ -19,12 +19,12 @@ SOURCES     +=  main.cpp \
                 graphoperation.cpp \
                 flywheeloperation.cpp \
                 recordingoperation.cpp \
-                serial.cpp \
-                demo.cpp \
                 interfacemanager.cpp \
                 transmitbuffer.cpp \
-                conversionlib.cpp \
-                flypacketlib.cpp
+    conversions.cpp \
+    flypacket.cpp \
+    demodevice.cpp \
+    serialdevice.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -32,15 +32,15 @@ HEADERS     +=  mainwindow.h \
                 graphoperation.h \
                 flywheeloperation.h \
                 recordingoperation.h \
-                serial.h \
                 commands.h \
-                demo.h \
                 interfacemanager.h \
                 transmitbuffer.h \
                 commondeviceinterface.h \
                 datatypes.h \
-                flypacketlib.h \
-                conversionlib.h
+    conversions.h \
+    flypacket.h \
+    demodevice.h \
+    serialdevice.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui

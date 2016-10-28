@@ -30,7 +30,6 @@ void SetPasswordDialog::on_buttonBox_accepted()
         QString oldpw = settings.value("password", "").toString();
 
         if(!passwordMatches(ui->lineEdit_oldPassword->text())){
-            qDebug() << "Wrong old password provided";
             return;
         }
         //old password correct
@@ -42,8 +41,6 @@ void SetPasswordDialog::on_buttonBox_accepted()
         QString pwHashed = QString(QCryptographicHash::hash(((ui->lineEdit_newPassword->text()+salt).toUtf8()),QCryptographicHash::Sha512).toHex());
         settings.setValue("password", pwHashed);
         settings.setValue("salt", salt);
-        qDebug() << "Password set to "+ui->lineEdit_newPassword->text().toLocal8Bit();
-        qDebug() << settings.value("password", "").toString().toLocal8Bit();
     }
 
 }
@@ -51,7 +48,6 @@ void SetPasswordDialog::on_buttonBox_accepted()
 bool passwordsMatch(QString old, QString provided){
     QSettings settings("settings.ini", QSettings::IniFormat);
     if (!settings.contains("salt")){
-        qDebug() << "No salt provided";
         return false;
     }
     QString salt = settings.value("salt", "").toString();
@@ -63,11 +59,9 @@ bool passwordsMatch(QString old, QString provided){
 bool passwordMatches(QString prov){
     QSettings settings("settings.ini", QSettings::IniFormat);
     if (!settings.contains("salt")){
-        qDebug() << "No salt provided";
         return false;
     }
     if (!settings.contains("password")){
-        qDebug() << "No password provided";
         return false;
     }
     QString salt = settings.value("salt", "").toString();

@@ -6,14 +6,23 @@
 #include <QSerialPortInfo>
 
 // Custom Libraries
-#include "commondeviceinterface.h"
+#include "datatypes.h"
 #include "transmitbuffer.h"
+#include "commondeviceinterface.h"
 
-class Serial : public CommonDeviceInterface
+
+class SerialDevice : public CommonDeviceInterface
 {
     public:
-        Serial();
-        ~Serial();
+       SerialDevice();
+       SerialDevice(QSerialPortInfo*);
+       SerialDevice(QSerialPortInfo*, int);
+       SerialDevice(QSerialPortInfo*, int, int);
+       SerialDevice(QSerialPortInfo*, int, int, int);
+       SerialDevice(QSerialPortInfo*, int, int, int, int);
+       SerialDevice(QSerialPortInfo*, int, int, int, int, int);
+
+        ~SerialDevice();
 
         // Overriden Interface Methods
         void sync();
@@ -25,12 +34,12 @@ class Serial : public CommonDeviceInterface
         void flush();
         void pushInt(int);
         void pushFloat(float);
-        void pushCommand(unsigned char);
-        void pushCommandImmediate(unsigned char);
+        void pushCommand(flybyte);
+        void pushCommandImmediate(flybyte);
 
         int popInt();
         float popFloat();
-        unsigned char popCommand();
+        flybyte popCommand();
 
         // Unique Methods
         void setDevice(int);

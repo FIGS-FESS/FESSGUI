@@ -2,17 +2,18 @@
 #define DEMO_H
 
 // Custom Libraries
-#include "commondeviceinterface.h"
 #include "transmitbuffer.h"
+#include "commondeviceinterface.h"
+
 
 #define RANDOM      0
 #define STOP        1
 #define COMMAND     2
 
-class Demo : public CommonDeviceInterface
+class DemoDevice : public CommonDeviceInterface
 {
     public:
-        Demo();
+        DemoDevice();
 
         // Overriden Interface Methods
         void sync();

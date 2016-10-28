@@ -1,5 +1,6 @@
+#include "qmath.h"
 #include "string.h"
-#include "conversionlib.h"
+#include "conversions.h"
 
 void byteArrayToFloat(flybyte* buffer, float* val)
 {
@@ -23,3 +24,12 @@ void intToByteArray(flybyte* buffer, int* val)
 }
 
 
+double radsPerSecondToRPM(double rads)
+{
+    return rads * (60 / (2 * M_PI)); //M_PI is defined in <qmath.h>
+}
+
+double RPMtoRadsPerSecond(double RPM)
+{
+    return RPM * ((2 * M_PI) / 60);
+}

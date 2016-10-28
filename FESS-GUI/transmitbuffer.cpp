@@ -1,14 +1,13 @@
-
-#include <cstdint>
-#include "conversionlib.h"
+//Custom Libraries
+#include "conversions.h"
 #include "transmitbuffer.h"
 
 TransmitBuffer::TransmitBuffer(){}
 TransmitBuffer::~TransmitBuffer(){}
 
-uint8_t TransmitBuffer::popByte()
+flybyte TransmitBuffer::popByte()
 {
-    uint8_t val = 0;
+    flybyte val = 0;
 
     if(!buffer.empty())
     {
@@ -18,19 +17,19 @@ uint8_t TransmitBuffer::popByte()
     return val;
 }
 
-void TransmitBuffer::pushByte(uint8_t byt)
+void TransmitBuffer::pushByte(flybyte byt)
 {
      buffer.push_back(byt);
 }
 
-void TransmitBuffer::pushByteFront(uint8_t byt)
+void TransmitBuffer::pushByteFront(flybyte byt)
 {
      buffer.push_front(byt);
 }
 
 void TransmitBuffer::pushInt(int val)
 {
-    uint8_t bytes[4];
+    flybyte bytes[4];
 
     intToByteArray(bytes,&val);
 
@@ -42,7 +41,7 @@ void TransmitBuffer::pushInt(int val)
 
 void TransmitBuffer::pushFloat(float val)
 {
-    uint8_t bytes[4];
+    flybyte bytes[4];
 
     floatToByteArray(bytes,&val);
 

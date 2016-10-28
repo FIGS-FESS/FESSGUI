@@ -1,6 +1,6 @@
 // Custom Libraries
 #include "datatypes.h"
-#include "flypacketlib.h"
+#include "flypacket.h"
 #include "flywheeloperation.h"
 
 FlywheelOperation::FlywheelOperation(CommonDeviceInterface* cdi)
