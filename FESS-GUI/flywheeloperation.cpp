@@ -12,7 +12,7 @@ FlywheelOperation::FlywheelOperation()
     lowerDisplacement = new QPointF();
     rotationalPosition = new QPointF();
 
-    communicationDevice = new DemoDevice();
+    communicationDevice = new SerialDevice();
     communicationDevice->startDevice();
     setDefaults();
 }
