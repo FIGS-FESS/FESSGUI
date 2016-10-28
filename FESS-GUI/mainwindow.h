@@ -5,8 +5,7 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
-#include "commondeviceinterface.h"
-#include "graphoperation.h"
+#include "graph.h"
 #include "flywheeloperation.h"
 #include "recordingoperation.h"
 
@@ -34,22 +33,16 @@ public:
     double targetAcceleration;
     double currentExpectedAcceleration;
     double currentExpectedJerk;
-    double maxVel = 0;
-    double maxAcc = 0;
-    double maxUpDt [2] = {0, 0};
-    double maxLwDt [2] = {0 ,0};
-    enum graph {VEL, ACC, UDT, LDT, XYD, ROT};
-    graph mainGraphDisplay = VEL;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;
     ~MainWindow();
 
 private:
-    CommonDeviceInterface *flywheelCommunicationDevice;
-    GraphOperation* graphOperation;
+    ScrollingTimeGraph *velocityGraph, *accelerationGraph, *lowerDisplacementGraph, *upperDisplacementGraph;
+    LocationGraph *displacementGraph, *rotationGraph;
+    Graph* selectedGraph = velocityGraph;
     FlywheelOperation* flywheelOperation;
-    void transferAxes(QCustomPlot* graph);
 
 private slots:
 
@@ -68,10 +61,6 @@ private slots:
     void on_jerkSlider_valueChanged(int jerk);
 
     void realtimeDataSlot();
-
-    void addXYData(double ux, double uy, double lx, double ly);
-
-    void addRotatData(double x, double y);
 
     void on_goButton_clicked();
 
@@ -98,7 +87,7 @@ private slots:
     void on_actionStart_Recording_triggered();
 
     void on_actionStop_Recording_triggered();
-	
+
     void on_performButton_clicked();
 
     void on_XYButton_clicked();

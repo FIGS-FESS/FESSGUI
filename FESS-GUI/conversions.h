@@ -9,7 +9,9 @@ void floatToByteArray(flybyte*, float*);
 void byteArrayToInt(flybyte*, int*);
 void intToByteArray(flybyte*, int*);
 
-double radsPerSecondToRPM(double rads);
-double RPMtoRadsPerSecond(double RPM);
+double radsPerSecondToRPM(double);
+double RPMtoRadsPerSecond(double);
+
+float derivative(float, float);
 
 #endif // CONVERSIONS_H

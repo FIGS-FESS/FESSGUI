@@ -8,13 +8,12 @@
 #include <queue>
 
 // Custom Libraries
-#include "commands.h"
 #include "commondeviceinterface.h"
 
 class FlywheelOperation
 {
 public:
-    FlywheelOperation(CommonDeviceInterface*);
+    FlywheelOperation();
     ~FlywheelOperation();
 
     void sync();

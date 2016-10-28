@@ -33,3 +33,9 @@ double RPMtoRadsPerSecond(double RPM)
 {
     return RPM * ((2 * M_PI) / 60);
 }
+
+
+float derivative(float value, float prev)
+{
+    return value-prev;
+}

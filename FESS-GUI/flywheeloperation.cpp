@@ -1,20 +1,25 @@
 // Custom Libraries
+#include "commands.h"
 #include "datatypes.h"
 #include "flypacket.h"
+#include "demodevice.h"
+#include "serialdevice.h"
 #include "flywheeloperation.h"
 
-FlywheelOperation::FlywheelOperation(CommonDeviceInterface* cdi)
+FlywheelOperation::FlywheelOperation()
 {
     upperDisplacement = new QPointF();
     lowerDisplacement = new QPointF();
     rotationalPosition = new QPointF();
 
-    communicationDevice = cdi;
+    communicationDevice = new DemoDevice();
+    communicationDevice->startDevice();
     setDefaults();
 }
 
 FlywheelOperation::~FlywheelOperation()
 {
+    communicationDevice->stopDevice();
     delete upperDisplacement;
     delete lowerDisplacement;
     delete rotationalPosition;

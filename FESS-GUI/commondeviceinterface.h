@@ -1,7 +1,7 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include <cinttypes>
+#include "datatypes.h"
 
 class CommonDeviceInterface
 {
@@ -13,12 +13,12 @@ class CommonDeviceInterface
 
         virtual bool empty() = 0;
         virtual void flush() = 0;
-        virtual void pushInt(int32_t) = 0;
+        virtual void pushInt(int) = 0;
         virtual void pushFloat(float) = 0;
-        virtual void pushCommand(uint8_t) = 0;
-        virtual void pushCommandImmediate(uint8_t) = 0;
+        virtual void pushCommand(flybyte) = 0;
+        virtual void pushCommandImmediate(flybyte) = 0;
 
-        virtual uint8_t popCommand() = 0;
+        virtual flybyte popCommand() = 0;
 };
 
 #endif // INTERFACE_H

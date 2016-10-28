@@ -2,14 +2,10 @@
 #include <cmath>
 
 // Custom Libraries
-#include "demodevice.h"
 #include "commands.h"
+#include "demodevice.h"
+#include "conversions.h"
 
-
-float derivative(float value, float prev)
-{
-    return value-prev;
-}
 
 DemoDevice::DemoDevice()
 {
@@ -160,12 +156,12 @@ void DemoDevice::setDefaults()
 {
 }
 
-uint8_t DemoDevice::popCommand()
+flybyte DemoDevice::popCommand()
 {
     return rx.popByte();
 }
 
-void DemoDevice::pushInt(int32_t val)
+void DemoDevice::pushInt(int val)
 {
     tx.pushInt(val);
 }
@@ -175,12 +171,12 @@ void DemoDevice::pushFloat(float val)
     tx.pushFloat(val);
 }
 
-void DemoDevice::pushCommand(uint8_t byte)
+void DemoDevice::pushCommand(flybyte byte)
 {
     tx.pushByte(byte);
 }
 
-void DemoDevice::pushCommandImmediate(uint8_t byte)
+void DemoDevice::pushCommandImmediate(flybyte byte)
 {
     tx.pushByteFront(byte);
 }
