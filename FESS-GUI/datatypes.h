@@ -1,6 +1,14 @@
 #ifndef DATATYPES_H
 #define DATATYPES_H
 
+#define NULL_DATA               0
+
+#define NULL_PACKET             0
+#define DATA_PACKET             1
+#define COMM_PACKET             2
+#define ERRO_PACKET             3
+
+#define NULL_TYPE               0
 #define VELOCITY                1
 #define ACCELERATION            2
 #define JERK                    3
@@ -15,8 +23,9 @@ typedef unsigned char flybyte;
 
 struct flypacket
 {
-   flybyte type;
-   float value;
+   flybyte packet_type;
+   flybyte data_type;
+   float   data_value;
 };
 
 typedef struct flypacket flypacket;

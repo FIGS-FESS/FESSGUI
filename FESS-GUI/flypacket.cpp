@@ -8,6 +8,10 @@ flypacket buildFlyPacket(flybyte byte)
 
     flypacket decoded;
 
+    decoded.data_type = NULL_TYPE;
+    decoded.data_value = NULL_DATA;
+    decoded.packet_type = NULL_PACKET;
+
     static flybyte buffer[4];
 
     static flybyte data = 0;
@@ -20,56 +24,65 @@ flypacket buildFlyPacket(flybyte byte)
         {
             if (( byte == CDM_SEND_VELOCITY ) && ( state == IDM_SEND_VELOCITY ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = VELOCITY;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = VELOCITY;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_ACCELERATION ) && ( state == IDM_SEND_ACCELERATION ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = ACCELERATION;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = ACCELERATION;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_JERK ) && ( state == IDM_SEND_JERK ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = JERK;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = JERK;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_LOWER_DISPLACEMENT_X ) && ( state == IDM_SEND_LOWER_DISPLACEMENT_X ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = LOWER_DISPLACMENT_X;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = LOWER_DISPLACMENT_X;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_LOWER_DISPLACEMENT_Y ) && ( state == IDM_SEND_LOWER_DISPLACEMENT_Y ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = LOWER_DISPLACMENT_Y;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = LOWER_DISPLACMENT_Y;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_UPPER_DISPLACEMENT_X ) && ( state == IDM_SEND_UPPER_DISPLACEMENT_X ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = UPPER_DISPLACMENT_X;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = UPPER_DISPLACMENT_X;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_UPPER_DISPLACEMENT_Y ) && ( state == IDM_SEND_UPPER_DISPLACEMENT_Y ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = UPPER_DISPLACMENT_Y;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = UPPER_DISPLACMENT_Y;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_ROTATIONAL_POSITION_X) && ( state == IDM_SEND_ROTATIONAL_POSITION_X ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = ROTATIONAL_POSITION_X;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = ROTATIONAL_POSITION_X;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else if (( byte == CDM_SEND_ROTATIONAL_POSITION_Y ) && ( state == IDM_SEND_ROTATIONAL_POSITION_Y ))
             {
-                byteArrayToFloat(buffer, &decoded.value);
-                decoded.type = ROTATIONAL_POSITION_Y;
+                byteArrayToFloat(buffer, &decoded.data_value);
+                decoded.data_type = ROTATIONAL_POSITION_Y;
+                decoded.packet_type = DATA_PACKET;
             }
 
             else

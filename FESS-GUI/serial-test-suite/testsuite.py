@@ -139,7 +139,7 @@ while(True):
 	writeData(s, rpy)
 	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_Y)
 
-	time.sleep(0.01)
+	time.sleep(0.02)
 
 # Citations: 
 #	Function: 	binary()

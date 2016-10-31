@@ -36,8 +36,8 @@ public:
 private:
     // Private Variables
 
-    int emergency_timeout;
-    int emergency_retries;
+    unsigned int emergency_timeout;
+    unsigned int emergency_retries;
     bool emergency_acknowlegded;
 
     QPointF* upperDisplacement;
@@ -45,15 +45,27 @@ private:
     QPointF* rotationalPosition;
 
     CommonDeviceInterface* communicationDevice;
-    std::queue<float> vel;
-    std::queue<float> acc;
-    std::queue<float> jer;
-    std::queue<float> udx;
-    std::queue<float> udy;
-    std::queue<float> ldx;
-    std::queue<float> ldy;
-    std::queue<float> rpx;
-    std::queue<float> rpy;
+    std::queue<float> vel_buffer;
+    std::queue<float> acc_buffer;
+    std::queue<float> jer_buffer;
+    std::queue<float> udx_buffer;
+    std::queue<float> udy_buffer;
+    std::queue<float> ldx_buffer;
+    std::queue<float> ldy_buffer;
+    std::queue<float> rpx_buffer;
+    std::queue<float> rpy_buffer;
+
+    // Queue Sizes
+
+    unsigned int vel_buffer_limit;
+    unsigned int acc_buffer_limit;
+    unsigned int jer_buffer_limit;
+    unsigned int ldx_buffer_limit;
+    unsigned int ldy_buffer_limit;
+    unsigned int udx_buffer_limit;
+    unsigned int udy_buffer_limit;
+    unsigned int rpx_buffer_limit;
+    unsigned int rpy_buffer_limit;
 
     // Sync Flags and Buffers
 
