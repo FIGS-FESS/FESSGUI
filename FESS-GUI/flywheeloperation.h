@@ -40,11 +40,11 @@ private:
     unsigned int emergency_retries;
     bool emergency_acknowlegded;
 
-    QPointF* upperDisplacement;
-    QPointF* lowerDisplacement;
-    QPointF* rotationalPosition;
+    QPointF* upper_displacement;
+    QPointF* lower_displacement;
+    QPointF* rotational_position;
 
-    CommonDeviceInterface* communicationDevice;
+    CommonDeviceInterface* communication_device;
     std::queue<float> vel_buffer;
     std::queue<float> acc_buffer;
     std::queue<float> jer_buffer;

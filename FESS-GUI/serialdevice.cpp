@@ -11,12 +11,6 @@ SerialDevice::SerialDevice()
 {
     device = new QSerialPort("/dev/pts/1");
     setDefaults();
-
-    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-        qDebug() << "Name : " << info.portName();
-        qDebug() << "Description : " << info.description();
-        qDebug() << "Manufacturer: " << info.manufacturer();
-    }
 }
 
 SerialDevice::SerialDevice(QSerialPortInfo* port)
@@ -245,8 +239,6 @@ void SerialDevice::readRX()
     {
         rx.pushByte(in[i]);
     }
-
-     qDebug() << "Read:" << in;
 }
 
 
