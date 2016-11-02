@@ -7,6 +7,9 @@
 // QT Libraries
 #include <QSerialPortInfo>
 
+// Custom Libraries
+#include "commondeviceinterface.h"
+
 class interfaceManager
 {
     public:
@@ -14,10 +17,13 @@ class interfaceManager
         ~interfaceManager();
 
         void findSerialDevices();
+        void setCurrentDevices(int index);
+
+        CommonDeviceInterface* getCurrentDevice();
 
     private:
+        std::vector<CommonDeviceInterface*> interface_list;
 
-        int serial_list_size;
         QSerialPortInfo* port;
         QList<QSerialPortInfo> serial_port_list;
 };

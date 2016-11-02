@@ -24,7 +24,8 @@ SOURCES     +=  main.cpp \
                 flypacket.cpp \
                 demodevice.cpp \
                 serialdevice.cpp \
-                graph.cpp
+                graph.cpp \
+    commoninterfaceselector.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -40,10 +41,12 @@ HEADERS     +=  mainwindow.h \
                 flypacket.h \
                 demodevice.h \
                 serialdevice.h \
-                graph.h
+                graph.h \
+    commoninterfaceselector.h
 
 FORMS       +=  mainwindow.ui \
-                setpassworddialog.ui
+                setpassworddialog.ui \
+    commoninterfaceselector.ui
 
 DISTFILES   +=  fess.rc
 

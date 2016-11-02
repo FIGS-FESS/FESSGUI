@@ -12,3 +12,7 @@ void interfaceManager::findSerialDevices()
     serial_list_size = serial_port_list.size();
 }
 
+CommonDeviceInterface* interfaceManager::getCurrentDevice()
+{
+
+}
