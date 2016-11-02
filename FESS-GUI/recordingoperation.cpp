@@ -1,7 +1,10 @@
-#include "recordingoperation.h"
+// C/C++ Libraries
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+
+// Custom Libraries
+#include "recordingoperation.h"
 
 RecordingOperation::RecordingOperation()
 {

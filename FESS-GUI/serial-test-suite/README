@@ -1,0 +1,26 @@
+This test suite is used to test serial communications without hardware.
+
+Requirements:
+1.  *nix OS
+2.  Bash Shell
+3.  Python 2.7.12 or equivalent
+4.  pyserial 2.7 or equivalent
+5.  SOCAT 1.7.3.1-1 or equivalent
+
+First open socat in one terminal using:
+socat -d -d pty,raw,echo=0 pty,raw,echo=0
+
+Make a note of the ports that are echoed back
+these should be similar to the following:
+Port 0: /dev/pts/0
+Port 1: /dev/pts/1
+
+Set the serial interface to <Your Port 0> in the QT Interface.
+Run the following command from the serial-test-suite dir in another terminal:
+
+python testsuite.py <Your Port 1>
+
+Observe the Interface and logs to ensure the Interface is behaving correctly.
+
+If the interface or python is having problems accessing the serial device
+kill socat with ctlr+c and restart it.

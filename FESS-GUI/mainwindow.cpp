@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qsrand(time(NULL));
 
-    flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variables
+    flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variable
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
@@ -99,7 +99,9 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
-{                                    //at the refresh rate defined by the timer (line 107)
+{
+    flywheelOperation->sync();
+    //at the refresh rate defined by the timer (line 107)
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
 
@@ -450,7 +452,7 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
         //put information into text browser
         ui->textBrowser->append(QString("Output Recording Started at %1")
                                 .arg(QTime::currentTime().toString()));
-	}
+    }
 }
 
 void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options

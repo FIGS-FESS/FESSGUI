@@ -1,9 +1,12 @@
-#include "setpassworddialog.h"
-#include "ui_setpassworddialog.h"
+// QT Libraries
 #include <QSettings>
 #include <QString>
 #include <QDebug>
 #include <QCryptographicHash>
+
+// Custom Libraries
+#include "setpassworddialog.h"
+#include "ui_setpassworddialog.h"
 
 SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     QDialog(parent),
@@ -27,7 +30,6 @@ void SetPasswordDialog::on_buttonBox_accepted()
         QString oldpw = settings.value("password", "").toString();
 
         if(!passwordMatches(ui->lineEdit_oldPassword->text())){
-            qDebug("Wrong old password provided");
             return;
         }
         //old password correct
@@ -82,4 +84,3 @@ QString GetRandomString()
    }
    return randomString;
 }
-

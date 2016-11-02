@@ -4,37 +4,51 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT          +=  core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia serialport
 
-TARGET = FESS-GUI
-TEMPLATE = app
+TARGET      =   FESS-GUI
+TEMPLATE    =   app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-        qcustomplot.cpp \
-    setpassworddialog.cpp \
-    flywheeloperation.cpp \
-    recordingoperation.cpp \
-    graph.cpp
+SOURCES     +=  main.cpp \
+                mainwindow.cpp \
+                qcustomplot.cpp \
+                setpassworddialog.cpp \
+                flywheeloperation.cpp \
+                recordingoperation.cpp \
+                interfacemanager.cpp \
+                transmitbuffer.cpp \
+                conversions.cpp \
+                flypacket.cpp \
+                demodevice.cpp \
+                serialdevice.cpp \
+                graph.cpp
 
-HEADERS  += mainwindow.h \
-         qcustomplot.h \
-    setpassworddialog.h \
-    flywheeloperation.h \
-    recordingoperation.h \
-    graph.h \
-    conversions.h
+HEADERS     +=  mainwindow.h \
+                qcustomplot.h \
+                setpassworddialog.h \
+                flywheeloperation.h \
+                recordingoperation.h \
+                commands.h \
+                interfacemanager.h \
+                transmitbuffer.h \
+                commondeviceinterface.h \
+                datatypes.h \
+                conversions.h \
+                flypacket.h \
+                demodevice.h \
+                serialdevice.h \
+                graph.h
 
-FORMS    += mainwindow.ui \
-    setpassworddialog.ui
+FORMS       +=  mainwindow.ui \
+                setpassworddialog.ui
 
-DISTFILES += \
-    fess.rc
+DISTFILES   +=  fess.rc
 
-RC_FILE = fess.rc
+RC_FILE     =   fess.rc
 
-RESOURCES += \
-    sounds.qrc
+RESOURCES   +=  sounds.qrc
+
+CONFIG      +=  c++11

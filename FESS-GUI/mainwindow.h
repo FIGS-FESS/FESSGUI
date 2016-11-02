@@ -87,7 +87,7 @@ private slots:
     void on_actionStart_Recording_triggered();
 
     void on_actionStop_Recording_triggered();
-	
+
     void on_performButton_clicked();
 
     void on_XYButton_clicked();
