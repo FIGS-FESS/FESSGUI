@@ -10,6 +10,13 @@
 SerialDevice::SerialDevice()
 {
     device = new QSerialPort("/dev/pts/1");
+
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+            qDebug() << "Name : " << info.portName();
+            qDebug() << "Description : " << info.description();
+            qDebug() << "Manufacturer: " << info.manufacturer();
+    }
+
     setDefaults();
 }
 
@@ -234,6 +241,8 @@ void SerialDevice::readRX()
     device->waitForReadyRead(0);
 
     QByteArray in = device->readAll();
+
+    qDebug() << "Read:" << in;
 
     for (int i = 0; i < in.size(); i++)
     {

@@ -150,15 +150,6 @@ void FlywheelOperation::setDefaults()
     rpx_buffer.push(0.0);
     rpy_buffer.push(0.0);
 
-    //lower_displacement->setX(0.0);
-    //lower_displacement->setY(0.0);
-
-    //upper_displacement->setX(0.0);
-    //upper_displacement->setY(0.0);
-
-    //rotational_position->setX(0.0);
-    //rotational_position->setY(0.0);
-
     vel_buffer_limit = 64;
     acc_buffer_limit = 64;
     jer_buffer_limit = 64;
@@ -175,7 +166,7 @@ void FlywheelOperation::setDefaults()
     emergency_acknowlegded = false;
 }
 
-void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
+void FlywheelOperation::sync()
 {
     communication_device->sync();
 
