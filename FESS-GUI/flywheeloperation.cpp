@@ -2,24 +2,20 @@
 #include "commands.h"
 #include "datatypes.h"
 #include "flypacket.h"
-#include "demodevice.h"
-#include "serialdevice.h"
 #include "flywheeloperation.h"
 
-FlywheelOperation::FlywheelOperation()
+FlywheelOperation::FlywheelOperation(CommonDeviceInterface* deviceInterface)
 {
     upper_displacement = new QPointF();
     lower_displacement = new QPointF();
     rotational_position = new QPointF();
 
-    communication_device = new DemoDevice();
-    communication_device->startDevice();
+    communication_device = deviceInterface;
     setDefaults();
 }
 
 FlywheelOperation::~FlywheelOperation()
 {
-    communication_device->stopDevice();
     delete upper_displacement;
     delete lower_displacement;
     delete rotational_position;
@@ -150,15 +146,6 @@ void FlywheelOperation::setDefaults()
     rpx_buffer.push(0.0);
     rpy_buffer.push(0.0);
 
-    //lower_displacement->setX(0.0);
-    //lower_displacement->setY(0.0);
-
-    //upper_displacement->setX(0.0);
-    //upper_displacement->setY(0.0);
-
-    //rotational_position->setX(0.0);
-    //rotational_position->setY(0.0);
-
     vel_buffer_limit = 64;
     acc_buffer_limit = 64;
     jer_buffer_limit = 64;
@@ -177,90 +164,98 @@ void FlywheelOperation::setDefaults()
 
 void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
 {
-    communication_device->sync();
-
-    while(!communication_device->empty())
+    if (communication_device->ready())
     {
-        flybyte rx_data = communication_device->popCommand();
-        flypacket rx_packet = buildFlyPacket(rx_data);
+        communication_device->sync();
 
-        if (rx_packet.packet_type == DATA_PACKET)
+        while(!communication_device->empty())
         {
+            flybyte rx_data = communication_device->popCommand();
+            flypacket rx_packet = buildFlyPacket(rx_data);
 
-            switch(rx_packet.data_type)
+            if (rx_packet.packet_type == DATA_PACKET)
             {
-                case VELOCITY:
-                {
-                    if (vel_buffer.size() > vel_buffer_limit) vel_buffer.pop();
-                    vel_buffer.push(rx_packet.data_value);
-                    break;
-                }
 
-                case ACCELERATION:
+                switch(rx_packet.data_type)
                 {
-                    if (acc_buffer.size() > acc_buffer_limit) acc_buffer.pop();
-                    acc_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case VELOCITY:
+                    {
+                        if (vel_buffer.size() > vel_buffer_limit) vel_buffer.pop();
+                        vel_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case JERK:
-                {
-                    if (jer_buffer.size() > jer_buffer_limit) jer_buffer.pop();
-                    jer_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case ACCELERATION:
+                    {
+                        if (acc_buffer.size() > acc_buffer_limit) acc_buffer.pop();
+                        acc_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case LOWER_DISPLACMENT_X:
-                {
-                    if (ldx_buffer.size() > ldx_buffer_limit) ldx_buffer.pop();
-                    ldx_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case JERK:
+                    {
+                        if (jer_buffer.size() > jer_buffer_limit) jer_buffer.pop();
+                        jer_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case LOWER_DISPLACMENT_Y:
-                {
-                    if (ldy_buffer.size() > ldy_buffer_limit) ldy_buffer.pop();
-                    ldy_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case LOWER_DISPLACMENT_X:
+                    {
+                        if (ldx_buffer.size() > ldx_buffer_limit) ldx_buffer.pop();
+                        ldx_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case UPPER_DISPLACMENT_X:
-                {
-                    if (udx_buffer.size() > udx_buffer_limit) udx_buffer.pop();
-                    udx_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case LOWER_DISPLACMENT_Y:
+                    {
+                        if (ldy_buffer.size() > ldy_buffer_limit) ldy_buffer.pop();
+                        ldy_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case UPPER_DISPLACMENT_Y:
-                {
-                    if (udy_buffer.size() > udy_buffer_limit) udy_buffer.pop();
-                    udy_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case UPPER_DISPLACMENT_X:
+                    {
+                        if (udx_buffer.size() > udx_buffer_limit) udx_buffer.pop();
+                        udx_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case ROTATIONAL_POSITION_X:
-                {
-                    if (rpx_buffer.size() > rpx_buffer_limit) rpx_buffer.pop();
-                    rpx_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case UPPER_DISPLACMENT_Y:
+                    {
+                        if (udy_buffer.size() > udy_buffer_limit) udy_buffer.pop();
+                        udy_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                case ROTATIONAL_POSITION_Y:
-                {
-                    if (rpy_buffer.size() > rpy_buffer_limit) rpy_buffer.pop();
-                    rpy_buffer.push(rx_packet.data_value);
-                    break;
-                }
+                    case ROTATIONAL_POSITION_X:
+                    {
+                        if (rpx_buffer.size() > rpx_buffer_limit) rpx_buffer.pop();
+                        rpx_buffer.push(rx_packet.data_value);
+                        break;
+                    }
 
-                default: break;
+                    case ROTATIONAL_POSITION_Y:
+                    {
+                        if (rpy_buffer.size() > rpy_buffer_limit) rpy_buffer.pop();
+                        rpy_buffer.push(rx_packet.data_value);
+                        break;
+                    }
+
+                    default: break;
+                }
             }
-        }
 
-       // if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
-       // {
-       //     communication_device->pushCommand(COMMAND_SET_EMER_STOP);
-       //     communication_device->sync();
-       //     emergency_retries--;
-       // }
+           // if (( emergency_retries > 0 )&&( emergency_acknowlegded == false ))
+           // {
+           //     communication_device->pushCommand(COMMAND_SET_EMER_STOP);
+           //     communication_device->sync();
+           //     emergency_retries--;
+           // }
+        }
     }
+}
+
+void FlywheelOperation::setInterface(CommonDeviceInterface* interface)
+{
+    communication_device = interface;
 }

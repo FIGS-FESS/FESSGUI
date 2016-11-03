@@ -5,7 +5,6 @@
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
 
-
 #define RANDOM      0
 #define STOP        1
 #define COMMAND     2
@@ -17,6 +16,7 @@ class DemoDevice : public CommonDeviceInterface
 
         // Overriden Interface Methods
         void sync();
+        bool ready();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -35,6 +35,7 @@ class DemoDevice : public CommonDeviceInterface
 
     private:
         bool broadcast;
+        bool status_ready;
 
         float vel;
         float acc;

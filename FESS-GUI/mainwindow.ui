@@ -1064,7 +1064,7 @@ Stop</string>
      <x>0</x>
      <y>0</y>
      <width>1190</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -1091,8 +1091,18 @@ Stop</string>
     <addaction name="actionStart_Recording"/>
     <addaction name="actionStop_Recording"/>
    </widget>
+   <widget class="QMenu" name="menuDevice">
+    <property name="title">
+     <string>Interface</string>
+    </property>
+    <addaction name="actionOpenInterfaceSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionStartInterface"/>
+    <addaction name="actionStopInterface"/>
+   </widget>
    <addaction name="menuOptions"/>
    <addaction name="menuRecording"/>
+   <addaction name="menuDevice"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
@@ -1196,6 +1206,21 @@ Stop</string>
    </property>
    <property name="text">
     <string>Lock graph scale to max value</string>
+   </property>
+  </action>
+  <action name="actionOpenInterfaceSettings">
+   <property name="text">
+    <string>Select</string>
+   </property>
+  </action>
+  <action name="actionStartInterface">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="actionStopInterface">
+   <property name="text">
+    <string>Stop</string>
    </property>
   </action>
  </widget>

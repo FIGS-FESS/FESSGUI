@@ -7,6 +7,7 @@ class CommonDeviceInterface
 {
     public:
         virtual void sync() = 0;
+        virtual bool ready() = 0;
         virtual void startDevice() = 0;
         virtual void stopDevice() = 0;
         virtual void setDefaults() = 0;

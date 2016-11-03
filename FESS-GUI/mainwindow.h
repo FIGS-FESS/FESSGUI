@@ -5,9 +5,12 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
+
+
 #include "graph.h"
 #include "flywheeloperation.h"
 #include "recordingoperation.h"
+#include "commoninterfacemanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,7 +25,8 @@ public:
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
     RecordingOperation *recording;
-    QTimer *dataTimer;
+    QTimer *flywheelRefreshTimer;
+    QTimer *graphRefreshTimer;
     QTimer *velocitySlopeTimer;
     QTimer *accelerationSlopeTimer;
     bool playSounds = false;
@@ -43,8 +47,15 @@ private:
     LocationGraph *displacementGraph, *rotationGraph;
     Graph* selectedGraph = velocityGraph;
     FlywheelOperation* flywheelOperation;
+    CommonInterfaceManager* interfaceManager;
+
+    void setTimers();
+    void setUpSignals();
+    void setUpKeyBindings();
 
 private slots:
+
+    void runFlywheelOperations();
 
     void velocitySlope();
 
@@ -107,6 +118,13 @@ private slots:
     void on_actionLock_frame_rate_at_30FPS_triggered(bool checked);
 
     void on_actionLock_graph_scale_to_max_value_triggered(bool checked);
+
+
+    void openInterfaceSettingsWindow();
+
+
+    void stopFlywheelInterface();
+    void startFlywheelInterface();
 
 public:
     Ui::MainWindow *ui;

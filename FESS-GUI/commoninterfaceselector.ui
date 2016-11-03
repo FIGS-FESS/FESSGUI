@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="serialSelectorTab">
     <attribute name="title">
@@ -54,7 +54,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Device</string>
+         <string>Device:</string>
         </property>
        </widget>
       </item>
@@ -68,6 +68,21 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentText">
+         <string>/dev/pts/1</string>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::InsertAtBottom</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QComboBox::AdjustToContents</enum>
         </property>
        </widget>
       </item>
@@ -98,12 +113,28 @@
          </size>
         </property>
         <property name="text">
-         <string>Baud Rate</string>
+         <string>Baud Rate:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="serialBaudCombo"/>
+       <widget class="QLineEdit" name="serialBaudLine">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="inputMask">
+         <string>000000</string>
+        </property>
+        <property name="text">
+         <string>9600</string>
+        </property>
+        <property name="maxLength">
+         <number>6</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -184,7 +215,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Data Bits</string>
+         <string>Data Bits:</string>
         </property>
        </widget>
       </item>
@@ -199,6 +230,38 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="currentText">
+         <string>8</string>
+        </property>
+        <property name="insertPolicy">
+         <enum>QComboBox::NoInsert</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QComboBox::AdjustToContents</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>6</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>7</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>8</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -228,7 +291,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Stop Bits</string>
+         <string>Stop Bits:</string>
         </property>
        </widget>
       </item>
@@ -243,6 +306,21 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <item>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>1.5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -272,7 +350,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Parity</string>
+         <string>Parity:</string>
         </property>
        </widget>
       </item>
@@ -287,6 +365,21 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <item>
+         <property name="text">
+          <string>No Parity</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Odd Parity</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Even Parity</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -316,7 +409,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Flow Control</string>
+         <string>Flow Control:</string>
         </property>
        </widget>
       </item>
@@ -331,23 +424,131 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <item>
+         <property name="text">
+          <string>No Control</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HW Control</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SW Control</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
     </widget>
-    <zorder>label</zorder>
-    <zorder>horizontalLayoutWidget_2</zorder>
-    <zorder>horizontalLayoutWidget_3</zorder>
-    <zorder>horizontalLayoutWidget_6</zorder>
-    <zorder>horizontalLayoutWidget_7</zorder>
-    <zorder>horizontalLayoutWidget_8</zorder>
-    <zorder>horizontalLayoutWidget_9</zorder>
-    <zorder>horizontalLayoutWidget_10</zorder>
    </widget>
    <widget class="QWidget" name="demoSelectorTab">
     <attribute name="title">
      <string>Demo</string>
     </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_11">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>381</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="demoPortContainer">
+      <item>
+       <widget class="QLabel" name="demoPortLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>150</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Device:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="demoPortCombo">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>Default</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_12">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>381</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="demoButtonContainer">
+      <item>
+       <spacer name="demoLeftButtonSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="demoButtonSet">
+        <property name="text">
+         <string>Set</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="demoButtonCancel">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="demoRightButtonSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
  </widget>

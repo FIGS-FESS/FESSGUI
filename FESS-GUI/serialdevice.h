@@ -15,17 +15,18 @@ class SerialDevice : public CommonDeviceInterface
 {
     public:
        SerialDevice();
-       SerialDevice(QSerialPortInfo*);
-       SerialDevice(QSerialPortInfo*, int);
-       SerialDevice(QSerialPortInfo*, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int, int, int);
+
+       SerialDevice(QSerialPortInfo);
+       SerialDevice(QSerialPortInfo, int, int, int, int, int);
+
+       SerialDevice(QString);
+       SerialDevice(QString, int, int, int, int, int);
 
         ~SerialDevice();
 
         // Overriden Interface Methods
         void sync();
+        bool ready();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -48,11 +49,13 @@ class SerialDevice : public CommonDeviceInterface
         void setFlowControl(int);
         void setDataBits(int);
         void setStopBits(int);
-        void setPort(QSerialPortInfo*);
+        void setPort(QSerialPortInfo);
 
     private:
         void sendTX();
         void readRX();
+
+        bool status_ready;
 
         // Internal variables
         QSerialPort* device;

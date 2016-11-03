@@ -1,17 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
+#include "conversions.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
-#include "conversions.h"
-#include <QCryptographicHash>
-#include <QKeyEvent>
+#include "commoninterfacemanager.h"
+#include "commoninterfaceselector.h"
+
 #include <QTime>
-#include <qwidget.h>
+#include <QKeyEvent>
+
 #include <vector>
-#include <ctime>
-#include <iomanip>
-#include <string>
-#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,20 +18,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    qsrand(time(NULL));
+    setTimers();
+    setUpSignals();
+    setUpKeyBindings();
 
-    flywheelOperation = new FlywheelOperation(); //contains methods for getting and setting flywheel variable
+    refreshRate = 100;
+    interfaceManager = new CommonInterfaceManager();
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
-
-    eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
-    addAction(eStopShortcut);
-    eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
-    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
-
-    ui->eStopKey->setKeySequence(eStopShortcut->shortcut()); //E stop shortcut can be user defined
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
@@ -58,9 +53,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
 
-    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 
     /*******************************************************
     The following code initializes all the graphs. There are
@@ -86,9 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, std::vector<QColor>{rotationalColor}, "mm", 1);
 
     // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
-    dataTimer = new QTimer(this);
-    connect(dataTimer, SIGNAL(timeout()), this, SLOT(realtimeDataSlot()));
-    dataTimer->start(refreshRate); // Refresh every 10 milliseconds
+    // Refresh every 10 milliseconds
 
     // this timer manages the velocity slope. it starts when you hit the go button
     velocitySlopeTimer = new QTimer(this);
@@ -98,10 +88,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
-void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
+void MainWindow::runFlywheelOperations()
 {
     flywheelOperation->sync();
-    //at the refresh rate defined by the timer (line 107)
+}
+
+void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
+{
+    //at the refresh rate defined by the timer
     // calculate two new data points:
     double currentTime = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0; //currentTime is the current time
 
@@ -507,12 +501,6 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
     }
 }
 
-void MainWindow::on_actionSet_Reset_Password_triggered(){  //show the password dialog box
-    SetPasswordDialog* d = new SetPasswordDialog();
-
-    d->show();
-}
-
 void MainWindow::on_lineEditPassword_textEdited(const QString &password)
 //this function enables the apply button when you type characters into the password field
 {
@@ -522,19 +510,88 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
         ui->pushButton_ApplySettings->setEnabled(true);
 }
 
-
-
 void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
-    dataTimer->stop();
+    graphRefreshTimer->stop();
+
     if(checked)
-        refreshRate = 33;
+        refreshRate = 30;
     else
-        refreshRate = 10;
-    dataTimer->start(refreshRate);
+        refreshRate = 100;
+
+    graphRefreshTimer->start(refreshRateToMS(refreshRate));
 }
 
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
 
 }
+
+// Slots
+
+void MainWindow::startFlywheelInterface()
+{
+    CommonDeviceInterface* deviceInterface = interfaceManager->getCurrentInterface();
+    deviceInterface->startDevice();
+
+    flywheelOperation = new FlywheelOperation(deviceInterface); //contains methods for getting and setting flywheel variable
+
+    graphRefreshTimer->start(refreshRateToMS(refreshRate));
+    flywheelRefreshTimer->start(refreshRateToMS(200));
+}
+
+void MainWindow::stopFlywheelInterface()
+{
+    CommonDeviceInterface* deviceInterface = interfaceManager->getCurrentInterface();
+    deviceInterface->stopDevice();
+
+    graphRefreshTimer->stop();
+    flywheelRefreshTimer->stop();
+}
+
+// Dialog Windows
+
+void MainWindow::openInterfaceSettingsWindow(){  //show the password dialog box
+    CommonInterfaceSelector* deviceSettingsWindow = new CommonInterfaceSelector(interfaceManager, this);
+    deviceSettingsWindow->show();
+}
+
+void MainWindow::on_actionSet_Reset_Password_triggered(){  //show the password dialog box
+    SetPasswordDialog* passwordResetWindow = new SetPasswordDialog(this);
+    passwordResetWindow->show();
+}
+
+// Signal Setups
+
+void MainWindow::setUpSignals()
+{
+
+    connect(graphRefreshTimer, SIGNAL(timeout()), SLOT(realtimeDataSlot()));
+    connect(flywheelRefreshTimer, SIGNAL(timeout()), SLOT(runFlywheelOperations()));
+
+    connect(ui->actionOpenInterfaceSettings, SIGNAL(triggered(bool)), SLOT(openInterfaceSettingsWindow()));
+    connect(ui->actionStartInterface,        SIGNAL(triggered(bool)), SLOT(startFlywheelInterface()));
+    connect(ui->actionStopInterface,         SIGNAL(triggered(bool)), SLOT(stopFlywheelInterface()));
+
+    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+}
+
+void MainWindow::setUpKeyBindings()
+{
+    eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
+    addAction(eStopShortcut);
+    eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
+
+    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
+
+    ui->eStopKey->setKeySequence(eStopShortcut->shortcut()); //E stop shortcut can be user defined
+}
+
+void MainWindow::setTimers()
+{
+    graphRefreshTimer = new QTimer(this);
+    flywheelRefreshTimer = new QTimer(this);
+}
+
