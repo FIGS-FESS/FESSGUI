@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
+
     recording = new RecordingOperation();  //recording values to file
 
     ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default

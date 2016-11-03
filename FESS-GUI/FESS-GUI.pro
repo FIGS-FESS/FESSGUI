@@ -24,7 +24,8 @@ SOURCES     +=  main.cpp \
                 flypacket.cpp \
                 demodevice.cpp \
                 serialdevice.cpp \
-                graph.cpp
+                graph.cpp \
+    UnitTests/setpassworddialogtest.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -40,7 +41,9 @@ HEADERS     +=  mainwindow.h \
                 flypacket.h \
                 demodevice.h \
                 serialdevice.h \
-                graph.h
+                graph.h \
+    setpassworddialogtest.h \
+    UnitTests/setpassworddialogtest.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui

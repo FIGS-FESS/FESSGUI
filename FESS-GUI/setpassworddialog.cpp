@@ -45,17 +45,6 @@ void SetPasswordDialog::on_buttonBox_accepted()
 
 }
 
-bool passwordsMatch(QString old, QString provided){
-    QSettings settings("settings.ini", QSettings::IniFormat);
-    if (!settings.contains("salt")){
-        return false;
-    }
-    QString salt = settings.value("salt", "").toString();
-    QString oldHashed = QString(QCryptographicHash::hash(((old+salt).toUtf8()),QCryptographicHash::Sha512).toHex());
-    QString provHashed = QString(QCryptographicHash::hash(((provided+salt).toUtf8()),QCryptographicHash::Sha512).toHex());
-    return (QString::compare(oldHashed, provHashed) == 0);
-}
-
 bool passwordMatches(QString prov){
     QSettings settings("settings.ini", QSettings::IniFormat);
     if (!settings.contains("salt")){
