@@ -1,8 +1,6 @@
 // Custom Libraries --------------------------------------------------
 #include "serialdevice.h"
 
-#include <QtGui>
-
 //--------------------------------------------------------------------
 // SerialDevice Constructors
 //--------------------------------------------------------------------
@@ -273,4 +271,17 @@ void SerialDevice::flush()
 bool SerialDevice::empty()
 {
     return rx.empty();
+}
+
+
+QString SerialDevice::name()
+{
+    if (device)
+    {
+        return QString("Serial Device: $1").arg(device->portName());
+    }
+    else
+    {
+        return QString("Serial Device: None");
+    }
 }

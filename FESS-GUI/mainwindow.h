@@ -31,7 +31,8 @@ public:
     QTimer *accelerationSlopeTimer;
     bool playSounds = false;
     bool isRecording = false;
-    double refreshRate = 10;
+    double graphRefreshRate;
+    double flywheelRefreshRate;
     double targetVelocity;
     double currentExpectedVelocity;
     double targetAcceleration;
@@ -46,16 +47,19 @@ private:
     ScrollingTimeGraph *velocityGraph, *accelerationGraph, *lowerDisplacementGraph, *upperDisplacementGraph;
     LocationGraph *displacementGraph, *rotationGraph;
     Graph* selectedGraph = velocityGraph;
+
+    QErrorMessage* errorHandler;
+
+    // Flywheel Objects
     FlywheelOperation* flywheelOperation;
     CommonInterfaceManager* interfaceManager;
+    CommonDeviceInterface* deviceInterface;
 
     void setTimers();
     void setUpSignals();
     void setUpKeyBindings();
 
 private slots:
-
-    void runFlywheelOperations();
 
     void velocitySlope();
 
@@ -120,11 +124,18 @@ private slots:
     void on_actionLock_graph_scale_to_max_value_triggered(bool checked);
 
 
+    // Error Popups
+    void errorInterafceNotDefined();
+
+    // Menu Dialogs
     void openInterfaceSettingsWindow();
+    void closeInterfaceSettingsWindow();
 
-
+    // FlyWheel Operations
+    void runFlywheelOperations();
     void stopFlywheelInterface();
     void startFlywheelInterface();
+    void closeFlywheelInterface();
 
 public:
     Ui::MainWindow *ui;

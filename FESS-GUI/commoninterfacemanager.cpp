@@ -1,6 +1,9 @@
 #include "commoninterfacemanager.h"
 
-CommonInterfaceManager::CommonInterfaceManager(){}
+CommonInterfaceManager::CommonInterfaceManager()
+{
+    currentDevice = NULL;
+}
 
 SerialDevice* CommonInterfaceManager::getNewSerialDevice()
 {
@@ -38,4 +41,10 @@ CommonDeviceInterface* CommonInterfaceManager::getCurrentInterface()
      {
          return false;
      }
- }
+}
+
+void CommonInterfaceManager::closeCurrentInterface()
+{
+    delete currentDevice;
+    currentDevice = NULL;
+}

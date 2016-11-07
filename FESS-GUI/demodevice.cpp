@@ -1,4 +1,7 @@
-// C/C++ Libraries
+//QT Libraries
+#include <QString>
+
+// C Libraries
 #include <cmath>
 
 // Custom Libraries
@@ -9,6 +12,10 @@
 DemoDevice::DemoDevice()
 {    
     setDefaults();
+}
+
+DemoDevice::~DemoDevice()
+{
 }
 
 void DemoDevice::sync()
@@ -198,4 +205,9 @@ void DemoDevice::flush()
 bool DemoDevice::empty()
 {
     return rx.empty();
+}
+
+QString DemoDevice::name()
+{
+    return QString("Demo Device");
 }

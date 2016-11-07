@@ -1,6 +1,9 @@
 #ifndef DEMO_H
 #define DEMO_H
 
+// C++ Libraries
+#include <string>
+
 // Custom Libraries
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
@@ -13,6 +16,7 @@ class DemoDevice : public CommonDeviceInterface
 {
     public:
         DemoDevice();
+        ~DemoDevice();
 
         // Overriden Interface Methods
         void sync();
@@ -31,6 +35,8 @@ class DemoDevice : public CommonDeviceInterface
         int popInt();
         float popFloat();
         unsigned char popCommand();
+
+        QString name();
 
 
     private:

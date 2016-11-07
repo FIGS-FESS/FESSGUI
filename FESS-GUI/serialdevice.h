@@ -2,6 +2,7 @@
 #define FLY_SERIAL_H
 
 // QT Libraries
+#include <QString>
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
@@ -41,6 +42,8 @@ class SerialDevice : public CommonDeviceInterface
         int popInt();
         float popFloat();
         flybyte popCommand();
+
+        QString name();
 
         // Unique Methods
         void setDevice(int);

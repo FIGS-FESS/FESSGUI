@@ -4,6 +4,15 @@
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
+
+FlywheelOperation::FlywheelOperation()
+{
+    upper_displacement = new QPointF();
+    lower_displacement = new QPointF();
+    rotational_position = new QPointF();
+    setDefaults();
+}
+
 FlywheelOperation::FlywheelOperation(CommonDeviceInterface* deviceInterface)
 {
     upper_displacement = new QPointF();
@@ -19,6 +28,11 @@ FlywheelOperation::~FlywheelOperation()
     delete upper_displacement;
     delete lower_displacement;
     delete rotational_position;
+}
+
+void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
+{
+    communication_device = deviceInterface;
 }
 
 void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk)
@@ -253,9 +267,4 @@ void FlywheelOperation::sync() // Fix issue where one or more bytes in a data se
            // }
         }
     }
-}
-
-void FlywheelOperation::setInterface(CommonDeviceInterface* interface)
-{
-    communication_device = interface;
 }

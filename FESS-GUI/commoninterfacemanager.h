@@ -17,6 +17,8 @@ class CommonInterfaceManager
         DemoDevice* getNewDemoDevice();
         CommonDeviceInterface* getCurrentInterface();
 
+        void closeCurrentInterface();
+
         bool isADeviceSet();
 
    private:

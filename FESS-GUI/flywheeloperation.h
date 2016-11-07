@@ -13,6 +13,7 @@
 class FlywheelOperation
 {
 public:
+    FlywheelOperation();
     FlywheelOperation(CommonDeviceInterface*);
     ~FlywheelOperation();
 

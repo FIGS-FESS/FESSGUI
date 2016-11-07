@@ -91,15 +91,7 @@ void CommonInterfaceSelector::serialButtonSetClicked()
             device_interface->setDataBits(serial_data_index+5);
             device_interface->setStopBits(serial_stop_index);
             device_interface->setFlowControl(serial_flow_index);
-
-            qDebug() << serial_port_path;
-            qDebug() << serial_baud_rate;
-            qDebug() << serial_data_index;
-            qDebug() << serial_stop_index;
-            qDebug() << serial_flow_index;
-            qDebug() << serial_parity_index;
         }
-
         else
         {
             SerialDevice* device_interface = interface_manager->getNewSerialDevice();
@@ -109,13 +101,6 @@ void CommonInterfaceSelector::serialButtonSetClicked()
             device_interface->setDataBits(serial_data_index+5);
             device_interface->setStopBits(serial_stop_index);
             device_interface->setFlowControl(serial_flow_index);
-
-            qDebug() << serial_port_index;
-            qDebug() << serial_baud_rate;
-            qDebug() << serial_data_index;
-            qDebug() << serial_stop_index;
-            qDebug() << serial_flow_index;
-            qDebug() << serial_parity_index;
         }
     }
 
