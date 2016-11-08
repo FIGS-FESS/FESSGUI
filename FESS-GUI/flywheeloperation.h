@@ -14,6 +14,7 @@ class FlywheelOperation
 {
 public:
     FlywheelOperation();
+    FlywheelOperation(CommonDeviceInterface*);
     ~FlywheelOperation();
 
     void sync();
@@ -28,6 +29,8 @@ public:
     float getJerk();
 
     void emergencyStop();
+
+    void setInterface(CommonDeviceInterface*);
 
     QPointF getUpperDisplacement();
     QPointF getLowerDisplacement();

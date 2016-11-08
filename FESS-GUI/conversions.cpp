@@ -39,3 +39,8 @@ float derivative(float value, float prev)
 {
     return value-prev;
 }
+
+float refreshRateToMS(int rate)
+{
+    return 1000.0/rate;
+}

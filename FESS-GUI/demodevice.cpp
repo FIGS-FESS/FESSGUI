@@ -1,4 +1,7 @@
-// C/C++ Libraries
+//QT Libraries
+#include <QString>
+
+// C Libraries
 #include <cmath>
 
 // Custom Libraries
@@ -6,12 +9,13 @@
 #include "demodevice.h"
 #include "conversions.h"
 
-
 DemoDevice::DemoDevice()
+{    
+    setDefaults();
+}
+
+DemoDevice::~DemoDevice()
 {
-    type = RANDOM;
-    ve_rate = 0.1;
-    key = 0;
 }
 
 void DemoDevice::sync()
@@ -144,16 +148,27 @@ void DemoDevice::sync()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
+bool DemoDevice::ready()
+{
+    return status_ready;
+}
+
 void DemoDevice::startDevice()
 {
+    status_ready = true;
 }
 
 void DemoDevice::stopDevice()
 {
+    status_ready = false;
 }
 
 void DemoDevice::setDefaults()
 {
+    status_ready = false;
+    type = RANDOM;
+    ve_rate = 0.1;
+    key = 0;
 }
 
 flybyte DemoDevice::popCommand()
@@ -190,4 +205,9 @@ void DemoDevice::flush()
 bool DemoDevice::empty()
 {
     return rx.empty();
+}
+
+QString DemoDevice::name()
+{
+    return QString("Demo Device");
 }

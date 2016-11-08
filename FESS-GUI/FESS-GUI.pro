@@ -18,13 +18,14 @@ SOURCES     +=  main.cpp \
                 setpassworddialog.cpp \
                 flywheeloperation.cpp \
                 recordingoperation.cpp \
-                interfacemanager.cpp \
                 transmitbuffer.cpp \
                 conversions.cpp \
                 flypacket.cpp \
                 demodevice.cpp \
                 serialdevice.cpp \
-                graph.cpp
+                graph.cpp \
+    commoninterfaceselector.cpp \
+    commoninterfacemanager.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -32,7 +33,6 @@ HEADERS     +=  mainwindow.h \
                 flywheeloperation.h \
                 recordingoperation.h \
                 commands.h \
-                interfacemanager.h \
                 transmitbuffer.h \
                 commondeviceinterface.h \
                 datatypes.h \
@@ -40,10 +40,15 @@ HEADERS     +=  mainwindow.h \
                 flypacket.h \
                 demodevice.h \
                 serialdevice.h \
-                graph.h
+                graph.h \
+    commoninterfaceselector.h \
+    commoninterfacemanager.h \
+    windowsnames.h \
+    errormessages.h
 
 FORMS       +=  mainwindow.ui \
-                setpassworddialog.ui
+                setpassworddialog.ui \
+    commoninterfaceselector.ui
 
 DISTFILES   +=  fess.rc
 
