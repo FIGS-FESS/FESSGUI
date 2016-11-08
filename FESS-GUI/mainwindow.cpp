@@ -272,7 +272,7 @@ void MainWindow::velocitySlope()
 
 void MainWindow::accelerationSlope()
 {
-    double intervalIncrement = 1000 / velocitySlopeTimer->interval();
+    double intervalIncrement = 1000 / accelerationSlopeTimer->interval();
 
     if(currentExpectedAcceleration <= targetAcceleration){
         currentExpectedAcceleration += currentExpectedJerk / intervalIncrement;
