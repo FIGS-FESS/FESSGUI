@@ -10,6 +10,8 @@
 #include "commoninterfacemanager.h"
 #include "commoninterfaceselector.h"
 
+#include <ctime>
+
 #include <QTime>
 #include <QKeyEvent>
 
@@ -22,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setTimers();
     setUpSignals();
     setUpKeyBindings();
+
+    qsrand(time(NULL));
 
     this->setWindowTitle(MAINWINDOW_TITLE);
 
