@@ -548,7 +548,7 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 
 void MainWindow::errorInterafceNotDefined()
 {
-    ui->errorLog->append(QString("%1 : %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
+    ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
     errorHandler->showMessage(ERROR_INTERFACE_NOT_SET);
 }
 
@@ -598,12 +598,15 @@ void MainWindow::closeFlywheelInterface()
     }
     else
     {
-        stopFlywheelInterface();
-
-        ui->outputLog->append(QString("%1: Interface closed: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
-        interfaceManager->closeCurrentInterface();
+        flywheelRefreshTimer->stop();
+        deviceInterface->stopDevice();
 
         ui->actionDeviceIndicator->setText(QString("Device: None"));
+        ui->outputLog->append(QString("%1: Interface stopped: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+        ui->outputLog->append(QString("%1: Interface closed: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+
+        interfaceManager->closeCurrentInterface();
+        deviceInterface = interfaceManager->getCurrentInterface();
     }
 }
 
