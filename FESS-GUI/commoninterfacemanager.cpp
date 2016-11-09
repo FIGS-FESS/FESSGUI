@@ -33,7 +33,7 @@ CommonDeviceInterface* CommonInterfaceManager::getCurrentInterface()
 
  bool CommonInterfaceManager::isADeviceSet()
  {
-     if(currentDevice)
+     if(currentDevice != NULL)
      {
          return true;
      }

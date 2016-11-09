@@ -34,8 +34,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     errorHandler = new QErrorMessage(this);
 
-    graphRefreshTimer->start(refreshRateToMS(graphRefreshRate));
-
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
