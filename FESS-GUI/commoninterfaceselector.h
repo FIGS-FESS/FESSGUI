@@ -26,10 +26,10 @@ private slots:
 private:
     Ui::CommonInterfaceSelector *ui;
 
-    bool serial_port_text_modified;
+    bool serialPortTextModified;
 
-    CommonInterfaceManager* interface_manager;
-    QList<QSerialPortInfo> serial_port_list;
+    CommonInterfaceManager* interfaceManager;
+    QList<QSerialPortInfo> serialPortList;
 
     void closeWindow();
     void setUpSignals();

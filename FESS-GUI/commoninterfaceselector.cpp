@@ -4,12 +4,12 @@
 #include "commoninterfaceselector.h"
 #include "ui_commoninterfaceselector.h"
 
-CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* interfaceManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
+CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* interface, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
 
-    interface_manager = interfaceManager;
-    serial_port_text_modified = false;
+    interfaceManager = interface;
+    serialPortTextModified = false;
 
     setUpSignals();
     setSerialPortsComboBox();
@@ -38,11 +38,11 @@ void CommonInterfaceSelector::setUpSignals()
 
 void CommonInterfaceSelector::setSerialPortsComboBox()
 {
-    serial_port_list = QSerialPortInfo::availablePorts();
+    serialPortList = QSerialPortInfo::availablePorts();
 
-    for (int i = 0; i < serial_port_list.size(); i++)
+    for (int i = 0; i < serialPortList.size(); i++)
     {
-        ui->serialPortCombo->insertItem(i,serial_port_list[i].portName());
+        ui->serialPortCombo->insertItem(i,serialPortList[i].portName());
     }
 }
 
@@ -56,7 +56,7 @@ void CommonInterfaceSelector::demoButtonSetClicked()
     {
         case 0:
         {
-            interface_manager->getNewDemoDevice();
+            interfaceManager->getNewDemoDevice();
             break;
         }
         default: break;
@@ -81,26 +81,26 @@ void CommonInterfaceSelector::serialButtonSetClicked()
 
     if (serial_port_index != -1)
     {
-        if (serial_port_text_modified)
+        if (serialPortTextModified)
         {
             QString serial_port_path = ui->serialPortCombo->currentText();
 
-            SerialDevice* device_interface = interface_manager->getNewSerialDevice(serial_port_path);
-            device_interface->setBaudRate(serial_baud_rate);
-            device_interface->setParity(serial_parity_index);
-            device_interface->setDataBits(serial_data_index+5);
-            device_interface->setStopBits(serial_stop_index);
-            device_interface->setFlowControl(serial_flow_index);
+            SerialDevice* deviceInterface = interfaceManager->getNewSerialDevice(serial_port_path);
+            deviceInterface->setBaudRate(serial_baud_rate);
+            deviceInterface->setParity(serial_parity_index);
+            deviceInterface->setDataBits(serial_data_index+5);
+            deviceInterface->setStopBits(serial_stop_index);
+            deviceInterface->setFlowControl(serial_flow_index);
         }
         else
         {
-            SerialDevice* device_interface = interface_manager->getNewSerialDevice();
-            device_interface->setPort(serial_port_list[serial_port_index]);
-            device_interface->setBaudRate(serial_baud_rate);
-            device_interface->setParity(serial_parity_index);
-            device_interface->setDataBits(serial_data_index+5);
-            device_interface->setStopBits(serial_stop_index);
-            device_interface->setFlowControl(serial_flow_index);
+            SerialDevice* deviceInterface = interfaceManager->getNewSerialDevice();
+            deviceInterface->setPort(serialPortList[serial_port_index]);
+            deviceInterface->setBaudRate(serial_baud_rate);
+            deviceInterface->setParity(serial_parity_index);
+            deviceInterface->setDataBits(serial_data_index+5);
+            deviceInterface->setStopBits(serial_stop_index);
+            deviceInterface->setFlowControl(serial_flow_index);
         }
     }
 

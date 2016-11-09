@@ -18,7 +18,7 @@ public:
     ~FlywheelOperation();
 
     void sync();
-
+    void setDefaults();
     void setVelocity(float);
     void setAcceleration(float);
     void setJerk(float);
@@ -39,49 +39,43 @@ public:
 private:
     // Private Variables
 
-    unsigned int emergency_timeout;
-    unsigned int emergency_retries;
-    bool emergency_acknowlegded;
+    unsigned int emergencyTimeout;
+    unsigned int emergencyRetries;
+    bool emergencyAcknowlegded;
 
-    QPointF* upper_displacement;
-    QPointF* lower_displacement;
-    QPointF* rotational_position;
+    QPointF* upperDisplacement;
+    QPointF* lowerDisplacement;
+    QPointF* rotationalPosition;
 
-    CommonDeviceInterface* communication_device;
-    std::queue<float> vel_buffer;
-    std::queue<float> acc_buffer;
-    std::queue<float> jer_buffer;
-    std::queue<float> udx_buffer;
-    std::queue<float> udy_buffer;
-    std::queue<float> ldx_buffer;
-    std::queue<float> ldy_buffer;
-    std::queue<float> rpx_buffer;
-    std::queue<float> rpy_buffer;
+    CommonDeviceInterface* communicationDevice;
+
+    std::queue<float> velBuffer;
+    std::queue<float> accBuffer;
+    std::queue<float> jerBuffer;
+    std::queue<float> udxBuffer;
+    std::queue<float> udyBuffer;
+    std::queue<float> ldxBuffer;
+    std::queue<float> ldyBuffer;
+    std::queue<float> rpxBuffer;
+    std::queue<float> rpyBuffer;
 
     // Queue Sizes
 
-    unsigned int vel_buffer_limit;
-    unsigned int acc_buffer_limit;
-    unsigned int jer_buffer_limit;
-    unsigned int ldx_buffer_limit;
-    unsigned int ldy_buffer_limit;
-    unsigned int udx_buffer_limit;
-    unsigned int udy_buffer_limit;
-    unsigned int rpx_buffer_limit;
-    unsigned int rpy_buffer_limit;
+    unsigned int velBufferLimit;
+    unsigned int accBufferLimit;
+    unsigned int jerBufferLimit;
+    unsigned int ldxBufferLimit;
+    unsigned int ldyBufferLimit;
+    unsigned int udxBufferLimit;
+    unsigned int udyBufferLimit;
+    unsigned int rpxBufferLimit;
+    unsigned int rpyBufferLimit;
 
     // Sync Flags and Buffers
 
-    float vel_prev;
-    float acc_prev;
-    float jer_prev;
-
-    // Private Setters
-
-    void setDefaults();
-
-    // Helper Functions
-    float getData();
+    float velPrev;
+    float accPrev;
+    float jerPrev;
 };
 
 #endif // FLYWHEELOPERATION_H

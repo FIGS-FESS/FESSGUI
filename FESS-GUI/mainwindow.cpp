@@ -29,18 +29,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     this->setWindowTitle(MAINWINDOW_TITLE);
 
-    graphRefreshRate = 100;
-    flywheelRefreshRate = 200;
-
-    graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
-    flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
-
     interfaceManager = new CommonInterfaceManager();
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
-
-    graphRefreshTimer->start(refreshRateToMS(graphRefreshRate));
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
@@ -94,15 +86,54 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     displacementGraph = new LocationGraph(ui->mainXYGraph, ui->auxXYGraph, std::vector<QColor>{upperColor, lowerColor}, "mm", 2);
     rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, std::vector<QColor>{rotationalColor}, "mm", 1);
 
-    // setup a timer that repeatedly calls MainWindow::realtimeDataSlot:
-    // Refresh every 10 milliseconds
-
     // this timer manages the velocity slope. it starts when you hit the go button
     velocitySlopeTimer = new QTimer(this);
     connect(velocitySlopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
 
     accelerationSlopeTimer = new QTimer(this);
     connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
+}
+
+// Signal Setups
+
+void MainWindow::setUpSignals()
+{
+    connect(ui->actionOpenInterfaceSettings, SIGNAL(triggered(bool)), this, SLOT(openInterfaceSettingsWindow()));
+    connect(ui->actionStartInterface, SIGNAL(triggered(bool)), this, SLOT(startFlywheelInterface()));
+    connect(ui->actionStopInterface, SIGNAL(triggered(bool)), this, SLOT(stopFlywheelInterface()));
+    connect(ui->actionCloseInterface, SIGNAL(triggered(bool)), this, SLOT(closeFlywheelInterface()));
+
+    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
+}
+
+void MainWindow::setUpKeyBindings()
+{
+    eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
+    addAction(eStopShortcut);
+    eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
+
+    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
+
+    ui->eStopKey->setKeySequence(eStopShortcut->shortcut()); //E stop shortcut can be user defined
+}
+
+void MainWindow::setTimers()
+{
+    graphRefreshTimer = new QTimer(this);
+    flywheelRefreshTimer = new QTimer(this);
+
+    graphRefreshRate = 100;
+    flywheelRefreshRate = 200;
+
+    graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
+    flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
+
+    graphRefreshTimer->start(refreshRateToMS(graphRefreshRate));
+
+    connect(graphRefreshTimer, SIGNAL(timeout()), SLOT(realtimeDataSlot()));
+    connect(flywheelRefreshTimer, SIGNAL(timeout()), SLOT(runFlywheelOperations()));
 }
 
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
@@ -527,22 +558,19 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
     if(checked)
     {
         graphRefreshRate = 30;
-        graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     }
     else
     {
         graphRefreshRate = 100;
-        graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     }
+
+    graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
 }
 
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
 
 }
-
-// Information Messages
-
 
 // Error Messages
 
@@ -563,7 +591,7 @@ void MainWindow::startFlywheelInterface()
 {
     deviceInterface = interfaceManager->getCurrentInterface();
 
-    if(!deviceInterface)
+    if(deviceInterface == NULL)
     {
         errorInterafceNotDefined();
     }
@@ -578,7 +606,7 @@ void MainWindow::startFlywheelInterface()
 
 void MainWindow::stopFlywheelInterface()
 {
-    if(!deviceInterface)
+    if(deviceInterface == NULL)
     {
         errorInterafceNotDefined();
     }
@@ -592,12 +620,13 @@ void MainWindow::stopFlywheelInterface()
 
 void MainWindow::closeFlywheelInterface()
 {
-    if(!deviceInterface)
+    if(deviceInterface == NULL)
     {
         errorInterafceNotDefined();
     }
     else
     {
+        flywheelOperation->setDefaults();
         flywheelRefreshTimer->stop();
         deviceInterface->stopDevice();
 
@@ -622,7 +651,7 @@ void MainWindow::closeInterfaceSettingsWindow()
 {
     deviceInterface = interfaceManager->getCurrentInterface();
 
-    if (deviceInterface)
+    if (deviceInterface != NULL)
     {
         ui->actionDeviceIndicator->setText(QString("Device: %1").arg(deviceInterface->name()));
         ui->outputLog->append(QString("%1: Interface set to: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
@@ -645,37 +674,5 @@ void MainWindow::on_actionSet_Reset_Password_triggered() //show the password dia
     passwordResetWindow->show();
 }
 
-// Signal Setups
 
-void MainWindow::setUpSignals()
-{
-    connect(ui->actionOpenInterfaceSettings, SIGNAL(triggered(bool)), this, SLOT(openInterfaceSettingsWindow()));
-    connect(ui->actionStartInterface, SIGNAL(triggered(bool)), this, SLOT(startFlywheelInterface()));
-    connect(ui->actionStopInterface, SIGNAL(triggered(bool)), this, SLOT(stopFlywheelInterface()));
-    connect(ui->actionCloseInterface, SIGNAL(triggered(bool)), this, SLOT(closeFlywheelInterface()));
-
-    connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-    connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-    connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-}
-
-void MainWindow::setUpKeyBindings()
-{
-    eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
-    addAction(eStopShortcut);
-    eStopShortcut->setShortcut(QKeySequence(Qt::Key_Space));
-
-    connect(eStopShortcut, SIGNAL(triggered(bool)), this, SLOT(on_emergencyStopButton_clicked()));
-
-    ui->eStopKey->setKeySequence(eStopShortcut->shortcut()); //E stop shortcut can be user defined
-}
-
-void MainWindow::setTimers()
-{
-    graphRefreshTimer = new QTimer(this);
-    flywheelRefreshTimer = new QTimer(this);
-
-    connect(graphRefreshTimer, SIGNAL(timeout()), SLOT(realtimeDataSlot()));
-    connect(flywheelRefreshTimer, SIGNAL(timeout()), SLOT(runFlywheelOperations()));
-}
 

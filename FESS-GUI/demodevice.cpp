@@ -36,7 +36,7 @@ void DemoDevice::sync()
             {
                 loop = false;
                 type = STOP;
-                //rx.pushFrontChar(COMMAND_ERR_EMER_STOP);
+                rx.pushByte(CCM_EMERGENCY_STOP);
                 break;
             }
 
@@ -58,28 +58,28 @@ void DemoDevice::sync()
         case RANDOM:
         {
             vel = sin(key*1.6+cos(key*1.7)*2)*10 + sin(key*1.2+0.56)*20 + 26;
-            acc = derivative(vel,prev_vel);
-            jer = derivative(acc,prev_acc);
+            acc = derivative(vel,prevVel);
+            jer = derivative(acc,prevAcc);
             break;
         }
 
         case STOP:
         {
-            if ((ve_rate > vel) && (vel > -ve_rate))
+            if ((velRate > vel) && (vel > -velRate))
             {
                 vel = 0;
             }
             else if (vel > 0)
             {
-                vel -= ve_rate;
+                vel -= velRate;
             }
             else
             {
-                vel += ve_rate;
+                vel += velRate;
             }
 
-            acc = derivative(vel,prev_vel);
-            jer = derivative(acc,prev_acc);
+            acc = derivative(vel,prevVel);
+            jer = derivative(acc,prevAcc);
 
             break;
         }
@@ -100,8 +100,8 @@ void DemoDevice::sync()
     rpy = cos(position/100);
 
     key += 0.01;
-    prev_vel = vel;
-    prev_acc = acc;
+    prevVel = vel;
+    prevAcc = acc;
 
 //---------------------------------------------------------------------
 // Data Broadcasting
@@ -148,26 +148,26 @@ void DemoDevice::sync()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
-bool DemoDevice::ready()
+bool DemoDevice::isReady()
 {
-    return status_ready;
+    return statusReady;
 }
 
 void DemoDevice::startDevice()
 {
-    status_ready = true;
+    statusReady = true;
 }
 
 void DemoDevice::stopDevice()
 {
-    status_ready = false;
+    statusReady = false;
 }
 
 void DemoDevice::setDefaults()
 {
-    status_ready = false;
+    statusReady = false;
     type = RANDOM;
-    ve_rate = 0.1;
+    velRate = 0.1;
     key = 0;
 }
 
