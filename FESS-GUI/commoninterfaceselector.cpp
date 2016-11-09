@@ -8,7 +8,7 @@ CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* interfa
 {
     ui->setupUi(this);
 
-    interfaceManager = interfaceManager;
+    this->interfaceManager = interfaceManager;
     serialPortTextModified = false;
 
     setUpSignals();
