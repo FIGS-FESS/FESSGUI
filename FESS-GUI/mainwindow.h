@@ -125,7 +125,7 @@ private slots:
 
 
     // Error Popups
-    void errorInterafceNotDefined();
+    void errorInterfaceNotDefined();
 
     // Menu Dialogs
     void openInterfaceSettingsWindow();

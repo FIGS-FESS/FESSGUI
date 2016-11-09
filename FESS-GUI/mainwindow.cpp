@@ -557,7 +557,7 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
     if(checked)
     {
-        graphRefreshRate = 30;
+        graphRefreshRate = 33;
     }
     else
     {
@@ -574,7 +574,7 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 
 // Error Messages
 
-void MainWindow::errorInterafceNotDefined()
+void MainWindow::errorInterfaceNotDefined()
 {
     ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
     errorHandler->showMessage(ERROR_INTERFACE_NOT_SET);
@@ -593,7 +593,7 @@ void MainWindow::startFlywheelInterface()
 
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
@@ -608,7 +608,7 @@ void MainWindow::stopFlywheelInterface()
 {
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
@@ -622,7 +622,7 @@ void MainWindow::closeFlywheelInterface()
 {
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
