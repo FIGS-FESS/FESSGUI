@@ -569,7 +569,12 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
-
+    if(checked){
+        ;
+    }
+    else {
+        ;
+    }
 }
 
 // Error Messages
