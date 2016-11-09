@@ -130,6 +130,8 @@ void MainWindow::setTimers()
     graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
 
+    graphRefreshTimer->start(refreshRateToMS(graphRefreshRate));
+
     connect(graphRefreshTimer, SIGNAL(timeout()), SLOT(realtimeDataSlot()));
     connect(flywheelRefreshTimer, SIGNAL(timeout()), SLOT(runFlywheelOperations()));
 }
