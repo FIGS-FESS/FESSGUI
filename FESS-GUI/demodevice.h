@@ -20,7 +20,7 @@ class DemoDevice : public CommonDeviceInterface
 
         // Overriden Interface Methods
         void sync();
-        bool ready();
+        bool isReady();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -29,19 +29,19 @@ class DemoDevice : public CommonDeviceInterface
         void flush();
         void pushInt(int);
         void pushFloat(float);
-        void pushCommand(unsigned char);
-        void pushCommandImmediate(unsigned char);
+        void pushCommand(flybyte);
+        void pushCommandImmediate(flybyte);
 
         int popInt();
         float popFloat();
-        unsigned char popCommand();
+        flybyte popCommand();
 
         QString name();
 
 
     private:
         bool broadcast;
-        bool status_ready;
+        bool statusReady;
 
         float vel;
         float acc;
@@ -53,10 +53,10 @@ class DemoDevice : public CommonDeviceInterface
         float rpx;
         float rpy;
 
-        float ve_rate;
+        float velRate;
 
-        float prev_vel;
-        float prev_acc;
+        float prevVel;
+        float prevAcc;
         float position;
 
         float key;

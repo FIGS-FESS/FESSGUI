@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QCryptographicHash>
 #include <QTime>
-#include <time.h>
 
 // Custom Libraries
 #include "setpassworddialog.h"
@@ -15,7 +14,6 @@ SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     ui(new Ui::SetPasswordDialog)
 {
     ui->setupUi(this);
-    qsrand(time(NULL));
 }
 
 SetPasswordDialog::~SetPasswordDialog()

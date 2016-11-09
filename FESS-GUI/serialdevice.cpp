@@ -207,26 +207,26 @@ void SerialDevice::sync()
     readRX();
 }
 
-bool SerialDevice::ready()
+bool SerialDevice::isReady()
 {
-    return status_ready;
+    return statusReady;
 }
 
 void SerialDevice::startDevice()
 {
-    status_ready = true;
+    statusReady = true;
     device->open(QIODevice::ReadWrite);
 }
 
 void SerialDevice::stopDevice()
 {
-    status_ready = false;
+    statusReady = false;
     device->close();
 }
 
 void SerialDevice::setDefaults()
 {
-    status_ready = false;
+    statusReady = false;
     setBaudRate(9600);
     setParity(0);
     setFlowControl(0);

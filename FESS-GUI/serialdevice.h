@@ -27,7 +27,7 @@ class SerialDevice : public CommonDeviceInterface
 
         // Overriden Interface Methods
         void sync();
-        bool ready();
+        bool isReady();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -58,7 +58,7 @@ class SerialDevice : public CommonDeviceInterface
         void sendTX();
         void readRX();
 
-        bool status_ready;
+        bool statusReady;
 
         // Internal variables
         QSerialPort* device;

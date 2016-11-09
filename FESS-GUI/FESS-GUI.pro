@@ -24,8 +24,8 @@ SOURCES     +=  main.cpp \
                 demodevice.cpp \
                 serialdevice.cpp \
                 graph.cpp \
-    commoninterfaceselector.cpp \
-    commoninterfacemanager.cpp
+                commoninterfaceselector.cpp \
+                commoninterfacemanager.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
@@ -41,14 +41,14 @@ HEADERS     +=  mainwindow.h \
                 demodevice.h \
                 serialdevice.h \
                 graph.h \
-    commoninterfaceselector.h \
-    commoninterfacemanager.h \
-    windowsnames.h \
-    errormessages.h
+                commoninterfaceselector.h \
+                commoninterfacemanager.h \
+                windowsnames.h \
+                errormessages.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui \
-    commoninterfaceselector.ui
+                commoninterfaceselector.ui
 
 DISTFILES   +=  fess.rc
 

@@ -23,9 +23,9 @@ typedef unsigned char flybyte;
 
 struct flypacket
 {
-   flybyte packet_type;
-   flybyte data_type;
-   float   data_value;
+   flybyte packetType;
+   flybyte dataType;
+   float   dataValue;
 };
 
 typedef struct flypacket flypacket;
