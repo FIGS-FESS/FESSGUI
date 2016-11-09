@@ -5,9 +5,12 @@
 #include <QMediaPlayer>
 #include <QTimer>
 #include <qcustomplot.h>
+
+
 #include "graph.h"
 #include "flywheeloperation.h"
 #include "recordingoperation.h"
+#include "commoninterfacemanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,12 +25,14 @@ public:
     QMediaPlayer *goplayer;
     QMediaPlayer *stopplayer;
     RecordingOperation *recording;
-    QTimer *dataTimer;
+    QTimer *flywheelRefreshTimer;
+    QTimer *graphRefreshTimer;
     QTimer *velocitySlopeTimer;
     QTimer *accelerationSlopeTimer;
     bool playSounds = false;
     bool isRecording = false;
-    double refreshRate = 10;
+    double graphRefreshRate;
+    double flywheelRefreshRate;
     double targetVelocity;
     double currentExpectedVelocity;
     double targetAcceleration;
@@ -42,7 +47,17 @@ private:
     ScrollingTimeGraph *velocityGraph, *accelerationGraph, *lowerDisplacementGraph, *upperDisplacementGraph;
     LocationGraph *displacementGraph, *rotationGraph;
     Graph* selectedGraph = velocityGraph;
+
+    QErrorMessage* errorHandler;
+
+    // Flywheel Objects
     FlywheelOperation* flywheelOperation;
+    CommonInterfaceManager* interfaceManager;
+    CommonDeviceInterface* deviceInterface;
+
+    void setTimers();
+    void setUpSignals();
+    void setUpKeyBindings();
 
 private slots:
 
@@ -87,7 +102,7 @@ private slots:
     void on_actionStart_Recording_triggered();
 
     void on_actionStop_Recording_triggered();
-	
+
     void on_performButton_clicked();
 
     void on_XYButton_clicked();
@@ -107,6 +122,20 @@ private slots:
     void on_actionLock_frame_rate_at_30FPS_triggered(bool checked);
 
     void on_actionLock_graph_scale_to_max_value_triggered(bool checked);
+
+
+    // Error Popups
+    void errorInterafceNotDefined();
+
+    // Menu Dialogs
+    void openInterfaceSettingsWindow();
+    void closeInterfaceSettingsWindow();
+
+    // FlyWheel Operations
+    void runFlywheelOperations();
+    void stopFlywheelInterface();
+    void startFlywheelInterface();
+    void closeFlywheelInterface();
 
 public:
     Ui::MainWindow *ui;

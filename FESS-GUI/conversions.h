@@ -1,16 +1,19 @@
 #ifndef CONVERSIONS_H
 #define CONVERSIONS_H
 
-#include <qmath.h>
+#include <datatypes.h>
 
-double radsPerSecondToRPM(double rads)
-{
-    return rads * (60 / (2 * M_PI)); //M_PI is defined in <qmath.h>
-}
+void byteArrayToFloat(flybyte*, float*);
+void floatToByteArray(flybyte*, float*);
 
-double RPMtoRadsPerSecond(double RPM)
-{
-    return RPM * ((2 * M_PI) / 60);
-}
+void byteArrayToInt(flybyte*, int*);
+void intToByteArray(flybyte*, int*);
+
+double radsPerSecondToRPM(double);
+double RPMtoRadsPerSecond(double);
+
+float derivative(float, float);
+
+float refreshRateToMS(int);
 
 #endif // CONVERSIONS_H

@@ -154,7 +154,7 @@ void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, std::vector<QColor
 
 void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy data to graphs
 {
-    for(int i = 0; i < points.size() && i < numPoints; i++){
+    for(int i = 0; i <  (int)points.size() && i < numPoints; i++){
         currentPoints[i] = points[i];
         if(points[i].manhattanLength() > maxPoints[i].manhattanLength())
             maxPoints[i] = points[i];
