@@ -4,11 +4,11 @@
 #include "commoninterfaceselector.h"
 #include "ui_commoninterfaceselector.h"
 
-CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* interface, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
+CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* interfaceManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
 
-    interfaceManager = interface;
+    interfaceManager = interfaceManager;
     serialPortTextModified = false;
 
     setUpSignals();
