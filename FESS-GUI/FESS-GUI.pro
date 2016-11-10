@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT          +=  core gui
+QT          +=  core gui \
+                testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport multimedia serialport
 
@@ -24,7 +25,6 @@ SOURCES     +=  main.cpp \
                 demodevice.cpp \
                 serialdevice.cpp \
                 graph.cpp \
-                UnitTests/setpassworddialogtest.cpp \
                 commoninterfaceselector.cpp \
                 commoninterfacemanager.cpp
 
@@ -43,7 +43,6 @@ HEADERS     +=  mainwindow.h \
                 serialdevice.h \
                 graph.h \
                 setpassworddialogtest.h \
-                UnitTests/setpassworddialogtest.h \
                 commoninterfaceselector.h \
                 commoninterfacemanager.h \
                 windowsnames.h \
