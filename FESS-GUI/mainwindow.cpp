@@ -43,15 +43,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QSettings settings("settings.ini", QSettings::IniFormat);  //settings file
 
-    if(settings.contains("maxVel")){                                            //Set max values in slider and spinbox
-        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
-        ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
-        ui->maxVel->setText((settings.value("maxVel", "").toString()));
+    if(settings.contains("maxVel")){  //Set max values in slider and spinbox
+        maximumVelocity = settings.value("maxVel", "").toInt();
+        ui->velocitySpinBox->setMaximum(maximumVelocity);
+        ui->velocitySlider->setMaximum(maximumVelocity);
+        ui->maxVel->setText(QString::number(maximumVelocity));
     }
     if(settings.contains("maxAcc")){
-        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
+        maximumAcceleration = settings.value("maxAcc", "").toInt();
+        ui->accelerationSpinBox->setMaximum(maximumAcceleration);
+        ui->accelerationSlider->setMaximum(maximumAcceleration);
+        ui->maxAccel->setText(QString::number(maximumAcceleration));
     }
     if(settings.contains("stopKey")){
         eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
@@ -539,7 +541,7 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
             ui->velocitySpinBox->setMaximum(maximumVelocity);
             ui->velocitySlider->setMaximum(maximumVelocity);
             ui->velocitySlider->setTickInterval(maximumVelocity / 5);
-            ui->maxVel->setText(newMaxVel); //in case it is a negative number
+            ui->maxVel->setText(newMaxVel);
             settings.setValue("maxVel", newMaxVel);  //update settings file
         }
         if(!newMaxAcc.isEmpty()){
