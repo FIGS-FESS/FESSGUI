@@ -152,8 +152,14 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     ui->label_12->setText(selectedGraph->currentDisplay());
 
     //add data to graphs
-    velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
-    accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration);
+    if(isScaleLocked){
+        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity), ui->velocitySlider->maximum());
+        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration, ui->accelerationSlider->maximum());
+    }
+    else {
+        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
+        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration);
+    }
     upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
     lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
@@ -253,7 +259,6 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     targetVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());  //get the expected/target values, get velocity in rad/s
     targetAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
-
     velocitySlopeTimer->start(10); //run every 10ms
     accelerationSlopeTimer->start(10);
 
@@ -271,7 +276,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->outputLog->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(targetVelocity).arg(targetAcceleration).arg(currentExpectedJerk)
+                            .arg(ui->velocitySpinBox->value()).arg(targetAcceleration).arg(currentExpectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
@@ -569,12 +574,7 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
-    if(checked){
-        ;
-    }
-    else {
-        ;
-    }
+    isScaleLocked = checked;
 }
 
 // Error Messages

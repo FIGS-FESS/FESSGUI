@@ -69,11 +69,24 @@ void ScrollingTimeGraph::addData(double time, double primaryData, double seconda
     if(secondaryData > maxSecondary)
         maxSecondary = secondaryData;
 
-    addData(mainPlot, time, primaryData, secondaryData);
-    addData(auxPlot, time, primaryData, secondaryData);
+    addData(mainPlot, time, primaryData, secondaryData, 0);
+    addData(auxPlot, time, primaryData, secondaryData, 0);
 }
 
-void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryData, double secondaryData){
+void ScrollingTimeGraph::addData(double time, double primaryData, double secondaryData, int maxValue){
+    currentPrimary = primaryData;
+    currentSecondary = secondaryData;
+
+    if(primaryData > maxPrimary)
+        maxPrimary = primaryData;
+    if(secondaryData > maxSecondary)
+        maxSecondary = secondaryData;
+
+    addData(mainPlot, time, primaryData, secondaryData, maxValue);
+    addData(auxPlot, time, primaryData, secondaryData, maxValue);
+}
+
+void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryData, double secondaryData, int maxValue){
     plot->graph(0)->addData(time, primaryData);
     plot->graph(1)->addData(time, secondaryData);
 
@@ -88,8 +101,13 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     plot->graph(1)->removeDataBefore(time-8);
 
     // rescale value (vertical) axis to fit the current data:
-    plot->graph(0)->rescaleValueAxis();
-    plot->graph(1)->rescaleValueAxis(true);
+        plot->graph(0)->rescaleValueAxis();
+        plot->graph(1)->rescaleValueAxis(true);
+    }
+    else{
+        plot->yAxis->setRange(0, maxValue);
+
+    }
 
     // make currentTime axis range scroll with the data (at a constant range size of 8)
     plot->xAxis->setRange(time+0.25, 8, Qt::AlignRight);

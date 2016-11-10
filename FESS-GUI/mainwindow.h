@@ -31,6 +31,7 @@ public:
     QTimer *accelerationSlopeTimer;
     bool playSounds = false;
     bool isRecording = false;
+    bool isScaleLocked = false;
     double graphRefreshRate;
     double flywheelRefreshRate;
     double targetVelocity;

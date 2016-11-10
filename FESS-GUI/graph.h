@@ -22,6 +22,7 @@ public:
 class ScrollingTimeGraph : public Graph {
 public:
     ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues);
+    void addData(double time, double primaryData, double secondDaryData, int maxValue);
     void addData(double time, double primaryData, double secondDaryData);
     void setFill(QColor fillColor);
     QString maxDisplay() override;
@@ -30,7 +31,7 @@ private:
     double maxPrimary, maxSecondary, currentPrimary, currentSecondary;
     int numDisplayValues;
     void setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor);
-    void addData(QCustomPlot* plot, double time, double primaryData, double secondaryData);
+    void addData(QCustomPlot* plot, double time, double primaryData, double secondaryData, int maxValue);
 };
 
 
