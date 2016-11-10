@@ -94,6 +94,9 @@ void MainWindow::initMembers()
     isRecording = false;
     isScaleLocked = false;
 
+    graphRefreshRate = 100;
+    flywheelRefreshRate = 200;
+
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
@@ -130,9 +133,6 @@ void MainWindow::setTimers()
 {
     graphRefreshTimer = new QTimer(this);
     flywheelRefreshTimer = new QTimer(this);
-
-    graphRefreshRate = 100;
-    flywheelRefreshRate = 200;
 
     graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
