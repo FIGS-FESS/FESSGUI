@@ -21,8 +21,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    initMembers();
-    initFromSettings();
     setTimers();
     setUpSignals();
     setUpKeyBindings();
@@ -36,10 +34,34 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     errorHandler = new QErrorMessage(this);
 
+    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
+    currentExpectedAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
+
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
     recording = new RecordingOperation();  //recording values to file
+
+    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
+
+    QSettings settings("settings.ini", QSettings::IniFormat);  //settings file
+
+    if(settings.contains("maxVel")){                                            //Set max values in slider and spinbox
+        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
+        ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
+        ui->maxVel->setText((settings.value("maxVel", "").toString()));
+    }
+    if(settings.contains("maxAcc")){
+        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
+        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
+    }
+    if(settings.contains("stopKey")){
+        eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
+        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
+    }
+
 
     /*******************************************************
     The following code initializes all the graphs. There are
@@ -64,41 +86,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     displacementGraph = new LocationGraph(ui->mainXYGraph, ui->auxXYGraph, std::vector<QColor>{upperColor, lowerColor}, "mm", 2);
     rotationGraph = new LocationGraph(ui->mainRotGraph, ui->auxRotatGraph, std::vector<QColor>{rotationalColor}, "mm", 1);
 
-    // these timers manage the velocity/acceleration slope. they start when you hit the go button
+    // this timer manages the velocity slope. it starts when you hit the go button
     velocitySlopeTimer = new QTimer(this);
+    connect(velocitySlopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
+
     accelerationSlopeTimer = new QTimer(this);
-
-}
-
-void MainWindow::initMembers()
-{
-    graphRefreshRate = 100;
-    flywheelRefreshRate = 200;
-    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
-    currentExpectedAcceleration = ui->accelerationSpinBox->value();
-    currentExpectedJerk = ui->jerkSpinBox->value();
-    playSounds = isRecording = isScaleLocked = false;
-    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
-}
-
-void MainWindow::initFromSettings()
-{
-    QSettings settings("settings.ini", QSettings::IniFormat);  //settings file
-
-    if(settings.contains("maxVel")){                                            //Set max values in slider and spinbox
-        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
-        ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
-        ui->maxVel->setText((settings.value("maxVel", "").toString()));
-    }
-    if(settings.contains("maxAcc")){
-        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
-    }
-    if(settings.contains("stopKey")){
-        eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
-        ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
-    }
+    connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
 // Signal Setups
@@ -113,9 +106,6 @@ void MainWindow::setUpSignals()
     connect(ui->maxVel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
     connect(ui->maxAccel, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
     connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
-
-    connect(velocitySlopeTimer, SIGNAL(timeout()), this, SLOT(velocitySlope()));
-    connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
 void MainWindow::setUpKeyBindings()
@@ -132,7 +122,10 @@ void MainWindow::setUpKeyBindings()
 void MainWindow::setTimers()
 {
     graphRefreshTimer = new QTimer(this);
-    flywheelRefreshTimer = new QTimer(this);  
+    flywheelRefreshTimer = new QTimer(this);
+
+    graphRefreshRate = 100;
+    flywheelRefreshRate = 200;
 
     graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
@@ -567,10 +560,12 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
 
 void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
-    if(checked){
+    if(checked)
+    {
         graphRefreshRate = 33;
     }
-    else{
+    else
+    {
         graphRefreshRate = 100;
     }
 

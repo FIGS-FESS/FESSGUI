@@ -29,9 +29,9 @@ public:
     QTimer *graphRefreshTimer;
     QTimer *velocitySlopeTimer;
     QTimer *accelerationSlopeTimer;
-    bool playSounds;
-    bool isRecording;
-    bool isScaleLocked;
+    bool playSounds = false;
+    bool isRecording = false;
+    bool isScaleLocked = false;
     double graphRefreshRate;
     double flywheelRefreshRate;
     double targetVelocity;
@@ -56,11 +56,9 @@ private:
     CommonInterfaceManager* interfaceManager;
     CommonDeviceInterface* deviceInterface;
 
-    void initMembers();
     void setTimers();
     void setUpSignals();
     void setUpKeyBindings();
-    void initFromSettings();
 
 private slots:
 
