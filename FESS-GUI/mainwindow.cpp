@@ -271,7 +271,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->outputLog->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(targetVelocity).arg(targetAcceleration).arg(currentExpectedJerk)
+                            .arg(radsPerSecondToRPM(targetVelocity)).arg(targetAcceleration).arg(currentExpectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
