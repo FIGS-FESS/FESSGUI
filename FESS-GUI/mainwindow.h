@@ -42,6 +42,7 @@ public:
     double yAxisDisplayBuffer;
     int maximumVelocity;
     int maximumAcceleration;
+    int sliderTickInterval;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;

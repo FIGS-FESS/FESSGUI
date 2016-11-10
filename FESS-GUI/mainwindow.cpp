@@ -47,12 +47,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         maximumVelocity = settings.value("maxVel", "").toInt();
         ui->velocitySpinBox->setMaximum(maximumVelocity);
         ui->velocitySlider->setMaximum(maximumVelocity);
+        ui->velocitySlider->setTickInterval(maximumVelocity/sliderTickInterval);
         ui->maxVel->setText(QString::number(maximumVelocity));
     }
     if(settings.contains("maxAcc")){
         maximumAcceleration = settings.value("maxAcc", "").toInt();
         ui->accelerationSpinBox->setMaximum(maximumAcceleration);
         ui->accelerationSlider->setMaximum(maximumAcceleration);
+        ui->accelerationSlider->setTickInterval(maximumAcceleration/sliderTickInterval);
         ui->maxAccel->setText(QString::number(maximumAcceleration));
     }
     if(settings.contains("stopKey")){
@@ -100,12 +102,14 @@ void MainWindow::initMembers()
     graphRefreshRate = 100;
     flywheelRefreshRate = 200;
     yAxisDisplayBuffer = 1.05; //five percent buffer so we show a little above
+    sliderTickInterval = 10;  //how many tick marks on the slider
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
 
     ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
+    ui->jerkSlider->setTickInterval(ui->jerkSlider->maximum()/sliderTickInterval);
 }
 
 // Signal Setups
@@ -164,8 +168,8 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
     //add data to graphs
     if(isScaleLocked){        
-        int velocityHeight = ui->velocitySlider->maximum() * yAxisDisplayBuffer;
-        int accelerationHeight = ui->accelerationSlider->maximum() * yAxisDisplayBuffer;
+        int velocityHeight = maximumVelocity * yAxisDisplayBuffer;
+        int accelerationHeight = maximumAcceleration * yAxisDisplayBuffer;
         velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity),velocityHeight);
         accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration, accelerationHeight);
     }
