@@ -279,7 +279,6 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     velocitySlopeTimer->start(10); //run every 10ms
     accelerationSlopeTimer->start(10);
 
-
     stopplayer->stop();  //stop sounds so they dont overlap
     goplayer->stop();
 
