@@ -665,7 +665,7 @@ Monitor</string>
                 <enum>QSlider::TicksAbove</enum>
                </property>
                <property name="tickInterval">
-                <number>2</number>
+                <number>10</number>
                </property>
               </widget>
              </item>
