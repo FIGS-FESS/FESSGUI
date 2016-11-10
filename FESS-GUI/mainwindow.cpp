@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
+    initMembers();
     setTimers();
     setUpSignals();
     setUpKeyBindings();
@@ -34,16 +35,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     errorHandler = new QErrorMessage(this);
 
-    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
-    currentExpectedAcceleration = ui->accelerationSpinBox->value();
-    currentExpectedJerk = ui->jerkSpinBox->value();
-
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
     recording = new RecordingOperation();  //recording values to file
-
-    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
 
     QSettings settings("settings.ini", QSettings::IniFormat);  //settings file
 
@@ -61,7 +56,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
-
 
     /*******************************************************
     The following code initializes all the graphs. There are
@@ -92,6 +86,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     accelerationSlopeTimer = new QTimer(this);
     connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
+}
+
+void MainWindow::initMembers()
+{
+    playSounds = false;
+    isRecording = false;
+    isScaleLocked = false;
+
+    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
+    currentExpectedAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
+
+    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
 }
 
 // Signal Setups
