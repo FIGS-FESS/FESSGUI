@@ -102,7 +102,7 @@ void MainWindow::initMembers()
     graphRefreshRate = 100;
     flywheelRefreshRate = 200;
     yAxisDisplayBuffer = 1.05; //five percent buffer so we show a little above
-    sliderTickInterval = 10;  //how many tick marks on the slider
+    sliderTickInterval = 10;  //how many tick marks on the sliders
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
@@ -544,14 +544,14 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
         if(!newMaxVel.isEmpty()){  //change range on input methods
             ui->velocitySpinBox->setMaximum(maximumVelocity);
             ui->velocitySlider->setMaximum(maximumVelocity);
-            ui->velocitySlider->setTickInterval(maximumVelocity / 5);
+            ui->velocitySlider->setTickInterval(maximumVelocity/sliderTickInterval);
             ui->maxVel->setText(newMaxVel);
             settings.setValue("maxVel", newMaxVel);  //update settings file
         }
         if(!newMaxAcc.isEmpty()){
             ui->accelerationSpinBox->setMaximum(maximumAcceleration);
             ui->accelerationSlider->setMaximum(maximumAcceleration);
-            ui->accelerationSlider->setTickInterval(maximumAcceleration / 5);
+            ui->accelerationSlider->setTickInterval(maximumAcceleration/sliderTickInterval);
             ui->maxAccel->setText(newMaxAcc);
             settings.setValue("maxAcc", newMaxAcc);
         }
