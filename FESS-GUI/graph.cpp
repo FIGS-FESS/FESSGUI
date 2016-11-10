@@ -87,6 +87,7 @@ void ScrollingTimeGraph::addData(double time, double primaryData, double seconda
 }
 
 void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryData, double secondaryData, int maxValue){
+    int range = 8; //this is the width view size of the graph
     plot->graph(0)->addData(time, primaryData);
     plot->graph(1)->addData(time, secondaryData);
 
@@ -97,8 +98,8 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     plot->graph(3)->addData(time, secondaryData);
 
     // remove data of lines that's outside visible range:
-    plot->graph(0)->removeDataBefore(time-8);
-    plot->graph(1)->removeDataBefore(time-8);
+    plot->graph(0)->removeDataBefore(time-range);
+    plot->graph(1)->removeDataBefore(time-range);
 
     // rescale value (vertical) axis to fit the current data:
     if(!maxValue){
@@ -111,7 +112,7 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     }
 
     // make currentTime axis range scroll with the data (at a constant range size of 8)
-    plot->xAxis->setRange(time+0.25, 8, Qt::AlignRight);
+    plot->xAxis->setRange(time+0.25, range, Qt::AlignRight);
     plot->replot();
 }
 
