@@ -40,6 +40,8 @@ public:
     double currentExpectedAcceleration;
     double currentExpectedJerk;
     double yAxisDisplayBuffer;
+    int maximumVelocity;
+    int maximumAcceleration;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;

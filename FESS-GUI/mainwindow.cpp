@@ -14,6 +14,7 @@
 
 #include <QTime>
 #include <QKeyEvent>
+#include "qmath.h"
 
 #include <vector>
 
@@ -528,20 +529,24 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
 
     if(passwordMatches(password)){  //if the password is correct
-        QString newMaxVel = ui->maxVel->text();   //update values
-        QString newMaxAcc = ui->maxAccel->text();
+        maximumVelocity = qAbs(ui->maxVel->text().toInt()); //negative numbers get converted to abs value
+        maximumAcceleration = qAbs(ui->maxAccel->text().toInt());
+        QString newMaxVel = QString::number(maximumVelocity);   //update values
+        QString newMaxAcc = QString::number(maximumAcceleration);
         QKeySequence newStopKey = ui->eStopKey->keySequence();
 
         if(!newMaxVel.isEmpty()){  //change range on input methods
-            ui->velocitySpinBox->setMaximum(newMaxVel.toInt());
-            ui->velocitySlider->setMaximum(newMaxVel.toInt());
-            ui->velocitySlider->setTickInterval(newMaxVel.toInt() / 5);
+            ui->velocitySpinBox->setMaximum(maximumVelocity);
+            ui->velocitySlider->setMaximum(maximumVelocity);
+            ui->velocitySlider->setTickInterval(maximumVelocity / 5);
+            ui->maxVel->setText(newMaxVel); //in case it is a negative number
             settings.setValue("maxVel", newMaxVel);  //update settings file
         }
         if(!newMaxAcc.isEmpty()){
-            ui->accelerationSpinBox->setMaximum(newMaxAcc.toInt());
-            ui->accelerationSlider->setMaximum(newMaxAcc.toInt());
-            ui->accelerationSlider->setTickInterval(newMaxAcc.toInt() / 5);
+            ui->accelerationSpinBox->setMaximum(maximumAcceleration);
+            ui->accelerationSlider->setMaximum(maximumAcceleration);
+            ui->accelerationSlider->setTickInterval(maximumAcceleration / 5);
+            ui->maxAccel->setText(newMaxAcc);
             settings.setValue("maxAcc", newMaxAcc);
         }
         if(!newStopKey.isEmpty()){  //set the new shortcut
