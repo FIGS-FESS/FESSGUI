@@ -2,6 +2,7 @@
 #define FLY_SERIAL_H
 
 // QT Libraries
+#include <QString>
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
@@ -15,17 +16,18 @@ class SerialDevice : public CommonDeviceInterface
 {
     public:
        SerialDevice();
-       SerialDevice(QSerialPortInfo*);
-       SerialDevice(QSerialPortInfo*, int);
-       SerialDevice(QSerialPortInfo*, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int, int);
-       SerialDevice(QSerialPortInfo*, int, int, int, int, int);
+
+       SerialDevice(QSerialPortInfo);
+       SerialDevice(QSerialPortInfo, int, int, int, int, int);
+
+       SerialDevice(QString);
+       SerialDevice(QString, int, int, int, int, int);
 
         ~SerialDevice();
 
         // Overriden Interface Methods
         void sync();
+        bool isReady();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -41,6 +43,8 @@ class SerialDevice : public CommonDeviceInterface
         float popFloat();
         flybyte popCommand();
 
+        QString name();
+
         // Unique Methods
         void setDevice(int);
         void setBaudRate(int);
@@ -48,11 +52,13 @@ class SerialDevice : public CommonDeviceInterface
         void setFlowControl(int);
         void setDataBits(int);
         void setStopBits(int);
-        void setPort(QSerialPortInfo*);
+        void setPort(QSerialPortInfo);
 
     private:
         void sendTX();
         void readRX();
+
+        bool statusReady;
 
         // Internal variables
         QSerialPort* device;

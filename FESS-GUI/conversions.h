@@ -14,4 +14,6 @@ double RPMtoRadsPerSecond(double);
 
 float derivative(float, float);
 
+float refreshRateToMS(int);
+
 #endif // CONVERSIONS_H

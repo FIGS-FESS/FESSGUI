@@ -1,4 +1,7 @@
-// C/C++ Libraries
+//QT Libraries
+#include <QString>
+
+// C Libraries
 #include <cmath>
 
 // Custom Libraries
@@ -6,12 +9,13 @@
 #include "demodevice.h"
 #include "conversions.h"
 
-
 DemoDevice::DemoDevice()
+{    
+    setDefaults();
+}
+
+DemoDevice::~DemoDevice()
 {
-    type = RANDOM;
-    ve_rate = 0.1;
-    key = 0;
 }
 
 void DemoDevice::sync()
@@ -32,7 +36,7 @@ void DemoDevice::sync()
             {
                 loop = false;
                 type = STOP;
-                //rx.pushFrontChar(COMMAND_ERR_EMER_STOP);
+                rx.pushByte(CCM_EMERGENCY_STOP);
                 break;
             }
 
@@ -54,28 +58,28 @@ void DemoDevice::sync()
         case RANDOM:
         {
             vel = sin(key*1.6+cos(key*1.7)*2)*10 + sin(key*1.2+0.56)*20 + 26;
-            acc = derivative(vel,prev_vel);
-            jer = derivative(acc,prev_acc);
+            acc = derivative(vel,prevVel);
+            jer = derivative(acc,prevAcc);
             break;
         }
 
         case STOP:
         {
-            if ((ve_rate > vel) && (vel > -ve_rate))
+            if ((velRate > vel) && (vel > -velRate))
             {
                 vel = 0;
             }
             else if (vel > 0)
             {
-                vel -= ve_rate;
+                vel -= velRate;
             }
             else
             {
-                vel += ve_rate;
+                vel += velRate;
             }
 
-            acc = derivative(vel,prev_vel);
-            jer = derivative(acc,prev_acc);
+            acc = derivative(vel,prevVel);
+            jer = derivative(acc,prevAcc);
 
             break;
         }
@@ -96,8 +100,8 @@ void DemoDevice::sync()
     rpy = cos(position/100);
 
     key += 0.01;
-    prev_vel = vel;
-    prev_acc = acc;
+    prevVel = vel;
+    prevAcc = acc;
 
 //---------------------------------------------------------------------
 // Data Broadcasting
@@ -144,16 +148,27 @@ void DemoDevice::sync()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
+bool DemoDevice::isReady()
+{
+    return statusReady;
+}
+
 void DemoDevice::startDevice()
 {
+    statusReady = true;
 }
 
 void DemoDevice::stopDevice()
 {
+    statusReady = false;
 }
 
 void DemoDevice::setDefaults()
 {
+    statusReady = false;
+    type = RANDOM;
+    velRate = 0.1;
+    key = 0;
 }
 
 flybyte DemoDevice::popCommand()
@@ -190,4 +205,9 @@ void DemoDevice::flush()
 bool DemoDevice::empty()
 {
     return rx.empty();
+}
+
+QString DemoDevice::name()
+{
+    return QString("Demo Device");
 }

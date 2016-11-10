@@ -1,74 +1,27 @@
 // Custom Libraries --------------------------------------------------
 #include "serialdevice.h"
 
-#include <QtGui>
-
 //--------------------------------------------------------------------
 // SerialDevice Constructors
 //--------------------------------------------------------------------
 
 SerialDevice::SerialDevice()
 {
-    device = new QSerialPort("/dev/pts/1");
+    device = new QSerialPort();
     setDefaults();
 }
 
-SerialDevice::SerialDevice(QSerialPortInfo* port)
+SerialDevice::SerialDevice(QSerialPortInfo port)
 {
     device = new QSerialPort();
     setDefaults();
     setPort(port);
 }
 
-SerialDevice::SerialDevice(QSerialPortInfo* port, int baud)
+SerialDevice::SerialDevice(QString path)
 {
-    device = new QSerialPort();
+    device = new QSerialPort(path);
     setDefaults();
-    setPort(port);
-    setBaudRate(baud);
-
-}
-
-SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity)
-{
-    device = new QSerialPort();
-    setDefaults();
-    setPort(port);
-    setBaudRate(baud);
-    setParity(parity);
-
-}
-
-SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits)
-{
-    device = new QSerialPort();
-    setDefaults();
-    setPort(port);
-    setBaudRate(baud);
-    setParity(parity);
-    setDataBits(databits);
-}
-
-SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits, int stopbits)
-{
-    device = new QSerialPort();
-    setDefaults();
-    setPort(port);
-    setBaudRate(baud);
-    setParity(parity);
-    setDataBits(databits);
-    setStopBits(stopbits);
-}
-
-SerialDevice::SerialDevice(QSerialPortInfo* port, int baud, int parity, int databits, int stopbits, int flowcon)
-{
-    device = new QSerialPort();
-    setPort(port);
-    setBaudRate(baud);
-    setParity(parity);
-    setDataBits(databits);
-    setStopBits(stopbits);
-    setFlowControl(flowcon);
 }
 
 //--------------------------------------------------------------------
@@ -87,9 +40,9 @@ SerialDevice::~SerialDevice()
 
 // SerialDevice Device Settings --------------------------------------------
 
-void SerialDevice::setPort(QSerialPortInfo* port)
+void SerialDevice::setPort(QSerialPortInfo port)
 {
-    device->setPort(*port);
+    device->setPort(port);
 }
 
 void SerialDevice::setBaudRate(int rate)
@@ -196,14 +149,16 @@ void SerialDevice::setStopBits(int bits)
 
         case 2:
         {
-            device->setStopBits(QSerialPort::TwoStop);
-            break;
-        }
-        case 3:
-        {
             device->setStopBits(QSerialPort::OneAndHalfStop);
             break;
         }
+
+        case 3:
+        {
+            device->setStopBits(QSerialPort::TwoStop);
+            break;
+        }
+
         default:
         {
             break;
@@ -252,18 +207,26 @@ void SerialDevice::sync()
     readRX();
 }
 
+bool SerialDevice::isReady()
+{
+    return statusReady;
+}
+
 void SerialDevice::startDevice()
 {
+    statusReady = true;
     device->open(QIODevice::ReadWrite);
 }
 
 void SerialDevice::stopDevice()
 {
+    statusReady = false;
     device->close();
 }
 
 void SerialDevice::setDefaults()
 {
+    statusReady = false;
     setBaudRate(9600);
     setParity(0);
     setFlowControl(0);
@@ -308,4 +271,17 @@ void SerialDevice::flush()
 bool SerialDevice::empty()
 {
     return rx.empty();
+}
+
+
+QString SerialDevice::name()
+{
+    if (device)
+    {
+        return QString("Serial Device: $1").arg(device->portName());
+    }
+    else
+    {
+        return QString("Serial Device: None");
+    }
 }

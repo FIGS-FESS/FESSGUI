@@ -1,12 +1,21 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
+// QT Libraries
+#include <QString>
+
+// Custom Libraries
 #include "datatypes.h"
 
 class CommonDeviceInterface
 {
     public:
+
+        CommonDeviceInterface(){}
+        virtual ~CommonDeviceInterface(){}
+
         virtual void sync() = 0;
+        virtual bool isReady() = 0;
         virtual void startDevice() = 0;
         virtual void stopDevice() = 0;
         virtual void setDefaults() = 0;
@@ -19,6 +28,8 @@ class CommonDeviceInterface
         virtual void pushCommandImmediate(flybyte) = 0;
 
         virtual flybyte popCommand() = 0;
+
+        virtual QString name() = 0;
 };
 
 #endif // INTERFACE_H

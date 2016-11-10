@@ -3,6 +3,7 @@
 #include <QString>
 #include <QDebug>
 #include <QCryptographicHash>
+#include <QTime>
 
 // Custom Libraries
 #include "setpassworddialog.h"

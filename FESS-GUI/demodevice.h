@@ -1,10 +1,12 @@
 #ifndef DEMO_H
 #define DEMO_H
 
+// C++ Libraries
+#include <string>
+
 // Custom Libraries
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
-
 
 #define RANDOM      0
 #define STOP        1
@@ -14,9 +16,11 @@ class DemoDevice : public CommonDeviceInterface
 {
     public:
         DemoDevice();
+        ~DemoDevice();
 
         // Overriden Interface Methods
         void sync();
+        bool isReady();
         void startDevice();
         void stopDevice();
         void setDefaults();
@@ -25,16 +29,19 @@ class DemoDevice : public CommonDeviceInterface
         void flush();
         void pushInt(int);
         void pushFloat(float);
-        void pushCommand(unsigned char);
-        void pushCommandImmediate(unsigned char);
+        void pushCommand(flybyte);
+        void pushCommandImmediate(flybyte);
 
         int popInt();
         float popFloat();
-        unsigned char popCommand();
+        flybyte popCommand();
+
+        QString name();
 
 
     private:
         bool broadcast;
+        bool statusReady;
 
         float vel;
         float acc;
@@ -46,10 +53,10 @@ class DemoDevice : public CommonDeviceInterface
         float rpx;
         float rpy;
 
-        float ve_rate;
+        float velRate;
 
-        float prev_vel;
-        float prev_acc;
+        float prevVel;
+        float prevAcc;
         float position;
 
         float key;
