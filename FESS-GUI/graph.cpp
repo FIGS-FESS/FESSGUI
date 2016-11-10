@@ -60,19 +60,6 @@ void ScrollingTimeGraph::setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, b
     }
 }
 
-void ScrollingTimeGraph::addData(double time, double primaryData, double secondaryData){
-    currentPrimary = primaryData;
-    currentSecondary = secondaryData;
-
-    if(primaryData > maxPrimary)
-        maxPrimary = primaryData;
-    if(secondaryData > maxSecondary)
-        maxSecondary = secondaryData;
-
-    addData(mainPlot, time, primaryData, secondaryData, 0);
-    addData(auxPlot, time, primaryData, secondaryData, 0);
-}
-
 void ScrollingTimeGraph::addData(double time, double primaryData, double secondaryData, int maxValue){
     currentPrimary = primaryData;
     currentSecondary = secondaryData;

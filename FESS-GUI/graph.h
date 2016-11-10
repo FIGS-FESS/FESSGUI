@@ -22,8 +22,7 @@ public:
 class ScrollingTimeGraph : public Graph {
 public:
     ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues);
-    void addData(double time, double primaryData, double secondDaryData, int maxValue);
-    void addData(double time, double primaryData, double secondDaryData);
+    void addData(double time, double primaryData, double secondDaryData, int maxValue = 0);
     void setFill(QColor fillColor);
     QString maxDisplay() override;
     QString currentDisplay() override;
