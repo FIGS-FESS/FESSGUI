@@ -39,6 +39,7 @@ public:
     double targetAcceleration;
     double currentExpectedAcceleration;
     double currentExpectedJerk;
+    double yAxisDisplayBuffer;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;

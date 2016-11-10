@@ -96,6 +96,7 @@ void MainWindow::initMembers()
 
     graphRefreshRate = 100;
     flywheelRefreshRate = 200;
+    yAxisDisplayBuffer = 1.05; //five percent buffer so we show a little above
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
@@ -159,9 +160,11 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     ui->label_12->setText(selectedGraph->currentDisplay());
 
     //add data to graphs
-    if(isScaleLocked){
-        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity), ui->velocitySlider->maximum());
-        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration, ui->accelerationSlider->maximum());
+    if(isScaleLocked){        
+        int velocityHeight = ui->velocitySlider->maximum() * yAxisDisplayBuffer;
+        int accelerationHeight = ui->accelerationSlider->maximum() * yAxisDisplayBuffer;
+        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity),velocityHeight);
+        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration, accelerationHeight);
     }
     else {
         velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
