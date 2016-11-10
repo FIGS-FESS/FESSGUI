@@ -89,7 +89,7 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     plot->graph(1)->removeDataBefore(time-range);
 
     // rescale value (vertical) axis to fit the current data:
-    if(!maxValue){
+    if(maxValue < 0){
         plot->graph(0)->rescaleValueAxis();
         plot->graph(1)->rescaleValueAxis(true);
     }
