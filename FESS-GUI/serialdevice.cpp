@@ -212,10 +212,10 @@ bool SerialDevice::isReady()
     return statusReady;
 }
 
-void SerialDevice::startDevice()
+bool SerialDevice::startDevice()
 {
     statusReady = true;
-    device->open(QIODevice::ReadWrite);
+    return device->open(QIODevice::ReadWrite);
 }
 
 void SerialDevice::stopDevice()
@@ -278,7 +278,7 @@ QString SerialDevice::name()
 {
     if (device)
     {
-        return QString("Serial Device: $1").arg(device->portName());
+        return QString("Serial Device: %1").arg(device->portName());
     }
     else
     {

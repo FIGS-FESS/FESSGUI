@@ -5,34 +5,13 @@ CommonInterfaceManager::CommonInterfaceManager()
     currentDevice = NULL;
 }
 
-SerialDevice* CommonInterfaceManager::getNewSerialDevice()
-{
-    SerialDevice* interface = new SerialDevice();
-    currentDevice = interface;
-    return interface;
-}
-
-SerialDevice* CommonInterfaceManager::getNewSerialDevice(QString port)
-{
-    SerialDevice* interface = new SerialDevice(port);
-    currentDevice = interface;
-    return interface;
-}
-
-DemoDevice* CommonInterfaceManager::getNewDemoDevice()
-{
-    DemoDevice* interface = new DemoDevice();
-    currentDevice = interface;
-    return interface;
-}
-
 CommonDeviceInterface* CommonInterfaceManager::getCurrentInterface()
 {
     return currentDevice;
 }
 
- bool CommonInterfaceManager::isADeviceSet()
- {
+bool CommonInterfaceManager::isADeviceSet()
+{
      if(currentDevice != NULL)
      {
          return true;
@@ -41,6 +20,11 @@ CommonDeviceInterface* CommonInterfaceManager::getCurrentInterface()
      {
          return false;
      }
+}
+
+void CommonInterfaceManager::setCurrentInterface(CommonDeviceInterface* newInterface)
+{
+    currentDevice = newInterface;
 }
 
 void CommonInterfaceManager::closeCurrentInterface()

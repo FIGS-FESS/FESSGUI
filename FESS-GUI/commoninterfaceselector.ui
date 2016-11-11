@@ -150,16 +150,34 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="inputMask">
-            <string>000000</string>
+            <string>0000000000</string>
            </property>
            <property name="text">
             <string>9600</string>
            </property>
            <property name="maxLength">
-            <number>6</number>
+            <number>10</number>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Normal</enum>
+           </property>
+           <property name="cursorPosition">
+            <number>10</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="dragEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="cursorMoveStyle">
+            <enum>Qt::LogicalMoveStyle</enum>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -201,7 +219,7 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="currentText">
-            <string>5</string>
+            <string>8</string>
            </property>
            <property name="insertPolicy">
             <enum>QComboBox::NoInsert</enum>

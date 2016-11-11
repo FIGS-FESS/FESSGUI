@@ -1,15 +1,16 @@
 #include <QtGui>
-#include "demodevice.h"
-#include "serialdevice.h"
 #include "commoninterfaceselector.h"
-#include "ui_commoninterfaceselector.h"
 
 CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
 
     interfaceManager = commonManager;
-    serialPortTextModified = false;
+
+    serialPortIndex = -1;
+    serialPortTextValue = ui->serialPortCombo->currentText();
+
+    errorHandler = new QErrorMessage();
 
     setUpSignals();
     setSerialPortsComboBox();
@@ -17,10 +18,11 @@ CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonM
 
 CommonInterfaceSelector::~CommonInterfaceSelector()
 {
+    delete errorHandler;
     delete ui;
 }
 
-// Private Functions
+// Private Slots
 
 void CommonInterfaceSelector::closeWindow()
 {
@@ -29,11 +31,14 @@ void CommonInterfaceSelector::closeWindow()
 
 void CommonInterfaceSelector::setUpSignals()
 {
-    connect(ui->demoButtonSet,    SIGNAL(clicked()), SLOT(demoButtonSetClicked()));
-    connect(ui->demoButtonCancel, SIGNAL(clicked()), SLOT(demoButtonCancelClicked()));
+    connect(ui->demoButtonSet,    SIGNAL(clicked()), this, SLOT(demoButtonSetClicked()));
+    connect(ui->demoButtonCancel, SIGNAL(clicked()), this, SLOT(demoButtonCancelClicked()));
 
-    connect(ui->serialButtonSet,    SIGNAL(clicked()), SLOT(serialButtonSetClicked()));
-    connect(ui->serialButtonCancel, SIGNAL(clicked()), SLOT(serialButtonCancelClicked()));
+    connect(ui->serialButtonSet,    SIGNAL(clicked()), this, SLOT(serialButtonSetClicked()));
+    connect(ui->serialButtonCancel, SIGNAL(clicked()), this, SLOT(serialButtonCancelClicked()));
+
+    connect(ui->serialPortCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setSerialPortsComboBoxIndex(int)));
+    connect(ui->serialPortCombo, SIGNAL(editTextChanged(const QString)), this, SLOT(setSerialPortsComboBoxText(const QString)));
 }
 
 void CommonInterfaceSelector::setSerialPortsComboBox()
@@ -56,7 +61,8 @@ void CommonInterfaceSelector::demoButtonSetClicked()
     {
         case 0:
         {
-            interfaceManager->getNewDemoDevice();
+            DemoDevice* deviceInterface = new DemoDevice();
+            interfaceManager->setCurrentInterface(deviceInterface);
             break;
         }
         default: break;
@@ -72,42 +78,70 @@ void CommonInterfaceSelector::demoButtonCancelClicked()
 
 void CommonInterfaceSelector::serialButtonSetClicked()
 {
-    int serial_baud_rate = ui->serialBaudLine->text().toInt();
-    int serial_data_index = ui->serialDataCombo->currentIndex();
-    int serial_stop_index = ui->serialStopCombo->currentIndex();
-    int serial_flow_index = ui->serialFlowCombo->currentIndex();
-    int serial_port_index = ui->serialPortCombo->currentIndex();
-    int serial_parity_index = ui->serialParityCombo->currentIndex();
+    SerialDevice* deviceInterface = NULL;
 
-    if (serial_port_index != -1)
+    int serialBaudRate = ui->serialBaudLine->text().toInt();
+    int serialDataIndex = ui->serialDataCombo->currentIndex();
+    int serialStopIndex = ui->serialStopCombo->currentIndex();
+    int serialFlowIndex = ui->serialFlowCombo->currentIndex();
+    int serialParityIndex = ui->serialParityCombo->currentIndex();
+
+    if (serialPortIndex == -1)
     {
-        if (serialPortTextModified)
-        {
-            QString serial_port_path = ui->serialPortCombo->currentText();
+        deviceInterface = new SerialDevice(serialPortTextValue);
+    }
+    else
+    {
+        deviceInterface = new SerialDevice();
+        deviceInterface->setPort(serialPortList[serialPortIndex]);
+    }
 
-            SerialDevice* deviceInterface = interfaceManager->getNewSerialDevice(serial_port_path);
-            deviceInterface->setBaudRate(serial_baud_rate);
-            deviceInterface->setParity(serial_parity_index);
-            deviceInterface->setDataBits(serial_data_index+5);
-            deviceInterface->setStopBits(serial_stop_index);
-            deviceInterface->setFlowControl(serial_flow_index);
+
+    if (deviceInterface != NULL)
+    {
+        deviceInterface->setBaudRate(serialBaudRate);
+        deviceInterface->setParity(serialParityIndex);
+        deviceInterface->setDataBits(serialDataIndex+5);
+        deviceInterface->setStopBits(serialStopIndex);
+        deviceInterface->setFlowControl(serialFlowIndex);
+
+        if (deviceInterface->startDevice() == true)
+        {
+            interfaceManager->setCurrentInterface(deviceInterface);
+            deviceInterface->stopDevice();
+            closeWindow();
         }
+
         else
         {
-            SerialDevice* deviceInterface = interfaceManager->getNewSerialDevice();
-            deviceInterface->setPort(serialPortList[serial_port_index]);
-            deviceInterface->setBaudRate(serial_baud_rate);
-            deviceInterface->setParity(serial_parity_index);
-            deviceInterface->setDataBits(serial_data_index+5);
-            deviceInterface->setStopBits(serial_stop_index);
-            deviceInterface->setFlowControl(serial_flow_index);
+            errorHandler->showMessage(ERROR_SERIAL_UNABLE_TO_OPEN);
+            delete deviceInterface;
+            deviceInterface = NULL;
         }
     }
 
-    closeWindow();
+    else
+    {
+        errorHandler->showMessage(ERROR_SERIAL_UNEXPECTED);
+    }
 }
 
 void CommonInterfaceSelector::serialButtonCancelClicked()
 {
     closeWindow();
+}
+
+void CommonInterfaceSelector::setSerialPortsComboBoxText(const QString &text)
+{
+    serialPortTextValue = text;
+    serialPortIndex = -1;
+
+    qDebug() << serialPortIndex;
+}
+
+void CommonInterfaceSelector::setSerialPortsComboBoxIndex(int serialIndex)
+{
+    serialPortIndex = serialIndex;
+
+    qDebug() << serialPortIndex;
 }

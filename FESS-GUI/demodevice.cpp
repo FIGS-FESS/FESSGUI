@@ -153,9 +153,10 @@ bool DemoDevice::isReady()
     return statusReady;
 }
 
-void DemoDevice::startDevice()
+bool DemoDevice::startDevice()
 {
     statusReady = true;
+    return true;
 }
 
 void DemoDevice::stopDevice()

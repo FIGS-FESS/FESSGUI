@@ -197,6 +197,11 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 MainWindow::~MainWindow()  //destructor
 {
+    delete errorHandler;
+    delete graphRefreshTimer;
+    delete flywheelRefreshTimer;
+    delete flywheelOperation;
+    delete interfaceManager;
     delete ui;
 }
 
