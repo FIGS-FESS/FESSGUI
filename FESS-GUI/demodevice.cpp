@@ -21,7 +21,7 @@ DemoDevice::~DemoDevice()
 void DemoDevice::sync()
 {
 //---------------------------------------------------------------------
-// Command Interpertation
+// Command Interpretation
 //---------------------------------------------------------------------
 
     bool loop = true;
@@ -145,7 +145,7 @@ void DemoDevice::sync()
 }
 
 //--------------------------------------------------------------------
-// Interface Overedload Functions
+// Interface Overload Functions
 //--------------------------------------------------------------------
 
 bool DemoDevice::isReady()
