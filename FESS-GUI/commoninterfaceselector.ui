@@ -114,7 +114,7 @@
             <string>/dev/pts/1</string>
            </property>
            <property name="insertPolicy">
-            <enum>QComboBox::InsertAtBottom</enum>
+            <enum>QComboBox::NoInsert</enum>
            </property>
            <property name="sizeAdjustPolicy">
             <enum>QComboBox::AdjustToContents</enum>

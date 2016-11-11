@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
+    errorHandler->setWindowTitle(MAINWINDOW_ERROR);
 
     currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
     currentExpectedAcceleration = ui->accelerationSpinBox->value();
@@ -654,22 +655,25 @@ void MainWindow::openInterfaceSettingsWindow(){  //show the password dialog box
 
 void MainWindow::closeInterfaceSettingsWindow()
 {
-    deviceInterface = interfaceManager->getCurrentInterface();
-
-    if (deviceInterface != NULL)
+    if (deviceInterface != interfaceManager->getCurrentInterface())
     {
-        ui->actionDeviceIndicator->setText(QString("Device: %1").arg(deviceInterface->name()));
-        ui->outputLog->append(QString("%1: Interface set to: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+        deviceInterface = interfaceManager->getCurrentInterface();
 
-        deviceInterface->startDevice();
-        ui->outputLog->append(QString("%1: Interface started: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+        if (deviceInterface != NULL)
+        {
+            ui->actionDeviceIndicator->setText(QString("Device: %1").arg(deviceInterface->name()));
+            ui->outputLog->append(QString("%1: Interface set to: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
 
-        flywheelOperation->setInterface(deviceInterface);
-        flywheelRefreshTimer->start();
-    }
-    else
-    {
-        ui->actionDeviceIndicator->setText(QString("Device: None"));
+            deviceInterface->startDevice();
+            ui->outputLog->append(QString("%1: Interface started: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+
+            flywheelOperation->setInterface(deviceInterface);
+            flywheelRefreshTimer->start();
+        }
+        else
+        {
+            ui->actionDeviceIndicator->setText(QString("Device: None"));
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 
 #include "demodevice.h"
 #include "serialdevice.h"
+#include "windowsnames.h"
 #include "errormessages.h"
 #include "commoninterfacemanager.h"
 #include "ui_commoninterfaceselector.h"

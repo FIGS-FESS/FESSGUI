@@ -1,16 +1,17 @@
-#include <QtGui>
 #include "commoninterfaceselector.h"
 
 CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
+    this->setWindowTitle(INTERFACE_DIALOG_TITLE);
 
     interfaceManager = commonManager;
 
     serialPortIndex = -1;
     serialPortTextValue = ui->serialPortCombo->currentText();
 
-    errorHandler = new QErrorMessage();
+    errorHandler = new QErrorMessage(this);
+    errorHandler->setWindowTitle(INTERFACE_DIALOG_ERROR);
 
     setUpSignals();
     setSerialPortsComboBox();
@@ -86,7 +87,7 @@ void CommonInterfaceSelector::serialButtonSetClicked()
     int serialFlowIndex = ui->serialFlowCombo->currentIndex();
     int serialParityIndex = ui->serialParityCombo->currentIndex();
 
-    if (serialPortIndex == -1)
+    if (serialPortIndex < 0)
     {
         deviceInterface = new SerialDevice(serialPortTextValue);
     }
@@ -133,15 +134,11 @@ void CommonInterfaceSelector::serialButtonCancelClicked()
 
 void CommonInterfaceSelector::setSerialPortsComboBoxText(const QString &text)
 {
-    serialPortTextValue = text;
     serialPortIndex = -1;
-
-    qDebug() << serialPortIndex;
+    serialPortTextValue = text;
 }
 
 void CommonInterfaceSelector::setSerialPortsComboBoxIndex(int serialIndex)
 {
     serialPortIndex = serialIndex;
-
-    qDebug() << serialPortIndex;
 }
