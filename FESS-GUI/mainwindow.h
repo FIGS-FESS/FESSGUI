@@ -29,8 +29,9 @@ public:
     QTimer *graphRefreshTimer;
     QTimer *velocitySlopeTimer;
     QTimer *accelerationSlopeTimer;
-    bool playSounds = false;
-    bool isRecording = false;
+    bool playSounds;
+    bool isRecording;
+    bool isScaleLocked;
     double graphRefreshRate;
     double flywheelRefreshRate;
     double targetVelocity;
@@ -38,6 +39,10 @@ public:
     double targetAcceleration;
     double currentExpectedAcceleration;
     double currentExpectedJerk;
+    double yAxisDisplayBuffer;
+    int maximumVelocity;
+    int maximumAcceleration;
+    int sliderTickInterval;
     QKeySequence eStopKey;
     QElapsedTimer uptime;
     QAction *eStopShortcut;
@@ -55,6 +60,7 @@ private:
     CommonInterfaceManager* interfaceManager;
     CommonDeviceInterface* deviceInterface;
 
+    void initMembers();
     void setTimers();
     void setUpSignals();
     void setUpKeyBindings();
@@ -125,7 +131,7 @@ private slots:
 
 
     // Error Popups
-    void errorInterafceNotDefined();
+    void errorInterfaceNotDefined();
 
     // Menu Dialogs
     void openInterfaceSettingsWindow();
