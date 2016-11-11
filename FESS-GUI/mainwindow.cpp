@@ -672,7 +672,8 @@ void MainWindow::closeFlywheelInterface()
 
 // Dialog Windows
 
-void MainWindow::openInterfaceSettingsWindow(){  //show the password dialog box
+void MainWindow::openInterfaceSettingsWindow()
+{
     CommonInterfaceSelector* deviceSettingsWindow = new CommonInterfaceSelector(interfaceManager, this);
     connect(deviceSettingsWindow, SIGNAL(finished(int)), this, SLOT(closeInterfaceSettingsWindow()));
     deviceSettingsWindow->show();
