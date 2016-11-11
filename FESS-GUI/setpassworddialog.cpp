@@ -6,6 +6,7 @@
 #include <QTime>
 
 // Custom Libraries
+#include "windowsnames.h"
 #include "setpassworddialog.h"
 #include "ui_setpassworddialog.h"
 
@@ -14,6 +15,7 @@ SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     ui(new Ui::SetPasswordDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle(PASSWORD_RESET_DIALOG);
 }
 
 SetPasswordDialog::~SetPasswordDialog()

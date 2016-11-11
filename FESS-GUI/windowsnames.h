@@ -7,5 +7,7 @@
 #define INTERFACE_DIALOG_TITLE "FlyCAM - Interface Selector"
 #define INTERFACE_DIALOG_ERROR "FlyCAM - Selection Error"
 
+#define PASSWORD_RESET_DIALOG "FlyCAM - Password Set/Reset"
+
 #endif // WINDOWSNAMES
 
