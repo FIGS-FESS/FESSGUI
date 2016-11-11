@@ -20,7 +20,7 @@ DemoDevice::~DemoDevice()
 
 
 //---------------------------------------------------------------------
-// Command Interpertation
+// Command Interpretation
 //---------------------------------------------------------------------
 
 void DemoDevice::syncRX()
@@ -147,7 +147,7 @@ void DemoDevice::syncTX()
 }
 
 //--------------------------------------------------------------------
-// Interface Overedload Functions
+// Interface Overload Functions
 //--------------------------------------------------------------------
 
 bool DemoDevice::isReady()
