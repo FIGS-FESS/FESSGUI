@@ -582,7 +582,7 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
     if(checked)
     {
-        graphRefreshRate = 33;
+        graphRefreshRate = 30;
     }
     else
     {
