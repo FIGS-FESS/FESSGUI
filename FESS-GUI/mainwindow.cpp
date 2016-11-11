@@ -14,6 +14,7 @@
 
 #include <QTime>
 #include <QKeyEvent>
+#include "qmath.h"
 
 #include <vector>
 
@@ -21,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
+    initMembers();
     setTimers();
     setUpSignals();
     setUpKeyBindings();
@@ -34,34 +36,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     errorHandler = new QErrorMessage(this);
 
-    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
-    currentExpectedAcceleration = ui->accelerationSpinBox->value();
-    currentExpectedJerk = ui->jerkSpinBox->value();
-
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
     recording = new RecordingOperation();  //recording values to file
 
-    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
-
     QSettings settings("settings.ini", QSettings::IniFormat);  //settings file
 
-    if(settings.contains("maxVel")){                                            //Set max values in slider and spinbox
-        ui->velocitySpinBox->setMaximum(settings.value("maxVel", "").toInt());
-        ui->velocitySlider->setMaximum(settings.value("maxVel", "").toInt());
-        ui->maxVel->setText((settings.value("maxVel", "").toString()));
+    if(settings.contains("maxVel")){  //Set max values in slider and spinbox
+        maximumVelocity = settings.value("maxVel", "").toInt();
+        ui->velocitySpinBox->setMaximum(maximumVelocity);
+        ui->velocitySlider->setMaximum(maximumVelocity);
+        ui->velocitySlider->setTickInterval(maximumVelocity/sliderTickInterval);
+        ui->maxVel->setText(QString::number(maximumVelocity));
     }
     if(settings.contains("maxAcc")){
-        ui->accelerationSpinBox->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->accelerationSlider->setMaximum(settings.value("maxAcc", "").toInt());
-        ui->maxAccel->setText((settings.value("maxAcc", "")).toString());
+        maximumAcceleration = settings.value("maxAcc", "").toInt();
+        ui->accelerationSpinBox->setMaximum(maximumAcceleration);
+        ui->accelerationSlider->setMaximum(maximumAcceleration);
+        ui->accelerationSlider->setTickInterval(maximumAcceleration/sliderTickInterval);
+        ui->maxAccel->setText(QString::number(maximumAcceleration));
     }
     if(settings.contains("stopKey")){
         eStopShortcut->setShortcut(QKeySequence::fromString(settings.value("stopKey").toString()));
         ui->eStopKey->setKeySequence(eStopShortcut->shortcut());
     }
-
 
     /*******************************************************
     The following code initializes all the graphs. There are
@@ -94,6 +93,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
+void MainWindow::initMembers()
+{
+    playSounds = false;
+    isRecording = false;
+    isScaleLocked = false;
+
+    graphRefreshRate = 100;
+    flywheelRefreshRate = 200;
+    yAxisDisplayBuffer = 1.05; //five percent buffer so we show a little above
+    sliderTickInterval = 10;  //how many tick marks on the sliders
+
+    currentExpectedVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());    //initialize expected values based on spinbox values
+    currentExpectedAcceleration = ui->accelerationSpinBox->value();
+    currentExpectedJerk = ui->jerkSpinBox->value();
+
+    ui->pushButton_ApplySettings->setEnabled(false);  //gray out apply settings button by default
+    ui->jerkSlider->setTickInterval(ui->jerkSlider->maximum()/sliderTickInterval);
+}
+
 // Signal Setups
 
 void MainWindow::setUpSignals()
@@ -124,9 +142,6 @@ void MainWindow::setTimers()
     graphRefreshTimer = new QTimer(this);
     flywheelRefreshTimer = new QTimer(this);
 
-    graphRefreshRate = 100;
-    flywheelRefreshRate = 200;
-
     graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
     flywheelRefreshTimer->setInterval(refreshRateToMS(flywheelRefreshRate));
 
@@ -152,8 +167,16 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
     ui->label_12->setText(selectedGraph->currentDisplay());
 
     //add data to graphs
-    velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
-    accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration);
+    if(isScaleLocked){        
+        int velocityHeight = maximumVelocity * yAxisDisplayBuffer;
+        int accelerationHeight = maximumAcceleration * yAxisDisplayBuffer;
+        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity),velocityHeight);
+        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration, accelerationHeight);
+    }
+    else {
+        velocityGraph->addData(currentTime, actualVelocity, radsPerSecondToRPM(currentExpectedVelocity));
+        accelerationGraph->addData(currentTime, actualAcceleration, currentExpectedAcceleration);
+    }
     upperDisplacementGraph->addData(currentTime, upperDisplacement.x(), upperDisplacement.y());
     lowerDisplacementGraph->addData(currentTime, lowerDisplacement.x(), lowerDisplacement.y());
 
@@ -253,10 +276,8 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     targetVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());  //get the expected/target values, get velocity in rad/s
     targetAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
-
     velocitySlopeTimer->start(10); //run every 10ms
     accelerationSlopeTimer->start(10);
-
 
     stopplayer->stop();  //stop sounds so they dont overlap
     goplayer->stop();
@@ -271,7 +292,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     ui->outputLog->append(QString("Flywheel controlled to %1 RPM,"
                                     " %2 rad/sec<sup>2</sup>, %3 rad/sec<sup>3</sup>"
                                     " at %4")
-                            .arg(targetVelocity).arg(targetAcceleration).arg(currentExpectedJerk)
+                            .arg(ui->velocitySpinBox->value()).arg(targetAcceleration).arg(currentExpectedJerk)
                             .arg(QTime::currentTime().toString()));
 }
 
@@ -513,20 +534,24 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
     QString result = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Sha512));
 
     if(passwordMatches(password)){  //if the password is correct
-        QString newMaxVel = ui->maxVel->text();   //update values
-        QString newMaxAcc = ui->maxAccel->text();
+        maximumVelocity = qAbs(ui->maxVel->text().toInt()); //negative numbers get converted to abs value
+        maximumAcceleration = qAbs(ui->maxAccel->text().toInt());
+        QString newMaxVel = QString::number(maximumVelocity);   //update values
+        QString newMaxAcc = QString::number(maximumAcceleration);
         QKeySequence newStopKey = ui->eStopKey->keySequence();
 
         if(!newMaxVel.isEmpty()){  //change range on input methods
-            ui->velocitySpinBox->setMaximum(newMaxVel.toInt());
-            ui->velocitySlider->setMaximum(newMaxVel.toInt());
-            ui->velocitySlider->setTickInterval(newMaxVel.toInt() / 5);
+            ui->velocitySpinBox->setMaximum(maximumVelocity);
+            ui->velocitySlider->setMaximum(maximumVelocity);
+            ui->velocitySlider->setTickInterval(maximumVelocity/sliderTickInterval);
+            ui->maxVel->setText(newMaxVel);
             settings.setValue("maxVel", newMaxVel);  //update settings file
         }
         if(!newMaxAcc.isEmpty()){
-            ui->accelerationSpinBox->setMaximum(newMaxAcc.toInt());
-            ui->accelerationSlider->setMaximum(newMaxAcc.toInt());
-            ui->accelerationSlider->setTickInterval(newMaxAcc.toInt() / 5);
+            ui->accelerationSpinBox->setMaximum(maximumAcceleration);
+            ui->accelerationSlider->setMaximum(maximumAcceleration);
+            ui->accelerationSlider->setTickInterval(maximumAcceleration/sliderTickInterval);
+            ui->maxAccel->setText(newMaxAcc);
             settings.setValue("maxAcc", newMaxAcc);
         }
         if(!newStopKey.isEmpty()){  //set the new shortcut
@@ -569,12 +594,12 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
-
+    isScaleLocked = checked;
 }
 
 // Error Messages
 
-void MainWindow::errorInterafceNotDefined()
+void MainWindow::errorInterfaceNotDefined()
 {
     ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
     errorHandler->showMessage(ERROR_INTERFACE_NOT_SET);
@@ -593,7 +618,7 @@ void MainWindow::startFlywheelInterface()
 
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
@@ -608,7 +633,7 @@ void MainWindow::stopFlywheelInterface()
 {
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
@@ -622,7 +647,7 @@ void MainWindow::closeFlywheelInterface()
 {
     if(deviceInterface == NULL)
     {
-        errorInterafceNotDefined();
+        errorInterfaceNotDefined();
     }
     else
     {
