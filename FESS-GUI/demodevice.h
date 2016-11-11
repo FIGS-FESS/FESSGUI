@@ -19,7 +19,8 @@ class DemoDevice : public CommonDeviceInterface
         ~DemoDevice();
 
         // Overriden Interface Methods
-        void sync();
+        void syncRX();
+        void syncTX();
         bool isReady();
         bool startDevice();
         void stopDevice();

@@ -18,6 +18,7 @@ public:
     ~FlywheelOperation();
 
     void sync();
+
     void setDefaults();
     void setVelocity(float);
     void setAcceleration(float);
@@ -41,7 +42,9 @@ private:
 
     unsigned int emergencyTimeout;
     unsigned int emergencyRetries;
-    bool emergencyAcknowlegded;
+
+    bool emergencyStopActivated;
+    bool emergencyStopAcknowlegded;
 
     QPointF* upperDisplacement;
     QPointF* lowerDisplacement;
@@ -49,33 +52,42 @@ private:
 
     CommonDeviceInterface* communicationDevice;
 
-    std::queue<float> velBuffer;
-    std::queue<float> accBuffer;
-    std::queue<float> jerBuffer;
-    std::queue<float> udxBuffer;
-    std::queue<float> udyBuffer;
-    std::queue<float> ldxBuffer;
-    std::queue<float> ldyBuffer;
-    std::queue<float> rpxBuffer;
-    std::queue<float> rpyBuffer;
+    std::queue<float> velocityValueBufferRX;
+    std::queue<float> accelerationValueBufferRX;
+    std::queue<float> jerkValueBufferRX;
+    std::queue<float> upperDisplacementXValueBufferRX;
+    std::queue<float> upperDisplacementYValueBufferRX;
+    std::queue<float> lowerDisplacementXValueBufferRX;
+    std::queue<float> lowerDisplacementYValueBufferRX;
+    std::queue<float> rotationalPositionXValueBufferRX;
+    std::queue<float> rotationalPositionYValueBufferRX;
+
+    std::queue<float> velocityValueBufferTX;
+    std::queue<float> accelerationValueBufferTX;
+    std::queue<float> jerkValueBufferTX;
 
     // Queue Sizes
 
-    unsigned int velBufferLimit;
-    unsigned int accBufferLimit;
-    unsigned int jerBufferLimit;
-    unsigned int ldxBufferLimit;
-    unsigned int ldyBufferLimit;
-    unsigned int udxBufferLimit;
-    unsigned int udyBufferLimit;
-    unsigned int rpxBufferLimit;
-    unsigned int rpyBufferLimit;
+    unsigned int velocityValueBufferRXLimit;
+    unsigned int accelerationValueBufferRXLimit;
+    unsigned int jerkValueBufferRXLimit;
+    unsigned int lowerDisplacementXValueBufferRXLimit;
+    unsigned int lowerDisplacementYValueBufferRXLimit;
+    unsigned int upperDisplacementXValueBufferRXLimit;
+    unsigned int upperDisplacementYValueBufferRXLimit;
+    unsigned int rotationalPositionXValueBufferRXLimit;
+    unsigned int rotationalPositionYValueBufferRXLimit;
 
-    // Sync Flags and Buffers
+    unsigned int velocityValueBufferTXLimit;
+    unsigned int accelerationValueBufferTXLimit;
+    unsigned int jerkValueBufferTXLimit;
 
-    float velPrev;
-    float accPrev;
-    float jerPrev;
+    float velocityCurrentValue;
+    float accelerationCurrentValue;
+    float jerkCurrentValue;
+
+    void syncRX();
+    void syncTX();
 };
 
 #endif // FLYWHEELOPERATION_H

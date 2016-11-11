@@ -14,7 +14,8 @@ class CommonDeviceInterface
         CommonDeviceInterface(){}
         virtual ~CommonDeviceInterface(){}
 
-        virtual void sync() = 0;
+        virtual void syncRX() = 0;
+        virtual void syncTX() = 0;
         virtual bool isReady() = 0;
         virtual bool startDevice() = 0;
         virtual void stopDevice() = 0;

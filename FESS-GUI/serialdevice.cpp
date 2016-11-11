@@ -201,10 +201,14 @@ void SerialDevice::readRX()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
-void SerialDevice::sync()
+void SerialDevice::syncRX()
+{
+    readRX();
+}
+
+void SerialDevice::syncTX()
 {
     sendTX();
-    readRX();
 }
 
 bool SerialDevice::isReady()

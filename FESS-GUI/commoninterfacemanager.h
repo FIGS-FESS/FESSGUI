@@ -8,6 +8,8 @@ class CommonInterfaceManager
     public:
 
         CommonInterfaceManager();
+        ~CommonInterfaceManager();
+
         CommonDeviceInterface* getCurrentInterface();
 
         void setCurrentInterface(CommonDeviceInterface*);

@@ -5,6 +5,11 @@ CommonInterfaceManager::CommonInterfaceManager()
     currentDevice = NULL;
 }
 
+CommonInterfaceManager::~CommonInterfaceManager()
+{
+    delete currentDevice;
+}
+
 CommonDeviceInterface* CommonInterfaceManager::getCurrentInterface()
 {
     return currentDevice;
@@ -24,6 +29,7 @@ bool CommonInterfaceManager::isADeviceSet()
 
 void CommonInterfaceManager::setCurrentInterface(CommonDeviceInterface* newInterface)
 {
+    delete currentDevice;
     currentDevice = newInterface;
 }
 

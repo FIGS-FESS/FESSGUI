@@ -18,15 +18,14 @@ DemoDevice::~DemoDevice()
 {
 }
 
-void DemoDevice::sync()
-{
+
 //---------------------------------------------------------------------
 // Command Interpertation
 //---------------------------------------------------------------------
 
-    bool loop = true;
-
-    while(!tx.empty() && loop)
+void DemoDevice::syncRX()
+{
+    while(!tx.empty())
     {
         char val = tx.popByte();
 
@@ -34,7 +33,7 @@ void DemoDevice::sync()
         {
             case ICM_EMERGENCY_STOP: // Emergency Stop
             {
-                loop = false;
+                //loop = false;
                 type = STOP;
                 rx.pushByte(CCM_EMERGENCY_STOP);
                 break;
@@ -42,17 +41,20 @@ void DemoDevice::sync()
 
             default: // Error: Unknown Commands
             {
-                loop = false;
+                //loop = false;
                 tx.flush();
                 break;
             }
         }
     }
+}
 
 //---------------------------------------------------------------------
 // Value Generation
 //---------------------------------------------------------------------
 
+void DemoDevice::syncTX()
+{
     switch(type)
     {
         case RANDOM:
