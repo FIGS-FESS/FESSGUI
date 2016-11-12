@@ -6,7 +6,7 @@
 #include <QTime>
 
 // Custom Libraries
-#include "windowsnames.h"
+#include "errorstrings.h"
 #include "setpassworddialog.h"
 #include "ui_setpassworddialog.h"
 

@@ -29,13 +29,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     qsrand(time(NULL));
 
-    this->setWindowTitle(MAINWINDOW_TITLE);
-
     interfaceManager = new CommonInterfaceManager();
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
-    errorHandler->setWindowTitle("FlyCAM - Error";);
+    errorHandler->setWindowTitle("FlyCAM - Error");
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();

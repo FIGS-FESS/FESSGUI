@@ -3,15 +3,13 @@
 CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
-    this->setWindowTitle(INTERFACE_DIALOG_TITLE);
-
     interfaceManager = commonManager;
 
     serialPortIndex = -1;
     serialPortTextValue = ui->serialPortCombo->currentText();
 
     errorHandler = new QErrorMessage(this);
-    errorHandler->setWindowTitle(INTERFACE_DIALOG_ERROR);
+    errorHandler->setWindowTitle("FlyCam - Selection Error");
 
     setUpSignals();
     setSerialPortsComboBox();
