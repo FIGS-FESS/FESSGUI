@@ -15,7 +15,6 @@ SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     ui(new Ui::SetPasswordDialog)
 {
     ui->setupUi(this);
-    this->setWindowTitle(PASSWORD_RESET_DIALOG);
 }
 
 SetPasswordDialog::~SetPasswordDialog()
