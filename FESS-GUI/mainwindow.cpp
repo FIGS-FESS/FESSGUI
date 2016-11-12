@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "errorstrings.h"
 #include "errormessages.h"
 
 #include "conversions.h"
