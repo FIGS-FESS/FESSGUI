@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "windowsnames.h"
+#include "errorstrings.h"
 #include "errormessages.h"
 
 #include "conversions.h"
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
-    errorHandler->setWindowTitle(MAINWINDOW_ERROR);
+    errorHandler->setWindowTitle("FlyCAM - Error";);
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();

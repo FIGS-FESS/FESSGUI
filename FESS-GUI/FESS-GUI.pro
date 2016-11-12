@@ -43,7 +43,6 @@ HEADERS     +=  mainwindow.h \
                 graph.h \
                 commoninterfaceselector.h \
                 commoninterfacemanager.h \
-                windowsnames.h \
                 errormessages.h
 
 FORMS       +=  mainwindow.ui \
