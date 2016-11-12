@@ -113,15 +113,14 @@ void CommonInterfaceSelector::serialButtonSetClicked()
 
         else
         {
-            errorHandler->showMessage(ERROR_SERIAL_UNABLE_TO_OPEN);
+            errorHandler->showMessage("Unable to open the serial port. Please try: Checking your settings, Unplugging the device, Checking device permissions.");
             delete deviceInterface;
             deviceInterface = NULL;
         }
     }
-
     else
     {
-        errorHandler->showMessage(ERROR_SERIAL_UNEXPECTED);
+        errorHandler->showMessage("Serial device could not be set as specified.");
     }
 }
 
