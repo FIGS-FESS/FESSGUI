@@ -42,9 +42,7 @@ HEADERS     +=  mainwindow.h \
                 serialdevice.h \
                 graph.h \
                 commoninterfaceselector.h \
-                commoninterfacemanager.h \
-                windowsnames.h \
-                errormessages.h
+                commoninterfacemanager.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui \

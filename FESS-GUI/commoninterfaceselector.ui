@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>FlyCAM - Interface Selector</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>

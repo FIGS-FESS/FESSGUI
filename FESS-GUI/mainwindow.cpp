@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "windowsnames.h"
-#include "errormessages.h"
-
 #include "conversions.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
@@ -29,13 +26,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     qsrand(time(NULL));
 
-    this->setWindowTitle(MAINWINDOW_TITLE);
-
     interfaceManager = new CommonInterfaceManager();
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
-    errorHandler->setWindowTitle(MAINWINDOW_ERROR);
+    errorHandler->setWindowTitle("FlyCAM - Error");
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
@@ -607,8 +602,9 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 
 void MainWindow::errorInterfaceNotDefined()
 {
-    ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
-    errorHandler->showMessage(ERROR_INTERFACE_NOT_SET);
+    QString errorMessage = "Invalid Interface: Please select a valid interface.";
+    ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(), errorMessage));
+    errorHandler->showMessage(errorMessage);
 }
 
 
