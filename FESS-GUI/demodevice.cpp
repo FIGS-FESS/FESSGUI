@@ -1,13 +1,13 @@
 //QT Libraries
+#include <QtGui>
 #include <QString>
 
 // C Libraries
 #include <cmath>
 
 // Custom Libraries
-#include "commands.h"
-#include "demodevice.h"
 #include "conversions.h"
+#include "demodevice.h"
 
 DemoDevice::DemoDevice()
 {    
@@ -27,16 +27,21 @@ void DemoDevice::syncRX()
 {
     while(!tx.empty())
     {
-        char val = tx.popByte();
+        FlyPacket* val = tx.popPacket();
 
-        switch(val)
+        switch(val->getCommand())
         {
             case ICM_EMERGENCY_STOP: // Emergency Stop
             {
                 //loop = false;
                 type = STOP;
-                rx.pushByte(CCM_EMERGENCY_STOP);
+                //rx.pushByte(CCM_EMERGENCY_STOP);
                 break;
+            }
+
+            case ICM_SET_VELOCITY:
+            {
+                qDebug() << "CHANGING VELOCITY";
             }
 
             default: // Error: Unknown Commands
@@ -109,41 +114,36 @@ void DemoDevice::syncTX()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    rx.pushByte(IDM_SEND_VELOCITY);
-    rx.pushFloat(vel);
-    rx.pushByte(CDM_SEND_VELOCITY);
+    FlyPacket* dataPacket;
 
-    rx.pushByte(IDM_SEND_ACCELERATION);
-    rx.pushFloat(acc);
-    rx.pushByte(CDM_SEND_ACCELERATION);
+    dataPacket = new FlyPacket(IDM_SEND_VELOCITY,vel);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_JERK);
-    rx.pushFloat(jer);
-    rx.pushByte(CDM_SEND_JERK);
+    qDebug()<< dataPacket->getCommand();
 
-    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_X);
-    rx.pushFloat(ldx);
-    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_X);
+    dataPacket = new FlyPacket(IDM_SEND_ACCELERATION,acc);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_Y);
-    rx.pushFloat(ldy);
-    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_Y);
+    dataPacket = new FlyPacket(IDM_SEND_JERK,jer);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_X);
-    rx.pushFloat(udx);
-    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_X);
+    dataPacket = new FlyPacket(IDM_SEND_LOWER_DISPLACEMENT_X,ldx);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_Y);
-    rx.pushFloat(udy);
-    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_Y);
+    dataPacket = new FlyPacket(IDM_SEND_LOWER_DISPLACEMENT_Y,ldy);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_X);
-    rx.pushFloat(rpx);
-    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_X);
+    dataPacket = new FlyPacket(IDM_SEND_UPPER_DISPLACEMENT_X,udx);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_Y);
-    rx.pushFloat(rpy);
-    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_Y);
+    dataPacket = new FlyPacket(IDM_SEND_UPPER_DISPLACEMENT_Y,udy);
+    rx.pushPacket(dataPacket);
+
+    dataPacket = new FlyPacket(IDM_SEND_ROTATIONAL_POSITION_X,rpx);
+    rx.pushPacket(dataPacket);
+
+    dataPacket = new FlyPacket(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
+    rx.pushPacket(dataPacket);
 }
 
 //--------------------------------------------------------------------
@@ -174,31 +174,20 @@ void DemoDevice::setDefaults()
     key = 0;
 }
 
-flybyte DemoDevice::popCommand()
+FlyPacket* DemoDevice::popPacket()
 {
-    return rx.popByte();
+    return rx.popPacket();
 }
 
-void DemoDevice::pushInt(int val)
+void DemoDevice::pushPacket(FlyPacket* dataPacket)
 {
-    tx.pushInt(val);
+    tx.pushPacket(dataPacket);
 }
 
-void DemoDevice::pushFloat(float val)
+void DemoDevice::pushPacketImmediate(FlyPacket* dataPacket)
 {
-    tx.pushFloat(val);
+    tx.pushPacketFront(dataPacket);
 }
-
-void DemoDevice::pushCommand(flybyte byte)
-{
-    tx.pushByte(byte);
-}
-
-void DemoDevice::pushCommandImmediate(flybyte byte)
-{
-    tx.pushByteFront(byte);
-}
-
 
 void DemoDevice::flush()
 {

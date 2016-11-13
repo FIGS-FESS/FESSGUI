@@ -1,54 +1,26 @@
-//Custom Libraries
-#include "conversions.h"
 #include "transmitbuffer.h"
+#include <QtGui>
 
 TransmitBuffer::TransmitBuffer(){}
 TransmitBuffer::~TransmitBuffer(){}
 
-flybyte TransmitBuffer::popByte()
+FlyPacket* TransmitBuffer::popPacket()
 {
-    flybyte val = 0;
-
-    if(!buffer.empty())
-    {
-        val = buffer.front();
-        buffer.pop_front();
-    }
-    return val;
+    FlyPacket* packet = buffer.front();
+    buffer.pop_front();
+    return packet;
 }
 
-void TransmitBuffer::pushByte(flybyte byt)
+void TransmitBuffer::pushPacketFront(FlyPacket *packet)
 {
-     buffer.push_back(byt);
+     buffer.push_front(packet);
 }
 
-void TransmitBuffer::pushByteFront(flybyte byt)
+void TransmitBuffer::pushPacket(FlyPacket *packet)
 {
-     buffer.push_front(byt);
-}
+    //qDebug() << packet->getFloat();
 
-void TransmitBuffer::pushInt(int val)
-{
-    flybyte bytes[4];
-
-    intToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
-}
-
-void TransmitBuffer::pushFloat(float val)
-{
-    flybyte bytes[4];
-
-    floatToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
+    buffer.push_back(packet);
 }
 
 bool TransmitBuffer::empty()

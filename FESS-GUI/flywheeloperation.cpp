@@ -1,6 +1,4 @@
 // Custom Libraries
-#include "commands.h"
-#include "datatypes.h"
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
@@ -205,28 +203,22 @@ void FlywheelOperation::syncTX()
 {
     while(velocityValueBufferTX.size() > 0)
     {
-        communicationDevice->pushCommand(ICM_SET_VELOCITY);
-        communicationDevice->pushFloat(velocityValueBufferTX.front());
-        communicationDevice->pushCommand(CCM_SET_VELOCITY);
-
+        FlyPacket* dataPacket = new FlyPacket(ICM_SET_VELOCITY,velocityValueBufferTX.front());
+        communicationDevice->pushPacket(dataPacket);
         velocityValueBufferTX.pop();
     }
 
     while(accelerationValueBufferTX.size() > 0)
     {
-        communicationDevice->pushCommand(ICM_SET_ACCELERATION);
-        communicationDevice->pushFloat(accelerationValueBufferTX.front());
-        communicationDevice->pushCommand(CCM_SET_ACCELERATION);
-
+        FlyPacket* dataPacket = new FlyPacket(ICM_SET_ACCELERATION,accelerationValueBufferTX.front());
+        communicationDevice->pushPacket(dataPacket);
         accelerationValueBufferTX.pop();
     }
 
     while(jerkValueBufferTX.size() > 0)
     {
-        communicationDevice->pushCommand(ICM_SET_JERK);
-        communicationDevice->pushFloat(jerkValueBufferTX.front());
-        communicationDevice->pushCommand(CCM_SET_JERK);
-
+        FlyPacket* dataPacket = new FlyPacket(ICM_SET_JERK,jerkValueBufferTX.front());
+        communicationDevice->pushPacket(dataPacket);
         jerkValueBufferTX.pop();
     }
 }
@@ -235,79 +227,77 @@ void FlywheelOperation::syncRX()
 {
     while(!communicationDevice->empty())
     {
-        flybyte rxData = communicationDevice->popCommand();
-        flypacket rxPacket = buildFlyPacket(rxData);
+        FlyPacket* rxPacket = communicationDevice->popPacket();
 
-        if (rxPacket.packetType == DATA_PACKET)
+        switch(rxPacket->getCommand())
         {
-            switch(rxPacket.dataType)
+            case IDM_SEND_VELOCITY:
             {
-                case VELOCITY:
-                {
-                    if (velocityValueBufferRX.size() > velocityValueBufferRXLimit) velocityValueBufferRX.pop();
-                    velocityValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case ACCELERATION:
-                {
-                    if (accelerationValueBufferRX.size() > accelerationValueBufferRXLimit) accelerationValueBufferRX.pop();
-                    accelerationValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case JERK:
-                {
-                    if (jerkValueBufferRX.size() > jerkValueBufferRXLimit) jerkValueBufferRX.pop();
-                    jerkValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case LOWER_DISPLACMENT_X:
-                {
-                    if (lowerDisplacementXValueBufferRX.size() > lowerDisplacementXValueBufferRXLimit) lowerDisplacementXValueBufferRX.pop();
-                    lowerDisplacementXValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case LOWER_DISPLACMENT_Y:
-                {
-                    if (lowerDisplacementYValueBufferRX.size() > lowerDisplacementYValueBufferRXLimit) lowerDisplacementYValueBufferRX.pop();
-                    lowerDisplacementYValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case UPPER_DISPLACMENT_X:
-                {
-                    if (upperDisplacementXValueBufferRX.size() > upperDisplacementXValueBufferRXLimit) upperDisplacementXValueBufferRX.pop();
-                    upperDisplacementXValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case UPPER_DISPLACMENT_Y:
-                {
-                    if (upperDisplacementYValueBufferRX.size() > upperDisplacementYValueBufferRXLimit) upperDisplacementYValueBufferRX.pop();
-                    upperDisplacementYValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case ROTATIONAL_POSITION_X:
-                {
-                    if (rotationalPositionXValueBufferRX.size() > rotationalPositionXValueBufferRXLimit) rotationalPositionXValueBufferRX.pop();
-                    rotationalPositionXValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                case ROTATIONAL_POSITION_Y:
-                {
-                    if (rotationalPositionYValueBufferRX.size() > rotationalPositionYValueBufferRXLimit) rotationalPositionYValueBufferRX.pop();
-                    rotationalPositionYValueBufferRX.push(rxPacket.dataValue);
-                    break;
-                }
-
-                default: break;
+                if (velocityValueBufferRX.size() > velocityValueBufferRXLimit) velocityValueBufferRX.pop();
+                velocityValueBufferRX.push(rxPacket->getFloat());
+                break;
             }
+
+            case IDM_SEND_ACCELERATION:
+            {
+                if (accelerationValueBufferRX.size() > accelerationValueBufferRXLimit) accelerationValueBufferRX.pop();
+                accelerationValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_JERK:
+            {
+                if (jerkValueBufferRX.size() > jerkValueBufferRXLimit) jerkValueBufferRX.pop();
+                jerkValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_LOWER_DISPLACEMENT_X:
+            {
+                if (lowerDisplacementXValueBufferRX.size() > lowerDisplacementXValueBufferRXLimit) lowerDisplacementXValueBufferRX.pop();
+                lowerDisplacementXValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_LOWER_DISPLACEMENT_Y:
+            {
+                if (lowerDisplacementYValueBufferRX.size() > lowerDisplacementYValueBufferRXLimit) lowerDisplacementYValueBufferRX.pop();
+                lowerDisplacementYValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_UPPER_DISPLACEMENT_X:
+            {
+                if (upperDisplacementXValueBufferRX.size() > upperDisplacementXValueBufferRXLimit) upperDisplacementXValueBufferRX.pop();
+                upperDisplacementXValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_UPPER_DISPLACEMENT_Y:
+            {
+                if (upperDisplacementYValueBufferRX.size() > upperDisplacementYValueBufferRXLimit) upperDisplacementYValueBufferRX.pop();
+                upperDisplacementYValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_ROTATIONAL_POSITION_X:
+            {
+                if (rotationalPositionXValueBufferRX.size() > rotationalPositionXValueBufferRXLimit) rotationalPositionXValueBufferRX.pop();
+                rotationalPositionXValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            case IDM_SEND_ROTATIONAL_POSITION_Y:
+            {
+                if (rotationalPositionYValueBufferRX.size() > rotationalPositionYValueBufferRXLimit) rotationalPositionYValueBufferRX.pop();
+                rotationalPositionYValueBufferRX.push(rxPacket->getFloat());
+                break;
+            }
+
+            default: break;
         }
+
+        delete rxPacket;
     }
 }
 
@@ -318,7 +308,7 @@ void FlywheelOperation::sync() // Fix issue where one or more bytes in a data se
         if (emergencyStopActivated == true)
         {
             emergencyRetries = emergencyTimeout;
-            communicationDevice->pushCommandImmediate(ICM_EMERGENCY_STOP);
+            //communicationDevice->pushCommandImmediate(ICM_EMERGENCY_STOP);
         }
         else
         {

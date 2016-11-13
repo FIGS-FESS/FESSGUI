@@ -7,7 +7,6 @@
 #include <QSerialPortInfo>
 
 // Custom Libraries
-#include "datatypes.h"
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
 
@@ -35,14 +34,10 @@ class SerialDevice : public CommonDeviceInterface
 
         bool empty();
         void flush();
-        void pushInt(int);
-        void pushFloat(float);
-        void pushCommand(flybyte);
-        void pushCommandImmediate(flybyte);
+        void pushPacket(FlyPacket*);
+        void pushPacketImmediate(FlyPacket*);
 
-        int popInt();
-        float popFloat();
-        flybyte popCommand();
+        FlyPacket* popPacket();
 
         QString name();
 

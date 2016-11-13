@@ -5,7 +5,7 @@
 #include <QString>
 
 // Custom Libraries
-#include "datatypes.h"
+#include "flypacket.h"
 
 class CommonDeviceInterface
 {
@@ -23,12 +23,10 @@ class CommonDeviceInterface
 
         virtual bool empty() = 0;
         virtual void flush() = 0;
-        virtual void pushInt(int) = 0;
-        virtual void pushFloat(float) = 0;
-        virtual void pushCommand(flybyte) = 0;
-        virtual void pushCommandImmediate(flybyte) = 0;
+        virtual void pushPacket(FlyPacket*) = 0;
+        virtual void pushPacketImmediate(FlyPacket*) = 0;
 
-        virtual flybyte popCommand() = 0;
+        virtual FlyPacket* popPacket() = 0;
 
         virtual QString name() = 0;
 };

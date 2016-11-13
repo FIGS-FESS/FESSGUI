@@ -5,6 +5,7 @@
 #include <string>
 
 // Custom Libraries
+#include "flypacket.h"
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
 
@@ -28,14 +29,10 @@ class DemoDevice : public CommonDeviceInterface
 
         bool empty();
         void flush();
-        void pushInt(int);
-        void pushFloat(float);
-        void pushCommand(flybyte);
-        void pushCommandImmediate(flybyte);
+        void pushPacket(FlyPacket*);
+        void pushPacketImmediate(FlyPacket*);
 
-        int popInt();
-        float popFloat();
-        flybyte popCommand();
+        FlyPacket* popPacket();
 
         QString name();
 

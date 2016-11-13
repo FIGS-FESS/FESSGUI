@@ -32,10 +32,8 @@ HEADERS     +=  mainwindow.h \
                 setpassworddialog.h \
                 flywheeloperation.h \
                 recordingoperation.h \
-                commands.h \
                 transmitbuffer.h \
                 commondeviceinterface.h \
-                datatypes.h \
                 conversions.h \
                 flypacket.h \
                 demodevice.h \
