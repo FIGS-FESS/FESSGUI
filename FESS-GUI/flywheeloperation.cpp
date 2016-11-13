@@ -70,9 +70,9 @@ void FlywheelOperation::setDefaults()
     rotationalPositionXValueBufferRXLimit = 64;
     rotationalPositionYValueBufferRXLimit = 64;
 
-    velocityValueBufferRXLimit = 4;
-    accelerationValueBufferRXLimit = 4;
-    jerkValueBufferRXLimit = 4;
+    velocityValueBufferTXLimit = 4;
+    accelerationValueBufferTXLimit = 4;
+    jerkValueBufferTXLimit = 4;
 
     emergencyRetries = 0;
     emergencyTimeout = 100; //Attempts
