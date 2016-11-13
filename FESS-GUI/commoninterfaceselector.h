@@ -2,9 +2,13 @@
 #define COMMONINTERFACESELECTOR_H
 
 #include <QDialog>
+#include <QErrorMessage>
 #include <QSerialPortInfo>
 
+#include "demodevice.h"
+#include "serialdevice.h"
 #include "commoninterfacemanager.h"
+#include "ui_commoninterfaceselector.h"
 
 namespace Ui { class CommonInterfaceSelector;}
 
@@ -23,12 +27,17 @@ private slots:
     void serialButtonSetClicked();
     void serialButtonCancelClicked();
 
+    void setSerialPortsComboBoxIndex(int);
+    void setSerialPortsComboBoxText(const QString &text);
+
 private:
     Ui::CommonInterfaceSelector *ui;
 
-    bool serialPortTextModified;
-
+    int serialPortIndex;
     CommonInterfaceManager* interfaceManager;
+
+    QString serialPortTextValue;
+    QErrorMessage* errorHandler;
     QList<QSerialPortInfo> serialPortList;
 
     void closeWindow();

@@ -1,8 +1,6 @@
 #ifndef COMMONINTERFACEMANAGER_H
 #define COMMONINTERFACEMANAGER_H
 
-#include "demodevice.h"
-#include "serialdevice.h"
 #include "commondeviceinterface.h"
 
 class CommonInterfaceManager
@@ -10,16 +8,12 @@ class CommonInterfaceManager
     public:
 
         CommonInterfaceManager();
-
-        SerialDevice* getNewSerialDevice();
-        SerialDevice* getNewSerialDevice(QString);
-
-        DemoDevice* getNewDemoDevice();
         CommonDeviceInterface* getCurrentInterface();
 
-        void closeCurrentInterface();
+        void setCurrentInterface(CommonDeviceInterface*);
 
         bool isADeviceSet();
+        void closeCurrentInterface();
 
    private:
 

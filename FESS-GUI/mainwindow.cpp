@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "windowsnames.h"
-#include "errormessages.h"
-
 #include "conversions.h"
 #include "setpassworddialog.h"
 #include "flywheeloperation.h"
@@ -29,12 +26,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     qsrand(time(NULL));
 
-    this->setWindowTitle(MAINWINDOW_TITLE);
-
     interfaceManager = new CommonInterfaceManager();
     flywheelOperation = new FlywheelOperation();
 
     errorHandler = new QErrorMessage(this);
+    errorHandler->setWindowTitle("FlyCAM - Error");
 
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
@@ -220,6 +216,11 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
 
 MainWindow::~MainWindow()  //destructor
 {
+    delete errorHandler;
+    delete graphRefreshTimer;
+    delete flywheelRefreshTimer;
+    delete flywheelOperation;
+    delete interfaceManager;
     delete ui;
 }
 
@@ -601,8 +602,9 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 
 void MainWindow::errorInterfaceNotDefined()
 {
-    ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(),ERROR_INTERFACE_NOT_SET));
-    errorHandler->showMessage(ERROR_INTERFACE_NOT_SET);
+    QString errorMessage = "Invalid Interface: Please select a valid interface.";
+    ui->errorLog->append(QString("%1: %2").arg(QTime::currentTime().toString(), errorMessage));
+    errorHandler->showMessage(errorMessage);
 }
 
 
@@ -666,7 +668,8 @@ void MainWindow::closeFlywheelInterface()
 
 // Dialog Windows
 
-void MainWindow::openInterfaceSettingsWindow(){  //show the password dialog box
+void MainWindow::openInterfaceSettingsWindow()
+{
     CommonInterfaceSelector* deviceSettingsWindow = new CommonInterfaceSelector(interfaceManager, this);
     connect(deviceSettingsWindow, SIGNAL(finished(int)), this, SLOT(closeInterfaceSettingsWindow()));
     deviceSettingsWindow->show();
@@ -674,22 +677,25 @@ void MainWindow::openInterfaceSettingsWindow(){  //show the password dialog box
 
 void MainWindow::closeInterfaceSettingsWindow()
 {
-    deviceInterface = interfaceManager->getCurrentInterface();
-
-    if (deviceInterface != NULL)
+    if (deviceInterface != interfaceManager->getCurrentInterface())
     {
-        ui->actionDeviceIndicator->setText(QString("Device: %1").arg(deviceInterface->name()));
-        ui->outputLog->append(QString("%1: Interface set to: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+        deviceInterface = interfaceManager->getCurrentInterface();
 
-        deviceInterface->startDevice();
-        ui->outputLog->append(QString("%1: Interface started: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+        if (deviceInterface != NULL)
+        {
+            ui->actionDeviceIndicator->setText(QString("Device: %1").arg(deviceInterface->name()));
+            ui->outputLog->append(QString("%1: Interface set to: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
 
-        flywheelOperation->setInterface(deviceInterface);
-        flywheelRefreshTimer->start();
-    }
-    else
-    {
-        ui->actionDeviceIndicator->setText(QString("Device: None"));
+            deviceInterface->startDevice();
+            ui->outputLog->append(QString("%1: Interface started: %2").arg(QTime::currentTime().toString(),deviceInterface->name()));
+
+            flywheelOperation->setInterface(deviceInterface);
+            flywheelRefreshTimer->start();
+        }
+        else
+        {
+            ui->actionDeviceIndicator->setText(QString("Device: None"));
+        }
     }
 }
 
