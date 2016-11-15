@@ -49,9 +49,6 @@ CDM_SEND_ROTATIONAL_POSITION_Y   = 0b11001001
 
 #endif // COMMANDS_H
 
-
-
-
 def binary(num): 
 	return ''.join(bin(ord(c)).replace('0b', '').rjust(8, '0') for c in struct.pack('!f', num))
 
@@ -81,8 +78,6 @@ path = sys.argv[1]
 s = serial.Serial(path)
 
 while(True):
-
-	
 
 	prev_vel = vel
 	prev_acc = acc
@@ -139,7 +134,7 @@ while(True):
 	writeData(s, rpy)
 	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_Y)
 
-	time.sleep(0.02)
+	time.sleep(0.005)
 
 # Citations: 
 #	Function: 	binary()

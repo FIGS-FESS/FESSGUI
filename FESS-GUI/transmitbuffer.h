@@ -13,16 +13,21 @@ class TransmitBuffer
         TransmitBuffer();
         ~TransmitBuffer();
 
-        void pushPacket(FlyPacket*);
-        void pushPacketFront(FlyPacket*);
+        void pushByte(FlyByte);
+        void pushPacket(FlyPacket);
 
-        FlyPacket* popPacket();
+        FlyByte popByte();
+        FlyPacket popPacket();
 
         void flush();
         bool empty();
 
     private:
-        std::deque<FlyPacket*> buffer;
+        FlyByte outputByte;
+        FlyPacket* outputPacket;
+
+        std::deque<FlyByte> inputByteArray;
+        std::deque<FlyPacket*> packetBuffer;
 
 };
 

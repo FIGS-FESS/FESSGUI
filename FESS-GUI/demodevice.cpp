@@ -27,9 +27,9 @@ void DemoDevice::syncRX()
 {
     while(!tx.empty())
     {
-        FlyPacket* val = tx.popPacket();
+        FlyPacket val = tx.popPacket();
 
-        switch(val->getCommand())
+        switch(val.getCommand())
         {
             case ICM_EMERGENCY_STOP: // Emergency Stop
             {
@@ -114,36 +114,54 @@ void DemoDevice::syncTX()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    FlyPacket* dataPacket;
+    FlyPacket dataPacket8;
 
-    dataPacket = new FlyPacket(IDM_SEND_VELOCITY,vel);
-    rx.pushPacket(dataPacket);
+    FlyByte barray[4];
 
-    qDebug()<< dataPacket->getCommand();
+    floatToByteArray(barray,&vel);
 
-    dataPacket = new FlyPacket(IDM_SEND_ACCELERATION,acc);
-    rx.pushPacket(dataPacket);
+    dataPacket8.writeByte(IDM_SEND_VELOCITY);
+    dataPacket8.writeByte(barray[0]);
+    dataPacket8.writeByte(barray[1]);
+    dataPacket8.writeByte(barray[2]);
+    dataPacket8.writeByte(barray[3]);
 
-    dataPacket = new FlyPacket(IDM_SEND_JERK,jer);
-    rx.pushPacket(dataPacket);
+    //rx.pushPacket(dataPacket8);
 
-    dataPacket = new FlyPacket(IDM_SEND_LOWER_DISPLACEMENT_X,ldx);
-    rx.pushPacket(dataPacket);
+    rx.pushByte(IDM_SEND_VELOCITY);
+    rx.pushByte(barray[0]);
+    rx.pushByte(barray[1]);
+    rx.pushByte(barray[2]);
+    rx.pushByte(barray[3]);
 
-    dataPacket = new FlyPacket(IDM_SEND_LOWER_DISPLACEMENT_Y,ldy);
-    rx.pushPacket(dataPacket);
+    /*
+    //qDebug()<< dataPacket->getFloat();
 
-    dataPacket = new FlyPacket(IDM_SEND_UPPER_DISPLACEMENT_X,udx);
-    rx.pushPacket(dataPacket);
+    FlyPacket dataPacket0(IDM_SEND_ACCELERATION,acc);
+    rx.pushPacket(dataPacket0);
 
-    dataPacket = new FlyPacket(IDM_SEND_UPPER_DISPLACEMENT_Y,udy);
-    rx.pushPacket(dataPacket);
+    FlyPacket dataPacket1(IDM_SEND_JERK,jer);
+    rx.pushPacket(dataPacket1);
 
-    dataPacket = new FlyPacket(IDM_SEND_ROTATIONAL_POSITION_X,rpx);
-    rx.pushPacket(dataPacket);
+    FlyPacket dataPacket2(IDM_SEND_LOWER_DISPLACEMENT_X,ldx);
+    rx.pushPacket(dataPacket2);
 
-    dataPacket = new FlyPacket(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
-    rx.pushPacket(dataPacket);
+    FlyPacket dataPacket3(IDM_SEND_LOWER_DISPLACEMENT_Y,ldy);
+    rx.pushPacket(dataPacket3);
+
+    FlyPacket dataPacket4(IDM_SEND_UPPER_DISPLACEMENT_X,udx);
+    rx.pushPacket(dataPacket4);
+
+    FlyPacket dataPacket5(IDM_SEND_UPPER_DISPLACEMENT_Y,udy);
+    rx.pushPacket(dataPacket5);
+
+    FlyPacket dataPacket6(IDM_SEND_ROTATIONAL_POSITION_X,rpx);
+    rx.pushPacket(dataPacket6);
+
+    FlyPacket dataPacket7(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
+    rx.pushPacket(dataPacket7);
+
+    */
 }
 
 //--------------------------------------------------------------------
@@ -174,19 +192,24 @@ void DemoDevice::setDefaults()
     key = 0;
 }
 
-FlyPacket* DemoDevice::popPacket()
+FlyByte DemoDevice::popByte()
+{
+    return rx.popByte();
+}
+
+FlyPacket DemoDevice::popPacket()
 {
     return rx.popPacket();
 }
 
-void DemoDevice::pushPacket(FlyPacket* dataPacket)
+void DemoDevice::pushByte(FlyByte dataByte)
 {
-    tx.pushPacket(dataPacket);
+    tx.pushByte(dataByte);
 }
 
-void DemoDevice::pushPacketImmediate(FlyPacket* dataPacket)
+void DemoDevice::pushPacket(FlyPacket dataPacket)
 {
-    tx.pushPacketFront(dataPacket);
+    tx.pushPacket(dataPacket);
 }
 
 void DemoDevice::flush()

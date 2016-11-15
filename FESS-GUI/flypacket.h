@@ -63,73 +63,45 @@
 
 #define PACKET_SIZE             PACKET_END + FOOTER_SIZE
 
-// Command Type Return
-
-#define NULL_TYPE               0
-#define VELOCITY                1
-#define ACCELERATION            2
-#define JERK                    3
-#define LOWER_DISPLACMENT_X     4
-#define LOWER_DISPLACMENT_Y     5
-#define UPPER_DISPLACMENT_X     6
-#define UPPER_DISPLACMENT_Y     7
-#define ROTATIONAL_POSITION_X   8
-#define ROTATIONAL_POSITION_Y   9
-
-
 // Error Types
+//------------------------------------------------
 #define NO_ERROR                0
 
 #include "conversions.h"
-
-struct flypacket
-{
-   flybyte packetType;
-   flybyte dataType;
-   float   dataValue;
-};
-
-typedef struct flypacket flypacket;
-
-
-flypacket buildFlyPacket(flybyte);
-
 
 class FlyPacket
 {
   public:
     FlyPacket();
-    FlyPacket(flybyte, int);
-    FlyPacket(flybyte, float);
+    FlyPacket(FlyByte, int);
+    FlyPacket(FlyByte, float);
 
     ~FlyPacket();
 
     // TX Commands
     bool setValue(int);
     bool setValue(float);
-    bool setCommand(flybyte);
-    flybyte readByte();
-    bool readingComplete();
+    bool setCommand(FlyByte);
+    FlyByte readByte();
+    bool isReadable();
 
     // RX Commands
     int getInt();
     float getFloat();
-    flybyte getCommand();
-    bool writeByte(flybyte);
-    bool writingComplete();
+    FlyByte getCommand();
+    void writeByte(FlyByte);
+    bool isWriteable();
 
     // Universal
-    void resetIndex();
-    bool errorOccurred();
-    int getErrorCode();
+    void reset();
+    bool isValid();
 
    private:
-    flybyte errorCode;
-    flybyte byteArrayPosition;
-    flybyte byteArray[PACKET_SIZE];
+    bool readComplete;
+    bool writeComplete;
 
-    bool checkPacket();
-
+    FlyByte byteArrayPosition;
+    FlyByte byteArray[PACKET_SIZE];
 };
 
 

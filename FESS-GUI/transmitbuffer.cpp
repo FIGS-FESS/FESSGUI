@@ -1,36 +1,99 @@
+//Custom Libraries
 #include "transmitbuffer.h"
-#include <QtGui>
 
-TransmitBuffer::TransmitBuffer(){}
-TransmitBuffer::~TransmitBuffer(){}
-
-FlyPacket* TransmitBuffer::popPacket()
+TransmitBuffer::TransmitBuffer()
 {
-    FlyPacket* packet = buffer.front();
-    buffer.pop_front();
-    return packet;
+    outputByte = 0;
+    outputPacket = nullptr;
 }
 
-void TransmitBuffer::pushPacketFront(FlyPacket *packet)
+TransmitBuffer::~TransmitBuffer()
 {
-     buffer.push_front(packet);
+
 }
 
-void TransmitBuffer::pushPacket(FlyPacket *packet)
+FlyByte TransmitBuffer::popByte()
 {
-    //qDebug() << packet->getFloat();
+    if(outputPacket == nullptr)
+    {
+        outputPacket = packetBuffer.front();
+        packetBuffer.pop_front();
+    }
+    else
+    {
+        if (outputPacket->isReadable() == false)
+        {
+            outputByte = outputPacket->readByte();
+        }
+        else
+        {
+            delete outputPacket;
+            outputPacket = packetBuffer.front();
+            packetBuffer.pop_front();
+        }
+    }
 
-    buffer.push_back(packet);
+    return outputByte;
+}
+
+void TransmitBuffer::pushByte(FlyByte incomingByte)
+{
+    inputByteArray.push_back(incomingByte);
+
+    if(inputByteArray.size() == PACKET_END)
+    {
+        FlyPacket* inputPacket = new FlyPacket;
+
+        for (int i = 0; i < PACKET_END; i++)
+        {
+            inputPacket->writeByte(inputByteArray[i]);
+        }
+
+        if (inputPacket->isValid() == true)
+        {
+            if(packetBuffer.size() > 32)
+            {
+                packetBuffer.pop_front();
+            }
+            packetBuffer.push_back(inputPacket);
+            inputByteArray.clear();
+        }
+        else
+        {
+            inputByteArray.pop_front();
+        }
+    }
+}
+
+void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
+{
+    if(packetBuffer.size() > 32)
+    {
+        packetBuffer.pop_front();
+    }
+
+    packetBuffer.push_back(&incomingPacket);
+}
+
+FlyPacket TransmitBuffer::popPacket()
+{
+    if(outputPacket != nullptr)
+    {
+        delete outputPacket;
+    }
+
+    outputPacket = packetBuffer.front();
+    packetBuffer.pop_front();
+
+    return *outputPacket;
 }
 
 bool TransmitBuffer::empty()
 {
-    return buffer.empty();
+    return packetBuffer.empty();
 }
 
 void TransmitBuffer::flush()
 {
-    buffer.clear();
+    packetBuffer.clear();
 }
-
-

@@ -23,10 +23,11 @@ class CommonDeviceInterface
 
         virtual bool empty() = 0;
         virtual void flush() = 0;
-        virtual void pushPacket(FlyPacket*) = 0;
-        virtual void pushPacketImmediate(FlyPacket*) = 0;
+        virtual void pushByte(FlyByte) = 0;
+        virtual void pushPacket(FlyPacket) = 0;
 
-        virtual FlyPacket* popPacket() = 0;
+        virtual FlyByte popByte() = 0;
+        virtual FlyPacket popPacket() = 0;
 
         virtual QString name() = 0;
 };

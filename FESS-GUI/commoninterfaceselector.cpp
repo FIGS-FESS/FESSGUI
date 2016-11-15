@@ -77,7 +77,7 @@ void CommonInterfaceSelector::demoButtonCancelClicked()
 
 void CommonInterfaceSelector::serialButtonSetClicked()
 {
-    SerialDevice* deviceInterface = NULL;
+    SerialDevice* deviceInterface = nullptr;
 
     int serialBaudRate = ui->serialBaudLine->text().toInt();
     int serialDataIndex = ui->serialDataCombo->currentIndex();

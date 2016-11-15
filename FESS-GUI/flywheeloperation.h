@@ -52,39 +52,16 @@ private:
 
     CommonDeviceInterface* communicationDevice;
 
-    std::queue<float> velocityValueBufferRX;
-    std::queue<float> accelerationValueBufferRX;
-    std::queue<float> jerkValueBufferRX;
-    std::queue<float> upperDisplacementXValueBufferRX;
-    std::queue<float> upperDisplacementYValueBufferRX;
-    std::queue<float> lowerDisplacementXValueBufferRX;
-    std::queue<float> lowerDisplacementYValueBufferRX;
-    std::queue<float> rotationalPositionXValueBufferRX;
-    std::queue<float> rotationalPositionYValueBufferRX;
+    float velocityValue;
+    float accelerationValue;
+    float jerkValue;
 
-    std::queue<float> velocityValueBufferTX;
-    std::queue<float> accelerationValueBufferTX;
-    std::queue<float> jerkValueBufferTX;
-
-    // Queue Sizes
-
-    unsigned int velocityValueBufferRXLimit;
-    unsigned int accelerationValueBufferRXLimit;
-    unsigned int jerkValueBufferRXLimit;
-    unsigned int lowerDisplacementXValueBufferRXLimit;
-    unsigned int lowerDisplacementYValueBufferRXLimit;
-    unsigned int upperDisplacementXValueBufferRXLimit;
-    unsigned int upperDisplacementYValueBufferRXLimit;
-    unsigned int rotationalPositionXValueBufferRXLimit;
-    unsigned int rotationalPositionYValueBufferRXLimit;
-
-    unsigned int velocityValueBufferTXLimit;
-    unsigned int accelerationValueBufferTXLimit;
-    unsigned int jerkValueBufferTXLimit;
-
-    float velocityCurrentValue;
-    float accelerationCurrentValue;
-    float jerkCurrentValue;
+    float lowerDisplacementXValue;
+    float lowerDisplacementYValue;
+    float upperDisplacementXValue;
+    float upperDisplacementYValue;
+    float rotationalPositionXValue;
+    float rotationalPositionYValue;
 
     void syncRX();
     void syncTX();

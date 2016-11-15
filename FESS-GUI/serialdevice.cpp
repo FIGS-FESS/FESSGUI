@@ -176,16 +176,9 @@ void SerialDevice::setStopBits(int bits)
 
 void SerialDevice::sendTX()
 {
-    while(tx.empty() == false)
+    while(!tx.empty())
     {
-        FlyPacket *dataPacket = tx.popPacket();
-
-        while(dataPacket->readingComplete() == false)
-        {
-            device->putChar(dataPacket->readByte());
-        }
-
-        delete dataPacket;
+        device->putChar(tx.popByte());
     }
 
     device->waitForBytesWritten(0);
@@ -197,19 +190,9 @@ void SerialDevice::readRX()
 
     QByteArray in = device->readAll();
 
-    FlyPacket* dataPacket = new FlyPacket();
-
     for (int i = 0; i < in.size(); i++)
     {
-        if(dataPacket->readingComplete() == false)
-        {
-            dataPacket->writeByte(in[i]);
-        }
-        else
-        {
-            rx.pushPacket(dataPacket);
-            dataPacket = new FlyPacket();
-        }
+        rx.pushByte(in[i]);
     }
 }
 
@@ -255,21 +238,24 @@ void SerialDevice::setDefaults()
     setStopBits(1);
 }
 
+FlyByte SerialDevice::popByte()
+{
+    return rx.popByte();
+}
 
-FlyPacket* SerialDevice::popPacket()
+FlyPacket SerialDevice::popPacket()
 {
     return rx.popPacket();
 }
 
-void SerialDevice::pushPacket(FlyPacket *dataPacket)
+void SerialDevice::pushByte(FlyByte dataByte)
 {
-    tx.pushPacket(dataPacket);
+    tx.pushByte(dataByte);
 }
 
-void SerialDevice::pushPacketImmediate(FlyPacket *dataPacket)
+void SerialDevice::pushPacket(FlyPacket dataPacket)
 {
-    tx.pushPacketFront(dataPacket);
-    sendTX();
+    tx.pushPacket(dataPacket);
 }
 
 void SerialDevice::flush()

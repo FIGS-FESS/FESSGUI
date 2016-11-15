@@ -34,10 +34,11 @@ class SerialDevice : public CommonDeviceInterface
 
         bool empty();
         void flush();
-        void pushPacket(FlyPacket*);
-        void pushPacketImmediate(FlyPacket*);
+        void pushByte(FlyByte);
+        void pushPacket(FlyPacket);
 
-        FlyPacket* popPacket();
+        FlyByte popByte();
+        FlyPacket popPacket();
 
         QString name();
 
