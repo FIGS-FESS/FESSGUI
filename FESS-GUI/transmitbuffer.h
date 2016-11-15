@@ -5,6 +5,7 @@
 #include <deque>
 
 // Custom Libraries
+#include "flyqueue.h"
 #include "flypacket.h"
 
 class TransmitBuffer
@@ -27,7 +28,7 @@ class TransmitBuffer
         FlyPacket* outputPacket;
 
         std::deque<FlyByte> inputByteArray;
-        std::deque<FlyPacket*> packetBuffer;
+        FlyQueue packetBuffer;
 
 };
 

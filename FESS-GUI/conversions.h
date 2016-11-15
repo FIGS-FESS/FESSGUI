@@ -3,6 +3,9 @@
 
 #define TAU	6.283185307179586476925286766559005768394
 
+#include "cstring"
+
+
 typedef unsigned char FlyByte;
 
 
@@ -13,7 +16,7 @@ void byteArrayToInt(FlyByte*, int*);
 void intToByteArray(FlyByte*, int*);
 
 
-void zeroArray(void*);
+void zeroArray(void* , size_t);
 void sliceArray(void*, void*, int, int);
 
 

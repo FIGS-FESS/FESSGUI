@@ -218,8 +218,8 @@ bool SerialDevice::isReady()
 
 bool SerialDevice::startDevice()
 {
-    statusReady = true;
-    return device->open(QIODevice::ReadWrite);
+    statusReady = device->open(QIODevice::ReadWrite);
+    return statusReady;
 }
 
 void SerialDevice::stopDevice()

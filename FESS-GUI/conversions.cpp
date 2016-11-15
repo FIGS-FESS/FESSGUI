@@ -1,4 +1,3 @@
-#include "cstring"
 #include "conversions.h"
 
 void byteArrayToFloat(FlyByte* buffer, float* val)
@@ -24,14 +23,14 @@ void intToByteArray(FlyByte* buffer, int* val)
 
 
 
-void zeroArray(void* target)
+void zeroArray(void* target, size_t size)
 {
-    memset(target, 0, sizeof(target));
+    memset(target, 0, size);
 }
 
 void sliceArray(void* target, void* source, int begin, int end)
 {
-    memcpy(target,source+begin, end-begin+1);
+    memcpy(target, source+begin, end-begin+1);
 }
 
 

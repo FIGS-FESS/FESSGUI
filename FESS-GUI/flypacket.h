@@ -78,30 +78,35 @@ class FlyPacket
 
     ~FlyPacket();
 
-    // TX Commands
-    bool setValue(int);
-    bool setValue(float);
-    bool setCommand(FlyByte);
-    FlyByte readByte();
-    bool isReadable();
+    // Setters
+    void setValue(int);
+    void setValue(float);
+    void setCommand(FlyByte);
+    void writeByte(FlyByte);
 
-    // RX Commands
+    // Getters
     int getInt();
     float getFloat();
+    FlyByte readByte();
     FlyByte getCommand();
-    void writeByte(FlyByte);
-    bool isWriteable();
 
     // Universal
     void reset();
-    bool isValid();
+    bool isWriteable();
+    bool isReadable();
+
+    bool isValidPacket();
+    bool isValidCommand();
 
    private:
+    bool invalidCommand;
     bool readComplete;
     bool writeComplete;
 
     FlyByte byteArrayPosition;
     FlyByte byteArray[PACKET_SIZE];
+
+    void checkCommand();
 };
 
 

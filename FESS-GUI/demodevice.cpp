@@ -114,17 +114,9 @@ void DemoDevice::syncTX()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    FlyPacket dataPacket8;
-
     FlyByte barray[4];
 
     floatToByteArray(barray,&vel);
-
-    dataPacket8.writeByte(IDM_SEND_VELOCITY);
-    dataPacket8.writeByte(barray[0]);
-    dataPacket8.writeByte(barray[1]);
-    dataPacket8.writeByte(barray[2]);
-    dataPacket8.writeByte(barray[3]);
 
     //rx.pushPacket(dataPacket8);
 
@@ -133,6 +125,7 @@ void DemoDevice::syncTX()
     rx.pushByte(barray[1]);
     rx.pushByte(barray[2]);
     rx.pushByte(barray[3]);
+    rx.pushByte(CDM_SEND_VELOCITY);
 
     /*
     //qDebug()<< dataPacket->getFloat();

@@ -22,42 +22,36 @@ FlyPacket::FlyPacket(FlyByte commandByte, float dataValue)
 
 FlyPacket::~FlyPacket(){};
 
-bool FlyPacket::setCommand(FlyByte commandByte)
+// Setters
+
+void FlyPacket::checkCommand()
 {
-    bool commandError;
-    byteArray[PACKET_BEGINNING] = commandByte;
-
-    switch(commandByte)
+    switch(byteArray[PACKET_BEGINNING])
     {
-        case ICM_EMERGENCY_STOP:                commandError = false; break;
-        case ICM_SET_VELOCITY:                  commandError = false; break;
-        case ICM_SET_ACCELERATION:              commandError = false; break;
-        case ICM_SET_JERK:                      commandError = false; break;
-        case IDM_SEND_VELOCITY:                 commandError = false; break;
-        case IDM_SEND_ACCELERATION:             commandError = false; break;
-        case IDM_SEND_JERK:                     commandError = false; break;
-        case IDM_SEND_LOWER_DISPLACEMENT_X:     commandError = false; break;
-        case IDM_SEND_LOWER_DISPLACEMENT_Y:     commandError = false; break;
-        case IDM_SEND_UPPER_DISPLACEMENT_X:     commandError = false; break;
-        case IDM_SEND_UPPER_DISPLACEMENT_Y:     commandError = false; break;
-        case IDM_SEND_ROTATIONAL_POSITION_X:    commandError = false; break;
-        case IDM_SEND_ROTATIONAL_POSITION_Y:    commandError = false; break;
-        default:                                commandError = true;  break;
+        case ICM_EMERGENCY_STOP:                invalidCommand = false; break;
+        case ICM_SET_VELOCITY:                  invalidCommand = false; break;
+        case ICM_SET_ACCELERATION:              invalidCommand = false; break;
+        case ICM_SET_JERK:                      invalidCommand = false; break;
+        case IDM_SEND_VELOCITY:                 invalidCommand = false; break;
+        case IDM_SEND_ACCELERATION:             invalidCommand = false; break;
+        case IDM_SEND_JERK:                     invalidCommand = false; break;
+        case IDM_SEND_LOWER_DISPLACEMENT_X:     invalidCommand = false; break;
+        case IDM_SEND_LOWER_DISPLACEMENT_Y:     invalidCommand = false; break;
+        case IDM_SEND_UPPER_DISPLACEMENT_X:     invalidCommand = false; break;
+        case IDM_SEND_UPPER_DISPLACEMENT_Y:     invalidCommand = false; break;
+        case IDM_SEND_ROTATIONAL_POSITION_X:    invalidCommand = false; break;
+        case IDM_SEND_ROTATIONAL_POSITION_Y:    invalidCommand = false; break;
+        default:                                invalidCommand = true; break;
     }
-
-    if (commandError == false)
-    {
-        byteArray[PACKET_END] = commandByte | IDM_CMD_DIFFERENCE;
-        return true;
-    }
-    else
-    {
-       return false;
-    }
-
 }
 
-bool FlyPacket::setValue(int dataValue)
+void FlyPacket::setCommand(FlyByte commandByte)
+{
+    byteArray[PACKET_BEGINNING] = commandByte;
+    checkCommand();
+}
+
+void FlyPacket::setValue(int dataValue)
 {
     if (sizeof(dataValue) <= MAX_PAYLOAD)
     {
@@ -68,17 +62,10 @@ bool FlyPacket::setValue(int dataValue)
         {
             byteArray[HEADER_SIZE+i] = localbyteArray[i];
         }
-
-        return true;
-    }
-
-    else
-    {
-        return false;
     }
 }
 
-bool FlyPacket::setValue(float dataValue)
+void FlyPacket::setValue(float dataValue)
 {
     if (sizeof(dataValue) <= MAX_PAYLOAD)
     {
@@ -89,36 +76,32 @@ bool FlyPacket::setValue(float dataValue)
         {
             byteArray[HEADER_SIZE+i] = localbyteArray[i];
         }
-
-        return true;
-    }
-
-    else
-    {
-        return false;
     }
 }
 
-FlyByte FlyPacket::readByte()
+void FlyPacket::writeByte(FlyByte generalByte)
 {
-    if (byteArrayPosition < PACKET_END)
+    if (writeComplete == false)
     {
+        byteArray[byteArrayPosition] = generalByte;
+
+        if (byteArrayPosition == PACKET_BEGINNING)
+        {
+            checkCommand();
+        }
+
         byteArrayPosition++;
-    }
-    else
-    {
-        readComplete = true;
+
+        if (byteArrayPosition > PACKET_END)
+        {
+            writeComplete = true;
+        }
     }
 
-    return byteArray[byteArrayPosition];
 }
 
-bool FlyPacket::isReadable()
-{
-    return readComplete;
-}
 
-// RX Command
+// Getters
 
 int FlyPacket::getInt()
 {
@@ -147,33 +130,19 @@ FlyByte FlyPacket::getCommand()
     return byteArray[0];
 }
 
-void FlyPacket::writeByte(FlyByte generalByte)
+FlyByte FlyPacket::readByte()
 {
-    if(byteArrayPosition == PACKET_BEGINNING)
+    if (byteArrayPosition < PACKET_END)
     {
-        setCommand(generalByte);
         byteArrayPosition++;
     }
     else
     {
-        if (writeComplete == false)
-        {
-            byteArray[byteArrayPosition] = generalByte;
-            byteArrayPosition++;
-
-            if (byteArrayPosition > PACKET_END)
-            {
-                writeComplete = true;
-            }
-        }
+        readComplete = true;
     }
-}
 
-bool FlyPacket::isWriteable()
-{
-    return writeComplete;
+    return byteArray[byteArrayPosition];
 }
-
 
 // Universal Commands
 
@@ -181,19 +150,36 @@ void FlyPacket::reset()
 {
     readComplete = false;
     writeComplete = false;
+    invalidCommand = false;
     byteArrayPosition = PACKET_BEGINNING;
 
-    zeroArray(byteArray);
+    zeroArray(byteArray,sizeof(byteArray));
 }
 
-bool FlyPacket::isValid()
+bool FlyPacket::isReadable()
 {
-    if (byteArray[PACKET_END] == (byteArray[PACKET_BEGINNING] | IDM_CMD_DIFFERENCE))
+    return readComplete;
+}
+
+bool FlyPacket::isWriteable()
+{
+    return writeComplete;
+}
+
+bool FlyPacket::isValidPacket()
+{
+    if (invalidCommand == false)
     {
-        return true;
+        if (byteArray[PACKET_END] == (byteArray[PACKET_BEGINNING] | IDM_CMD_DIFFERENCE))
+        {
+            return true;
+        }
     }
-    else
-    {
-        return false;
-    }
+
+    return false;
+}
+
+bool FlyPacket::isValidCommand()
+{
+    return !invalidCommand;
 }
