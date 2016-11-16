@@ -7,7 +7,7 @@
 #include <QPointF>
 
 /*!
- * The base class for all graphs.
+ * \brief The Graph class, base class for all graphs.
  * Each graph contains a main plot (the large graph that is seen when a graph is selected)
  * and a auxiliary plot (the smaller graph that is always visible on the right side).
  */
@@ -25,7 +25,7 @@ public:
 
 /*!
  * \brief The ScrollingTimeGraph class, which inherits from the Graph class.
- * This represents a graph with time as the x axis, that "scrolls" with time.
+ * This represents a graph with time as the x axis, that "scrolls" with time, showing a sliding window of values.
  * The y axis represents whatever value this graph displays.
  */
 class ScrollingTimeGraph : public Graph {
