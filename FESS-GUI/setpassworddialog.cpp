@@ -9,6 +9,11 @@
 #include "setpassworddialog.h"
 #include "ui_setpassworddialog.h"
 
+
+/*!
+ * \brief SetPasswordDialog::SetPasswordDialog Constructs the object.
+ * \param parent The parent widget (should be the mainWindow).
+ */
 SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SetPasswordDialog)
@@ -16,11 +21,20 @@ SetPasswordDialog::SetPasswordDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+/*!
+ * \brief SetPasswordDialog::~SetPasswordDialog Destructs the object.
+ */
 SetPasswordDialog::~SetPasswordDialog()
 {
     delete ui;
 }
 
+/*!
+ * \brief SetPasswordDialog::on_buttonBox_accepted Handles submission of the dialog.
+ * Checks if the old password field matches the previously set password.
+ * Checks that the new password matches its confirmation.
+ * Salts and hashes the new password, then stores it in the settings.
+ */
 void SetPasswordDialog::on_buttonBox_accepted()
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
@@ -46,17 +60,11 @@ void SetPasswordDialog::on_buttonBox_accepted()
 
 }
 
-bool passwordsMatch(QString old, QString provided){
-    QSettings settings("settings.ini", QSettings::IniFormat);
-    if (!settings.contains("salt")){
-        return false;
-    }
-    QString salt = settings.value("salt", "").toString();
-    QString oldHashed = QString(QCryptographicHash::hash(((old+salt).toUtf8()),QCryptographicHash::Sha512).toHex());
-    QString provHashed = QString(QCryptographicHash::hash(((provided+salt).toUtf8()),QCryptographicHash::Sha512).toHex());
-    return (QString::compare(oldHashed, provHashed) == 0);
-}
-
+/*!
+ * \brief passwordMatches Checks if a provided password matches the set password.
+ * \param prov A provided password that will be checked.
+ * \return True if the provided password matches the set password. False otherwise.
+ */
 bool passwordMatches(QString prov){
     QSettings settings("settings.ini", QSettings::IniFormat);
     if (!settings.contains("salt")){
@@ -71,6 +79,10 @@ bool passwordMatches(QString prov){
     return (QString::compare(oldPassHashed, provHashed) == 0);
 }
 
+/*!
+ * \brief GetRandomString Generates a random string of letters and numbers of size 16 - 32.
+ * \return The generated random string.
+ */
 QString GetRandomString()
 {
    const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
