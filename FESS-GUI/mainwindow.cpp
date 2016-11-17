@@ -15,6 +15,12 @@
 
 #include <vector>
 
+/*!
+ * \brief MainWindow::MainWindow Constructs the MainWindow object.
+ * Initializes all variables it needs to. By convention, we initialize values in the constructor
+ * rather than in the header/declaraton.
+ * \param parent
+ */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -89,6 +95,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(accelerationSlopeTimer, SIGNAL(timeout()), this, SLOT(accelerationSlope()));
 }
 
+/*!
+ * \brief MainWindow::initMembers Initializes simple member variables (called by constructor).
+ */
 void MainWindow::initMembers()
 {
     playSounds = false;
@@ -108,8 +117,9 @@ void MainWindow::initMembers()
     ui->jerkSlider->setTickInterval(ui->jerkSlider->maximum()/sliderTickInterval);
 }
 
-// Signal Setups
-
+/*!
+ * \brief MainWindow::setUpSignals Connects signals to slots (called by constructor).
+ */
 void MainWindow::setUpSignals()
 {
     connect(ui->actionOpenInterfaceSettings, SIGNAL(triggered(bool)), this, SLOT(openInterfaceSettingsWindow()));
@@ -122,6 +132,9 @@ void MainWindow::setUpSignals()
     connect(ui->lineEditPassword, SIGNAL(returnPressed()), ui->pushButton_ApplySettings, SIGNAL(clicked()));
 }
 
+/*!
+ * \brief MainWindow::setUpKeyBindings Sets up keyboard shortcuts (called by constructor).
+ */
 void MainWindow::setUpKeyBindings()
 {
     eStopShortcut = new QAction(this);  //setting up the emergency stop shortcut
@@ -133,6 +146,9 @@ void MainWindow::setUpKeyBindings()
     ui->eStopKey->setKeySequence(eStopShortcut->shortcut()); //E stop shortcut can be user defined
 }
 
+/*!
+ * \brief MainWindow::setTimers Sets up timers. Connects them to the appropriate slots.
+ */
 void MainWindow::setTimers()
 {
     graphRefreshTimer = new QTimer(this);
@@ -147,6 +163,9 @@ void MainWindow::setTimers()
     connect(flywheelRefreshTimer, SIGNAL(timeout()), SLOT(runFlywheelOperations()));
 }
 
+/*!
+ * \brief MainWindow::realtimeDataSlot This runs continuously to update displays, graphs, and recording.
+ */
 void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly called
 {
     //at the refresh rate defined by the timer
@@ -207,14 +226,17 @@ void MainWindow::realtimeDataSlot()  //Important function. This is repeatedly ca
           ui->label_14->setText(QString::number(uptime.elapsed() / 1000)); //uptime is given in milliseconds
     }
 
-    //don't show if your not on the performance view
+    //don't show if you're not on the performance view
     if(ui->stackedWidget->currentIndex() != 1)
     {
         ui->statusBar->clearMessage();
     }
 }
 
-MainWindow::~MainWindow()  //destructor
+/*!
+ * \brief MainWindow::~MainWindow The destructor.
+ */
+MainWindow::~MainWindow()
 {
     delete errorHandler;
     delete graphRefreshTimer;
@@ -224,52 +246,91 @@ MainWindow::~MainWindow()  //destructor
     delete ui;
 }
 
-void MainWindow::on_controlButton_clicked()  //change to control page
+/*!
+ * \brief MainWindow::on_controlButton_clicked Changes the page to the control page.
+ */
+void MainWindow::on_controlButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);  //this is index zero on the stackedwidget
 }
 
-void MainWindow::on_performButton_clicked()  //change to performance monitor page
+/*!
+ * \brief MainWindow::on_performButton_clicked Changes the page to the performance monitor page.
+ */
+void MainWindow::on_performButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 }
 
-void MainWindow::on_configButton_clicked()  //change to configuration page
+/*!
+ * \brief MainWindow::on_configButton_clicked Changes the page to the configuarion page.
+ */
+void MainWindow::on_configButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void MainWindow::on_velocitySlider_valueChanged(int velocity)  //reflect sliders value on spinboxes
+/*!
+ * \brief MainWindow::on_velocitySlider_valueChanged Sets velocity spinbox value to velocit slider values.
+ * This keeps spinboxes and sliders in agreement.
+ * \param velocity The new slider value.
+ */
+void MainWindow::on_velocitySlider_valueChanged(int velocity)
 {
     ui->velocitySpinBox->setValue(velocity);
 }
 
+/*!
+ * \brief MainWindow::on_accelerationSlider_valueChanged Sets acceleration spinbox value to acceleration slider value.
+ * This keeps the spinbox and slider in agreement.
+ * \param acceleration The new slider value.
+ */
 void MainWindow::on_accelerationSlider_valueChanged(int acceleration)
 {
     ui->accelerationSpinBox->setValue(acceleration);
 }
 
+/*!
+ * \brief MainWindow::on_jerkSlider_valueChanged Sets jerk spinbox value to the jerk slider value.
+ * This keeps the spinbox and slider in agreement.
+ * \param jerk The new slider value.
+ */
 void MainWindow::on_jerkSlider_valueChanged(int jerk)
 {
     ui->jerkSpinBox->setValue(jerk);
 }
 
+/*!
+ * \brief MainWindow::on_velocitySpinBox_valueChanged Sets velocity slider value to the velocity spinbox value.
+ * \param velocity The new spinbox value.
+ */
 void MainWindow::on_velocitySpinBox_valueChanged(double velocity)  //reflect spinboxes value on sliders
 {
     ui->velocitySlider->setValue((int)velocity);
 }
 
+/*!
+ * \brief MainWindow::on_accelerationSpinBox_valueChanged Sets acceleration slider value to the acceleration spinbox value.
+ * \param acceleration The new spinbox value.
+ */
 void MainWindow::on_accelerationSpinBox_valueChanged(double acceleration)
 {
     ui->accelerationSlider->setValue((int)acceleration);
 }
 
+/*!
+ * \brief MainWindow::on_jerkSpinBox_valueChanged Sets jerk slider value to the jerk spinbox value.
+ * \param jerk The new spinbox value.
+ */
 void MainWindow::on_jerkSpinBox_valueChanged(double jerk)
 {
     ui->jerkSlider->setValue((int)jerk);
 }
 
-void MainWindow::on_goButton_clicked()  //when you hit the go button
+/*!
+ * \brief MainWindow::on_goButton_clicked Signals flywheel to achieve the set motion.
+ */
+void MainWindow::on_goButton_clicked()
 {
     velocitySlopeTimer->stop();
     accelerationSlopeTimer->stop();
@@ -277,6 +338,7 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
     targetVelocity = RPMtoRadsPerSecond(ui->velocitySpinBox->value());  //get the expected/target values, get velocity in rad/s
     targetAcceleration = ui->accelerationSpinBox->value();
     currentExpectedJerk = ui->jerkSpinBox->value();
+
     velocitySlopeTimer->start(10); //run every 10ms
     accelerationSlopeTimer->start(10);
 
@@ -297,8 +359,11 @@ void MainWindow::on_goButton_clicked()  //when you hit the go button
                             .arg(QTime::currentTime().toString()));
 }
 
-/*this function manages the slope. It is called every 10ms when you click the go button,
-  and stops when you get to your target velocity */
+/*!
+ * \brief MainWindow::velocitySlope Manages the expected velocity value.
+ * This is called every 10 ms after the go button is clicked, until it reaches the target velocity.
+ * It uses the expected acceleration as its slope.
+ */
 void MainWindow::velocitySlope()
 {
     double intervalIncrement = 1000 / velocitySlopeTimer->interval(); //get the correct increment
@@ -323,6 +388,11 @@ void MainWindow::velocitySlope()
     }
 }
 
+/*!
+ * \brief MainWindow::accelerationSlope Manages the expected acceleration.
+ * This is called every 10 ms after the go button is clicked, until the velocity reaches
+ * the target value. It uses the set jerk as its slope.
+ */
 void MainWindow::accelerationSlope()
 {
     double intervalIncrement = 1000 / accelerationSlopeTimer->interval();
@@ -343,16 +413,10 @@ void MainWindow::accelerationSlope()
     }
 }
 
-void MainWindow::on_actionDarth_Vader_triggered() //darth vader option
-{
-    playSounds = true;
-    ui->actionNone->setChecked(false);
-    ui->actionDefault->setChecked(false);
-    goplayer->setMedia(QUrl("qrc:/sounds/sounds/I-am-altering-the-deal.wav"));
-    stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
-}
-
-void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop button
+/*!
+ * \brief MainWindow::on_emergencyStopButton_clicked Signals the flywheel to stop ASAP.
+ */
+void MainWindow::on_emergencyStopButton_clicked()
 {
     stopplayer->stop(); //stop sounds
     goplayer->stop();
@@ -376,7 +440,23 @@ void MainWindow::on_emergencyStopButton_clicked()  //when you hit emergency stop
                             .arg(QTime::currentTime().toString()));
 }
 
-void MainWindow::on_actionNone_triggered() //no sounds
+/*!
+ * \brief MainWindow::on_actionDarth_Vader_triggered Sets sound options to darth vader sound.
+ * Crucial to GUI performance and researcher productivity.
+ */
+void MainWindow::on_actionDarth_Vader_triggered()
+{
+    playSounds = true;
+    ui->actionNone->setChecked(false);
+    ui->actionDefault->setChecked(false);
+    goplayer->setMedia(QUrl("qrc:/sounds/sounds/I-am-altering-the-deal.wav"));
+    stopplayer->setMedia(QUrl("qrc:/sounds/sounds/Darth_Vader_NO!.wav"));
+}
+
+/*!
+ * \brief MainWindow::on_actionNone_triggered Sets sound options to no sound.
+ */
+void MainWindow::on_actionNone_triggered()
 {
     playSounds = false;
     stopplayer->stop();
@@ -385,14 +465,21 @@ void MainWindow::on_actionNone_triggered() //no sounds
     ui->actionDefault->setChecked(false);
 }
 
-void MainWindow::on_actionDefault_triggered() //default sounds
+/*!
+ * \brief MainWindow::on_actionDefault_triggered Sets default sound options.
+ */
+void MainWindow::on_actionDefault_triggered()
 {
     playSounds = true;
     ui->actionDarth_Vader->setChecked(false);
     ui->actionNone->setChecked(false);
 }
 
-void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary graphs
+/*!
+ * \brief MainWindow::on_velocButton_clicked Sets the focus to the velocity graph.
+ * This "button" is the auxiliary velocity plot in the sidebar.
+ */
+void MainWindow::on_velocButton_clicked()
 {
     selectedGraph = velocityGraph;             //pointer for which display you're on
     ui->stackedWidget->setCurrentIndex(2); //if you hit an auxillary graph it brings the performance page into focus
@@ -408,6 +495,10 @@ void MainWindow::on_velocButton_clicked()  //These "buttons" are the auxillary g
     ui->label_11->setStyleSheet("QLabel {color :" + velocityGraph->secondaryColor.name() + "; }");
 }
 
+/*!
+ * \brief MainWindow::on_accelButton_clicked Sets the focus to the acceleration graph.
+ * This "button" is the auxiliary acceleration plot in the sidebar.
+ */
 void MainWindow::on_accelButton_clicked()
 {
     selectedGraph = accelerationGraph;
@@ -424,6 +515,10 @@ void MainWindow::on_accelButton_clicked()
     ui->label_11->setStyleSheet("QLabel {color :" + accelerationGraph->secondaryColor.name() + "; }");
 }
 
+/*!
+ * \brief MainWindow::on_updtButton_clicked Sets the focus to the upper displacement graph.
+ * This "button" is the auxiliary upper displacement plot in the sidebar.
+ */
 void MainWindow::on_updtButton_clicked()
 {
     selectedGraph = upperDisplacementGraph;
@@ -440,6 +535,10 @@ void MainWindow::on_updtButton_clicked()
     ui->label_11->setStyleSheet("QLabel {color :" + upperDisplacementGraph->secondaryColor.name() + "; }");
 }
 
+/*!
+ * \brief MainWindow::on_lowdtButton_clicked Sets the focus to the lower displacement graph.
+ * This "button" is the auxiliary lower displacement plot in the sidebar.
+ */
 void MainWindow::on_lowdtButton_clicked()
 {
     selectedGraph = lowerDisplacementGraph;
@@ -456,6 +555,10 @@ void MainWindow::on_lowdtButton_clicked()
     ui->label_11->setStyleSheet("QLabel {color :" + lowerDisplacementGraph->secondaryColor.name() + "; }");
 }
 
+/*!
+ * \brief MainWindow::on_XYButton_clicked Sets the focus to the upper/lower displacement location graph.
+ * This "button" is the auxiliary displacement location plot in the sidebar.
+ */
 void MainWindow::on_XYButton_clicked()
 {
     selectedGraph = displacementGraph;
@@ -472,6 +575,10 @@ void MainWindow::on_XYButton_clicked()
     ui->label_11->setStyleSheet("QLabel {color :" + displacementGraph->colors[1].name() + "; }");
 }
 
+/*!
+ * \brief MainWindow::on_rotatButton_clicked Sets the focus to the rotational location graph.
+ * This "button" is the auxiliary location plot in the sidebar.
+ */
 void MainWindow::on_rotatButton_clicked()
 {
     selectedGraph = rotationGraph;
@@ -487,9 +594,14 @@ void MainWindow::on_rotatButton_clicked()
     ui->label_11->setText("");
 }
 
+
 //todo: change the name of this function to something that actually describes it
-void MainWindow::clearBorder()  //resets the text styles back to default
-{                               //notice this is called before changing the font in the above functions
+/*!
+ * \brief MainWindow::clearBorder Resets text styles back to default.
+ * This is called before changing the font in the above functions.
+ */
+void MainWindow::clearBorder()
+{
     ui->velLabel->setStyleSheet("color: grey; font-size: 11px;");
     ui->accLabel->setStyleSheet("color: grey; font-size: 11px;");
     ui->upDtLabel->setStyleSheet("color: grey; font-size: 11px;");
@@ -499,8 +611,11 @@ void MainWindow::clearBorder()  //resets the text styles back to default
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-
-void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start recording' in the options
+/*!
+ * \brief MainWindow::on_actionStart_Recording_triggered Starts the recording funciton.
+ * Triggered when "start recording" is hit in the options.
+ */
+void MainWindow::on_actionStart_Recording_triggered()
 {
     if(!isRecording){
         isRecording = true;
@@ -514,7 +629,11 @@ void MainWindow::on_actionStart_Recording_triggered()  //when you hit 'start rec
     }
 }
 
-void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recording' in the options
+/*!
+ * \brief MainWindow::on_actionStop_Recording_triggered Stops the recording function.
+ * Triggered when "stop recording" is hit.
+ */
+void MainWindow::on_actionStop_Recording_triggered()
 {
     if (isRecording){
         //recording->Stop(); <-should this be here?
@@ -527,8 +646,11 @@ void MainWindow::on_actionStop_Recording_triggered()  //when you hit 'stop recor
     }
 }
 
-
-void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply settings button
+/*!
+ * \brief MainWindow::on_pushButton_ApplySettings_clicked Applies given settings.
+ * This sets values for max velocity, acceleration, and jerk, as well as the emergency stop keyboard shortcut.
+ */
+void MainWindow::on_pushButton_ApplySettings_clicked()
 {
     QSettings settings("settings.ini", QSettings::IniFormat);
     QString password = ui->lineEditPassword->text();
@@ -570,8 +692,12 @@ void MainWindow::on_pushButton_ApplySettings_clicked() //when you hit the apply 
     }
 }
 
+/*!
+ * \brief MainWindow::on_lineEditPassword_textEdited Enables the apply settings button.
+ * Occurs when text is entered in the password field.
+ * \param password The password entered.
+ */
 void MainWindow::on_lineEditPassword_textEdited(const QString &password)
-//this function enables the apply button when you type characters into the password field
 {
     if (password.isEmpty())
         ui->pushButton_ApplySettings->setEnabled(false);
@@ -579,6 +705,12 @@ void MainWindow::on_lineEditPassword_textEdited(const QString &password)
         ui->pushButton_ApplySettings->setEnabled(true);
 }
 
+/*!
+ * \brief MainWindow::on_actionLock_frame_rate_at_30FPS_triggered Locks graph refresh rate.
+ * When this is checked, the refresh rate is locked to 30 fps.
+ * When this is unchecked, the refresh rate resets to the default 100 fps.
+ * \param checked Boolean value denoting whether the graphs should be locked to 30 fps.
+ */
 void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
 {
     if(checked)
@@ -593,6 +725,10 @@ void MainWindow::on_actionLock_frame_rate_at_30FPS_triggered(bool checked)
     graphRefreshTimer->setInterval(refreshRateToMS(graphRefreshRate));
 }
 
+/*!
+ * \brief MainWindow::on_actionLock_graph_scale_to_max_value_triggered Locks/unlocks graph scales to 5% aboce the maximum input values.
+ * \param checked True if the graph scales should be checked; false otherwise.
+ */
 void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 {
     isScaleLocked = checked;
@@ -600,6 +736,9 @@ void MainWindow::on_actionLock_graph_scale_to_max_value_triggered(bool checked)
 
 // Error Messages
 
+/*!
+ * \brief MainWindow::errorInterfaceNotDefined Displays an error for interface not defined.
+ */
 void MainWindow::errorInterfaceNotDefined()
 {
     QString errorMessage = "Invalid Interface: Please select a valid interface.";
@@ -609,11 +748,18 @@ void MainWindow::errorInterfaceNotDefined()
 
 
 // Flywheel Operations
+
+/*!
+ * \brief MainWindow::runFlywheelOperations Syncs the flywheelOperation.
+ */
 void MainWindow::runFlywheelOperations()
 {
     flywheelOperation->sync();
 }
 
+/*!
+ * \brief MainWindow::startFlywheelInterface Starts the flywheel interface.
+ */
 void MainWindow::startFlywheelInterface()
 {
     deviceInterface = interfaceManager->getCurrentInterface();
@@ -631,6 +777,9 @@ void MainWindow::startFlywheelInterface()
     }
 }
 
+/*!
+ * \brief MainWindow::stopFlywheelInterface Stops the flywheel interface.
+ */
 void MainWindow::stopFlywheelInterface()
 {
     if(deviceInterface == NULL)
@@ -645,6 +794,9 @@ void MainWindow::stopFlywheelInterface()
     }
 }
 
+/*!
+ * \brief MainWindow::closeFlywheelInterface Closes the flywheel interface connection.
+ */
 void MainWindow::closeFlywheelInterface()
 {
     if(deviceInterface == NULL)
@@ -668,6 +820,9 @@ void MainWindow::closeFlywheelInterface()
 
 // Dialog Windows
 
+/*!
+ * \brief MainWindow::openInterfaceSettingsWindow Opens the interface settings dialog.
+ */
 void MainWindow::openInterfaceSettingsWindow()
 {
     CommonInterfaceSelector* deviceSettingsWindow = new CommonInterfaceSelector(interfaceManager, this);
@@ -675,6 +830,9 @@ void MainWindow::openInterfaceSettingsWindow()
     deviceSettingsWindow->show();
 }
 
+/*!
+ * \brief MainWindow::closeInterfaceSettingsWindow Closes the interface settings dialog.
+ */
 void MainWindow::closeInterfaceSettingsWindow()
 {
     if (deviceInterface != interfaceManager->getCurrentInterface())
@@ -699,6 +857,9 @@ void MainWindow::closeInterfaceSettingsWindow()
     }
 }
 
+/*!
+ * \brief MainWindow::on_actionSet_Reset_Password_triggered Opens the SetPasswordDialog.
+ */
 void MainWindow::on_actionSet_Reset_Password_triggered() //show the password dialog box
 {
     SetPasswordDialog* passwordResetWindow = new SetPasswordDialog(this);
