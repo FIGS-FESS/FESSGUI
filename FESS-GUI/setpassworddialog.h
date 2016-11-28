@@ -8,6 +8,10 @@ namespace Ui {
 class SetPasswordDialog;
 }
 
+/*!
+ * \brief The SetPasswordDialog class
+ * Represents a dialog for setting and resetting passwords.
+ */
 class SetPasswordDialog : public QDialog
 {
     Q_OBJECT
@@ -23,7 +27,6 @@ private:
     Ui::SetPasswordDialog *ui;
 };
 
-bool passwordsMatch(QString, QString);
 bool passwordMatches(QString);
 QString GetRandomString();
 

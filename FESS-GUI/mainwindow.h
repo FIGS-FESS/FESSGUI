@@ -16,6 +16,10 @@ namespace Ui {
 class MainWindow;
 }
 
+/*!
+ * \brief The MainWindow class
+ * Comprises the bulk of the GUI.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
