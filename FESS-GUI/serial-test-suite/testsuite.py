@@ -66,7 +66,10 @@ def writeData(device, data):
 	device.write(struct.pack('!B',int(sdat[0:8],2)))
 
 def readCommand(device):
-	command = device.read()		
+	command = device.read()
+	
+	if command:
+		print command		
 
 key = 0
 vel = 0
@@ -134,7 +137,9 @@ while(True):
 	writeData(s, rpy)
 	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_Y)
 
-	time.sleep(0.005)
+	#readCommand(s)
+
+	time.sleep(0.01)
 
 # Citations: 
 #	Function: 	binary()

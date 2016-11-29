@@ -28,7 +28,7 @@ void zeroArray(void* target, size_t size)
     memset(target, 0, size);
 }
 
-void sliceArray(void* target, void* source, int begin, int end)
+void sliceArray(void* target, void* source, unsigned int begin, unsigned int end)
 {
     memcpy(target, source+begin, end-begin+1);
 }

@@ -17,7 +17,7 @@ void intToByteArray(FlyByte*, int*);
 
 
 void zeroArray(void* , size_t);
-void sliceArray(void*, void*, int, int);
+void sliceArray(void*, void*, unsigned int, unsigned int);
 
 
 double radsPerSecondToRPM(double);

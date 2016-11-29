@@ -219,12 +219,21 @@ bool SerialDevice::isReady()
 bool SerialDevice::startDevice()
 {
     statusReady = device->open(QIODevice::ReadWrite);
+
+    if (statusReady == true)
+    {
+        device->clear();
+    }
+
     return statusReady;
 }
 
 void SerialDevice::stopDevice()
 {
     statusReady = false;
+    rx.flush();
+    tx.flush();
+    device->clear();
     device->close();
 }
 

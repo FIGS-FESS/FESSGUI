@@ -11,7 +11,7 @@ TransmitBuffer::TransmitBuffer()
 
 TransmitBuffer::~TransmitBuffer()
 {
-
+    delete outputPacket;
 }
 
 FlyByte TransmitBuffer::popByte()
@@ -64,14 +64,14 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 
             else
             {
-                qDebug() << inputByteArray.front();
+                //qDebug() << inputByteArray.front();
                 inputByteArray.pop_front();
                 delete inputPacket;
             }
         }
         else
         {
-            qDebug() << inputByteArray.front();
+            //qDebug() << inputByteArray.front();
             inputByteArray.pop_front();
             delete inputPacket;
         }
@@ -98,4 +98,5 @@ bool TransmitBuffer::empty()
 void TransmitBuffer::flush()
 {
     packetBuffer.clear();
+    outputPacket = nullptr;
 }
