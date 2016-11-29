@@ -25,7 +25,7 @@ class TransmitBuffer
 
     private:
         FlyByte outputByte;
-        FlyPacket* outputPacket;
+        FlyPacket outputPacket;
 
         std::deque<FlyByte> inputByteArray;
         FlyQueue packetBuffer;

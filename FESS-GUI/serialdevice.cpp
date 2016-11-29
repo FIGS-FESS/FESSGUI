@@ -230,11 +230,15 @@ bool SerialDevice::startDevice()
 
 void SerialDevice::stopDevice()
 {
-    statusReady = false;
-    rx.flush();
-    tx.flush();
-    device->clear();
-    device->close();
+    if (statusReady == true)
+    {
+
+        statusReady = false;
+        rx.flush();
+        tx.flush();
+        device->clear();
+        device->close();
+    }
 }
 
 void SerialDevice::setDefaults()

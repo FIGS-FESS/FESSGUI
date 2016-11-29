@@ -23,7 +23,7 @@ bool FlyQueue::isEmpty()
 void FlyQueue::reset()
 {
     maximumSize = 16;
-    currentPacket = nullptr;
+    currentPacket = FlyPacket();
 
     internalBuffer.clear();
 }
@@ -33,20 +33,18 @@ void FlyQueue::setSize(int bufferSize)
     maximumSize = bufferSize;
 }
 
-FlyPacket* FlyQueue::pop()
+FlyPacket FlyQueue::pop()
 {
-    if (currentPacket != nullptr)
+    if (internalBuffer.empty() == false)
     {
-        delete currentPacket;
+        currentPacket = internalBuffer.front();
+        internalBuffer.pop_front();
     }
-
-    currentPacket = internalBuffer.front();
-    internalBuffer.pop_front();
 
     return currentPacket;
 }
 
-void FlyQueue::push(FlyPacket* incomingPacket)
+void FlyQueue::push(FlyPacket incomingPacket)
 {
     if (internalBuffer.size() > maximumSize)
     {

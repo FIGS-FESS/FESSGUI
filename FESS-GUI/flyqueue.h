@@ -16,14 +16,14 @@ class FlyQueue
 
         bool isEmpty();
 
-        FlyPacket* pop();
-        void push(FlyPacket*);
+        FlyPacket pop();
+        void push(FlyPacket);
 
     private:
         unsigned int maximumSize;
 
-        FlyPacket* currentPacket;
-        std::deque<FlyPacket*> internalBuffer;
+        FlyPacket currentPacket;
+        std::deque<FlyPacket> internalBuffer;
 
 };
 

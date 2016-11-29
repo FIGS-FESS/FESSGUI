@@ -78,7 +78,7 @@ pos = 0
 
 path = sys.argv[1]
 
-s = serial.Serial(path)
+s = serial.Serial(path,9600,8,'N',1,0,0,0)
 
 while(True):
 
@@ -137,7 +137,7 @@ while(True):
 	writeData(s, rpy)
 	writeCommand(s, CDM_SEND_ROTATIONAL_POSITION_Y)
 
-	#readCommand(s)
+	readCommand(s)
 
 	time.sleep(0.01)
 
