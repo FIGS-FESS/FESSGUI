@@ -21,13 +21,15 @@ class TransmitBuffer
         FlyPacket popPacket();
 
         void flush();
-        bool empty();
+        bool bytesAvailable();
+        bool packetsAvailable();
 
     private:
-        FlyByte outputByte;
-        FlyPacket outputPacket;
+
+        void populateBuffer();
 
         std::deque<FlyByte> inputByteArray;
+        std::deque<FlyByte> outputByteArray;
         FlyQueue packetBuffer;
 
 };

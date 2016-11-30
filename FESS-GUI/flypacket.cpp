@@ -1,5 +1,4 @@
 #include "flypacket.h"
-#include <QtGui>
 
 FlyPacket::FlyPacket()
 {
@@ -150,8 +149,6 @@ FlyByte FlyPacket::readByte()
         }
     }
 
-    qDebug() << returnByte;
-
     return returnByte;
 }
 
@@ -195,4 +192,9 @@ bool FlyPacket::isValidPacket()
 bool FlyPacket::isValidCommand()
 {
     return !invalidCommand;
+}
+
+FlyByte FlyPacket::getMaxSize()
+{
+    return PACKET_SIZE;
 }

@@ -98,6 +98,8 @@ class FlyPacket
     bool isValidPacket();
     bool isValidCommand();
 
+    FlyByte getMaxSize();
+
    private:
     bool invalidCommand;
     bool readComplete;

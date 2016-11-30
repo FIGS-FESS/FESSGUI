@@ -1,39 +1,46 @@
 //Custom Libraries
 #include "transmitbuffer.h"
 
-#include <QtGui>
-
-TransmitBuffer::TransmitBuffer()
-{
-    outputByte = 0;
-}
+TransmitBuffer::TransmitBuffer(){}
 
 TransmitBuffer::~TransmitBuffer(){}
 
 FlyByte TransmitBuffer::popByte()
 {
-    outputByte = packetBuffer[0].readByte();
+    populateBuffer();
 
-    if (packetBuffer[0].isReadable() == false)
-    {
-        packetBuffer.pop();
-    }
+    FlyByte outputByte = outputByteArray.front();
+    outputByteArray.pop_front();
 
     return outputByte;
+}
+
+void TransmitBuffer::populateBuffer()
+{
+    if (outputByteArray.empty() == true)
+    {
+        FlyPacket outputPacket = packetBuffer.pop();
+
+        while (outputPacket.isReadable() == true)
+        {
+            outputByteArray.push_back(outputPacket.readByte());
+        }
+    }
 }
 
 void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
     inputByteArray.push_back(incomingByte);
 
-    if(inputByteArray.size() > PACKET_END)
-    {
-        FlyPacket inputPacket;
+    int i = 0;
+    FlyPacket inputPacket;
 
-        for (int i = PACKET_BEGINNING; i < PACKET_SIZE; i++)
+    if(inputByteArray.size() > inputPacket.getMaxSize())
+    {
+        while (inputPacket.isWriteable() == true)
         {
-            //qDebug() << "I: " << i << "Value:" << inputByteArray[i];
             inputPacket.writeByte(inputByteArray[i]);
+            i++;
         }
 
         if (inputPacket.isValidPacket() == true)
@@ -44,7 +51,6 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 
         else
         {
-            //qDebug() << inputByteArray.front();
             inputByteArray.pop_front();
         }
     }
@@ -53,21 +59,27 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
     packetBuffer.push(incomingPacket);
+    populateBuffer();
 }
 
 FlyPacket TransmitBuffer::popPacket()
 {
-    outputPacket = packetBuffer.pop();
-
-    return outputPacket;
+    return packetBuffer.pop();
 }
 
-bool TransmitBuffer::empty()
+bool TransmitBuffer::packetsAvailable()
 {
-    return packetBuffer.isEmpty();
+    return !packetBuffer.isEmpty();
+}
+
+bool TransmitBuffer::bytesAvailable()
+{
+    return !outputByteArray.empty() | !packetBuffer.isEmpty();
 }
 
 void TransmitBuffer::flush()
 {
     packetBuffer.clear();
+    outputByteArray.clear();
+    inputByteArray.clear();
 }

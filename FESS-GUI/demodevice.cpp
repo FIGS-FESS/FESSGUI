@@ -25,7 +25,7 @@ DemoDevice::~DemoDevice()
 
 void DemoDevice::syncRX()
 {
-    while(!tx.empty())
+    while(tx.packetsAvailable() == true)
     {
         FlyPacket val = tx.popPacket();
 
@@ -215,7 +215,7 @@ void DemoDevice::flush()
 
 bool DemoDevice::empty()
 {
-    return rx.empty();
+    return !rx.packetsAvailable();
 }
 
 QString DemoDevice::name()

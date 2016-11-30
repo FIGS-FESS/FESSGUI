@@ -176,7 +176,7 @@ void SerialDevice::setStopBits(int bits)
 
 void SerialDevice::sendTX()
 {
-    while(tx.empty() == false)
+    while(tx.bytesAvailable() == true)
     {
         device->putChar(tx.popByte());
     }
@@ -278,7 +278,7 @@ void SerialDevice::flush()
 
 bool SerialDevice::empty()
 {
-    return rx.empty();
+    return !rx.packetsAvailable();
 }
 
 

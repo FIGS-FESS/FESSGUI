@@ -54,13 +54,13 @@ void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
 void FlywheelOperation::setMotion(float velocityValue, float accelerationValue, float jerkValue)
 {
     setVelocity(velocityValue);
-    //setAcceleration(accelerationValue);
-    //setJerk(jerkValue);
+    setAcceleration(accelerationValue);
+    setJerk(jerkValue);
 }
 
 void FlywheelOperation::setVelocity(float velocityValue)
 {
-    if (communicationDevice->isReady())
+     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
         FlyPacket dataPacket(ICM_SET_VELOCITY,velocityValue);
         communicationDevice->pushPacket(dataPacket);
@@ -69,7 +69,7 @@ void FlywheelOperation::setVelocity(float velocityValue)
 
 void FlywheelOperation::setAcceleration(float accelerationValue)
 {
-    if (communicationDevice->isReady())
+     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
         FlyPacket dataPacket(ICM_SET_ACCELERATION,accelerationValue);
         communicationDevice->pushPacket(dataPacket);
@@ -78,7 +78,7 @@ void FlywheelOperation::setAcceleration(float accelerationValue)
 
 void FlywheelOperation::setJerk(float jerkValue)
 {
-    if (communicationDevice->isReady())
+    if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
         FlyPacket dataPacket(ICM_SET_JERK,jerkValue);
         communicationDevice->pushPacket(dataPacket);
@@ -138,8 +138,6 @@ void FlywheelOperation::syncRX()
     while(!communicationDevice->empty())
     {
         FlyPacket rxPacket = communicationDevice->popPacket();
-
-        //qDebug() << rxPacket.getCommand();
 
         switch(rxPacket.getCommand())
         {
@@ -204,7 +202,7 @@ void FlywheelOperation::syncRX()
 
 void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
 {
-    if (communicationDevice->isReady())
+    if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
         if (emergencyStopActivated == true)
         {
