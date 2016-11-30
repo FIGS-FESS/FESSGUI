@@ -6,6 +6,11 @@
 #include <QString>
 #include <QPointF>
 
+/*!
+ * \brief The Graph class, base class for all graphs.
+ * Each graph contains a main plot (the large graph that is seen when a graph is selected)
+ * and a auxiliary plot (the smaller graph that is always visible on the right side).
+ */
 class Graph
 {
 protected:
@@ -18,7 +23,11 @@ public:
     virtual QString currentDisplay(){return "";}
 };
 
-
+/*!
+ * \brief The ScrollingTimeGraph class, which inherits from the Graph class.
+ * This represents a graph with time as the x axis, that "scrolls" with time, showing a sliding window of values.
+ * The y axis represents whatever value this graph displays.
+ */
 class ScrollingTimeGraph : public Graph {
 public:
     ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot, QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues);
@@ -33,7 +42,11 @@ private:
     void addData(QCustomPlot* plot, double time, double primaryData, double secondaryData, int maxValue);
 };
 
-
+/*!
+ * \brief The LocationGraph class, which inherits from the Graph class.
+ * This represents a graph where the x and y axes represent location.
+ * This is a real-time graph, with no view of what happened in the past.
+ */
 class LocationGraph : public Graph {
 public:
     LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, std::vector<QColor> colors, QString displayUnit, int numPoints);

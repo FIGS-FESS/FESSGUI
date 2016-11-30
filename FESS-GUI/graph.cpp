@@ -1,10 +1,22 @@
 #include "graph.h"
 
+/*!
+ * \brief Graph::Graph Empty constructor for the base class. This should not be used.
+ */
 Graph::Graph()
 {
-
 }
 
+/*!
+ * \brief ScrollingTimeGraph::ScrollingTimeGraph Constructs the ScrollingTimeGraph.
+ * \param mainWindow A pointer to the mainWindow, used for connecting ranges of the graph.
+ * \param mainPlot The main plot for this graph.
+ * \param auxPlot The auxiliary plot for this graph, which lives in the sidebar.
+ * \param primaryColor The color of the primary line of this graph.
+ * \param secondaryColor The color of the secondary line of this graph.
+ * \param displayUnit The units to use in displays.
+ * \param numDisplayValues The number of values to display in maxDisplay and currentDisplay.
+ */
 ScrollingTimeGraph::ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mainPlot, QCustomPlot* auxPlot,
                                        QColor primaryColor, QColor secondaryColor, QString displayUnit, int numDisplayValues){
     this->mainPlot = mainPlot;
@@ -19,11 +31,23 @@ ScrollingTimeGraph::ScrollingTimeGraph(QMainWindow* mainWindow, QCustomPlot* mai
     setupPlot(mainWindow, auxPlot, false, primaryColor, secondaryColor);
 }
 
+/*!
+ * \brief ScrollingTimeGraph::setFill Sets the fill between two lines.
+ * \param fillColor The color to set the fill to.
+ */
 void ScrollingTimeGraph::setFill(QColor fillColor){
     mainPlot->graph(0)->setBrush(QBrush(fillColor));
     auxPlot->graph(0)->setBrush(QBrush(fillColor));
 }
 
+/*!
+ * \brief ScrollingTimeGraph::setupPlot Sets the plot up according to our standards.
+ * \param mainWindow A pointer to the mainWindow, used for setting up a connection.
+ * \param plot The plot which is being set up.
+ * \param isMain A boolean for whether this is main or not.
+ * \param primaryColor The color of the primary line.
+ * \param secondaryColor The color of the secondary line.
+ */
 void ScrollingTimeGraph::setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, bool isMain, QColor primaryColor, QColor secondaryColor)
 {
     plot->addGraph(); // primary line
@@ -60,6 +84,14 @@ void ScrollingTimeGraph::setupPlot(QMainWindow* mainWindow, QCustomPlot *plot, b
     }
 }
 
+/*!
+ * \brief ScrollingTimeGraph::addData Adds two data points to both plots at the given time.
+ * \param time The x-axis value for the new points.
+ * \param primaryData The y-value of the point to add to the primary line.
+ * \param secondaryData The y-value of the point to add to the secondary line.
+ * \param maxValue The maximum expected y-value on the graph. If this is set to a negative number,
+ *          this is disregarded, and the plots resize dynamically to accomodate real values.
+ */
 void ScrollingTimeGraph::addData(double time, double primaryData, double secondaryData, int maxValue){
     currentPrimary = primaryData;
     currentSecondary = secondaryData;
@@ -73,6 +105,15 @@ void ScrollingTimeGraph::addData(double time, double primaryData, double seconda
     addData(auxPlot, time, primaryData, secondaryData, maxValue);
 }
 
+/*!
+ * \brief ScrollingTimeGraph::addData Used by the previous addData to add data to each plot.
+ * \param plot The plot to which this adds data.
+ * \param time The x-axis value for the new points.
+ * \param primaryData The y-value of the point to add to the primary line.
+ * \param secondaryData The y-value of the point to add to the secondary line.
+ * \param maxValue The maximum expected y-value on the graph. If this is set to a negative number,
+ *          this is disregarded, and the plots resize dynamically to accomodate real values.
+ */
 void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryData, double secondaryData, int maxValue){
     int range = 8; //this is the width view size of the graph
     plot->graph(0)->addData(time, primaryData);
@@ -103,6 +144,11 @@ void ScrollingTimeGraph::addData(QCustomPlot* plot, double time, double primaryD
     plot->replot();
 }
 
+/*!
+ * \brief ScrollingTimeGraph::maxDisplay Returns a string showing the maximum values seen by this graph so far,
+ *          with units.
+ * \return The string which contains the maximum values seen by this graph.
+ */
 QString ScrollingTimeGraph::maxDisplay(){
     QString ret = QString::number(maxPrimary);
     if (numDisplayValues >= 2)
@@ -110,6 +156,11 @@ QString ScrollingTimeGraph::maxDisplay(){
     return ret + " " + displayUnit;
 }
 
+/*!
+ * \brief ScrollingTimeGraph::currentDisplay Returns a string showing the most recent values seen by this graph.
+ *          with units.
+ * \return The string which contains the most recent values seen by this graph.
+ */
 QString ScrollingTimeGraph::currentDisplay(){
     QString ret = QString::number(currentPrimary);
     if (numDisplayValues >= 2)
@@ -118,8 +169,15 @@ QString ScrollingTimeGraph::currentDisplay(){
 }
 
 
-/*********************************************************************************************/
-
+/*********************************** Location Graph functions **************************************/
+/*!
+ * \brief LocationGraph::LocationGraph Constructs a LocationGraph
+ * \param mainPlot The main plot for this graph.
+ * \param auxPlot The auxiliary plot for this graph, which lives in the sidebar.
+ * \param colors A vector of the colors to be given to the points in this graph.
+ * \param displayUnit A string containing the name of the units to use in this graph's displays.
+ * \param numPoints The number of points to display on this graph.
+ */
 LocationGraph::LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, std::vector<QColor> colors, QString displayUnit, int numPoints){
     this->mainPlot = mainPlot;
     this->auxPlot = auxPlot;
@@ -133,7 +191,13 @@ LocationGraph::LocationGraph(QCustomPlot* mainPlot, QCustomPlot* auxPlot, std::v
     setupPlot(auxPlot, false, colors, numPoints);
 }
 
-
+/*!
+ * \brief LocationGraph::setupPlot Sets up a plot for this graph.
+ * \param plot The plot to set up.
+ * \param isMain A boolean value indicating if this plot is the main.
+ * \param colors The vector of colors to attribute to this plot.
+ * \param numPoints The number of points this graph will have.
+ */
 void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, std::vector<QColor> colors, int numPoints)
 {
     for(int i = 0; i < numPoints; i++){
@@ -159,7 +223,11 @@ void LocationGraph::setupPlot(QCustomPlot *plot, bool isMain, std::vector<QColor
     }
 }
 
-void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy data to graphs
+/*!
+ * \brief LocationGraph::addData Adds a vector of points to the graph.
+ * \param points The points to add to this graph.
+ */
+void LocationGraph::addData(std::vector<QPointF> points)
 {
     for(int i = 0; i <  (int)points.size() && i < numPoints; i++){
         currentPoints[i] = points[i];
@@ -177,7 +245,11 @@ void LocationGraph::addData(std::vector<QPointF> points)  //function to add xy d
     auxPlot->replot();
 }
 
-
+/*!
+ * \brief LocationGraph::maxDisplay Returns a display of the maximum value seen by this graph so far,
+ *          with units.
+ * \return A string containing the maximum values seen by this graph so far.
+ */
 QString LocationGraph::maxDisplay(){
     QString ret = "(" + QString::number(maxPoints[0].x(), 'f', 4) + ", " + QString::number(maxPoints[0].y(), 'f', 4) + ")";
 
@@ -188,6 +260,11 @@ QString LocationGraph::maxDisplay(){
     return ret + " " + displayUnit;
 }
 
+/*!
+ * \brief LocationGraph::currentDisplay Returns a display of the most recent values seen by this graph,
+ *          with units.
+ * \return A string containing the most recent values seen by this graph.
+ */
 QString LocationGraph::currentDisplay(){
     QString ret = "(" + QString::number(currentPoints[0].x(), 'f', 4) + ", " + QString::number(currentPoints[0].y(), 'f', 4) + ")";
 
