@@ -26,7 +26,7 @@ FlyPacket::~FlyPacket(){};
 
 void FlyPacket::checkCommand()
 {
-    switch(byteArray[PACKET_BEGINNING])
+    switch(commandByte)
     {
         case ICM_EMERGENCY_STOP:                invalidCommand = false; break;
         case ICM_SET_VELOCITY:                  invalidCommand = false; break;
@@ -45,9 +45,10 @@ void FlyPacket::checkCommand()
     }
 }
 
-void FlyPacket::setCommand(FlyByte commandByte)
+void FlyPacket::setCommand(FlyByte generalByte)
 {
-    byteArray[PACKET_BEGINNING] = commandByte;
+    commandByte = generalByte;
+    acknownledgeByte = (generalByte | IDM_CMD_DIFFERENCE);
     checkCommand();
 }
 
@@ -60,7 +61,7 @@ void FlyPacket::setValue(int dataValue)
 
         for (unsigned int i = 0; i < sizeof(dataValue); i++)
         {
-            byteArray[HEADER_SIZE+i] = localbyteArray[i];
+            byteArray[i] = localbyteArray[i];
         }
     }
 }
@@ -74,74 +75,84 @@ void FlyPacket::setValue(float dataValue)
 
         for (unsigned int i = 0; i < sizeof(dataValue); i++)
         {
-            byteArray[HEADER_SIZE+i] = localbyteArray[i];
+            byteArray[i] = localbyteArray[i];
         }
     }
 }
 
 void FlyPacket::writeByte(FlyByte generalByte)
 {
-    if (writeComplete == false)
+
+    switch(byteArrayPositionWrite)
     {
-        byteArray[byteArrayPosition] = generalByte;
-
-        if (byteArrayPosition == PACKET_BEGINNING)
+        case PACKET_BEGINNING:
         {
+            commandByte = generalByte;
+            byteArrayPositionWrite++;
             checkCommand();
+            break;
         }
-
-        byteArrayPosition++;
-
-        if (byteArrayPosition > PACKET_END)
+        case PACKET_END:
         {
+            acknownledgeByte = generalByte;
             writeComplete = true;
+            break;
+        }
+        default:
+        {
+            byteArray[byteArrayPositionWrite-DATA_BEGINNING] = generalByte;
+            byteArrayPositionWrite++;
+            break;
         }
     }
-
 }
-
 
 // Getters
 
 int FlyPacket::getInt()
 {
-    int tempValue;
-    FlyByte tempBuffer[4];
-
-    sliceArray(tempBuffer, byteArray, DATA_BEGINNING, DATA_END);
-    byteArrayToInt(tempBuffer,&tempValue);
-
-    return tempValue;
+    return byteArrayToInt(byteArray);
 }
 
 float FlyPacket::getFloat()
 {
-    float tempValue;
-    FlyByte tempBuffer[4];
-
-    sliceArray(tempBuffer, byteArray, DATA_BEGINNING, DATA_END);
-    byteArrayToFloat(tempBuffer,&tempValue);
-
-    return tempValue;
+    return byteArrayToFloat(byteArray);
 }
 
 FlyByte FlyPacket::getCommand()
 {
-    return byteArray[0];
+    return commandByte;
 }
 
 FlyByte FlyPacket::readByte()
 {
-    if (byteArrayPosition < PACKET_END)
+    FlyByte returnByte = 0;
+
+    switch(byteArrayPositionRead)
     {
-        byteArrayPosition++;
-    }
-    else
-    {
-        readComplete = true;
+        case PACKET_BEGINNING:
+        {
+            returnByte = commandByte;
+            byteArrayPositionRead++;
+            break;
+        }
+        case PACKET_END:
+        {
+            returnByte = acknownledgeByte;
+            readComplete = true;
+            break;
+        }
+        default:
+        {
+            returnByte = byteArray[byteArrayPositionRead-DATA_BEGINNING];
+            byteArrayPositionRead++;
+            break;
+        }
     }
 
-    return byteArray[byteArrayPosition];
+    qDebug() << returnByte;
+
+    return returnByte;
 }
 
 // Universal Commands
@@ -151,26 +162,28 @@ void FlyPacket::reset()
     readComplete = false;
     writeComplete = false;
     invalidCommand = false;
-    byteArrayPosition = PACKET_BEGINNING;
+    byteArrayPositionWrite = PACKET_BEGINNING;
+    byteArrayPositionRead = PACKET_BEGINNING;
 
     zeroArray(byteArray,sizeof(byteArray));
 }
 
 bool FlyPacket::isReadable()
 {
-    return readComplete;
+    return !readComplete;
 }
 
 bool FlyPacket::isWriteable()
 {
-    return writeComplete;
+    return !writeComplete;
 }
 
 bool FlyPacket::isValidPacket()
 {
     if (invalidCommand == false)
     {
-        if (byteArray[PACKET_END] == (byteArray[PACKET_BEGINNING] | IDM_CMD_DIFFERENCE))
+
+        if (acknownledgeByte == (commandByte | IDM_CMD_DIFFERENCE))
         {
             return true;
         }

@@ -1,8 +1,10 @@
 #include "conversions.h"
 
-void byteArrayToFloat(FlyByte* buffer, float* val)
+float byteArrayToFloat(FlyByte* buffer)
 {
-    memcpy(val, buffer, sizeof(*val));
+    float val;
+    memcpy(&val, buffer, sizeof(val));
+    return val;
 }
 
 void floatToByteArray(FlyByte* buffer, float* val)
@@ -11,9 +13,11 @@ void floatToByteArray(FlyByte* buffer, float* val)
 }
 
 
-void byteArrayToInt(FlyByte* buffer, int* val)
+int byteArrayToInt(FlyByte* buffer)
 {
-    memcpy(val, buffer, sizeof(*val));
+    int val;
+    memcpy(&val, buffer, sizeof(val));
+    return val;
 }
 
 void intToByteArray(FlyByte* buffer, int* val)
@@ -26,11 +30,6 @@ void intToByteArray(FlyByte* buffer, int* val)
 void zeroArray(void* target, size_t size)
 {
     memset(target, 0, size);
-}
-
-void sliceArray(void* target, void* source, unsigned int begin, unsigned int end)
-{
-    memcpy(target, source+begin, end-begin+1);
 }
 
 

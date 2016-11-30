@@ -12,13 +12,11 @@ TransmitBuffer::~TransmitBuffer(){}
 
 FlyByte TransmitBuffer::popByte()
 {
-    if (outputPacket.isReadable() == false)
+    outputByte = packetBuffer[0].readByte();
+
+    if (packetBuffer[0].isReadable() == false)
     {
-        outputByte = outputPacket.readByte();
-    }
-    else
-    {
-        outputPacket = packetBuffer.pop();
+        packetBuffer.pop();
     }
 
     return outputByte;
@@ -32,37 +30,22 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
     {
         FlyPacket inputPacket;
 
-        for (int i = PACKET_BEGINNING; i < DATA_BEGINNING; i++)
+        for (int i = PACKET_BEGINNING; i < PACKET_SIZE; i++)
         {
+            //qDebug() << "I: " << i << "Value:" << inputByteArray[i];
             inputPacket.writeByte(inputByteArray[i]);
         }
 
-        if (inputPacket.isValidCommand() == true)
+        if (inputPacket.isValidPacket() == true)
         {
-            for (int i = DATA_BEGINNING; i <= PACKET_END; i++)
-            {
-                //qDebug() << "I: " << i << "Value:" << inputByteArray[i];
-                inputPacket.writeByte(inputByteArray[i]);
-            }
-
-            if (inputPacket.isValidPacket() == true)
-            {
-                packetBuffer.push(inputPacket);
-                inputByteArray.clear();
-            }
-
-            else
-            {
-                //qDebug() << inputByteArray.front();
-                inputByteArray.pop_front();
-                inputPacket.reset();
-            }
+            packetBuffer.push(inputPacket);
+            inputByteArray.clear();
         }
+
         else
         {
             //qDebug() << inputByteArray.front();
             inputByteArray.pop_front();
-            inputPacket.reset();
         }
     }
 }

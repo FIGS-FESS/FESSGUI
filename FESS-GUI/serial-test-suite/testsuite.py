@@ -49,6 +49,7 @@ CDM_SEND_ROTATIONAL_POSITION_Y   = 0b11001001
 
 #endif // COMMANDS_H
 
+
 def binary(num): 
 	return ''.join(bin(ord(c)).replace('0b', '').rjust(8, '0') for c in struct.pack('!f', num))
 
@@ -66,11 +67,17 @@ def writeData(device, data):
 	device.write(struct.pack('!B',int(sdat[0:8],2)))
 
 def readCommand(device):
+
+	global i	
+
 	command = device.read()
 	
 	if command:
-		print command		
+		print "Command Byte-%d:%s" % (i,ord(command))
+		i += 1
 
+
+i = 0
 key = 0
 vel = 0
 acc = 0

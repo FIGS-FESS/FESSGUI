@@ -176,7 +176,7 @@ void SerialDevice::setStopBits(int bits)
 
 void SerialDevice::sendTX()
 {
-    while(!tx.empty())
+    while(tx.empty() == false)
     {
         device->putChar(tx.popByte());
     }

@@ -54,8 +54,8 @@ void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
 void FlywheelOperation::setMotion(float velocityValue, float accelerationValue, float jerkValue)
 {
     setVelocity(velocityValue);
-    setAcceleration(accelerationValue);
-    setJerk(jerkValue);
+    //setAcceleration(accelerationValue);
+    //setJerk(jerkValue);
 }
 
 void FlywheelOperation::setVelocity(float velocityValue)

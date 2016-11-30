@@ -53,3 +53,9 @@ void FlyQueue::push(FlyPacket incomingPacket)
 
     internalBuffer.push_back(incomingPacket);
 }
+
+
+FlyPacket FlyQueue::operator[](const unsigned int index)
+{
+    return internalBuffer[index];
+}

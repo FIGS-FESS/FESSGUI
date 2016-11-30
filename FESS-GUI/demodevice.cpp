@@ -127,8 +127,11 @@ void DemoDevice::syncTX()
     rx.pushByte(barray[3]);
     rx.pushByte(CDM_SEND_VELOCITY);
 
-    /*
     //qDebug()<< dataPacket->getFloat();
+
+    /*
+    FlyPacket dataPacket(IDM_SEND_VELOCITY,vel);
+    rx.pushPacket(dataPacket);
 
     FlyPacket dataPacket0(IDM_SEND_ACCELERATION,acc);
     rx.pushPacket(dataPacket0);
@@ -154,7 +157,7 @@ void DemoDevice::syncTX()
     FlyPacket dataPacket7(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
     rx.pushPacket(dataPacket7);
 
-    */
+    //*/
 }
 
 //--------------------------------------------------------------------

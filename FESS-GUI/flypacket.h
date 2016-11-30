@@ -103,8 +103,11 @@ class FlyPacket
     bool readComplete;
     bool writeComplete;
 
-    FlyByte byteArrayPosition;
-    FlyByte byteArray[PACKET_SIZE];
+    FlyByte commandByte;
+    FlyByte acknownledgeByte;
+    FlyByte byteArrayPositionWrite;
+    FlyByte byteArrayPositionRead;
+    FlyByte byteArray[MAX_PAYLOAD];
 
     void checkCommand();
 };

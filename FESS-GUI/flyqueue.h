@@ -19,6 +19,8 @@ class FlyQueue
         FlyPacket pop();
         void push(FlyPacket);
 
+        FlyPacket operator[](const unsigned int);
+
     private:
         unsigned int maximumSize;
 

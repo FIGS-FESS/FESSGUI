@@ -9,15 +9,14 @@
 typedef unsigned char FlyByte;
 
 
-void byteArrayToFloat(FlyByte*, float*);
+float byteArrayToFloat(FlyByte*);
 void floatToByteArray(FlyByte*, float*);
 
-void byteArrayToInt(FlyByte*, int*);
+int byteArrayToInt(FlyByte*);
 void intToByteArray(FlyByte*, int*);
 
 
 void zeroArray(void* , size_t);
-void sliceArray(void*, void*, unsigned int, unsigned int);
 
 
 double radsPerSecondToRPM(double);
