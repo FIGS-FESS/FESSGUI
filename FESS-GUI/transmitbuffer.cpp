@@ -1,6 +1,8 @@
 //Custom Libraries
 #include "transmitbuffer.h"
 
+#include <QtGui>
+
 TransmitBuffer::TransmitBuffer(){}
 
 TransmitBuffer::~TransmitBuffer(){}
@@ -30,6 +32,8 @@ void TransmitBuffer::populateBuffer()
 
 void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
+    qDebug() << "Incoming Byte: " << incomingByte;
+
     inputByteArray.push_back(incomingByte);
 
     int i = 0;
