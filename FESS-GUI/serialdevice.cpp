@@ -271,9 +271,14 @@ void SerialDevice::pushPacket(FlyPacket dataPacket)
     tx.pushPacket(dataPacket);
 }
 
-void SerialDevice::flush()
+void SerialDevice::flushRX()
 {
     rx.flush();
+}
+
+void SerialDevice::flushTX()
+{
+    tx.flush();
 }
 
 bool SerialDevice::empty()

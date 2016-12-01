@@ -23,7 +23,7 @@ DemoDevice::~DemoDevice()
 // Command Interpretation
 //---------------------------------------------------------------------
 
-void DemoDevice::syncRX()
+void DemoDevice::syncTX()
 {
     while(tx.packetsAvailable() == true)
     {
@@ -58,7 +58,7 @@ void DemoDevice::syncRX()
 // Value Generation
 //---------------------------------------------------------------------
 
-void DemoDevice::syncTX()
+void DemoDevice::syncRX()
 {
     switch(type)
     {
@@ -208,9 +208,14 @@ void DemoDevice::pushPacket(FlyPacket dataPacket)
     tx.pushPacket(dataPacket);
 }
 
-void DemoDevice::flush()
+void DemoDevice::flushRX()
 {
     rx.flush();
+}
+
+void DemoDevice::flushTX()
+{
+    tx.flush();
 }
 
 bool DemoDevice::empty()

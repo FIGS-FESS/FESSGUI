@@ -22,7 +22,8 @@ class CommonDeviceInterface
         virtual void setDefaults() = 0;
 
         virtual bool empty() = 0;
-        virtual void flush() = 0;
+        virtual void flushRX() = 0;
+        virtual void flushTX() = 0;
         virtual void pushByte(FlyByte) = 0;
         virtual void pushPacket(FlyPacket) = 0;
 

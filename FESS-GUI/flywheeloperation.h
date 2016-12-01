@@ -44,7 +44,6 @@ private:
     unsigned int emergencyRetries;
 
     bool emergencyStopActivated;
-    bool emergencyStopAcknowlegded;
 
     QPointF* upperDisplacement;
     QPointF* lowerDisplacement;

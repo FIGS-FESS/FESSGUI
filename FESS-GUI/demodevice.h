@@ -28,7 +28,8 @@ class DemoDevice : public CommonDeviceInterface
         void setDefaults();
 
         bool empty();
-        void flush();
+        void flushRX();
+        void flushTX();
         void pushByte(FlyByte);
         void pushPacket(FlyPacket);
 

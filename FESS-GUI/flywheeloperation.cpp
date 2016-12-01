@@ -41,8 +41,6 @@ void FlywheelOperation::setDefaults()
     rotationalPositionXValue = 0.0;
     rotationalPositionYValue = 0.0;
 
-    emergencyRetries = 0;
-    emergencyTimeout = 100; //Attempts
     emergencyStopActivated = false;
 }
 
@@ -125,12 +123,6 @@ QPointF FlywheelOperation::getRotationalPosition()
 void FlywheelOperation::emergencyStop() // Tells the controller to stop and checks to confirm it stopped
 {
     emergencyStopActivated = true;
-    emergencyStopAcknowlegded = false;
-}
-
-void FlywheelOperation::syncTX()
-{
-
 }
 
 void FlywheelOperation::syncRX()
@@ -195,26 +187,29 @@ void FlywheelOperation::syncRX()
                 break;
             }
 
+            case CCM_EMERGENCY_STOP:
+            {
+                emergencyStopActivated = false;
+                break;
+            }
+
             default: break;
         }
     }
 }
 
-void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
+void FlywheelOperation::sync()
 {
     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
         if (emergencyStopActivated == true)
         {
-            emergencyRetries = emergencyTimeout;
-            //communicationDevice->pushCommandImmediate(ICM_EMERGENCY_STOP);
-        }
-        else
-        {
-            syncTX();
-            communicationDevice->syncRX();
+            communicationDevice->flushTX();
+            FlyPacket emergencyStopPacket(ICM_EMERGENCY_STOP,0);
+            communicationDevice->pushPacket(emergencyStopPacket);
         }
 
+        communicationDevice->syncRX();
         communicationDevice->syncTX();
         syncRX();
     }

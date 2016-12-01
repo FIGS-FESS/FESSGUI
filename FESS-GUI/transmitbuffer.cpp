@@ -14,6 +14,8 @@ FlyByte TransmitBuffer::popByte()
     FlyByte outputByte = outputByteArray.front();
     outputByteArray.pop_front();
 
+     qDebug() << "Outgoing Byte: " << outputByte;
+
     return outputByte;
 }
 
