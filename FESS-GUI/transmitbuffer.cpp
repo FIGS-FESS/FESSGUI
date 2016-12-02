@@ -1,8 +1,6 @@
 //Custom Libraries
 #include "transmitbuffer.h"
 
-#include <QtGui>
-
 TransmitBuffer::TransmitBuffer(){}
 
 TransmitBuffer::~TransmitBuffer(){}
@@ -13,8 +11,6 @@ FlyByte TransmitBuffer::popByte()
 
     FlyByte outputByte = outputByteArray.front();
     outputByteArray.pop_front();
-
-     qDebug() << "Outgoing Byte: " << outputByte;
 
     return outputByte;
 }
@@ -34,19 +30,15 @@ void TransmitBuffer::populateBuffer()
 
 void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
-    qDebug() << "Incoming Byte: " << incomingByte;
-
     inputByteArray.push_back(incomingByte);
 
-    int i = 0;
     FlyPacket inputPacket;
 
-    if(inputByteArray.size() > inputPacket.getMaxSize())
+    if(inputByteArray.size() == inputPacket.getMaxSize())
     {
-        while (inputPacket.isWriteable() == true)
+        for(int i=0; i < inputPacket.getMaxSize(); i++)
         {
             inputPacket.writeByte(inputByteArray[i]);
-            i++;
         }
 
         if (inputPacket.isValidPacket() == true)

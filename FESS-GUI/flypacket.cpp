@@ -1,4 +1,5 @@
 #include "flypacket.h"
+#include <QtGui>
 
 FlyPacket::FlyPacket()
 {
