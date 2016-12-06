@@ -3,6 +3,9 @@
 
 #include <datatypes.h>
 
+/*! \brief The conversions library, containing all conversions our program uses.
+ */
+
 void byteArrayToFloat(flybyte*, float*);
 void floatToByteArray(flybyte*, float*);
 
