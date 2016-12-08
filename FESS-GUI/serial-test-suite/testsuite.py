@@ -148,7 +148,7 @@ while(True):
 
 	readCommand(s)
 
-	time.sleep(0.1)
+	time.sleep(0.005)
 
 # Citations: 
 #	Function: 	binary()
