@@ -5,6 +5,8 @@
 
 #include "cstring"
 
+/*! \brief The conversions library, containing all conversions our program uses.
+ */
 
 typedef unsigned char FlyByte;
 
@@ -15,9 +17,7 @@ void floatToByteArray(FlyByte*, float*);
 int byteArrayToInt(FlyByte*);
 void intToByteArray(FlyByte*, int*);
 
-
 void zeroArray(void* , size_t);
-
 
 double radsPerSecondToRPM(double);
 double RPMtoRadsPerSecond(double);

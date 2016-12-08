@@ -3,7 +3,9 @@
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
-
+/*!
+ * \brief FlywheelOperation::FlywheelOperation Initializes variables to default values.
+ */
 FlywheelOperation::FlywheelOperation()
 {
     upperDisplacement = new QPointF();
@@ -12,6 +14,10 @@ FlywheelOperation::FlywheelOperation()
     setDefaults();
 }
 
+/*!
+ * \brief FlywheelOperation::FlywheelOperation Sets the deviceInterface and initializes variables to default values.
+ * \param deviceInterface
+ */
 FlywheelOperation::FlywheelOperation(CommonDeviceInterface* deviceInterface)
 {
     upperDisplacement = new QPointF();
@@ -22,6 +28,9 @@ FlywheelOperation::FlywheelOperation(CommonDeviceInterface* deviceInterface)
     setDefaults();
 }
 
+/*!
+ * \brief FlywheelOperation::~FlywheelOperation Deletes pointers.
+ */
 FlywheelOperation::~FlywheelOperation()
 {
     delete upperDisplacement;
@@ -29,6 +38,9 @@ FlywheelOperation::~FlywheelOperation()
     delete rotationalPosition;
 }
 
+/*!
+ * \brief FlywheelOperation::setDefaults Sets default values for member variables.
+ */
 void FlywheelOperation::setDefaults()
 {
     velocityValue = 0.0;
@@ -44,11 +56,21 @@ void FlywheelOperation::setDefaults()
     emergencyStopActivated = false;
 }
 
+/*!
+ * \brief FlywheelOperation::setInterface Sets the device interface.
+ * \param deviceInterface Pointer to the interface to set member variable to.
+ */
 void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
 {
     communicationDevice = deviceInterface;
 }
 
+/*!
+ * \brief FlywheelOperation::setMotion Sets all motion parameters for the flywheel.
+ * \param velocity The velocity to set the flywheel to.
+ * \param acceleration The acceleration to set the flywheel to.
+ * \param jerk The jerk to set the flywheel to.
+ */
 void FlywheelOperation::setMotion(float velocityValue, float accelerationValue, float jerkValue)
 {
     setVelocity(velocityValue);
@@ -56,6 +78,10 @@ void FlywheelOperation::setMotion(float velocityValue, float accelerationValue, 
     setJerk(jerkValue);
 }
 
+/*!
+ * \brief FlywheelOperation::setVelocity Sets the velocity of the flywheel.
+ * \param velocity The velocity to se tthe flywheel to.
+ */
 void FlywheelOperation::setVelocity(float velocityValue)
 {
      if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
@@ -65,6 +91,10 @@ void FlywheelOperation::setVelocity(float velocityValue)
     }
 }
 
+/*!
+ * \brief FlywheelOperation::setAcceleration Sets the acceleration of the flywheel.
+ * \param acceleration The acceleration to set the flywheel to.
+ */
 void FlywheelOperation::setAcceleration(float accelerationValue)
 {
      if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
@@ -74,6 +104,10 @@ void FlywheelOperation::setAcceleration(float accelerationValue)
     }
 }
 
+/*!
+ * \brief FlywheelOperation::setJerk Sets the jerk of the flywheel.
+ * \param jerk The jerk to set the flywheel to.
+ */
 void FlywheelOperation::setJerk(float jerkValue)
 {
     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
@@ -83,21 +117,37 @@ void FlywheelOperation::setJerk(float jerkValue)
     }
 }
 
+/*!
+ * \brief FlywheelOperation::getVelocity Gets the current velocity of the flywheel.
+ * \return The current velocity of the flywheel.
+ */
 float FlywheelOperation::getVelocity()
 {
     return velocityValue;
 }
 
+/*!
+ * \brief FlywheelOperation::getAcceleration Gets the current acceleration of the flywheel.
+ * \return The current acceleration of the flywheel.
+ */
 float FlywheelOperation::getAcceleration()
 {
     return accelerationValue;
 }
 
+/*!
+ * \brief FlywheelOperation::getJerk Gets the current jerk of the flywheel.
+ * \return The current jerk of the flywheel.
+ */
 float FlywheelOperation::getJerk()
 {
     return jerkValue;
 }
 
+/*!
+ * \brief FlywheelOperation::getUpperDisplacement Gets the upper displacement of the flywheel.
+ * \return The upper displacement of the flywheel.
+ */
 QPointF FlywheelOperation::getUpperDisplacement()
 {
     upperDisplacement->setX(upperDisplacementXValue);
@@ -106,6 +156,10 @@ QPointF FlywheelOperation::getUpperDisplacement()
     return *upperDisplacement;
 }
 
+/*!
+ * \brief FlywheelOperation::getLowerDisplacement Gets the lower displacement of the flywheel.
+ * \return The lower displacement of the flywheel.
+ */
 QPointF FlywheelOperation::getLowerDisplacement()
 {
     lowerDisplacement->setX(lowerDisplacementXValue);
@@ -113,6 +167,10 @@ QPointF FlywheelOperation::getLowerDisplacement()
     return *lowerDisplacement;
 }
 
+/*!
+ * \brief FlywheelOperation::getRotationalPosition Gets the rotational position of the flywheel.
+ * \return The rotational position of the flywheel.
+ */
 QPointF FlywheelOperation::getRotationalPosition()
 {
     rotationalPosition->setX(rotationalPositionXValue);
@@ -120,11 +178,18 @@ QPointF FlywheelOperation::getRotationalPosition()
     return *rotationalPosition;
 }
 
+/*!
+ * \brief FlywheelOperation::emergencyStop Sends a command to stop the flywheel immediately.
+ */
 void FlywheelOperation::emergencyStop() // Tells the controller to stop and checks to confirm it stopped
 {
     emergencyStopActivated = true;
 }
 
+/*!
+ * \brief FlywheelOperation::sync Syncs the flywheel operation.
+ * Syncs the communication device and fixes error where bytes in a data set are missing.
+ */
 void FlywheelOperation::syncRX()
 {
     while(!communicationDevice->empty())
