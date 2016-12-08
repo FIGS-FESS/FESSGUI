@@ -1,3 +1,7 @@
+/*! \brief The Abstract Base Class: Common Device Interface
+ * A generic template for interfaces.
+ */
+
 #ifndef INTERFACE_H
 #define INTERFACE_H
 

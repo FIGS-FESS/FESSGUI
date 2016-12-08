@@ -41,8 +41,7 @@ void DemoDevice::syncTX()
                 {
                     loop = false;
                     type = STOP;
-                    FlyPacket emergencyStopAckPacket(CCM_EMERGENCY_STOP,0);
-                    rx.pushPacket(emergencyStopAckPacket);
+                    rx.pushPacket(incomingPacket);
                     break;
                 }
 
