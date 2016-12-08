@@ -252,7 +252,7 @@ void FlywheelOperation::syncRX()
                 break;
             }
 
-            case CCM_EMERGENCY_STOP:
+            case ICM_EMERGENCY_STOP:
             {
                 emergencyStopActivated = false;
                 break;
