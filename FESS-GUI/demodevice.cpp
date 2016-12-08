@@ -35,8 +35,6 @@ void DemoDevice::syncTX()
         {
             FlyPacket incomingPacket = tx.popPacket();
 
-            qDebug() << incomingPacket.getCommand();
-
             switch(incomingPacket.getCommand())
             {
                 case ICM_EMERGENCY_STOP: // Emergency Stop
@@ -224,7 +222,6 @@ void DemoDevice::pushByte(FlyByte dataByte)
  */
 void DemoDevice::pushPacket(FlyPacket dataPacket)
 {
-    qDebug() << tx.packetsAvailable();
     tx.pushPacket(dataPacket);
 }
 
