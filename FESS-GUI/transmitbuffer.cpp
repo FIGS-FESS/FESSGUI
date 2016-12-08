@@ -72,7 +72,6 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
     packetBuffer.push(incomingPacket);
-    populateBuffer();
 }
 
 /*! \brief TransmitBuffer::popPacket Adds the packets to the packet queue.
