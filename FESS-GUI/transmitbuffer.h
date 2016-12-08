@@ -1,3 +1,6 @@
+/*! \brief The Transmit Buffer Library, provides queueing for the communication packets and raw output of packets for interfaces.
+ */
+
 #ifndef TRANSMITBUFFER_H
 #define TRANSMITBUFFER_H
 

@@ -1,12 +1,12 @@
+/*! \brief The conversions library, containing all conversions our program uses.
+ */
+
 #ifndef CONVERSIONS_H
 #define CONVERSIONS_H
 
 #define TAU	6.283185307179586476925286766559005768394
 
 #include "cstring"
-
-/*! \brief The conversions library, containing all conversions our program uses.
- */
 
 typedef unsigned char FlyByte;
 
