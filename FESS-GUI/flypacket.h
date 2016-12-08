@@ -1,3 +1,8 @@
+/*!
+ * \brief FlyPacket Class
+ * Provide a packet structure to transport data with approirate headers and footers.
+ */
+
 #ifndef FLYPACKETLIB_H
 #define FLYPACKETLIB_H
 
