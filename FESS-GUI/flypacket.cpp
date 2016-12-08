@@ -11,7 +11,7 @@ FlyPacket::FlyPacket()
 /*! \brief FlyPacket::FlyPacket Set the default values, header and data.
  *  \param FlyByte Header Byte
  *  \param int Data Byte
- *
+ */
 FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
 {
     reset();

@@ -1,5 +1,4 @@
 // Custom Libraries
-#include <QtGui>
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
