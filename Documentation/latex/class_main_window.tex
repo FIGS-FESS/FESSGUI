@@ -1,0 +1,130 @@
+\hypertarget{class_main_window}{}\section{Main\+Window Class Reference}
+\label{class_main_window}\index{Main\+Window@{Main\+Window}}
+
+
+The \hyperlink{class_main_window}{Main\+Window} class Comprises the bulk of the G\+UI.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+Inheritance diagram for Main\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main_window}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window\+::\+Main\+Window} Constructs the \hyperlink{class_main_window}{Main\+Window} object. Initializes all variables it needs to. By convention, we initialize values in the constructor rather than in the header/declaraton. \end{DoxyCompactList}\item 
+\hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{}\label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7} 
+\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{Main\+Window\+::$\sim$\+Main\+Window} The destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_main_window_ab1b0abac053ed137235ee5d4b205a107}{}\label{class_main_window_ab1b0abac053ed137235ee5d4b205a107} 
+Q\+Media\+Player $\ast$ {\bfseries goplayer}
+\item 
+\hypertarget{class_main_window_a3c60004c5faa4c7a29b81eb2723d36b9}{}\label{class_main_window_a3c60004c5faa4c7a29b81eb2723d36b9} 
+Q\+Media\+Player $\ast$ {\bfseries stopplayer}
+\item 
+\hypertarget{class_main_window_ad5624c21fd77dfdb33d4a7320b6a4ab6}{}\label{class_main_window_ad5624c21fd77dfdb33d4a7320b6a4ab6} 
+\hyperlink{class_recording_operation}{Recording\+Operation} $\ast$ {\bfseries recording}
+\item 
+\hypertarget{class_main_window_afa18558be9a3153936f12dfcdc0e6d8e}{}\label{class_main_window_afa18558be9a3153936f12dfcdc0e6d8e} 
+Q\+Timer $\ast$ {\bfseries flywheel\+Refresh\+Timer}
+\item 
+\hypertarget{class_main_window_aaeb4288152c50a071e0c4df3e1baba85}{}\label{class_main_window_aaeb4288152c50a071e0c4df3e1baba85} 
+Q\+Timer $\ast$ {\bfseries graph\+Refresh\+Timer}
+\item 
+\hypertarget{class_main_window_abce15ec85ee2078bbb147d081e0a098b}{}\label{class_main_window_abce15ec85ee2078bbb147d081e0a098b} 
+Q\+Timer $\ast$ {\bfseries velocity\+Slope\+Timer}
+\item 
+\hypertarget{class_main_window_a61e3faf86f0c2bd56921aacdd4e64c68}{}\label{class_main_window_a61e3faf86f0c2bd56921aacdd4e64c68} 
+Q\+Timer $\ast$ {\bfseries acceleration\+Slope\+Timer}
+\item 
+\hypertarget{class_main_window_a034e18132b1729fa204f92305fb5e71f}{}\label{class_main_window_a034e18132b1729fa204f92305fb5e71f} 
+bool {\bfseries play\+Sounds}
+\item 
+\hypertarget{class_main_window_a23fa0be440d34e4569d9e2d323410e7d}{}\label{class_main_window_a23fa0be440d34e4569d9e2d323410e7d} 
+bool {\bfseries is\+Recording}
+\item 
+\hypertarget{class_main_window_a1f43f19e84b444053fd775d25d2aa07d}{}\label{class_main_window_a1f43f19e84b444053fd775d25d2aa07d} 
+bool {\bfseries is\+Scale\+Locked}
+\item 
+\hypertarget{class_main_window_aa2c569cb70d25d85e43499d4dca2154b}{}\label{class_main_window_aa2c569cb70d25d85e43499d4dca2154b} 
+double {\bfseries graph\+Refresh\+Rate}
+\item 
+\hypertarget{class_main_window_ad450b124c5daea75470bb6550081011e}{}\label{class_main_window_ad450b124c5daea75470bb6550081011e} 
+double {\bfseries flywheel\+Refresh\+Rate}
+\item 
+\hypertarget{class_main_window_a468f6a2dee29d0488aa82f7e2583b5ae}{}\label{class_main_window_a468f6a2dee29d0488aa82f7e2583b5ae} 
+double {\bfseries target\+Velocity}
+\item 
+\hypertarget{class_main_window_a879db4d65600c3b3945d67976d9a8622}{}\label{class_main_window_a879db4d65600c3b3945d67976d9a8622} 
+double {\bfseries current\+Expected\+Velocity}
+\item 
+\hypertarget{class_main_window_a585bfd03f54d4e1f15109de662806090}{}\label{class_main_window_a585bfd03f54d4e1f15109de662806090} 
+double {\bfseries target\+Acceleration}
+\item 
+\hypertarget{class_main_window_a6382bf386001d617cd5b717a92c5004d}{}\label{class_main_window_a6382bf386001d617cd5b717a92c5004d} 
+double {\bfseries current\+Expected\+Acceleration}
+\item 
+\hypertarget{class_main_window_a380cbb9e901211a3c8fc685cea11c8f9}{}\label{class_main_window_a380cbb9e901211a3c8fc685cea11c8f9} 
+double {\bfseries current\+Expected\+Jerk}
+\item 
+\hypertarget{class_main_window_a1f9fdf363545300d34f5aee2dddb1ff5}{}\label{class_main_window_a1f9fdf363545300d34f5aee2dddb1ff5} 
+double {\bfseries y\+Axis\+Display\+Buffer}
+\item 
+\hypertarget{class_main_window_a14e66dcaf2393eed660d558651b07e94}{}\label{class_main_window_a14e66dcaf2393eed660d558651b07e94} 
+int {\bfseries maximum\+Velocity}
+\item 
+\hypertarget{class_main_window_a6b3e09f92d0e995e5c349d6658121364}{}\label{class_main_window_a6b3e09f92d0e995e5c349d6658121364} 
+int {\bfseries maximum\+Acceleration}
+\item 
+\hypertarget{class_main_window_a304d68be05ae4cd7086236120933ebcd}{}\label{class_main_window_a304d68be05ae4cd7086236120933ebcd} 
+int {\bfseries slider\+Tick\+Interval}
+\item 
+\hypertarget{class_main_window_ad869af059f93289fa358e55d881d20a0}{}\label{class_main_window_ad869af059f93289fa358e55d881d20a0} 
+Q\+Key\+Sequence {\bfseries e\+Stop\+Key}
+\item 
+\hypertarget{class_main_window_af999866626ad70973845e180fe7666f8}{}\label{class_main_window_af999866626ad70973845e180fe7666f8} 
+Q\+Elapsed\+Timer {\bfseries uptime}
+\item 
+\hypertarget{class_main_window_a0efaeedddca035b6a26ebf229b4ce6ae}{}\label{class_main_window_a0efaeedddca035b6a26ebf229b4ce6ae} 
+Q\+Action $\ast$ {\bfseries e\+Stop\+Shortcut}
+\item 
+\hypertarget{class_main_window_a35466a70ed47252a0191168126a352a5}{}\label{class_main_window_a35466a70ed47252a0191168126a352a5} 
+Ui\+::\+Main\+Window $\ast$ {\bfseries ui}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_main_window}{Main\+Window} class Comprises the bulk of the G\+UI. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{}\label{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db} 
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\index{Main\+Window@{Main\+Window}!Main\+Window@{Main\+Window}}
+\subsubsection{\texorpdfstring{Main\+Window()}{MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\hyperlink{class_main_window_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window\+::\+Main\+Window} Constructs the \hyperlink{class_main_window}{Main\+Window} object. Initializes all variables it needs to. By convention, we initialize values in the constructor rather than in the header/declaraton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Jesse Jutson/\+Documents/\+Git\+Hub/\+F\+E\+S\+S\+G\+U\+I/\+F\+E\+S\+S-\/\+G\+U\+I/mainwindow.\+h\item 
+C\+:/\+Users/\+Jesse Jutson/\+Documents/\+Git\+Hub/\+F\+E\+S\+S\+G\+U\+I/\+F\+E\+S\+S-\/\+G\+U\+I/mainwindow.\+cpp\end{DoxyCompactItemize}

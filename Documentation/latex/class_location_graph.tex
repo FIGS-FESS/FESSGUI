@@ -1,0 +1,122 @@
+\hypertarget{class_location_graph}{}\section{Location\+Graph Class Reference}
+\label{class_location_graph}\index{Location\+Graph@{Location\+Graph}}
+
+
+The \hyperlink{class_location_graph}{Location\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph where the x and y axes represent location. This is a real-\/time graph, with no view of what happened in the past.  
+
+
+
+
+{\ttfamily \#include $<$graph.\+h$>$}
+
+Inheritance diagram for Location\+Graph\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_location_graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_location_graph_aabdd9cf30c4ff8bc2e522aab71f4f094}{Location\+Graph} (\hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$main\+Plot, \hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$aux\+Plot, std\+::vector$<$ Q\+Color $>$ colors, Q\+String display\+Unit, int num\+Points)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_location_graph_aabdd9cf30c4ff8bc2e522aab71f4f094}{Location\+Graph\+::\+Location\+Graph} Constructs a \hyperlink{class_location_graph}{Location\+Graph}. \end{DoxyCompactList}\item 
+void \hyperlink{class_location_graph_a7cfae63bd0a39bb8f6953053d11d7794}{add\+Data} (std\+::vector$<$ Q\+PointF $>$ points)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_location_graph_a7cfae63bd0a39bb8f6953053d11d7794}{Location\+Graph\+::add\+Data} Adds a vector of points to the graph. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_location_graph_a8ac355338680e55af26cb3e74b76d278}{max\+Display} () override
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_location_graph_a8ac355338680e55af26cb3e74b76d278}{Location\+Graph\+::max\+Display} Returns a display of the maximum value seen by this graph so far, with units. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_location_graph_ab0f46de5c3a6b72556762bbf02d6a4b3}{current\+Display} () override
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_location_graph_ab0f46de5c3a6b72556762bbf02d6a4b3}{Location\+Graph\+::current\+Display} Returns a display of the most recent values seen by this graph, with units. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_location_graph_af5c037a973c98ff0a17853f8ef661c7f}{}\label{class_location_graph_af5c037a973c98ff0a17853f8ef661c7f} 
+std\+::vector$<$ Q\+Color $>$ {\bfseries colors}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_location_graph}{Location\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph where the x and y axes represent location. This is a real-\/time graph, with no view of what happened in the past. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_location_graph_aabdd9cf30c4ff8bc2e522aab71f4f094}{}\label{class_location_graph_aabdd9cf30c4ff8bc2e522aab71f4f094} 
+\index{Location\+Graph@{Location\+Graph}!Location\+Graph@{Location\+Graph}}
+\index{Location\+Graph@{Location\+Graph}!Location\+Graph@{Location\+Graph}}
+\subsubsection{\texorpdfstring{Location\+Graph()}{LocationGraph()}}
+{\footnotesize\ttfamily Location\+Graph\+::\+Location\+Graph (\begin{DoxyParamCaption}\item[{\hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$}]{main\+Plot,  }\item[{\hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$}]{aux\+Plot,  }\item[{std\+::vector$<$ Q\+Color $>$}]{colors,  }\item[{Q\+String}]{display\+Unit,  }\item[{int}]{num\+Points }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_location_graph_aabdd9cf30c4ff8bc2e522aab71f4f094}{Location\+Graph\+::\+Location\+Graph} Constructs a \hyperlink{class_location_graph}{Location\+Graph}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em main\+Plot} & The main plot for this graph. \\
+\hline
+{\em aux\+Plot} & The auxiliary plot for this graph, which lives in the sidebar. \\
+\hline
+{\em colors} & A vector of the colors to be given to the points in this graph. \\
+\hline
+{\em display\+Unit} & A string containing the name of the units to use in this graph\textquotesingle{}s displays. \\
+\hline
+{\em num\+Points} & The number of points to display on this graph. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_location_graph_a7cfae63bd0a39bb8f6953053d11d7794}{}\label{class_location_graph_a7cfae63bd0a39bb8f6953053d11d7794} 
+\index{Location\+Graph@{Location\+Graph}!add\+Data@{add\+Data}}
+\index{add\+Data@{add\+Data}!Location\+Graph@{Location\+Graph}}
+\subsubsection{\texorpdfstring{add\+Data()}{addData()}}
+{\footnotesize\ttfamily void Location\+Graph\+::add\+Data (\begin{DoxyParamCaption}\item[{std\+::vector$<$ Q\+PointF $>$}]{points }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_location_graph_a7cfae63bd0a39bb8f6953053d11d7794}{Location\+Graph\+::add\+Data} Adds a vector of points to the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & The points to add to this graph. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_location_graph_ab0f46de5c3a6b72556762bbf02d6a4b3}{}\label{class_location_graph_ab0f46de5c3a6b72556762bbf02d6a4b3} 
+\index{Location\+Graph@{Location\+Graph}!current\+Display@{current\+Display}}
+\index{current\+Display@{current\+Display}!Location\+Graph@{Location\+Graph}}
+\subsubsection{\texorpdfstring{current\+Display()}{currentDisplay()}}
+{\footnotesize\ttfamily Q\+String Location\+Graph\+::current\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_location_graph_ab0f46de5c3a6b72556762bbf02d6a4b3}{Location\+Graph\+::current\+Display} Returns a display of the most recent values seen by this graph, with units. 
+
+\begin{DoxyReturn}{Returns}
+A string containing the most recent values seen by this graph. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_graph}{Graph}.
+
+\hypertarget{class_location_graph_a8ac355338680e55af26cb3e74b76d278}{}\label{class_location_graph_a8ac355338680e55af26cb3e74b76d278} 
+\index{Location\+Graph@{Location\+Graph}!max\+Display@{max\+Display}}
+\index{max\+Display@{max\+Display}!Location\+Graph@{Location\+Graph}}
+\subsubsection{\texorpdfstring{max\+Display()}{maxDisplay()}}
+{\footnotesize\ttfamily Q\+String Location\+Graph\+::max\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_location_graph_a8ac355338680e55af26cb3e74b76d278}{Location\+Graph\+::max\+Display} Returns a display of the maximum value seen by this graph so far, with units. 
+
+\begin{DoxyReturn}{Returns}
+A string containing the maximum values seen by this graph so far. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_graph}{Graph}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Jesse Jutson/\+Documents/\+Git\+Hub/\+F\+E\+S\+S\+G\+U\+I/\+F\+E\+S\+S-\/\+G\+U\+I/graph.\+h\item 
+C\+:/\+Users/\+Jesse Jutson/\+Documents/\+Git\+Hub/\+F\+E\+S\+S\+G\+U\+I/\+F\+E\+S\+S-\/\+G\+U\+I/graph.\+cpp\end{DoxyCompactItemize}
