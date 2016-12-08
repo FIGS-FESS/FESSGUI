@@ -40,7 +40,6 @@ class DemoDevice : public CommonDeviceInterface
 
 
     private:
-        bool broadcast;
         bool statusReady;
 
         float vel;
@@ -62,6 +61,7 @@ class DemoDevice : public CommonDeviceInterface
         float key;
 
         int type;
+        bool loop;
 
         TransmitBuffer rx;
         TransmitBuffer tx;

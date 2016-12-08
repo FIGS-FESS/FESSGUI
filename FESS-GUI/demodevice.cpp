@@ -25,30 +25,31 @@ DemoDevice::~DemoDevice()
 
 void DemoDevice::syncTX()
 {
-    while(tx.packetsAvailable() == true)
+    if(loop == true)
     {
-        FlyPacket val = tx.popPacket();
-
-        switch(val.getCommand())
+        while(tx.packetsAvailable() == true)
         {
-            case ICM_EMERGENCY_STOP: // Emergency Stop
-            {
-                //loop = false;
-                type = STOP;
-                //rx.pushByte(CCM_EMERGENCY_STOP);
-                break;
-            }
+            FlyPacket incomingPacket = tx.popPacket();
 
-            case ICM_SET_VELOCITY:
-            {
-                qDebug() << "CHANGING VELOCITY";
-            }
+            qDebug() << incomingPacket.getCommand();
 
-            default: // Error: Unknown Commands
+            switch(incomingPacket.getCommand())
             {
-                //loop = false;
-                tx.flush();
-                break;
+                case ICM_EMERGENCY_STOP: // Emergency Stop
+                {
+                    loop = false;
+                    type = STOP;
+                    FlyPacket emergencyStopAckPacket(CCM_EMERGENCY_STOP,0);
+                    rx.pushPacket(emergencyStopAckPacket);
+                    break;
+                }
+
+                default: // Error: Unknown Commands
+                {
+                    loop = false;
+                    tx.flush();
+                    break;
+                }
             }
         }
     }
@@ -114,22 +115,6 @@ void DemoDevice::syncRX()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    FlyByte barray[4];
-
-    floatToByteArray(barray,&vel);
-
-    //rx.pushPacket(dataPacket8);
-
-    rx.pushByte(IDM_SEND_VELOCITY);
-    rx.pushByte(barray[0]);
-    rx.pushByte(barray[1]);
-    rx.pushByte(barray[2]);
-    rx.pushByte(barray[3]);
-    rx.pushByte(CDM_SEND_VELOCITY);
-
-    //qDebug()<< dataPacket->getFloat();
-
-    /*
     FlyPacket dataPacket(IDM_SEND_VELOCITY,vel);
     rx.pushPacket(dataPacket);
 
@@ -157,7 +142,6 @@ void DemoDevice::syncRX()
     FlyPacket dataPacket7(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
     rx.pushPacket(dataPacket7);
 
-    //*/
 }
 
 //--------------------------------------------------------------------
@@ -186,6 +170,7 @@ void DemoDevice::setDefaults()
     type = RANDOM;
     velRate = 0.1;
     key = 0;
+    loop = true;
 }
 
 FlyByte DemoDevice::popByte()

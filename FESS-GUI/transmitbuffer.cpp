@@ -57,7 +57,6 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
     packetBuffer.push(incomingPacket);
-    populateBuffer();
 }
 
 FlyPacket TransmitBuffer::popPacket()
