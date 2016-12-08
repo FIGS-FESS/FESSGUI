@@ -1,3 +1,7 @@
+/*! \brief CommonInterfaceManager Class
+ *  Manages interfaces set in the interface selector menu
+ */
+
 #ifndef COMMONINTERFACEMANAGER_H
 #define COMMONINTERFACEMANAGER_H
 
