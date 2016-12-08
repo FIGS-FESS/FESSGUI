@@ -1,3 +1,7 @@
+/*! \brief The Serial Class
+ * Provides access to serial interfaces.
+ */
+
 #ifndef FLY_SERIAL_H
 #define FLY_SERIAL_H
 

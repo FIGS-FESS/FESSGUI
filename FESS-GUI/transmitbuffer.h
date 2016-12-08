@@ -1,4 +1,5 @@
-/*! \brief The Transmit Buffer Library, provides queueing for the communication packets and raw output of packets for interfaces.
+/*! \brief The Transmit Buffer Class
+ * Provides queueing for the communication packets and raw output of packets for interfaces.
  */
 
 #ifndef TRANSMITBUFFER_H
