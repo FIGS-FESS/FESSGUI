@@ -1,3 +1,8 @@
+/*!
+ * \brief CommonInterfaceSelector class
+ * Handles the selection of interfaces.
+ */
+
 #ifndef COMMONINTERFACESELECTOR_H
 #define COMMONINTERFACESELECTOR_H
 

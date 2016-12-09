@@ -6,7 +6,7 @@
 
 #define TAU	6.283185307179586476925286766559005768394
 
-#include "cstring"
+#include <cstring>
 
 typedef unsigned char FlyByte;
 

@@ -70,22 +70,22 @@ void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
  * \param acceleration The acceleration to set the flywheel to.
  * \param jerk The jerk to set the flywheel to.
  */
-void FlywheelOperation::setMotion(float velocityValue, float accelerationValue, float jerkValue)
+void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk)
 {
-    setVelocity(velocityValue);
-    setAcceleration(accelerationValue);
-    setJerk(jerkValue);
+    setVelocity(velocity);
+    setAcceleration(acceleration);
+    setJerk(jerk);
 }
 
 /*!
  * \brief FlywheelOperation::setVelocity Sets the velocity of the flywheel.
  * \param velocity The velocity to se tthe flywheel to.
  */
-void FlywheelOperation::setVelocity(float velocityValue)
+void FlywheelOperation::setVelocity(float velocity)
 {
      if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
-        FlyPacket dataPacket(ICM_SET_VELOCITY,velocityValue);
+        FlyPacket dataPacket(ICM_SET_VELOCITY,velocity);
         communicationDevice->pushPacket(dataPacket);
     }
 }
@@ -94,11 +94,11 @@ void FlywheelOperation::setVelocity(float velocityValue)
  * \brief FlywheelOperation::setAcceleration Sets the acceleration of the flywheel.
  * \param acceleration The acceleration to set the flywheel to.
  */
-void FlywheelOperation::setAcceleration(float accelerationValue)
+void FlywheelOperation::setAcceleration(float acceleration)
 {
      if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
     {
-        FlyPacket dataPacket(ICM_SET_ACCELERATION,accelerationValue);
+        FlyPacket dataPacket(ICM_SET_ACCELERATION,acceleration);
         communicationDevice->pushPacket(dataPacket);
     }
 }

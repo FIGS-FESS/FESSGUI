@@ -65,7 +65,7 @@ void FlyPacket::checkCommand()
 void FlyPacket::setCommand(FlyByte generalByte)
 {
     commandByte = generalByte;
-    acknownledgeByte = (generalByte | IDM_CMD_DIFFERENCE);
+    acknowledgeByte = (generalByte | IDM_CMD_DIFFERENCE);
     checkCommand();
 }
 
@@ -121,7 +121,7 @@ void FlyPacket::writeByte(FlyByte generalByte)
         }
         case PACKET_END:
         {
-            acknownledgeByte = generalByte;
+            acknowledgeByte = generalByte;
             writeComplete = true;
             break;
         }
@@ -165,7 +165,7 @@ FlyByte FlyPacket::getCommand()
  */
 FlyByte FlyPacket::readByte()
 {
-    FlyByte returnByte = 0;
+    FlyByte returnByte;
 
     switch(byteArrayPositionRead)
     {
@@ -177,7 +177,7 @@ FlyByte FlyPacket::readByte()
         }
         case PACKET_END:
         {
-            returnByte = acknownledgeByte;
+            returnByte = acknowledgeByte;
             readComplete = true;
             break;
         }
@@ -237,7 +237,7 @@ bool FlyPacket::isValidPacket()
     if (invalidCommand == false)
     {
 
-        if (acknownledgeByte == (commandByte | IDM_CMD_DIFFERENCE))
+        if (acknowledgeByte == (commandByte | IDM_CMD_DIFFERENCE))
         {
             return true;
         }

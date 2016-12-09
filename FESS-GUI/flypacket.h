@@ -68,10 +68,6 @@
 
 #define PACKET_SIZE             PACKET_END + FOOTER_SIZE
 
-// Error Types
-//------------------------------------------------
-#define NO_ERROR                0
-
 #include "conversions.h"
 
 class FlyPacket
@@ -111,7 +107,7 @@ class FlyPacket
     bool writeComplete;
 
     FlyByte commandByte;
-    FlyByte acknownledgeByte;
+    FlyByte acknowledgeByte;
     FlyByte byteArrayPositionWrite;
     FlyByte byteArrayPositionRead;
     FlyByte byteArray[MAX_PAYLOAD];
