@@ -66,31 +66,180 @@ $(function() {
 <div class="title">TransmitBuffer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Transmit Buffer Class Provides queueing for the communication packets and raw output of packets for interfaces.  
+ <a href="class_transmit_buffer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="transmitbuffer_8h_source.html">transmitbuffer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aedb208968c943ed3913ebb92bdd8d503"><td class="memItemLeft" align="right" valign="top"><a id="aedb208968c943ed3913ebb92bdd8d503"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushInt</b> (int)</td></tr>
-<tr class="separator:aedb208968c943ed3913ebb92bdd8d503"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6f2bf1d6851b298590cd002fb62d8c4"><td class="memItemLeft" align="right" valign="top"><a id="ad6f2bf1d6851b298590cd002fb62d8c4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushFloat</b> (float)</td></tr>
-<tr class="separator:ad6f2bf1d6851b298590cd002fb62d8c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b60d63a662ff83c8d5d03cd6646628e"><td class="memItemLeft" align="right" valign="top"><a id="a9b60d63a662ff83c8d5d03cd6646628e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushByte</b> (flybyte)</td></tr>
-<tr class="separator:a9b60d63a662ff83c8d5d03cd6646628e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2390bed50bee25863d62b88f99df3c16"><td class="memItemLeft" align="right" valign="top"><a id="a2390bed50bee25863d62b88f99df3c16"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushByteFront</b> (flybyte)</td></tr>
-<tr class="separator:a2390bed50bee25863d62b88f99df3c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae69cb23f10c0d0e053bae6f5812bcd04"><td class="memItemLeft" align="right" valign="top"><a id="ae69cb23f10c0d0e053bae6f5812bcd04"></a>
-flybyte&#160;</td><td class="memItemRight" valign="bottom"><b>popByte</b> ()</td></tr>
-<tr class="separator:ae69cb23f10c0d0e053bae6f5812bcd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb5f67b087b5c8d1996f9f7b6fb42341"><td class="memItemLeft" align="right" valign="top"><a id="adb5f67b087b5c8d1996f9f7b6fb42341"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#adb5f67b087b5c8d1996f9f7b6fb42341">TransmitBuffer</a> ()</td></tr>
+<tr class="memdesc:adb5f67b087b5c8d1996f9f7b6fb42341"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#adb5f67b087b5c8d1996f9f7b6fb42341" title="TransmitBuffer::TransmitBuffer Provided if needed in the future, currently no functionality. ">TransmitBuffer::TransmitBuffer</a> Provided if needed in the future, currently no functionality. <br /></td></tr>
+<tr class="separator:adb5f67b087b5c8d1996f9f7b6fb42341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9de4adf2b6fef27e9f35ce3392fb12d2"><td class="memItemLeft" align="right" valign="top"><a id="a9de4adf2b6fef27e9f35ce3392fb12d2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#a9de4adf2b6fef27e9f35ce3392fb12d2">~TransmitBuffer</a> ()</td></tr>
+<tr class="memdesc:a9de4adf2b6fef27e9f35ce3392fb12d2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#a9de4adf2b6fef27e9f35ce3392fb12d2" title="TransmitBuffer::~TransmitBuffer Provided if needed in the future, currently no functionality. ">TransmitBuffer::~TransmitBuffer</a> Provided if needed in the future, currently no functionality. <br /></td></tr>
+<tr class="separator:a9de4adf2b6fef27e9f35ce3392fb12d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7966064a6abaeb5ff3f7c8ff0402ec3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#aa7966064a6abaeb5ff3f7c8ff0402ec3">pushByte</a> (FlyByte)</td></tr>
+<tr class="memdesc:aa7966064a6abaeb5ff3f7c8ff0402ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#aa7966064a6abaeb5ff3f7c8ff0402ec3" title="TransmitBuffer::pushByte Takes bytes until there are enough to build a packet. It converts the bytes ...">TransmitBuffer::pushByte</a> Takes bytes until there are enough to build a packet. It converts the bytes to a packet and adds the packet to the packet queue.  <a href="#aa7966064a6abaeb5ff3f7c8ff0402ec3">More...</a><br /></td></tr>
+<tr class="separator:aa7966064a6abaeb5ff3f7c8ff0402ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002757b58f4227167db20c8977bbdb28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#a002757b58f4227167db20c8977bbdb28">pushPacket</a> (<a class="el" href="class_fly_packet.html">FlyPacket</a>)</td></tr>
+<tr class="memdesc:a002757b58f4227167db20c8977bbdb28"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#a002757b58f4227167db20c8977bbdb28" title="TransmitBuffer::pushPacket Adds the packets to the packet queue. ">TransmitBuffer::pushPacket</a> Adds the packets to the packet queue.  <a href="#a002757b58f4227167db20c8977bbdb28">More...</a><br /></td></tr>
+<tr class="separator:a002757b58f4227167db20c8977bbdb28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da9417079dd783d996af8fcc138149c"><td class="memItemLeft" align="right" valign="top">FlyByte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#a6da9417079dd783d996af8fcc138149c">popByte</a> ()</td></tr>
+<tr class="memdesc:a6da9417079dd783d996af8fcc138149c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#a6da9417079dd783d996af8fcc138149c" title="TransmitBuffer::popByte Get the Byte at the front of the output byte queue created from a packet...">TransmitBuffer::popByte</a> Get the Byte at the front of the output byte queue created from a packet.  <a href="#a6da9417079dd783d996af8fcc138149c">More...</a><br /></td></tr>
+<tr class="separator:a6da9417079dd783d996af8fcc138149c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add84c61a7f2f060d236feab584babc64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fly_packet.html">FlyPacket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#add84c61a7f2f060d236feab584babc64">popPacket</a> ()</td></tr>
+<tr class="memdesc:add84c61a7f2f060d236feab584babc64"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#add84c61a7f2f060d236feab584babc64" title="TransmitBuffer::popPacket Adds the packets to the packet queue. ">TransmitBuffer::popPacket</a> Adds the packets to the packet queue.  <a href="#add84c61a7f2f060d236feab584babc64">More...</a><br /></td></tr>
+<tr class="separator:add84c61a7f2f060d236feab584babc64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a574f5ab5eca07b5ee8a517812cd7d87a"><td class="memItemLeft" align="right" valign="top"><a id="a574f5ab5eca07b5ee8a517812cd7d87a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flush</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#a574f5ab5eca07b5ee8a517812cd7d87a">flush</a> ()</td></tr>
+<tr class="memdesc:a574f5ab5eca07b5ee8a517812cd7d87a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#a574f5ab5eca07b5ee8a517812cd7d87a" title="TransmitBuffer::flush Empties all internal queues. ">TransmitBuffer::flush</a> Empties all internal queues. <br /></td></tr>
 <tr class="separator:a574f5ab5eca07b5ee8a517812cd7d87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3396e1989bd10f06bc9d8fd8b810da4"><td class="memItemLeft" align="right" valign="top"><a id="af3396e1989bd10f06bc9d8fd8b810da4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> ()</td></tr>
-<tr class="separator:af3396e1989bd10f06bc9d8fd8b810da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec08c2e6aa511bfd87d83ec4226b2c8e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#aec08c2e6aa511bfd87d83ec4226b2c8e">bytesAvailable</a> ()</td></tr>
+<tr class="memdesc:aec08c2e6aa511bfd87d83ec4226b2c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#aec08c2e6aa511bfd87d83ec4226b2c8e" title="TransmitBuffer::bytesAvailable Checks if the byte and packet queues are empty. ">TransmitBuffer::bytesAvailable</a> Checks if the byte and packet queues are empty.  <a href="#aec08c2e6aa511bfd87d83ec4226b2c8e">More...</a><br /></td></tr>
+<tr class="separator:aec08c2e6aa511bfd87d83ec4226b2c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad9976b2ae40b1405a319de979b09827"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_transmit_buffer.html#aad9976b2ae40b1405a319de979b09827">packetsAvailable</a> ()</td></tr>
+<tr class="memdesc:aad9976b2ae40b1405a319de979b09827"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_transmit_buffer.html#aad9976b2ae40b1405a319de979b09827" title="TransmitBuffer::packetsAvailable Checks if the packet queue is empty. ">TransmitBuffer::packetsAvailable</a> Checks if the packet queue is empty.  <a href="#aad9976b2ae40b1405a319de979b09827">More...</a><br /></td></tr>
+<tr class="separator:aad9976b2ae40b1405a319de979b09827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Transmit Buffer Class Provides queueing for the communication packets and raw output of packets for interfaces. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aec08c2e6aa511bfd87d83ec4226b2c8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec08c2e6aa511bfd87d83ec4226b2c8e">&sect;&nbsp;</a></span>bytesAvailable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TransmitBuffer::bytesAvailable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#aec08c2e6aa511bfd87d83ec4226b2c8e" title="TransmitBuffer::bytesAvailable Checks if the byte and packet queues are empty. ">TransmitBuffer::bytesAvailable</a> Checks if the byte and packet queues are empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool (true=yes | false=no) </dd></dl>
+
+</div>
+</div>
+<a id="aad9976b2ae40b1405a319de979b09827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad9976b2ae40b1405a319de979b09827">&sect;&nbsp;</a></span>packetsAvailable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TransmitBuffer::packetsAvailable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#aad9976b2ae40b1405a319de979b09827" title="TransmitBuffer::packetsAvailable Checks if the packet queue is empty. ">TransmitBuffer::packetsAvailable</a> Checks if the packet queue is empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool (true=yes | false=no) </dd></dl>
+
+</div>
+</div>
+<a id="a6da9417079dd783d996af8fcc138149c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da9417079dd783d996af8fcc138149c">&sect;&nbsp;</a></span>popByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FlyByte TransmitBuffer::popByte </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#a6da9417079dd783d996af8fcc138149c" title="TransmitBuffer::popByte Get the Byte at the front of the output byte queue created from a packet...">TransmitBuffer::popByte</a> Get the Byte at the front of the output byte queue created from a packet. </p>
+<dl class="section return"><dt>Returns</dt><dd>FlyByte (First byte in the output queue) </dd></dl>
+
+</div>
+</div>
+<a id="add84c61a7f2f060d236feab584babc64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add84c61a7f2f060d236feab584babc64">&sect;&nbsp;</a></span>popPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fly_packet.html">FlyPacket</a> TransmitBuffer::popPacket </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#add84c61a7f2f060d236feab584babc64" title="TransmitBuffer::popPacket Adds the packets to the packet queue. ">TransmitBuffer::popPacket</a> Adds the packets to the packet queue. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_fly_packet.html">FlyPacket</a> (Gets a packet from the front of the packet queue) </dd></dl>
+
+</div>
+</div>
+<a id="aa7966064a6abaeb5ff3f7c8ff0402ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7966064a6abaeb5ff3f7c8ff0402ec3">&sect;&nbsp;</a></span>pushByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TransmitBuffer::pushByte </td>
+          <td>(</td>
+          <td class="paramtype">FlyByte&#160;</td>
+          <td class="paramname"><em>incomingByte</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#aa7966064a6abaeb5ff3f7c8ff0402ec3" title="TransmitBuffer::pushByte Takes bytes until there are enough to build a packet. It converts the bytes ...">TransmitBuffer::pushByte</a> Takes bytes until there are enough to build a packet. It converts the bytes to a packet and adds the packet to the packet queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FlyByte</td><td>(Added to the incoming queue) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a002757b58f4227167db20c8977bbdb28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a002757b58f4227167db20c8977bbdb28">&sect;&nbsp;</a></span>pushPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TransmitBuffer::pushPacket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_fly_packet.html">FlyPacket</a>&#160;</td>
+          <td class="paramname"><em>incomingPacket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_transmit_buffer.html#a002757b58f4227167db20c8977bbdb28" title="TransmitBuffer::pushPacket Adds the packets to the packet queue. ">TransmitBuffer::pushPacket</a> Adds the packets to the packet queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="class_fly_packet.html">FlyPacket</a></td><td>(Added to the Packet Queue) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>FESS-GUI/<a class="el" href="transmitbuffer_8h_source.html">transmitbuffer.h</a></li>
 <li>FESS-GUI/transmitbuffer.cpp</li>

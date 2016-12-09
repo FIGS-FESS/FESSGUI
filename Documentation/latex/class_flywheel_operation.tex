@@ -1,53 +1,237 @@
 \hypertarget{class_flywheel_operation}{}\section{Flywheel\+Operation Class Reference}
 \label{class_flywheel_operation}\index{Flywheel\+Operation@{Flywheel\+Operation}}
+
+
+The \hyperlink{class_flywheel_operation}{Flywheel\+Operation} class handles all operations involving the flywheel.  
+
+
+
+
+{\ttfamily \#include $<$flywheeloperation.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_flywheel_operation_aca3144bf0bb443aaa8a2779624d2a5b2}{}\label{class_flywheel_operation_aca3144bf0bb443aaa8a2779624d2a5b2} 
-{\bfseries Flywheel\+Operation} (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$)
-\item 
+\hypertarget{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76}{}\label{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76} 
+\hyperlink{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76}{Flywheel\+Operation} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76}{Flywheel\+Operation\+::\+Flywheel\+Operation} Initializes variables to default values. \end{DoxyCompactList}\item 
+\hyperlink{class_flywheel_operation_aca3144bf0bb443aaa8a2779624d2a5b2}{Flywheel\+Operation} (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76}{Flywheel\+Operation\+::\+Flywheel\+Operation} Sets the device\+Interface and initializes variables to default values. \end{DoxyCompactList}\item 
+\hypertarget{class_flywheel_operation_af8bc6d0e4f8dde30c067a97c5d8d0953}{}\label{class_flywheel_operation_af8bc6d0e4f8dde30c067a97c5d8d0953} 
+\hyperlink{class_flywheel_operation_af8bc6d0e4f8dde30c067a97c5d8d0953}{$\sim$\+Flywheel\+Operation} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_af8bc6d0e4f8dde30c067a97c5d8d0953}{Flywheel\+Operation\+::$\sim$\+Flywheel\+Operation} Deletes pointers. \end{DoxyCompactList}\item 
 \hypertarget{class_flywheel_operation_a61df04a204188bd187ce68f9d610e78a}{}\label{class_flywheel_operation_a61df04a204188bd187ce68f9d610e78a} 
 void {\bfseries sync} ()
 \item 
 \hypertarget{class_flywheel_operation_a23b72640fdedd6d89575ea9a4ef3c69a}{}\label{class_flywheel_operation_a23b72640fdedd6d89575ea9a4ef3c69a} 
-void {\bfseries set\+Defaults} ()
-\item 
-\hypertarget{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8}{}\label{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8} 
-void {\bfseries set\+Velocity} (float)
-\item 
-\hypertarget{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f}{}\label{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f} 
-void {\bfseries set\+Acceleration} (float)
-\item 
-\hypertarget{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378}{}\label{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378} 
-void {\bfseries set\+Jerk} (float)
-\item 
-\hypertarget{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023}{}\label{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023} 
-void {\bfseries set\+Motion} (float, float, float)
-\item 
-\hypertarget{class_flywheel_operation_a06119af2250971d23869d94fd451ceba}{}\label{class_flywheel_operation_a06119af2250971d23869d94fd451ceba} 
-float {\bfseries get\+Velocity} ()
-\item 
-\hypertarget{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b}{}\label{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b} 
-float {\bfseries get\+Acceleration} ()
-\item 
-\hypertarget{class_flywheel_operation_ad443ef22229c1584da213f50234720bf}{}\label{class_flywheel_operation_ad443ef22229c1584da213f50234720bf} 
-float {\bfseries get\+Jerk} ()
-\item 
+void \hyperlink{class_flywheel_operation_a23b72640fdedd6d89575ea9a4ef3c69a}{set\+Defaults} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a23b72640fdedd6d89575ea9a4ef3c69a}{Flywheel\+Operation\+::set\+Defaults} Sets default values for member variables. \end{DoxyCompactList}\item 
+void \hyperlink{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8}{set\+Velocity} (float)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8}{Flywheel\+Operation\+::set\+Velocity} Sets the velocity of the flywheel. \end{DoxyCompactList}\item 
+void \hyperlink{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f}{set\+Acceleration} (float)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f}{Flywheel\+Operation\+::set\+Acceleration} Sets the acceleration of the flywheel. \end{DoxyCompactList}\item 
+void \hyperlink{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378}{set\+Jerk} (float)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378}{Flywheel\+Operation\+::set\+Jerk} Sets the jerk of the flywheel. \end{DoxyCompactList}\item 
+void \hyperlink{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023}{set\+Motion} (float, float, float)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023}{Flywheel\+Operation\+::set\+Motion} Sets all motion parameters for the flywheel. \end{DoxyCompactList}\item 
+float \hyperlink{class_flywheel_operation_a06119af2250971d23869d94fd451ceba}{get\+Velocity} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a06119af2250971d23869d94fd451ceba}{Flywheel\+Operation\+::get\+Velocity} Gets the current velocity of the flywheel. \end{DoxyCompactList}\item 
+float \hyperlink{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b}{get\+Acceleration} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b}{Flywheel\+Operation\+::get\+Acceleration} Gets the current acceleration of the flywheel. \end{DoxyCompactList}\item 
+float \hyperlink{class_flywheel_operation_ad443ef22229c1584da213f50234720bf}{get\+Jerk} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_ad443ef22229c1584da213f50234720bf}{Flywheel\+Operation\+::get\+Jerk} Gets the current jerk of the flywheel. \end{DoxyCompactList}\item 
 \hypertarget{class_flywheel_operation_a6a393e52299f7a48950f019d0f3db7de}{}\label{class_flywheel_operation_a6a393e52299f7a48950f019d0f3db7de} 
-void {\bfseries emergency\+Stop} ()
-\item 
-\hypertarget{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8}{}\label{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8} 
-void {\bfseries set\+Interface} (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$)
-\item 
-\hypertarget{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8}{}\label{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8} 
-Q\+PointF {\bfseries get\+Upper\+Displacement} ()
-\item 
+void \hyperlink{class_flywheel_operation_a6a393e52299f7a48950f019d0f3db7de}{emergency\+Stop} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a6a393e52299f7a48950f019d0f3db7de}{Flywheel\+Operation\+::emergency\+Stop} Sends a command to stop the flywheel immediately. \end{DoxyCompactList}\item 
+void \hyperlink{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8}{set\+Interface} (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8}{Flywheel\+Operation\+::set\+Interface} Sets the device interface. \end{DoxyCompactList}\item 
+Q\+PointF \hyperlink{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8}{get\+Upper\+Displacement} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8}{Flywheel\+Operation\+::get\+Upper\+Displacement} Gets the upper displacement of the flywheel. \end{DoxyCompactList}\item 
+Q\+PointF \hyperlink{class_flywheel_operation_a2b9d24d0fbbf1d9cb79bb0aa54f6f6ae}{get\+Lower\+Displacement} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a2b9d24d0fbbf1d9cb79bb0aa54f6f6ae}{Flywheel\+Operation\+::get\+Lower\+Displacement} Gets the lower displacement of the flywheel. \end{DoxyCompactList}\item 
+Q\+PointF \hyperlink{class_flywheel_operation_a0e1ba213763760cf0128dfdc8436cfdf}{get\+Rotational\+Position} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_flywheel_operation_a0e1ba213763760cf0128dfdc8436cfdf}{Flywheel\+Operation\+::get\+Rotational\+Position} Gets the rotational position of the flywheel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_flywheel_operation}{Flywheel\+Operation} class handles all operations involving the flywheel. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_flywheel_operation_aca3144bf0bb443aaa8a2779624d2a5b2}{}\label{class_flywheel_operation_aca3144bf0bb443aaa8a2779624d2a5b2} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!Flywheel\+Operation@{Flywheel\+Operation}}
+\index{Flywheel\+Operation@{Flywheel\+Operation}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{Flywheel\+Operation()}{FlywheelOperation()}}
+{\footnotesize\ttfamily Flywheel\+Operation\+::\+Flywheel\+Operation (\begin{DoxyParamCaption}\item[{\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$}]{device\+Interface }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a4735eb5ddf58ba1d0bf93e37a2885c76}{Flywheel\+Operation\+::\+Flywheel\+Operation} Sets the device\+Interface and initializes variables to default values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em device\+Interface} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b}{}\label{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Acceleration@{get\+Acceleration}}
+\index{get\+Acceleration@{get\+Acceleration}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Acceleration()}{getAcceleration()}}
+{\footnotesize\ttfamily float Flywheel\+Operation\+::get\+Acceleration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a23310ab41f29ee3d510c2d412fde801b}{Flywheel\+Operation\+::get\+Acceleration} Gets the current acceleration of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The current acceleration of the flywheel. 
+\end{DoxyReturn}
+\hypertarget{class_flywheel_operation_ad443ef22229c1584da213f50234720bf}{}\label{class_flywheel_operation_ad443ef22229c1584da213f50234720bf} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Jerk@{get\+Jerk}}
+\index{get\+Jerk@{get\+Jerk}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Jerk()}{getJerk()}}
+{\footnotesize\ttfamily float Flywheel\+Operation\+::get\+Jerk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_ad443ef22229c1584da213f50234720bf}{Flywheel\+Operation\+::get\+Jerk} Gets the current jerk of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The current jerk of the flywheel. 
+\end{DoxyReturn}
 \hypertarget{class_flywheel_operation_a2b9d24d0fbbf1d9cb79bb0aa54f6f6ae}{}\label{class_flywheel_operation_a2b9d24d0fbbf1d9cb79bb0aa54f6f6ae} 
-Q\+PointF {\bfseries get\+Lower\+Displacement} ()
-\item 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Lower\+Displacement@{get\+Lower\+Displacement}}
+\index{get\+Lower\+Displacement@{get\+Lower\+Displacement}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Lower\+Displacement()}{getLowerDisplacement()}}
+{\footnotesize\ttfamily Q\+PointF Flywheel\+Operation\+::get\+Lower\+Displacement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a2b9d24d0fbbf1d9cb79bb0aa54f6f6ae}{Flywheel\+Operation\+::get\+Lower\+Displacement} Gets the lower displacement of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The lower displacement of the flywheel. 
+\end{DoxyReturn}
 \hypertarget{class_flywheel_operation_a0e1ba213763760cf0128dfdc8436cfdf}{}\label{class_flywheel_operation_a0e1ba213763760cf0128dfdc8436cfdf} 
-Q\+PointF {\bfseries get\+Rotational\+Position} ()
-\end{DoxyCompactItemize}
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Rotational\+Position@{get\+Rotational\+Position}}
+\index{get\+Rotational\+Position@{get\+Rotational\+Position}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Rotational\+Position()}{getRotationalPosition()}}
+{\footnotesize\ttfamily Q\+PointF Flywheel\+Operation\+::get\+Rotational\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a0e1ba213763760cf0128dfdc8436cfdf}{Flywheel\+Operation\+::get\+Rotational\+Position} Gets the rotational position of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The rotational position of the flywheel. 
+\end{DoxyReturn}
+\hypertarget{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8}{}\label{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Upper\+Displacement@{get\+Upper\+Displacement}}
+\index{get\+Upper\+Displacement@{get\+Upper\+Displacement}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Upper\+Displacement()}{getUpperDisplacement()}}
+{\footnotesize\ttfamily Q\+PointF Flywheel\+Operation\+::get\+Upper\+Displacement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a16ebc2fe8c3297350eaf9be2114a75c8}{Flywheel\+Operation\+::get\+Upper\+Displacement} Gets the upper displacement of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The upper displacement of the flywheel. 
+\end{DoxyReturn}
+\hypertarget{class_flywheel_operation_a06119af2250971d23869d94fd451ceba}{}\label{class_flywheel_operation_a06119af2250971d23869d94fd451ceba} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!get\+Velocity@{get\+Velocity}}
+\index{get\+Velocity@{get\+Velocity}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{get\+Velocity()}{getVelocity()}}
+{\footnotesize\ttfamily float Flywheel\+Operation\+::get\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a06119af2250971d23869d94fd451ceba}{Flywheel\+Operation\+::get\+Velocity} Gets the current velocity of the flywheel. 
+
+\begin{DoxyReturn}{Returns}
+The current velocity of the flywheel. 
+\end{DoxyReturn}
+\hypertarget{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f}{}\label{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!set\+Acceleration@{set\+Acceleration}}
+\index{set\+Acceleration@{set\+Acceleration}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{set\+Acceleration()}{setAcceleration()}}
+{\footnotesize\ttfamily void Flywheel\+Operation\+::set\+Acceleration (\begin{DoxyParamCaption}\item[{float}]{acceleration }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a307929c750339cb2b46baaafa526d29f}{Flywheel\+Operation\+::set\+Acceleration} Sets the acceleration of the flywheel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em acceleration} & The acceleration to set the flywheel to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8}{}\label{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!set\+Interface@{set\+Interface}}
+\index{set\+Interface@{set\+Interface}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{set\+Interface()}{setInterface()}}
+{\footnotesize\ttfamily void Flywheel\+Operation\+::set\+Interface (\begin{DoxyParamCaption}\item[{\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$}]{device\+Interface }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_ab655d2757d24dbb605a8eb0c16bc0fe8}{Flywheel\+Operation\+::set\+Interface} Sets the device interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Common\+Device\+Interface$\ast$} & (Pointer to the interface to set member variable to) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378}{}\label{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!set\+Jerk@{set\+Jerk}}
+\index{set\+Jerk@{set\+Jerk}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{set\+Jerk()}{setJerk()}}
+{\footnotesize\ttfamily void Flywheel\+Operation\+::set\+Jerk (\begin{DoxyParamCaption}\item[{float}]{jerk\+Value }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a4f14dfe672793f37e21f90ecab499378}{Flywheel\+Operation\+::set\+Jerk} Sets the jerk of the flywheel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em jerk} & The jerk to set the flywheel to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023}{}\label{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!set\+Motion@{set\+Motion}}
+\index{set\+Motion@{set\+Motion}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{set\+Motion()}{setMotion()}}
+{\footnotesize\ttfamily void Flywheel\+Operation\+::set\+Motion (\begin{DoxyParamCaption}\item[{float}]{velocity,  }\item[{float}]{acceleration,  }\item[{float}]{jerk }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a9bcbe2d59c2a14c08b9b34d2e0c63023}{Flywheel\+Operation\+::set\+Motion} Sets all motion parameters for the flywheel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocity} & The velocity to set the flywheel to. \\
+\hline
+{\em acceleration} & The acceleration to set the flywheel to. \\
+\hline
+{\em jerk} & The jerk to set the flywheel to. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8}{}\label{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8} 
+\index{Flywheel\+Operation@{Flywheel\+Operation}!set\+Velocity@{set\+Velocity}}
+\index{set\+Velocity@{set\+Velocity}!Flywheel\+Operation@{Flywheel\+Operation}}
+\subsubsection{\texorpdfstring{set\+Velocity()}{setVelocity()}}
+{\footnotesize\ttfamily void Flywheel\+Operation\+::set\+Velocity (\begin{DoxyParamCaption}\item[{float}]{velocity }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_flywheel_operation_a30e26868333a6a7d73ae34156ba432a8}{Flywheel\+Operation\+::set\+Velocity} Sets the velocity of the flywheel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocity} & The velocity to se tthe flywheel to. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

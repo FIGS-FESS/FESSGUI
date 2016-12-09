@@ -1,17 +1,65 @@
 \hypertarget{class_recording_operation}{}\section{Recording\+Operation Class Reference}
 \label{class_recording_operation}\index{Recording\+Operation@{Recording\+Operation}}
+
+
+The \hyperlink{class_recording_operation}{Recording\+Operation} class Handles operations involving recording values to csv.  
+
+
+
+
+{\ttfamily \#include $<$recordingoperation.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\hypertarget{class_recording_operation_a6335d0740c99799eb6cb094501019b07}{}\label{class_recording_operation_a6335d0740c99799eb6cb094501019b07} 
+\hyperlink{class_recording_operation_a6335d0740c99799eb6cb094501019b07}{Recording\+Operation} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_recording_operation_a6335d0740c99799eb6cb094501019b07}{Recording\+Operation\+::\+Recording\+Operation}. \end{DoxyCompactList}\item 
 \hypertarget{class_recording_operation_a9de73122788d5da0a2d747ae73df9bdf}{}\label{class_recording_operation_a9de73122788d5da0a2d747ae73df9bdf} 
-void {\bfseries Start} ()
-\item 
+void \hyperlink{class_recording_operation_a9de73122788d5da0a2d747ae73df9bdf}{Start} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_recording_operation_a9de73122788d5da0a2d747ae73df9bdf}{Recording\+Operation\+::\+Start} Starts the recording process. Creates a file \char`\"{}\+Flywheel\+Output\+\_\+\{time\}.\+csv\char`\"{}, opens a filestream for it, and prints the heading row. \end{DoxyCompactList}\item 
 \hypertarget{class_recording_operation_afa9953a7cdce60344d090eb95a4d0d13}{}\label{class_recording_operation_afa9953a7cdce60344d090eb95a4d0d13} 
-void {\bfseries Stop} ()
-\item 
+void \hyperlink{class_recording_operation_afa9953a7cdce60344d090eb95a4d0d13}{Stop} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_recording_operation_afa9953a7cdce60344d090eb95a4d0d13}{Recording\+Operation\+::\+Stop} Stops the current recording process. Flushes the uffer and closes the filestream. \end{DoxyCompactList}\item 
+void \hyperlink{class_recording_operation_a1a341c41178b05e95bc434510dfeedca}{Record} (double time, double velocity, double acceleration, double upper\+DispX, double upper\+DispY, double lower\+DispX, double lower\+DispY, double rotational\+PosX, double rotational\+PosY)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_recording_operation_a1a341c41178b05e95bc434510dfeedca}{Recording\+Operation\+::\+Record} Records the given values in a row. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_recording_operation}{Recording\+Operation} class Handles operations involving recording values to csv. 
+
+\subsection{Member Function Documentation}
 \hypertarget{class_recording_operation_a1a341c41178b05e95bc434510dfeedca}{}\label{class_recording_operation_a1a341c41178b05e95bc434510dfeedca} 
-void {\bfseries Record} (double time, double velocity, double acceleration, double upper\+DispX, double upper\+DispY, double lower\+DispX, double lower\+DispY, double rotational\+PosX, double rotational\+PosY)
-\end{DoxyCompactItemize}
+\index{Recording\+Operation@{Recording\+Operation}!Record@{Record}}
+\index{Record@{Record}!Recording\+Operation@{Recording\+Operation}}
+\subsubsection{\texorpdfstring{Record()}{Record()}}
+{\footnotesize\ttfamily void Recording\+Operation\+::\+Record (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{double}]{velocity,  }\item[{double}]{acceleration,  }\item[{double}]{upper\+DispX,  }\item[{double}]{upper\+DispY,  }\item[{double}]{lower\+DispX,  }\item[{double}]{lower\+DispY,  }\item[{double}]{rotational\+PosX,  }\item[{double}]{rotational\+PosY }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_recording_operation_a1a341c41178b05e95bc434510dfeedca}{Recording\+Operation\+::\+Record} Records the given values in a row. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & Value to record in the time column. \\
+\hline
+{\em velocity} & Value to record in the velocity column. \\
+\hline
+{\em acceleration} & Value to record in the acceleration column. \\
+\hline
+{\em upper\+DispX} & Value to record in the upper displacement x column. \\
+\hline
+{\em upper\+DispY} & Value to record in the upper displacement y column. \\
+\hline
+{\em lower\+DispX} & Value to record in the lower displacement x column. \\
+\hline
+{\em lower\+DispY} & Value to record in the lower displacement y column. \\
+\hline
+{\em rotational\+PosX} & Value to record in the rotational position x column. \\
+\hline
+{\em rotational\+PosY} & Value to record in the rotational position y column. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

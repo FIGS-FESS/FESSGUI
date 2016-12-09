@@ -72,58 +72,322 @@ Inheritance diagram for DemoDevice:</div>
  <div class="center">
   <img src="class_demo_device.png" usemap="#DemoDevice_map" alt=""/>
   <map id="DemoDevice_map" name="DemoDevice_map">
-<area href="class_common_device_interface.html" alt="CommonDeviceInterface" shape="rect" coords="0,0,150,24"/>
+<area href="class_common_device_interface.html" title="The Abstract Base Class: Common Device Interface A generic template for interfaces. " alt="CommonDeviceInterface" shape="rect" coords="0,0,150,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acaf7db1f334974938fe1854329ceb671"><td class="memItemLeft" align="right" valign="top"><a id="acaf7db1f334974938fe1854329ceb671"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sync</b> ()</td></tr>
-<tr class="separator:acaf7db1f334974938fe1854329ceb671"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaadb9ced56699af55526b9fc7cf8420c"><td class="memItemLeft" align="right" valign="top"><a id="aaadb9ced56699af55526b9fc7cf8420c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isReady</b> ()</td></tr>
+<tr class="memitem:a9fc771c4152f0d9de78a69187cbd7a58"><td class="memItemLeft" align="right" valign="top"><a id="a9fc771c4152f0d9de78a69187cbd7a58"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a9fc771c4152f0d9de78a69187cbd7a58">DemoDevice</a> ()</td></tr>
+<tr class="memdesc:a9fc771c4152f0d9de78a69187cbd7a58"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a9fc771c4152f0d9de78a69187cbd7a58" title="DemoDevice::DemoDevice Configures a new DemoDevice with its default values. ">DemoDevice::DemoDevice</a> Configures a new <a class="el" href="class_demo_device.html">DemoDevice</a> with its default values. <br /></td></tr>
+<tr class="separator:a9fc771c4152f0d9de78a69187cbd7a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff994361f45ae993feb854f72a2a32a6"><td class="memItemLeft" align="right" valign="top"><a id="aff994361f45ae993feb854f72a2a32a6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#aff994361f45ae993feb854f72a2a32a6">~DemoDevice</a> ()</td></tr>
+<tr class="memdesc:aff994361f45ae993feb854f72a2a32a6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#aff994361f45ae993feb854f72a2a32a6" title="DemoDevice::~DemoDevice Provided if needed in the future, currently no functionality. ">DemoDevice::~DemoDevice</a> Provided if needed in the future, currently no functionality. <br /></td></tr>
+<tr class="separator:aff994361f45ae993feb854f72a2a32a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85671c408f6f08d82a09344ef5f34966"><td class="memItemLeft" align="right" valign="top"><a id="a85671c408f6f08d82a09344ef5f34966"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a85671c408f6f08d82a09344ef5f34966">syncRX</a> ()</td></tr>
+<tr class="memdesc:a85671c408f6f08d82a09344ef5f34966"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a85671c408f6f08d82a09344ef5f34966" title="DemoDevice::syncRX Is the demo interface&#39;s implementation of syncRX. Generates values for testing and...">DemoDevice::syncRX</a> Is the demo interface's implementation of syncRX. Generates values for testing and pushes them into the interface's RX Transmit Buffer. <br /></td></tr>
+<tr class="separator:a85671c408f6f08d82a09344ef5f34966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b33b0148627fcbd22a0704e80f05d7d"><td class="memItemLeft" align="right" valign="top"><a id="a4b33b0148627fcbd22a0704e80f05d7d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a4b33b0148627fcbd22a0704e80f05d7d">syncTX</a> ()</td></tr>
+<tr class="memdesc:a4b33b0148627fcbd22a0704e80f05d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a85671c408f6f08d82a09344ef5f34966" title="DemoDevice::syncRX Is the demo interface&#39;s implementation of syncRX. Generates values for testing and...">DemoDevice::syncRX</a> Is the demo interface's implementation of syncRX. Reacts to the interfaces commands (Only Emergency Stop currently) <br /></td></tr>
+<tr class="separator:a4b33b0148627fcbd22a0704e80f05d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaadb9ced56699af55526b9fc7cf8420c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#aaadb9ced56699af55526b9fc7cf8420c">isReady</a> ()</td></tr>
+<tr class="memdesc:aaadb9ced56699af55526b9fc7cf8420c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#aaadb9ced56699af55526b9fc7cf8420c" title="DemoDevice::isReady Is the demo interface&#39;s implementation of isReady. Get the status of the demo int...">DemoDevice::isReady</a> Is the demo interface's implementation of isReady. Get the status of the demo interface.  <a href="#aaadb9ced56699af55526b9fc7cf8420c">More...</a><br /></td></tr>
 <tr class="separator:aaadb9ced56699af55526b9fc7cf8420c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af350ecf6ff289983cff9053197f1b1f2"><td class="memItemLeft" align="right" valign="top"><a id="af350ecf6ff289983cff9053197f1b1f2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>startDevice</b> ()</td></tr>
+<tr class="memitem:af350ecf6ff289983cff9053197f1b1f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#af350ecf6ff289983cff9053197f1b1f2">startDevice</a> ()</td></tr>
+<tr class="memdesc:af350ecf6ff289983cff9053197f1b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#af350ecf6ff289983cff9053197f1b1f2" title="DemoDevice::startDevice Is the demo interface&#39;s implementation of startDevice. Starts the demo interf...">DemoDevice::startDevice</a> Is the demo interface's implementation of startDevice. Starts the demo interface and updates status.  <a href="#af350ecf6ff289983cff9053197f1b1f2">More...</a><br /></td></tr>
 <tr class="separator:af350ecf6ff289983cff9053197f1b1f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab95434f7121f00789108f29a8457ec98"><td class="memItemLeft" align="right" valign="top"><a id="ab95434f7121f00789108f29a8457ec98"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stopDevice</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#ab95434f7121f00789108f29a8457ec98">stopDevice</a> ()</td></tr>
+<tr class="memdesc:ab95434f7121f00789108f29a8457ec98"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#ab95434f7121f00789108f29a8457ec98" title="DemoDevice::stopDevice Is the demo interface&#39;s implementation of stopDevice. Stops the demo interface...">DemoDevice::stopDevice</a> Is the demo interface's implementation of stopDevice. Stops the demo interface and updates status. <br /></td></tr>
 <tr class="separator:ab95434f7121f00789108f29a8457ec98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79a9c22e60aca99c7667990bedc461c8"><td class="memItemLeft" align="right" valign="top"><a id="a79a9c22e60aca99c7667990bedc461c8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDefaults</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a79a9c22e60aca99c7667990bedc461c8">setDefaults</a> ()</td></tr>
+<tr class="memdesc:a79a9c22e60aca99c7667990bedc461c8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#ab95434f7121f00789108f29a8457ec98" title="DemoDevice::stopDevice Is the demo interface&#39;s implementation of stopDevice. Stops the demo interface...">DemoDevice::stopDevice</a> Is the demo interface's implementation of setDefaults. Sets the serial devices to the default values. <br /></td></tr>
 <tr class="separator:a79a9c22e60aca99c7667990bedc461c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52de363ec31fdbb540cf7cae6f584d22"><td class="memItemLeft" align="right" valign="top"><a id="a52de363ec31fdbb540cf7cae6f584d22"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> ()</td></tr>
+<tr class="memitem:a52de363ec31fdbb540cf7cae6f584d22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a52de363ec31fdbb540cf7cae6f584d22">empty</a> ()</td></tr>
+<tr class="memdesc:a52de363ec31fdbb540cf7cae6f584d22"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a52de363ec31fdbb540cf7cae6f584d22" title="DemoDevice::empty Is the demo interface&#39;s implementation of empty. ">DemoDevice::empty</a> Is the demo interface's implementation of empty.  <a href="#a52de363ec31fdbb540cf7cae6f584d22">More...</a><br /></td></tr>
 <tr class="separator:a52de363ec31fdbb540cf7cae6f584d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8f0febf61290140dac5c2d9406c74fa"><td class="memItemLeft" align="right" valign="top"><a id="ad8f0febf61290140dac5c2d9406c74fa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>flush</b> ()</td></tr>
-<tr class="separator:ad8f0febf61290140dac5c2d9406c74fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81e90bedf726e6097425c709a6b80e04"><td class="memItemLeft" align="right" valign="top"><a id="a81e90bedf726e6097425c709a6b80e04"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushInt</b> (int)</td></tr>
-<tr class="separator:a81e90bedf726e6097425c709a6b80e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d542539269417da29262722f831eff0"><td class="memItemLeft" align="right" valign="top"><a id="a6d542539269417da29262722f831eff0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushFloat</b> (float)</td></tr>
-<tr class="separator:a6d542539269417da29262722f831eff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11cc2baef119fadb70db244976781e11"><td class="memItemLeft" align="right" valign="top"><a id="a11cc2baef119fadb70db244976781e11"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushCommand</b> (flybyte)</td></tr>
-<tr class="separator:a11cc2baef119fadb70db244976781e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a147c6c8d126519b3895f7c08a5436e04"><td class="memItemLeft" align="right" valign="top"><a id="a147c6c8d126519b3895f7c08a5436e04"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>pushCommandImmediate</b> (flybyte)</td></tr>
-<tr class="separator:a147c6c8d126519b3895f7c08a5436e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f90f468dc4ff767b74f6fd90ad6b65"><td class="memItemLeft" align="right" valign="top"><a id="a69f90f468dc4ff767b74f6fd90ad6b65"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>popInt</b> ()</td></tr>
-<tr class="separator:a69f90f468dc4ff767b74f6fd90ad6b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc2d0b3c5f039337057b009919db6942"><td class="memItemLeft" align="right" valign="top"><a id="afc2d0b3c5f039337057b009919db6942"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>popFloat</b> ()</td></tr>
-<tr class="separator:afc2d0b3c5f039337057b009919db6942"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5900309bc171514b76b94e646474cde7"><td class="memItemLeft" align="right" valign="top"><a id="a5900309bc171514b76b94e646474cde7"></a>
-flybyte&#160;</td><td class="memItemRight" valign="bottom"><b>popCommand</b> ()</td></tr>
-<tr class="separator:a5900309bc171514b76b94e646474cde7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acde538bd5a71a8d4df6293876169545c"><td class="memItemLeft" align="right" valign="top"><a id="acde538bd5a71a8d4df6293876169545c"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> ()</td></tr>
+<tr class="memitem:abd7460c71a01d986b1f77908ccb779a2"><td class="memItemLeft" align="right" valign="top"><a id="abd7460c71a01d986b1f77908ccb779a2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#abd7460c71a01d986b1f77908ccb779a2">flushRX</a> ()</td></tr>
+<tr class="memdesc:abd7460c71a01d986b1f77908ccb779a2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#abd7460c71a01d986b1f77908ccb779a2" title="DemoDevice::flushRX Is the demo interface&#39;s implementation of flushRX. Empties the RX Transmit Buffer...">DemoDevice::flushRX</a> Is the demo interface's implementation of flushRX. Empties the RX Transmit Buffer. <br /></td></tr>
+<tr class="separator:abd7460c71a01d986b1f77908ccb779a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e89c17f613abfa7f2a4d9f970bbffe"><td class="memItemLeft" align="right" valign="top"><a id="a32e89c17f613abfa7f2a4d9f970bbffe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a32e89c17f613abfa7f2a4d9f970bbffe">flushTX</a> ()</td></tr>
+<tr class="memdesc:a32e89c17f613abfa7f2a4d9f970bbffe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a32e89c17f613abfa7f2a4d9f970bbffe" title="DemoDevice::flushTX Is the demo interface&#39;s implementation of flushTX. Empties the TX Transmit Buffer...">DemoDevice::flushTX</a> Is the demo interface's implementation of flushTX. Empties the TX Transmit Buffer. <br /></td></tr>
+<tr class="separator:a32e89c17f613abfa7f2a4d9f970bbffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a064f0bc683663200243bd68ff3713c68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a064f0bc683663200243bd68ff3713c68">pushByte</a> (FlyByte)</td></tr>
+<tr class="memdesc:a064f0bc683663200243bd68ff3713c68"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of pushByte.  <a href="#a064f0bc683663200243bd68ff3713c68">More...</a><br /></td></tr>
+<tr class="separator:a064f0bc683663200243bd68ff3713c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39f46589b28926cd40635ad42342a54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#ac39f46589b28926cd40635ad42342a54">pushPacket</a> (<a class="el" href="class_fly_packet.html">FlyPacket</a>)</td></tr>
+<tr class="memdesc:ac39f46589b28926cd40635ad42342a54"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of pushPacket.  <a href="#ac39f46589b28926cd40635ad42342a54">More...</a><br /></td></tr>
+<tr class="separator:ac39f46589b28926cd40635ad42342a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a788dd7e426fab9c8d19ea9fd106260d4"><td class="memItemLeft" align="right" valign="top">FlyByte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4">popByte</a> ()</td></tr>
+<tr class="memdesc:a788dd7e426fab9c8d19ea9fd106260d4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of popByte.  <a href="#a788dd7e426fab9c8d19ea9fd106260d4">More...</a><br /></td></tr>
+<tr class="separator:a788dd7e426fab9c8d19ea9fd106260d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e755f50f52301b9166e278fe6851e88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fly_packet.html">FlyPacket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#a6e755f50f52301b9166e278fe6851e88">popPacket</a> ()</td></tr>
+<tr class="memdesc:a6e755f50f52301b9166e278fe6851e88"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of popPacket.  <a href="#a6e755f50f52301b9166e278fe6851e88">More...</a><br /></td></tr>
+<tr class="separator:a6e755f50f52301b9166e278fe6851e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acde538bd5a71a8d4df6293876169545c"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_demo_device.html#acde538bd5a71a8d4df6293876169545c">name</a> ()</td></tr>
+<tr class="memdesc:acde538bd5a71a8d4df6293876169545c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_demo_device.html#acde538bd5a71a8d4df6293876169545c" title="DemoDevice::name Is the demo interface&#39;s implementation of name. ">DemoDevice::name</a> Is the demo interface's implementation of name.  <a href="#acde538bd5a71a8d4df6293876169545c">More...</a><br /></td></tr>
 <tr class="separator:acde538bd5a71a8d4df6293876169545c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a52de363ec31fdbb540cf7cae6f584d22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52de363ec31fdbb540cf7cae6f584d22">&sect;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DemoDevice::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#a52de363ec31fdbb540cf7cae6f584d22" title="DemoDevice::empty Is the demo interface&#39;s implementation of empty. ">DemoDevice::empty</a> Is the demo interface's implementation of empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool (true=Empty, false=Not Empty) </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="aaadb9ced56699af55526b9fc7cf8420c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaadb9ced56699af55526b9fc7cf8420c">&sect;&nbsp;</a></span>isReady()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DemoDevice::isReady </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#aaadb9ced56699af55526b9fc7cf8420c" title="DemoDevice::isReady Is the demo interface&#39;s implementation of isReady. Get the status of the demo int...">DemoDevice::isReady</a> Is the demo interface's implementation of isReady. Get the status of the demo interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool (true=Ready, false=Not Ready) </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="acde538bd5a71a8d4df6293876169545c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acde538bd5a71a8d4df6293876169545c">&sect;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString DemoDevice::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#acde538bd5a71a8d4df6293876169545c" title="DemoDevice::name Is the demo interface&#39;s implementation of name. ">DemoDevice::name</a> Is the demo interface's implementation of name. </p>
+<dl class="section return"><dt>Returns</dt><dd>Qstring ("Demo Device") </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="a788dd7e426fab9c8d19ea9fd106260d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a788dd7e426fab9c8d19ea9fd106260d4">&sect;&nbsp;</a></span>popByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FlyByte DemoDevice::popByte </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of popByte. </p>
+<dl class="section return"><dt>Returns</dt><dd>FlyByte (From the RX Transmit Buffer). </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="a6e755f50f52301b9166e278fe6851e88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e755f50f52301b9166e278fe6851e88">&sect;&nbsp;</a></span>popPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fly_packet.html">FlyPacket</a> DemoDevice::popPacket </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of popPacket. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_fly_packet.html">FlyPacket</a> (From the RX Transmit Buffer). </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="a064f0bc683663200243bd68ff3713c68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a064f0bc683663200243bd68ff3713c68">&sect;&nbsp;</a></span>pushByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DemoDevice::pushByte </td>
+          <td>(</td>
+          <td class="paramtype">FlyByte&#160;</td>
+          <td class="paramname"><em>dataByte</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of pushByte. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FlyByte</td><td>(Adds it to the TX Transmit Buffer). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="ac39f46589b28926cd40635ad42342a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac39f46589b28926cd40635ad42342a54">&sect;&nbsp;</a></span>pushPacket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DemoDevice::pushPacket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_fly_packet.html">FlyPacket</a>&#160;</td>
+          <td class="paramname"><em>dataPacket</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4" title="DemoDevice::popByte Is the demo interface&#39;s implementation of popByte. ">DemoDevice::popByte</a> Is the demo interface's implementation of pushPacket. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="class_fly_packet.html">FlyPacket</a></td><td>(Adds to the TX Transmit Buffer). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
+<a id="af350ecf6ff289983cff9053197f1b1f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af350ecf6ff289983cff9053197f1b1f2">&sect;&nbsp;</a></span>startDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DemoDevice::startDevice </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_demo_device.html#af350ecf6ff289983cff9053197f1b1f2" title="DemoDevice::startDevice Is the demo interface&#39;s implementation of startDevice. Starts the demo interf...">DemoDevice::startDevice</a> Is the demo interface's implementation of startDevice. Starts the demo interface and updates status. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool (true=Started, false=Not Ready) </dd></dl>
+
+<p>Implements <a class="el" href="class_common_device_interface.html">CommonDeviceInterface</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>FESS-GUI/<a class="el" href="demodevice_8h_source.html">demodevice.h</a></li>
 <li>FESS-GUI/demodevice.cpp</li>

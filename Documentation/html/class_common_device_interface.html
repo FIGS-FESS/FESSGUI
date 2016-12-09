@@ -66,6 +66,11 @@ $(function() {
 <div class="title">CommonDeviceInterface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The Abstract Base Class: Common Device Interface A generic template for interfaces.  
+ <a href="class_common_device_interface.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="commondeviceinterface_8h_source.html">commondeviceinterface.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CommonDeviceInterface:</div>
 <div class="dyncontent">
@@ -73,15 +78,18 @@ Inheritance diagram for CommonDeviceInterface:</div>
   <img src="class_common_device_interface.png" usemap="#CommonDeviceInterface_map" alt=""/>
   <map id="CommonDeviceInterface_map" name="CommonDeviceInterface_map">
 <area href="class_demo_device.html" alt="DemoDevice" shape="rect" coords="0,56,150,80"/>
-<area href="class_serial_device.html" alt="SerialDevice" shape="rect" coords="160,56,310,80"/>
+<area href="class_serial_device.html" title="The Serial Class Provides access to serial interfaces. " alt="SerialDevice" shape="rect" coords="160,56,310,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab968d5a571d435044a1304941f2ef349"><td class="memItemLeft" align="right" valign="top"><a id="ab968d5a571d435044a1304941f2ef349"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>sync</b> ()=0</td></tr>
-<tr class="separator:ab968d5a571d435044a1304941f2ef349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0166ca78cba5ae57a4803978af9e78c"><td class="memItemLeft" align="right" valign="top"><a id="ac0166ca78cba5ae57a4803978af9e78c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>syncRX</b> ()=0</td></tr>
+<tr class="separator:ac0166ca78cba5ae57a4803978af9e78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae4ab2226a4f1388b2af355ac2e4f86"><td class="memItemLeft" align="right" valign="top"><a id="acae4ab2226a4f1388b2af355ac2e4f86"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>syncTX</b> ()=0</td></tr>
+<tr class="separator:acae4ab2226a4f1388b2af355ac2e4f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae58207ead16a77fa94babe01f0a3ba40"><td class="memItemLeft" align="right" valign="top"><a id="ae58207ead16a77fa94babe01f0a3ba40"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isReady</b> ()=0</td></tr>
 <tr class="separator:ae58207ead16a77fa94babe01f0a3ba40"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,29 +105,31 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setDefaults</
 <tr class="memitem:ad670a54efd57ef65a659623f2a0b76e9"><td class="memItemLeft" align="right" valign="top"><a id="ad670a54efd57ef65a659623f2a0b76e9"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> ()=0</td></tr>
 <tr class="separator:ad670a54efd57ef65a659623f2a0b76e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a110788eb0ee7ac9ecef7f47caad3a761"><td class="memItemLeft" align="right" valign="top"><a id="a110788eb0ee7ac9ecef7f47caad3a761"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>flush</b> ()=0</td></tr>
-<tr class="separator:a110788eb0ee7ac9ecef7f47caad3a761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae55f64252c8d094aa9d725b3c66e47f"><td class="memItemLeft" align="right" valign="top"><a id="aae55f64252c8d094aa9d725b3c66e47f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushInt</b> (int)=0</td></tr>
-<tr class="separator:aae55f64252c8d094aa9d725b3c66e47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02469d918befd346aee3253ddeb2bf03"><td class="memItemLeft" align="right" valign="top"><a id="a02469d918befd346aee3253ddeb2bf03"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushFloat</b> (float)=0</td></tr>
-<tr class="separator:a02469d918befd346aee3253ddeb2bf03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6d30005d5cae436cd6d09b474967cc"><td class="memItemLeft" align="right" valign="top"><a id="a2c6d30005d5cae436cd6d09b474967cc"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushCommand</b> (flybyte)=0</td></tr>
-<tr class="separator:a2c6d30005d5cae436cd6d09b474967cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae944b4f2b1794cf2da1b3c3af4bf0bb5"><td class="memItemLeft" align="right" valign="top"><a id="ae944b4f2b1794cf2da1b3c3af4bf0bb5"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushCommandImmediate</b> (flybyte)=0</td></tr>
-<tr class="separator:ae944b4f2b1794cf2da1b3c3af4bf0bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac930cbe65cec618ae2069b05e3c30a9a"><td class="memItemLeft" align="right" valign="top"><a id="ac930cbe65cec618ae2069b05e3c30a9a"></a>
-virtual flybyte&#160;</td><td class="memItemRight" valign="bottom"><b>popCommand</b> ()=0</td></tr>
-<tr class="separator:ac930cbe65cec618ae2069b05e3c30a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a353c3bd7d63dfa9c3fa3d8bf1f392530"><td class="memItemLeft" align="right" valign="top"><a id="a353c3bd7d63dfa9c3fa3d8bf1f392530"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>flushRX</b> ()=0</td></tr>
+<tr class="separator:a353c3bd7d63dfa9c3fa3d8bf1f392530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45edc68596f002f0765740ee14b39b77"><td class="memItemLeft" align="right" valign="top"><a id="a45edc68596f002f0765740ee14b39b77"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>flushTX</b> ()=0</td></tr>
+<tr class="separator:a45edc68596f002f0765740ee14b39b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb344329a9235fbfa781611b4f769e1"><td class="memItemLeft" align="right" valign="top"><a id="aadb344329a9235fbfa781611b4f769e1"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushByte</b> (FlyByte)=0</td></tr>
+<tr class="separator:aadb344329a9235fbfa781611b4f769e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a682446d40e63ab7e6aa95dae7e0cd83b"><td class="memItemLeft" align="right" valign="top"><a id="a682446d40e63ab7e6aa95dae7e0cd83b"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>pushPacket</b> (<a class="el" href="class_fly_packet.html">FlyPacket</a>)=0</td></tr>
+<tr class="separator:a682446d40e63ab7e6aa95dae7e0cd83b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9f57b21f72ebfbf79c86f8d0e4f0654"><td class="memItemLeft" align="right" valign="top"><a id="ab9f57b21f72ebfbf79c86f8d0e4f0654"></a>
+virtual FlyByte&#160;</td><td class="memItemRight" valign="bottom"><b>popByte</b> ()=0</td></tr>
+<tr class="separator:ab9f57b21f72ebfbf79c86f8d0e4f0654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9c96bffa9af46a054e7ce0c341ea19"><td class="memItemLeft" align="right" valign="top"><a id="a1b9c96bffa9af46a054e7ce0c341ea19"></a>
+virtual <a class="el" href="class_fly_packet.html">FlyPacket</a>&#160;</td><td class="memItemRight" valign="bottom"><b>popPacket</b> ()=0</td></tr>
+<tr class="separator:a1b9c96bffa9af46a054e7ce0c341ea19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d80b22eafc88af3109b08491bef6e8a"><td class="memItemLeft" align="right" valign="top"><a id="a3d80b22eafc88af3109b08491bef6e8a"></a>
 virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> ()=0</td></tr>
 <tr class="separator:a3d80b22eafc88af3109b08491bef6e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The Abstract Base Class: Common Device Interface A generic template for interfaces. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>FESS-GUI/<a class="el" href="commondeviceinterface_8h_source.html">commondeviceinterface.h</a></li>
 </ul>
 </div><!-- contents -->

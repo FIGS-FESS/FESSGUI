@@ -1,0 +1,94 @@
+\hypertarget{class_fly_queue}{}\section{Fly\+Queue Class Reference}
+\label{class_fly_queue}\index{Fly\+Queue@{Fly\+Queue}}
+
+
+\hyperlink{class_fly_queue}{Fly\+Queue} Class A wrapper to allow for reuse on the microcontroller.  
+
+
+
+
+{\ttfamily \#include $<$flyqueue.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{}\label{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0} 
+\hyperlink{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{Fly\+Queue} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{Fly\+Queue\+::\+Fly\+Queue} Sets the default values for the queue. \end{DoxyCompactList}\item 
+\hypertarget{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{}\label{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74} 
+\hyperlink{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{$\sim$\+Fly\+Queue} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{Fly\+Queue\+::$\sim$\+Fly\+Queue} Empty Destructor. \end{DoxyCompactList}\item 
+\hypertarget{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{}\label{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc} 
+void \hyperlink{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{clear} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{Fly\+Queue\+::clear} Empties the queue. \end{DoxyCompactList}\item 
+\hypertarget{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{}\label{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a} 
+void \hyperlink{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{reset} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{Fly\+Queue\+::reset} Restores the default values and empties the queue. \end{DoxyCompactList}\item 
+\hypertarget{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{}\label{class_fly_queue_a5ab4935882579e59c763319b0716ffa1} 
+void \hyperlink{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{set\+Size} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{Fly\+Queue\+::set\+Size} Sets the maximum size for the queue. \end{DoxyCompactList}\item 
+bool \hyperlink{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{is\+Empty} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{Fly\+Queue\+::is\+Empty} Check if the queue is empty. \end{DoxyCompactList}\item 
+\hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{pop} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{Fly\+Queue\+::pop} Gets the first packet from the queue and removes it from the queue. \end{DoxyCompactList}\item 
+\hypertarget{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{}\label{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04} 
+void \hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{push} (\hyperlink{class_fly_packet}{Fly\+Packet})
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{Fly\+Queue\+::push} Puts a packet at the end of the queue. \end{DoxyCompactList}\item 
+\hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_fly_queue_a00f38b409354127748f2093d38dee7be}{operator\mbox{[}$\,$\mbox{]}} (const unsigned int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a00f38b409354127748f2093d38dee7be}{Fly\+Queue\+::operator\mbox{[}$\,$\mbox{]}} Allows random access into the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_fly_queue}{Fly\+Queue} Class A wrapper to allow for reuse on the microcontroller. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{}\label{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3} 
+\index{Fly\+Queue@{Fly\+Queue}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Fly\+Queue\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{Fly\+Queue\+::is\+Empty} Check if the queue is empty. 
+
+\begin{DoxyReturn}{Returns}
+bool (True=Empty, False=Not Empty) 
+\end{DoxyReturn}
+\hypertarget{class_fly_queue_a00f38b409354127748f2093d38dee7be}{}\label{class_fly_queue_a00f38b409354127748f2093d38dee7be} 
+\index{Fly\+Queue@{Fly\+Queue}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \hyperlink{class_fly_packet}{Fly\+Packet} Fly\+Queue\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const unsigned int}]{index }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_a00f38b409354127748f2093d38dee7be}{Fly\+Queue\+::operator\mbox{[}$\,$\mbox{]}} Allows random access into the queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (index in queue) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_fly_packet}{Fly\+Packet} 
+\end{DoxyReturn}
+\hypertarget{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{}\label{class_fly_queue_a96b802276ccd6ce04c42da2765001603} 
+\index{Fly\+Queue@{Fly\+Queue}!pop@{pop}}
+\index{pop@{pop}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily \hyperlink{class_fly_packet}{Fly\+Packet} Fly\+Queue\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{Fly\+Queue\+::pop} Gets the first packet from the queue and removes it from the queue. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_fly_packet}{Fly\+Packet} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+E\+S\+S-\/\+G\+U\+I/flyqueue.\+h\item 
+F\+E\+S\+S-\/\+G\+U\+I/flyqueue.\+cpp\end{DoxyCompactItemize}

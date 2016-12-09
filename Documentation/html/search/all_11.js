@@ -14,7 +14,7 @@ var searchData=
   ['topright',['topRight',['../class_q_c_p_axis_rect.html#a7aa221967549ba71b98c465bf8234758',1,'QCPAxisRect']]],
   ['toqcpitemposition',['toQCPItemPosition',['../class_q_c_p_item_anchor.html#ac54b20120669950255a63587193dbb86',1,'QCPItemAnchor::toQCPItemPosition()'],['../class_q_c_p_item_position.html#a577a7efc601df85a20b3e709d1ac320e',1,'QCPItemPosition::toQCPItemPosition()']]],
   ['tracerstyle',['TracerStyle',['../class_q_c_p_item_tracer.html#a2f05ddb13978036f902ca3ab47076500',1,'QCPItemTracer']]],
-  ['transmitbuffer',['TransmitBuffer',['../class_transmit_buffer.html',1,'']]],
+  ['transmitbuffer',['TransmitBuffer',['../class_transmit_buffer.html',1,'TransmitBuffer'],['../class_transmit_buffer.html#adb5f67b087b5c8d1996f9f7b6fb42341',1,'TransmitBuffer::TransmitBuffer()']]],
   ['tscircle',['tsCircle',['../class_q_c_p_item_tracer.html#a2f05ddb13978036f902ca3ab47076500ae2252c28f4842880d71e9f94e69de94e',1,'QCPItemTracer']]],
   ['tscrosshair',['tsCrosshair',['../class_q_c_p_item_tracer.html#a2f05ddb13978036f902ca3ab47076500af562ec81ac3ba99e26ef8540cf1ec16f',1,'QCPItemTracer']]],
   ['tsnone',['tsNone',['../class_q_c_p_item_tracer.html#a2f05ddb13978036f902ca3ab47076500aac27462c79146225bfa8fba24d2ee8a4',1,'QCPItemTracer']]],

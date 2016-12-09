@@ -1,5 +1,14 @@
 \hypertarget{class_serial_device}{}\section{Serial\+Device Class Reference}
 \label{class_serial_device}\index{Serial\+Device@{Serial\+Device}}
+
+
+The Serial Class Provides access to serial interfaces.  
+
+
+
+
+{\ttfamily \#include $<$serialdevice.\+h$>$}
+
 Inheritance diagram for Serial\+Device\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,84 +18,340 @@ Inheritance diagram for Serial\+Device\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_serial_device_aa0b6d87aea8d882096abe85fda113b26}{}\label{class_serial_device_aa0b6d87aea8d882096abe85fda113b26} 
-{\bfseries Serial\+Device} (Q\+Serial\+Port\+Info)
-\item 
+\hypertarget{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{}\label{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42} 
+\hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device\+::\+Serial\+Device} Creates a new serial instance and configures it with the default values. \end{DoxyCompactList}\item 
+\hyperlink{class_serial_device_aa0b6d87aea8d882096abe85fda113b26}{Serial\+Device} (Q\+Serial\+Port\+Info)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device\+::\+Serial\+Device} Creates a new serial instance and configures it with the default values. \end{DoxyCompactList}\item 
 \hypertarget{class_serial_device_acd6d42b1547bef45569e20ba75cd024a}{}\label{class_serial_device_acd6d42b1547bef45569e20ba75cd024a} 
 {\bfseries Serial\+Device} (Q\+Serial\+Port\+Info, int, int, int, int, int)
 \item 
-\hypertarget{class_serial_device_a070f0759c102570004f1c5e1feb31abe}{}\label{class_serial_device_a070f0759c102570004f1c5e1feb31abe} 
-{\bfseries Serial\+Device} (Q\+String)
-\item 
+\hyperlink{class_serial_device_a070f0759c102570004f1c5e1feb31abe}{Serial\+Device} (Q\+String)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device\+::\+Serial\+Device} Creates a new serial instance and configures it with the default values. \end{DoxyCompactList}\item 
 \hypertarget{class_serial_device_ade7e1d81fe4768ca9f04b12513d7e316}{}\label{class_serial_device_ade7e1d81fe4768ca9f04b12513d7e316} 
 {\bfseries Serial\+Device} (Q\+String, int, int, int, int, int)
 \item 
-\hypertarget{class_serial_device_aef900fa759c9beb4cfb0c72701eb1876}{}\label{class_serial_device_aef900fa759c9beb4cfb0c72701eb1876} 
-void {\bfseries sync} ()
-\item 
-\hypertarget{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d}{}\label{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d} 
-bool {\bfseries is\+Ready} ()
-\item 
-\hypertarget{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff}{}\label{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff} 
-bool {\bfseries start\+Device} ()
-\item 
+\hypertarget{class_serial_device_abd30865bc9e855e8be713f666d6b4244}{}\label{class_serial_device_abd30865bc9e855e8be713f666d6b4244} 
+\hyperlink{class_serial_device_abd30865bc9e855e8be713f666d6b4244}{$\sim$\+Serial\+Device} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_abd30865bc9e855e8be713f666d6b4244}{Serial\+Device\+::$\sim$\+Serial\+Device} Stops transmissions and deletes the serial instance. \end{DoxyCompactList}\item 
+\hypertarget{class_serial_device_a79c9685f76771703557b2044e941f27a}{}\label{class_serial_device_a79c9685f76771703557b2044e941f27a} 
+void \hyperlink{class_serial_device_a79c9685f76771703557b2044e941f27a}{sync\+RX} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a79c9685f76771703557b2044e941f27a}{Serial\+Device\+::sync\+RX} Is the serial interface\textquotesingle{}s implementation of sync\+RX. Same functionality as read\+RX. \end{DoxyCompactList}\item 
+\hypertarget{class_serial_device_a8e53f81ff51ef332a03c3276804a32c8}{}\label{class_serial_device_a8e53f81ff51ef332a03c3276804a32c8} 
+void \hyperlink{class_serial_device_a8e53f81ff51ef332a03c3276804a32c8}{sync\+TX} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a79c9685f76771703557b2044e941f27a}{Serial\+Device\+::sync\+RX} Is the serial interface\textquotesingle{}s implementation of sync\+RX. Same functionality as send\+TX. \end{DoxyCompactList}\item 
+bool \hyperlink{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d}{is\+Ready} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d}{Serial\+Device\+::is\+Ready} Is the serial interface\textquotesingle{}s implementation of is\+Ready. Get the status of the serial interface. \end{DoxyCompactList}\item 
+bool \hyperlink{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff}{start\+Device} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff}{Serial\+Device\+::start\+Device} Is the serial interface\textquotesingle{}s implementation of start\+Device. Starts the serial interface, clears its buffers and updates status. \end{DoxyCompactList}\item 
 \hypertarget{class_serial_device_a55f94898f33ab4674c138fa2cb2e75a1}{}\label{class_serial_device_a55f94898f33ab4674c138fa2cb2e75a1} 
-void {\bfseries stop\+Device} ()
-\item 
+void \hyperlink{class_serial_device_a55f94898f33ab4674c138fa2cb2e75a1}{stop\+Device} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a55f94898f33ab4674c138fa2cb2e75a1}{Serial\+Device\+::stop\+Device} Is the serial interface\textquotesingle{}s implementation of stop\+Device. Stops the serial interface, empties the serial devices buffers, empties the Transmit Buffers and updates status. \end{DoxyCompactList}\item 
 \hypertarget{class_serial_device_a08a8a19f8a25c1dc7593c91afc7d55bd}{}\label{class_serial_device_a08a8a19f8a25c1dc7593c91afc7d55bd} 
-void {\bfseries set\+Defaults} ()
-\item 
-\hypertarget{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86}{}\label{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86} 
-bool {\bfseries empty} ()
-\item 
-\hypertarget{class_serial_device_a0e2d400d48238e451de7725e494a0d47}{}\label{class_serial_device_a0e2d400d48238e451de7725e494a0d47} 
-void {\bfseries flush} ()
-\item 
-\hypertarget{class_serial_device_aa8c488f8088ec59d161744b6600c2467}{}\label{class_serial_device_aa8c488f8088ec59d161744b6600c2467} 
-void {\bfseries push\+Int} (int)
-\item 
-\hypertarget{class_serial_device_a43ed2e28372b856b48f2d2468971009d}{}\label{class_serial_device_a43ed2e28372b856b48f2d2468971009d} 
-void {\bfseries push\+Float} (float)
-\item 
-\hypertarget{class_serial_device_afd99c289e7d6dced96d0e436b317a791}{}\label{class_serial_device_afd99c289e7d6dced96d0e436b317a791} 
-void {\bfseries push\+Command} (flybyte)
-\item 
-\hypertarget{class_serial_device_ae24793cd2c237147faf54f07796fdb7e}{}\label{class_serial_device_ae24793cd2c237147faf54f07796fdb7e} 
-void {\bfseries push\+Command\+Immediate} (flybyte)
-\item 
-\hypertarget{class_serial_device_afb083c91c19b5acdbfd0a8324c646bbf}{}\label{class_serial_device_afb083c91c19b5acdbfd0a8324c646bbf} 
-int {\bfseries pop\+Int} ()
-\item 
-\hypertarget{class_serial_device_a86b2c14bab81f0f9d78d90b57626ef90}{}\label{class_serial_device_a86b2c14bab81f0f9d78d90b57626ef90} 
-float {\bfseries pop\+Float} ()
-\item 
-\hypertarget{class_serial_device_a87ee440731e488ff33bda31947c6a303}{}\label{class_serial_device_a87ee440731e488ff33bda31947c6a303} 
-flybyte {\bfseries pop\+Command} ()
-\item 
-\hypertarget{class_serial_device_a97092ec9379ed561866dad21475ea331}{}\label{class_serial_device_a97092ec9379ed561866dad21475ea331} 
-Q\+String {\bfseries name} ()
-\item 
+void \hyperlink{class_serial_device_a08a8a19f8a25c1dc7593c91afc7d55bd}{set\+Defaults} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a55f94898f33ab4674c138fa2cb2e75a1}{Serial\+Device\+::stop\+Device} Is the serial interface\textquotesingle{}s implementation of set\+Defaults. Sets the serial devices to the default values. (Rate=9600, Parity=None, Flow=None, Data=8, Stop=1) \end{DoxyCompactList}\item 
+bool \hyperlink{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86}{empty} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86}{Serial\+Device\+::empty} Is the serial interface\textquotesingle{}s implementation of empty. \end{DoxyCompactList}\item 
+\hypertarget{class_serial_device_a9ba3e46cf67a9b03e1614afe4c40d78a}{}\label{class_serial_device_a9ba3e46cf67a9b03e1614afe4c40d78a} 
+void \hyperlink{class_serial_device_a9ba3e46cf67a9b03e1614afe4c40d78a}{flush\+RX} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a9ba3e46cf67a9b03e1614afe4c40d78a}{Serial\+Device\+::flush\+RX} Is the serial interface\textquotesingle{}s implementation of flush\+RX. Empties the RX Transmit Buffer. \end{DoxyCompactList}\item 
+\hypertarget{class_serial_device_a56d7c575161fd216821d06e25f37106c}{}\label{class_serial_device_a56d7c575161fd216821d06e25f37106c} 
+void \hyperlink{class_serial_device_a56d7c575161fd216821d06e25f37106c}{flush\+TX} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a56d7c575161fd216821d06e25f37106c}{Serial\+Device\+::flush\+TX} Is the serial interface\textquotesingle{}s implementation of flush\+TX. Empties the TX Transmit Buffer. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a8ae456ccffcf8afccdfe49357aed3e06}{push\+Byte} (Fly\+Byte)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of push\+Byte. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a35408d01afb4c48bc259dc601d2b0bf7}{push\+Packet} (\hyperlink{class_fly_packet}{Fly\+Packet})
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of push\+Packet. \end{DoxyCompactList}\item 
+Fly\+Byte \hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{pop\+Byte} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of pop\+Byte. \end{DoxyCompactList}\item 
+\hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_serial_device_ac581710eb5e03945d9b3de9d39be51fc}{pop\+Packet} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of pop\+Packet. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_serial_device_a97092ec9379ed561866dad21475ea331}{name} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a97092ec9379ed561866dad21475ea331}{Serial\+Device\+::name} Is the serial interface\textquotesingle{}s implementation of name. \end{DoxyCompactList}\item 
 \hypertarget{class_serial_device_a38f5d9bc555bb1df0a4c8413e494d4b3}{}\label{class_serial_device_a38f5d9bc555bb1df0a4c8413e494d4b3} 
 void {\bfseries set\+Device} (int)
 \item 
+void \hyperlink{class_serial_device_af06c6a34b54819e71186243a38606280}{set\+Baud\+Rate} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_af06c6a34b54819e71186243a38606280}{Serial\+Device\+::set\+Baud\+Rate} Changes the serial device\textquotesingle{}s baud rate. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a91e293977d5401ededf350e19846b5a1}{set\+Parity} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a91e293977d5401ededf350e19846b5a1}{Serial\+Device\+::set\+Parity} Changes the serial device\textquotesingle{}s parity. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a74968289347c6ede64587287bb0cf699}{set\+Flow\+Control} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a74968289347c6ede64587287bb0cf699}{Serial\+Device\+::set\+Flow\+Control} Changes the serial device\textquotesingle{}s flow control. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_ad0ddca3e77e1d1d4df7c68e83f1ecd91}{set\+Data\+Bits} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_ad0ddca3e77e1d1d4df7c68e83f1ecd91}{Serial\+Device\+::set\+Data\+Bits} Changes the serial device\textquotesingle{}s number of data bits. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47}{set\+Stop\+Bits} (int)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47}{Serial\+Device\+::set\+Stop\+Bits} Changes the serial device\textquotesingle{}s number of stop bits. \end{DoxyCompactList}\item 
+void \hyperlink{class_serial_device_a1440b389cc1bba66e9854a32a5807a8f}{set\+Port} (Q\+Serial\+Port\+Info)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_serial_device_a1440b389cc1bba66e9854a32a5807a8f}{Serial\+Device\+::set\+Port} Sets the serial port. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The Serial Class Provides access to serial interfaces. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_serial_device_aa0b6d87aea8d882096abe85fda113b26}{}\label{class_serial_device_aa0b6d87aea8d882096abe85fda113b26} 
+\index{Serial\+Device@{Serial\+Device}!Serial\+Device@{Serial\+Device}}
+\index{Serial\+Device@{Serial\+Device}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{Serial\+Device()}{SerialDevice()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Serial\+Device\+::\+Serial\+Device (\begin{DoxyParamCaption}\item[{Q\+Serial\+Port\+Info}]{port }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device\+::\+Serial\+Device} Creates a new serial instance and configures it with the default values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Q\+Serial\+Port\+Info} & (Serial Port Instance) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_serial_device_a070f0759c102570004f1c5e1feb31abe}{}\label{class_serial_device_a070f0759c102570004f1c5e1feb31abe} 
+\index{Serial\+Device@{Serial\+Device}!Serial\+Device@{Serial\+Device}}
+\index{Serial\+Device@{Serial\+Device}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{Serial\+Device()}{SerialDevice()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Serial\+Device\+::\+Serial\+Device (\begin{DoxyParamCaption}\item[{Q\+String}]{path }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_aad126bede3b0adf49e1fbe3afd7c6c42}{Serial\+Device\+::\+Serial\+Device} Creates a new serial instance and configures it with the default values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Q\+String} & (Windows Example\+: C\+O\+M\+M1, $\ast$\+I\+NX Example\+: /dev/tty\+U\+S\+B0) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86}{}\label{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86} 
+\index{Serial\+Device@{Serial\+Device}!empty@{empty}}
+\index{empty@{empty}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool Serial\+Device\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_ae9fc540188704dbdbf3e75d482a92b86}{Serial\+Device\+::empty} Is the serial interface\textquotesingle{}s implementation of empty. 
+
+\begin{DoxyReturn}{Returns}
+bool (true=Empty, false=Not Empty) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d}{}\label{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d} 
+\index{Serial\+Device@{Serial\+Device}!is\+Ready@{is\+Ready}}
+\index{is\+Ready@{is\+Ready}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{is\+Ready()}{isReady()}}
+{\footnotesize\ttfamily bool Serial\+Device\+::is\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_aa2435fb76a612b2ebf1a61287deee85d}{Serial\+Device\+::is\+Ready} Is the serial interface\textquotesingle{}s implementation of is\+Ready. Get the status of the serial interface. 
+
+\begin{DoxyReturn}{Returns}
+bool (true=Ready, false=Not Ready) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_a97092ec9379ed561866dad21475ea331}{}\label{class_serial_device_a97092ec9379ed561866dad21475ea331} 
+\index{Serial\+Device@{Serial\+Device}!name@{name}}
+\index{name@{name}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily Q\+String Serial\+Device\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_a97092ec9379ed561866dad21475ea331}{Serial\+Device\+::name} Is the serial interface\textquotesingle{}s implementation of name. 
+
+\begin{DoxyReturn}{Returns}
+Qstring (Serial Device Port) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{}\label{class_serial_device_aa48df17f28ab9f613ba07181487a39c9} 
+\index{Serial\+Device@{Serial\+Device}!pop\+Byte@{pop\+Byte}}
+\index{pop\+Byte@{pop\+Byte}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{pop\+Byte()}{popByte()}}
+{\footnotesize\ttfamily Fly\+Byte Serial\+Device\+::pop\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of pop\+Byte. 
+
+\begin{DoxyReturn}{Returns}
+Fly\+Byte (From the RX Transmit Buffer). 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_ac581710eb5e03945d9b3de9d39be51fc}{}\label{class_serial_device_ac581710eb5e03945d9b3de9d39be51fc} 
+\index{Serial\+Device@{Serial\+Device}!pop\+Packet@{pop\+Packet}}
+\index{pop\+Packet@{pop\+Packet}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{pop\+Packet()}{popPacket()}}
+{\footnotesize\ttfamily \hyperlink{class_fly_packet}{Fly\+Packet} Serial\+Device\+::pop\+Packet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of pop\+Packet. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_fly_packet}{Fly\+Packet} (From the RX Transmit Buffer). 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_a8ae456ccffcf8afccdfe49357aed3e06}{}\label{class_serial_device_a8ae456ccffcf8afccdfe49357aed3e06} 
+\index{Serial\+Device@{Serial\+Device}!push\+Byte@{push\+Byte}}
+\index{push\+Byte@{push\+Byte}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{push\+Byte()}{pushByte()}}
+{\footnotesize\ttfamily void Serial\+Device\+::push\+Byte (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{data\+Byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of push\+Byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Fly\+Byte} & (Adds it to the TX Transmit Buffer). \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
+\hypertarget{class_serial_device_a35408d01afb4c48bc259dc601d2b0bf7}{}\label{class_serial_device_a35408d01afb4c48bc259dc601d2b0bf7} 
+\index{Serial\+Device@{Serial\+Device}!push\+Packet@{push\+Packet}}
+\index{push\+Packet@{push\+Packet}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{push\+Packet()}{pushPacket()}}
+{\footnotesize\ttfamily void Serial\+Device\+::push\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{class_fly_packet}{Fly\+Packet}}]{data\+Packet }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_aa48df17f28ab9f613ba07181487a39c9}{Serial\+Device\+::pop\+Byte} Is the serial interface\textquotesingle{}s implementation of push\+Packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{class_fly_packet}{Fly\+Packet}} & (Adds to the TX Transmit Buffer). \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
 \hypertarget{class_serial_device_af06c6a34b54819e71186243a38606280}{}\label{class_serial_device_af06c6a34b54819e71186243a38606280} 
-void {\bfseries set\+Baud\+Rate} (int)
-\item 
-\hypertarget{class_serial_device_a91e293977d5401ededf350e19846b5a1}{}\label{class_serial_device_a91e293977d5401ededf350e19846b5a1} 
-void {\bfseries set\+Parity} (int)
-\item 
-\hypertarget{class_serial_device_a74968289347c6ede64587287bb0cf699}{}\label{class_serial_device_a74968289347c6ede64587287bb0cf699} 
-void {\bfseries set\+Flow\+Control} (int)
-\item 
+\index{Serial\+Device@{Serial\+Device}!set\+Baud\+Rate@{set\+Baud\+Rate}}
+\index{set\+Baud\+Rate@{set\+Baud\+Rate}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Baud\+Rate()}{setBaudRate()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Baud\+Rate (\begin{DoxyParamCaption}\item[{int}]{rate }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_af06c6a34b54819e71186243a38606280}{Serial\+Device\+::set\+Baud\+Rate} Changes the serial device\textquotesingle{}s baud rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (0-\/9999999999) \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_serial_device_ad0ddca3e77e1d1d4df7c68e83f1ecd91}{}\label{class_serial_device_ad0ddca3e77e1d1d4df7c68e83f1ecd91} 
-void {\bfseries set\+Data\+Bits} (int)
-\item 
-\hypertarget{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47}{}\label{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47} 
-void {\bfseries set\+Stop\+Bits} (int)
-\item 
+\index{Serial\+Device@{Serial\+Device}!set\+Data\+Bits@{set\+Data\+Bits}}
+\index{set\+Data\+Bits@{set\+Data\+Bits}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Data\+Bits()}{setDataBits()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Data\+Bits (\begin{DoxyParamCaption}\item[{int}]{bits }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_ad0ddca3e77e1d1d4df7c68e83f1ecd91}{Serial\+Device\+::set\+Data\+Bits} Changes the serial device\textquotesingle{}s number of data bits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (5-\/8) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_serial_device_a74968289347c6ede64587287bb0cf699}{}\label{class_serial_device_a74968289347c6ede64587287bb0cf699} 
+\index{Serial\+Device@{Serial\+Device}!set\+Flow\+Control@{set\+Flow\+Control}}
+\index{set\+Flow\+Control@{set\+Flow\+Control}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Flow\+Control()}{setFlowControl()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Flow\+Control (\begin{DoxyParamCaption}\item[{int}]{flow }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_a74968289347c6ede64587287bb0cf699}{Serial\+Device\+::set\+Flow\+Control} Changes the serial device\textquotesingle{}s flow control. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (0=N\+O\+NE, 1=HW, 2=SW) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_serial_device_a91e293977d5401ededf350e19846b5a1}{}\label{class_serial_device_a91e293977d5401ededf350e19846b5a1} 
+\index{Serial\+Device@{Serial\+Device}!set\+Parity@{set\+Parity}}
+\index{set\+Parity@{set\+Parity}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Parity()}{setParity()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Parity (\begin{DoxyParamCaption}\item[{int}]{pari }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_a91e293977d5401ededf350e19846b5a1}{Serial\+Device\+::set\+Parity} Changes the serial device\textquotesingle{}s parity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (0=NO, 1=O\+DD, 2=E\+V\+EN) \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_serial_device_a1440b389cc1bba66e9854a32a5807a8f}{}\label{class_serial_device_a1440b389cc1bba66e9854a32a5807a8f} 
-void {\bfseries set\+Port} (Q\+Serial\+Port\+Info)
-\end{DoxyCompactItemize}
+\index{Serial\+Device@{Serial\+Device}!set\+Port@{set\+Port}}
+\index{set\+Port@{set\+Port}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Port()}{setPort()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Port (\begin{DoxyParamCaption}\item[{Q\+Serial\+Port\+Info}]{port }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_a1440b389cc1bba66e9854a32a5807a8f}{Serial\+Device\+::set\+Port} Sets the serial port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Q\+Serial\+Port\+Info} & Instance \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47}{}\label{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47} 
+\index{Serial\+Device@{Serial\+Device}!set\+Stop\+Bits@{set\+Stop\+Bits}}
+\index{set\+Stop\+Bits@{set\+Stop\+Bits}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{set\+Stop\+Bits()}{setStopBits()}}
+{\footnotesize\ttfamily void Serial\+Device\+::set\+Stop\+Bits (\begin{DoxyParamCaption}\item[{int}]{bits }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_serial_device_a95b44d8167ae0a6a025ba9c4f2d5ee47}{Serial\+Device\+::set\+Stop\+Bits} Changes the serial device\textquotesingle{}s number of stop bits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & (1=1, 2=1.\+5, 3=2) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff}{}\label{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff} 
+\index{Serial\+Device@{Serial\+Device}!start\+Device@{start\+Device}}
+\index{start\+Device@{start\+Device}!Serial\+Device@{Serial\+Device}}
+\subsubsection{\texorpdfstring{start\+Device()}{startDevice()}}
+{\footnotesize\ttfamily bool Serial\+Device\+::start\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_serial_device_a6940a33b7c8f4b83438d16cfa7d8d3ff}{Serial\+Device\+::start\+Device} Is the serial interface\textquotesingle{}s implementation of start\+Device. Starts the serial interface, clears its buffers and updates status. 
+
+\begin{DoxyReturn}{Returns}
+bool (true=Started, false=Not Ready) 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

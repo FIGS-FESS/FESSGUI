@@ -7,5 +7,6 @@ var searchData=
   ['begin',['begin',['../class_q_c_p_painter.html#a0a41146ccd619dceab6e25ec7b46b044',1,'QCPPainter']]],
   ['bottom',['bottom',['../class_q_c_p_axis_rect.html#acefdf1abaa8a8ab681e906cc2be9581e',1,'QCPAxisRect']]],
   ['bottomleft',['bottomLeft',['../class_q_c_p_axis_rect.html#ab15d4311d6535ccd7af504dc0e2b98c6',1,'QCPAxisRect']]],
-  ['bottomright',['bottomRight',['../class_q_c_p_axis_rect.html#a36dac884ec8fa3a3a2f3842ca7b7d32d',1,'QCPAxisRect']]]
+  ['bottomright',['bottomRight',['../class_q_c_p_axis_rect.html#a36dac884ec8fa3a3a2f3842ca7b7d32d',1,'QCPAxisRect']]],
+  ['bytesavailable',['bytesAvailable',['../class_transmit_buffer.html#aec08c2e6aa511bfd87d83ec4226b2c8e',1,'TransmitBuffer']]]
 ];

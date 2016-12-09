@@ -66,19 +66,119 @@ $(function() {
 <div class="title">RecordingOperation Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="class_recording_operation.html" title="The RecordingOperation class Handles operations involving recording values to csv. ">RecordingOperation</a> class Handles operations involving recording values to csv.  
+ <a href="class_recording_operation.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="recordingoperation_8h_source.html">recordingoperation.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a6335d0740c99799eb6cb094501019b07"><td class="memItemLeft" align="right" valign="top"><a id="a6335d0740c99799eb6cb094501019b07"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recording_operation.html#a6335d0740c99799eb6cb094501019b07">RecordingOperation</a> ()</td></tr>
+<tr class="memdesc:a6335d0740c99799eb6cb094501019b07"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_recording_operation.html#a6335d0740c99799eb6cb094501019b07" title="RecordingOperation::RecordingOperation. ">RecordingOperation::RecordingOperation</a>. <br /></td></tr>
+<tr class="separator:a6335d0740c99799eb6cb094501019b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9de73122788d5da0a2d747ae73df9bdf"><td class="memItemLeft" align="right" valign="top"><a id="a9de73122788d5da0a2d747ae73df9bdf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Start</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recording_operation.html#a9de73122788d5da0a2d747ae73df9bdf">Start</a> ()</td></tr>
+<tr class="memdesc:a9de73122788d5da0a2d747ae73df9bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_recording_operation.html#a9de73122788d5da0a2d747ae73df9bdf" title="RecordingOperation::Start Starts the recording process. Creates a file &quot;FlywheelOutput_{time}.csv&quot;, opens a filestream for it, and prints the heading row. ">RecordingOperation::Start</a> Starts the recording process. Creates a file "FlywheelOutput_{time}.csv", opens a filestream for it, and prints the heading row. <br /></td></tr>
 <tr class="separator:a9de73122788d5da0a2d747ae73df9bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa9953a7cdce60344d090eb95a4d0d13"><td class="memItemLeft" align="right" valign="top"><a id="afa9953a7cdce60344d090eb95a4d0d13"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Stop</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recording_operation.html#afa9953a7cdce60344d090eb95a4d0d13">Stop</a> ()</td></tr>
+<tr class="memdesc:afa9953a7cdce60344d090eb95a4d0d13"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_recording_operation.html#afa9953a7cdce60344d090eb95a4d0d13" title="RecordingOperation::Stop Stops the current recording process. Flushes the uffer and closes the filest...">RecordingOperation::Stop</a> Stops the current recording process. Flushes the uffer and closes the filestream. <br /></td></tr>
 <tr class="separator:afa9953a7cdce60344d090eb95a4d0d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a341c41178b05e95bc434510dfeedca"><td class="memItemLeft" align="right" valign="top"><a id="a1a341c41178b05e95bc434510dfeedca"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Record</b> (double time, double velocity, double acceleration, double upperDispX, double upperDispY, double lowerDispX, double lowerDispY, double rotationalPosX, double rotationalPosY)</td></tr>
+<tr class="memitem:a1a341c41178b05e95bc434510dfeedca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_recording_operation.html#a1a341c41178b05e95bc434510dfeedca">Record</a> (double time, double velocity, double acceleration, double upperDispX, double upperDispY, double lowerDispX, double lowerDispY, double rotationalPosX, double rotationalPosY)</td></tr>
+<tr class="memdesc:a1a341c41178b05e95bc434510dfeedca"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_recording_operation.html#a1a341c41178b05e95bc434510dfeedca" title="RecordingOperation::Record Records the given values in a row. ">RecordingOperation::Record</a> Records the given values in a row.  <a href="#a1a341c41178b05e95bc434510dfeedca">More...</a><br /></td></tr>
 <tr class="separator:a1a341c41178b05e95bc434510dfeedca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_recording_operation.html" title="The RecordingOperation class Handles operations involving recording values to csv. ">RecordingOperation</a> class Handles operations involving recording values to csv. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1a341c41178b05e95bc434510dfeedca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a341c41178b05e95bc434510dfeedca">&sect;&nbsp;</a></span>Record()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RecordingOperation::Record </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>velocity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>acceleration</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>upperDispX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>upperDispY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lowerDispX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lowerDispY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rotationalPosX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rotationalPosY</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_recording_operation.html#a1a341c41178b05e95bc434510dfeedca" title="RecordingOperation::Record Records the given values in a row. ">RecordingOperation::Record</a> Records the given values in a row. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>Value to record in the time column. </td></tr>
+    <tr><td class="paramname">velocity</td><td>Value to record in the velocity column. </td></tr>
+    <tr><td class="paramname">acceleration</td><td>Value to record in the acceleration column. </td></tr>
+    <tr><td class="paramname">upperDispX</td><td>Value to record in the upper displacement x column. </td></tr>
+    <tr><td class="paramname">upperDispY</td><td>Value to record in the upper displacement y column. </td></tr>
+    <tr><td class="paramname">lowerDispX</td><td>Value to record in the lower displacement x column. </td></tr>
+    <tr><td class="paramname">lowerDispY</td><td>Value to record in the lower displacement y column. </td></tr>
+    <tr><td class="paramname">rotationalPosX</td><td>Value to record in the rotational position x column. </td></tr>
+    <tr><td class="paramname">rotationalPosY</td><td>Value to record in the rotational position y column. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>FESS-GUI/<a class="el" href="recordingoperation_8h_source.html">recordingoperation.h</a></li>
 <li>FESS-GUI/recordingoperation.cpp</li>
