@@ -1,11 +1,17 @@
+// Custom Libraries
 #include "flypacket.h"
-#include <QtGui>
 
+/*! \brief FlyPacket::FlyPacket Set the default values.
+ */
 FlyPacket::FlyPacket()
 {
     reset();
 }
 
+/*! \brief FlyPacket::FlyPacket Set the default values, header and data.
+ *  \param FlyByte (Header Byte)
+ *  \param int (Data Byte)
+ */
 FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
 {
     reset();
@@ -13,6 +19,10 @@ FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
     setValue(dataValue);
 }
 
+/*! \brief FlyPacket::FlyPacket Set the default values, header and data.
+ *  \param FlyByte (Header Byte)
+ *  \param float (Data Byte)
+ */
 FlyPacket::FlyPacket(FlyByte commandByte, float dataValue)
 {
     reset();
@@ -20,10 +30,14 @@ FlyPacket::FlyPacket(FlyByte commandByte, float dataValue)
     setValue(dataValue);
 }
 
+/*! \brief FlyPacket::~FlyPacket Empty Destructor
+ */
 FlyPacket::~FlyPacket(){};
 
 // Setters
 
+/*! \brief FlyPacket::checkCommand Checks the header to ensure it is valid.
+ */
 void FlyPacket::checkCommand()
 {
     switch(commandByte)
@@ -45,6 +59,9 @@ void FlyPacket::checkCommand()
     }
 }
 
+/*! \brief FlyPacket::setCommand Sets the header of the packet and generates the footer.
+ *  \param FlyByte (Header Byte)
+ */
 void FlyPacket::setCommand(FlyByte generalByte)
 {
     commandByte = generalByte;
@@ -52,6 +69,9 @@ void FlyPacket::setCommand(FlyByte generalByte)
     checkCommand();
 }
 
+/*! \brief FlyPacket:setValue Converts a int into a byte array and inserts it into the packet.
+ *  \param int (Data)
+ */
 void FlyPacket::setValue(int dataValue)
 {
     if (sizeof(dataValue) <= MAX_PAYLOAD)
@@ -66,6 +86,9 @@ void FlyPacket::setValue(int dataValue)
     }
 }
 
+/*! \brief FlyPacket:setValue Converts a float into a byte array and inserts it into the packet.
+ *  \param float (Data)
+ */
 void FlyPacket::setValue(float dataValue)
 {
     if (sizeof(dataValue) <= MAX_PAYLOAD)
@@ -80,6 +103,10 @@ void FlyPacket::setValue(float dataValue)
     }
 }
 
+/*! \brief FlyPacket::writeByte Writes one byte into the packet until it is full.
+ * Sequence: Header, Data, ..., Data, Footer.
+ *  \param FlyByte (Bytes)
+ */
 void FlyPacket::writeByte(FlyByte generalByte)
 {
 
@@ -109,21 +136,33 @@ void FlyPacket::writeByte(FlyByte generalByte)
 
 // Getters
 
+/*! \brief FlyPacket::getInt Converts the internal data bytes into a int
+ * \return int (Data)
+ */
 int FlyPacket::getInt()
 {
     return byteArrayToInt(byteArray);
 }
 
+/*! \brief FlyPacket::getFloat Converts the internal data bytes into a float
+ * \return float (Data)
+ */
 float FlyPacket::getFloat()
 {
     return byteArrayToFloat(byteArray);
 }
 
+/*! \brief FlyPacket::getCommand Get the header byte.
+ * \return FlyByte (Header)
+ */
 FlyByte FlyPacket::getCommand()
 {
     return commandByte;
 }
 
+/*! \brief FlyPacket::readByte Reads one byte from the packet and advances to the next byte.
+ * \return FlyByte (Byte)
+ */
 FlyByte FlyPacket::readByte()
 {
     FlyByte returnByte;
@@ -155,6 +194,8 @@ FlyByte FlyPacket::readByte()
 
 // Universal Commands
 
+/*! \brief FlyPacket::reset Resets the packet to all zeros: data,header and footer.
+ */
 void FlyPacket::reset()
 {
     readComplete = false;
@@ -166,16 +207,31 @@ void FlyPacket::reset()
     zeroArray(byteArray,sizeof(byteArray));
 }
 
+/*!
+ * \brief FlyPacket::isReadable
+ * Check the packet to see if all the internal bytes have been read.
+ * \return bool (true=yes, false=no)
+ */
 bool FlyPacket::isReadable()
 {
     return !readComplete;
 }
 
+/*!
+ * \brief FlyPacket::isWriteable
+ * Check the packet to see if it has space for more bytes.
+ * \return bool (true=yes, false=no)
+ */
 bool FlyPacket::isWriteable()
 {
     return !writeComplete;
 }
 
+/*!
+ * \brief FlyPacket::isValidPacket()
+ * Check if the packet is valid.
+ * \return bool (true=valid, false=invalid)
+ */
 bool FlyPacket::isValidPacket()
 {
     if (invalidCommand == false)
@@ -190,11 +246,21 @@ bool FlyPacket::isValidPacket()
     return false;
 }
 
+/*!
+ * \brief FlyPacket::isValidCommand
+ * Check if the header is valid.
+ * \return bool (true=valid, false=invalid)
+ */
 bool FlyPacket::isValidCommand()
 {
     return !invalidCommand;
 }
 
+/*!
+ * \brief FlyPacket::getMaxSize
+ * Get the maximum packet size
+ * \return int (PACKET_SIZE)
+ */
 FlyByte FlyPacket::getMaxSize()
 {
     return PACKET_SIZE;

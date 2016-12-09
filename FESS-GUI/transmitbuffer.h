@@ -1,3 +1,7 @@
+/*! \brief The Transmit Buffer Class
+ * Provides queueing for the communication packets and raw output of packets for interfaces.
+ */
+
 #ifndef TRANSMITBUFFER_H
 #define TRANSMITBUFFER_H
 

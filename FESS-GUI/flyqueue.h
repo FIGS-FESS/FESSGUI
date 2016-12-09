@@ -1,3 +1,7 @@
+/*! \brief FlyQueue Class
+ *  A wrapper to allow for reuse on the microcontroller
+ */
+
 #ifndef FLYQUEUE_H
 #define FLYQUEUE_H
 

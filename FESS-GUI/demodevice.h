@@ -1,3 +1,7 @@
+/*! \brief The Demo Class
+ * Simulates flywheel activity.
+ */
+
 #ifndef DEMO_H
 #define DEMO_H
 

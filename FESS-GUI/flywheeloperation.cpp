@@ -1,5 +1,4 @@
 // Custom Libraries
-#include <QtGui>
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
@@ -58,7 +57,7 @@ void FlywheelOperation::setDefaults()
 
 /*!
  * \brief FlywheelOperation::setInterface Sets the device interface.
- * \param deviceInterface Pointer to the interface to set member variable to.
+ * \param CommonDeviceInterface* (Pointer to the interface to set member variable to)
  */
 void FlywheelOperation::setInterface(CommonDeviceInterface* deviceInterface)
 {

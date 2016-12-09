@@ -9,20 +9,24 @@
 #include "conversions.h"
 #include "demodevice.h"
 
+/*! \brief DemoDevice::DemoDevice Configures a new DemoDevice with its default values.
+ */
 DemoDevice::DemoDevice()
 {    
     setDefaults();
 }
 
-DemoDevice::~DemoDevice()
-{
-}
-
+/*! \brief DemoDevice::~DemoDevice Provided if needed in the future, currently no functionality.
+ */
+DemoDevice::~DemoDevice(){}
 
 //---------------------------------------------------------------------
 // Command Interpretation
 //---------------------------------------------------------------------
 
+/*! \brief DemoDevice::syncRX Is the demo interface's implementation of syncRX.
+ * Reacts to the interfaces commands (Only Emergency Stop currently)
+ */
 void DemoDevice::syncTX()
 {
     if(loop == true)
@@ -56,6 +60,10 @@ void DemoDevice::syncTX()
 // Value Generation
 //---------------------------------------------------------------------
 
+
+/*! \brief DemoDevice::syncRX Is the demo interface's implementation of syncRX.
+ * Generates values for testing and pushes them into the interface's RX Transmit Buffer
+ */
 void DemoDevice::syncRX()
 {
     switch(type)
@@ -145,22 +153,36 @@ void DemoDevice::syncRX()
 // Interface Overload Functions
 //--------------------------------------------------------------------
 
+/*! \brief DemoDevice::isReady Is the demo interface's implementation of isReady.
+ * Get the status of the demo interface
+ *  \return bool (true=Ready, false=Not Ready)
+ */
 bool DemoDevice::isReady()
 {
     return statusReady;
 }
 
+/*! \brief DemoDevice::startDevice Is the demo interface's implementation of startDevice.
+ * Starts the demo interface and updates status
+ *  \return bool (true=Started, false=Not Ready)
+ */
 bool DemoDevice::startDevice()
 {
     statusReady = true;
     return true;
 }
 
+/*! \brief DemoDevice::stopDevice Is the demo interface's implementation of stopDevice.
+ * Stops the demo interface and updates status
+ */
 void DemoDevice::stopDevice()
 {
     statusReady = false;
 }
 
+/*! \brief DemoDevice::stopDevice Is the demo interface's implementation of setDefaults.
+ * Sets the serial devices to the default values.
+ */
 void DemoDevice::setDefaults()
 {
     statusReady = false;
@@ -170,41 +192,65 @@ void DemoDevice::setDefaults()
     loop = true;
 }
 
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of popByte.
+ *  \return FlyByte (From the RX Transmit Buffer).
+ */
 FlyByte DemoDevice::popByte()
 {
     return rx.popByte();
 }
 
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of popPacket.
+ *  \return FlyPacket (From the RX Transmit Buffer).
+ */
 FlyPacket DemoDevice::popPacket()
 {
     return rx.popPacket();
 }
 
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of pushByte.
+ *  \param FlyByte (Adds it to the TX Transmit Buffer).
+ */
 void DemoDevice::pushByte(FlyByte dataByte)
 {
     tx.pushByte(dataByte);
 }
 
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of pushPacket.
+ *  \param FlyPacket (Adds to the TX Transmit Buffer).
+ */
 void DemoDevice::pushPacket(FlyPacket dataPacket)
 {
     tx.pushPacket(dataPacket);
 }
 
+/*! \brief DemoDevice::flushRX Is the demo interface's implementation of flushRX.
+ *  Empties the RX Transmit Buffer
+ */
 void DemoDevice::flushRX()
 {
     rx.flush();
 }
 
+/*! \brief DemoDevice::flushTX Is the demo interface's implementation of flushTX.
+ *  Empties the TX Transmit Buffer
+ */
 void DemoDevice::flushTX()
 {
     tx.flush();
 }
 
+/*! \brief DemoDevice::empty Is the demo interface's implementation of empty.
+ *  \return bool (true=Empty, false=Not Empty)
+ */
 bool DemoDevice::empty()
 {
     return !rx.packetsAvailable();
 }
 
+/*! \brief DemoDevice::name Is the demo interface's implementation of name.
+ *  \return Qstring ("Demo Device")
+ */
 QString DemoDevice::name()
 {
     return QString("Demo Device");
