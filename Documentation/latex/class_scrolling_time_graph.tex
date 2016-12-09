@@ -1,0 +1,143 @@
+\hypertarget{class_scrolling_time_graph}{}\section{Scrolling\+Time\+Graph Class Reference}
+\label{class_scrolling_time_graph}\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+
+
+The \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph with time as the x axis, that \char`\"{}scrolls\char`\"{} with time, showing a sliding window of values. The y axis represents whatever value this graph displays.  
+
+
+
+
+{\ttfamily \#include $<$graph.\+h$>$}
+
+Inheritance diagram for Scrolling\+Time\+Graph\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_scrolling_time_graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_scrolling_time_graph_ac7af242514d5770d99d90743a24163ca}{Scrolling\+Time\+Graph} (Q\+Main\+Window $\ast$main\+Window, \hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$main\+Plot, \hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$aux\+Plot, Q\+Color primary\+Color, Q\+Color secondary\+Color, Q\+String display\+Unit, int num\+Display\+Values)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_scrolling_time_graph_ac7af242514d5770d99d90743a24163ca}{Scrolling\+Time\+Graph\+::\+Scrolling\+Time\+Graph} Constructs the \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph}. \end{DoxyCompactList}\item 
+void \hyperlink{class_scrolling_time_graph_af26f732b60d98c521ea93709db8f70cc}{add\+Data} (double time, double primary\+Data, double second\+Dary\+Data, int max\+Value=-\/1)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_scrolling_time_graph_af26f732b60d98c521ea93709db8f70cc}{Scrolling\+Time\+Graph\+::add\+Data} Adds two data points to both plots at the given time. \end{DoxyCompactList}\item 
+void \hyperlink{class_scrolling_time_graph_a651e6922d732be7084c207cc94257bd7}{set\+Fill} (Q\+Color fill\+Color)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_scrolling_time_graph_a651e6922d732be7084c207cc94257bd7}{Scrolling\+Time\+Graph\+::set\+Fill} Sets the fill between two lines. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_scrolling_time_graph_a3d0314f268e3eeb7396733147f710ef0}{max\+Display} () override
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_scrolling_time_graph_a3d0314f268e3eeb7396733147f710ef0}{Scrolling\+Time\+Graph\+::max\+Display} Returns a string showing the maximum values seen by this graph so far, with units. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_scrolling_time_graph_ae27ff79b4314b792ecdd27fc6115e0bf}{current\+Display} () override
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_scrolling_time_graph_ae27ff79b4314b792ecdd27fc6115e0bf}{Scrolling\+Time\+Graph\+::current\+Display} Returns a string showing the most recent values seen by this graph. with units. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph with time as the x axis, that \char`\"{}scrolls\char`\"{} with time, showing a sliding window of values. The y axis represents whatever value this graph displays. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_scrolling_time_graph_ac7af242514d5770d99d90743a24163ca}{}\label{class_scrolling_time_graph_ac7af242514d5770d99d90743a24163ca} 
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\subsubsection{\texorpdfstring{Scrolling\+Time\+Graph()}{ScrollingTimeGraph()}}
+{\footnotesize\ttfamily Scrolling\+Time\+Graph\+::\+Scrolling\+Time\+Graph (\begin{DoxyParamCaption}\item[{Q\+Main\+Window $\ast$}]{main\+Window,  }\item[{\hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$}]{main\+Plot,  }\item[{\hyperlink{class_q_custom_plot}{Q\+Custom\+Plot} $\ast$}]{aux\+Plot,  }\item[{Q\+Color}]{primary\+Color,  }\item[{Q\+Color}]{secondary\+Color,  }\item[{Q\+String}]{display\+Unit,  }\item[{int}]{num\+Display\+Values }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_scrolling_time_graph_ac7af242514d5770d99d90743a24163ca}{Scrolling\+Time\+Graph\+::\+Scrolling\+Time\+Graph} Constructs the \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em main\+Window} & A pointer to the main\+Window, used for connecting ranges of the graph. \\
+\hline
+{\em main\+Plot} & The main plot for this graph. \\
+\hline
+{\em aux\+Plot} & The auxiliary plot for this graph, which lives in the sidebar. \\
+\hline
+{\em primary\+Color} & The color of the primary line of this graph. \\
+\hline
+{\em secondary\+Color} & The color of the secondary line of this graph. \\
+\hline
+{\em display\+Unit} & The units to use in displays. \\
+\hline
+{\em num\+Display\+Values} & The number of values to display in max\+Display and current\+Display. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_scrolling_time_graph_af26f732b60d98c521ea93709db8f70cc}{}\label{class_scrolling_time_graph_af26f732b60d98c521ea93709db8f70cc} 
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!add\+Data@{add\+Data}}
+\index{add\+Data@{add\+Data}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\subsubsection{\texorpdfstring{add\+Data()}{addData()}}
+{\footnotesize\ttfamily void Scrolling\+Time\+Graph\+::add\+Data (\begin{DoxyParamCaption}\item[{double}]{time,  }\item[{double}]{primary\+Data,  }\item[{double}]{secondary\+Data,  }\item[{int}]{max\+Value = {\ttfamily -\/1} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_scrolling_time_graph_af26f732b60d98c521ea93709db8f70cc}{Scrolling\+Time\+Graph\+::add\+Data} Adds two data points to both plots at the given time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & The x-\/axis value for the new points. \\
+\hline
+{\em primary\+Data} & The y-\/value of the point to add to the primary line. \\
+\hline
+{\em secondary\+Data} & The y-\/value of the point to add to the secondary line. \\
+\hline
+{\em max\+Value} & The maximum expected y-\/value on the graph. If this is set to a negative number, this is disregarded, and the plots resize dynamically to accomodate real values. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_scrolling_time_graph_ae27ff79b4314b792ecdd27fc6115e0bf}{}\label{class_scrolling_time_graph_ae27ff79b4314b792ecdd27fc6115e0bf} 
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!current\+Display@{current\+Display}}
+\index{current\+Display@{current\+Display}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\subsubsection{\texorpdfstring{current\+Display()}{currentDisplay()}}
+{\footnotesize\ttfamily Q\+String Scrolling\+Time\+Graph\+::current\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_scrolling_time_graph_ae27ff79b4314b792ecdd27fc6115e0bf}{Scrolling\+Time\+Graph\+::current\+Display} Returns a string showing the most recent values seen by this graph. with units. 
+
+\begin{DoxyReturn}{Returns}
+The string which contains the most recent values seen by this graph. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_graph}{Graph}.
+
+\hypertarget{class_scrolling_time_graph_a3d0314f268e3eeb7396733147f710ef0}{}\label{class_scrolling_time_graph_a3d0314f268e3eeb7396733147f710ef0} 
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!max\+Display@{max\+Display}}
+\index{max\+Display@{max\+Display}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\subsubsection{\texorpdfstring{max\+Display()}{maxDisplay()}}
+{\footnotesize\ttfamily Q\+String Scrolling\+Time\+Graph\+::max\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_scrolling_time_graph_a3d0314f268e3eeb7396733147f710ef0}{Scrolling\+Time\+Graph\+::max\+Display} Returns a string showing the maximum values seen by this graph so far, with units. 
+
+\begin{DoxyReturn}{Returns}
+The string which contains the maximum values seen by this graph. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_graph}{Graph}.
+
+\hypertarget{class_scrolling_time_graph_a651e6922d732be7084c207cc94257bd7}{}\label{class_scrolling_time_graph_a651e6922d732be7084c207cc94257bd7} 
+\index{Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}!set\+Fill@{set\+Fill}}
+\index{set\+Fill@{set\+Fill}!Scrolling\+Time\+Graph@{Scrolling\+Time\+Graph}}
+\subsubsection{\texorpdfstring{set\+Fill()}{setFill()}}
+{\footnotesize\ttfamily void Scrolling\+Time\+Graph\+::set\+Fill (\begin{DoxyParamCaption}\item[{Q\+Color}]{fill\+Color }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_scrolling_time_graph_a651e6922d732be7084c207cc94257bd7}{Scrolling\+Time\+Graph\+::set\+Fill} Sets the fill between two lines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fill\+Color} & The color to set the fill to. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+E\+S\+S-\/\+G\+U\+I/graph.\+h\item 
+F\+E\+S\+S-\/\+G\+U\+I/graph.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,82 @@
+\hypertarget{class_common_interface_manager}{}\section{Common\+Interface\+Manager Class Reference}
+\label{class_common_interface_manager}\index{Common\+Interface\+Manager@{Common\+Interface\+Manager}}
+
+
+\hyperlink{class_common_interface_manager}{Common\+Interface\+Manager} Class Manages interfaces set in the interface selector menu.  
+
+
+
+
+{\ttfamily \#include $<$commoninterfacemanager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_common_interface_manager_a3f970287bd77d17ea41a6795b25ce7e3}{}\label{class_common_interface_manager_a3f970287bd77d17ea41a6795b25ce7e3} 
+\hyperlink{class_common_interface_manager_a3f970287bd77d17ea41a6795b25ce7e3}{Common\+Interface\+Manager} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_a3f970287bd77d17ea41a6795b25ce7e3}{Common\+Interface\+Manager\+::\+Common\+Interface\+Manager} Set the device to N\+U\+LL. \end{DoxyCompactList}\item 
+\hypertarget{class_common_interface_manager_ad92cabe2e4f39fd762cf621df5125fa1}{}\label{class_common_interface_manager_ad92cabe2e4f39fd762cf621df5125fa1} 
+\hyperlink{class_common_interface_manager_ad92cabe2e4f39fd762cf621df5125fa1}{$\sim$\+Common\+Interface\+Manager} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_ad92cabe2e4f39fd762cf621df5125fa1}{Common\+Interface\+Manager\+::$\sim$\+Common\+Interface\+Manager} Deletes the current device. \end{DoxyCompactList}\item 
+\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$ \hyperlink{class_common_interface_manager_a24a72b0f78f9e6037e2da899e8170b2f}{get\+Current\+Interface} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_a24a72b0f78f9e6037e2da899e8170b2f}{Common\+Interface\+Manager\+::get\+Current\+Interface} Get the current interface. \end{DoxyCompactList}\item 
+void \hyperlink{class_common_interface_manager_add704853a060d8cca441da322b748c19}{set\+Current\+Interface} (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_add704853a060d8cca441da322b748c19}{Common\+Interface\+Manager\+::set\+Current\+Interface} Sets the curret device interface. \end{DoxyCompactList}\item 
+bool \hyperlink{class_common_interface_manager_abd7a314803309cdb6789eaf36f90b7b7}{is\+A\+Device\+Set} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_abd7a314803309cdb6789eaf36f90b7b7}{Common\+Interface\+Manager\+::is\+A\+Device\+Set} Determines if a device has been set in the menu. \end{DoxyCompactList}\item 
+\hypertarget{class_common_interface_manager_a16ab6917c45e1b40efe61d5379206ceb}{}\label{class_common_interface_manager_a16ab6917c45e1b40efe61d5379206ceb} 
+void \hyperlink{class_common_interface_manager_a16ab6917c45e1b40efe61d5379206ceb}{close\+Current\+Interface} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_common_interface_manager_a16ab6917c45e1b40efe61d5379206ceb}{Common\+Interface\+Manager\+::close\+Current\+Interface} Closes the current interface. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_common_interface_manager}{Common\+Interface\+Manager} Class Manages interfaces set in the interface selector menu. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_common_interface_manager_a24a72b0f78f9e6037e2da899e8170b2f}{}\label{class_common_interface_manager_a24a72b0f78f9e6037e2da899e8170b2f} 
+\index{Common\+Interface\+Manager@{Common\+Interface\+Manager}!get\+Current\+Interface@{get\+Current\+Interface}}
+\index{get\+Current\+Interface@{get\+Current\+Interface}!Common\+Interface\+Manager@{Common\+Interface\+Manager}}
+\subsubsection{\texorpdfstring{get\+Current\+Interface()}{getCurrentInterface()}}
+{\footnotesize\ttfamily \hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$ Common\+Interface\+Manager\+::get\+Current\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_common_interface_manager_a24a72b0f78f9e6037e2da899e8170b2f}{Common\+Interface\+Manager\+::get\+Current\+Interface} Get the current interface. 
+
+\begin{DoxyReturn}{Returns}
+Common\+Device\+Interface$\ast$ (\hyperlink{class_common_device_interface}{Common\+Device\+Interface} Instance Pointer,N\+U\+LL) 
+\end{DoxyReturn}
+\hypertarget{class_common_interface_manager_abd7a314803309cdb6789eaf36f90b7b7}{}\label{class_common_interface_manager_abd7a314803309cdb6789eaf36f90b7b7} 
+\index{Common\+Interface\+Manager@{Common\+Interface\+Manager}!is\+A\+Device\+Set@{is\+A\+Device\+Set}}
+\index{is\+A\+Device\+Set@{is\+A\+Device\+Set}!Common\+Interface\+Manager@{Common\+Interface\+Manager}}
+\subsubsection{\texorpdfstring{is\+A\+Device\+Set()}{isADeviceSet()}}
+{\footnotesize\ttfamily bool Common\+Interface\+Manager\+::is\+A\+Device\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_common_interface_manager_abd7a314803309cdb6789eaf36f90b7b7}{Common\+Interface\+Manager\+::is\+A\+Device\+Set} Determines if a device has been set in the menu. 
+
+\begin{DoxyReturn}{Returns}
+bool (true=Yes, false=No) 
+\end{DoxyReturn}
+\hypertarget{class_common_interface_manager_add704853a060d8cca441da322b748c19}{}\label{class_common_interface_manager_add704853a060d8cca441da322b748c19} 
+\index{Common\+Interface\+Manager@{Common\+Interface\+Manager}!set\+Current\+Interface@{set\+Current\+Interface}}
+\index{set\+Current\+Interface@{set\+Current\+Interface}!Common\+Interface\+Manager@{Common\+Interface\+Manager}}
+\subsubsection{\texorpdfstring{set\+Current\+Interface()}{setCurrentInterface()}}
+{\footnotesize\ttfamily void Common\+Interface\+Manager\+::set\+Current\+Interface (\begin{DoxyParamCaption}\item[{\hyperlink{class_common_device_interface}{Common\+Device\+Interface} $\ast$}]{new\+Interface }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_common_interface_manager_add704853a060d8cca441da322b748c19}{Common\+Interface\+Manager\+::set\+Current\+Interface} Sets the curret device interface. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Common\+Device\+Interface$\ast$} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+F\+E\+S\+S-\/\+G\+U\+I/commoninterfacemanager.\+h\item 
+F\+E\+S\+S-\/\+G\+U\+I/commoninterfacemanager.\+cpp\end{DoxyCompactItemize}
