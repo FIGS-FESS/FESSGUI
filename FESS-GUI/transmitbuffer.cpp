@@ -10,7 +10,7 @@ TransmitBuffer::TransmitBuffer(){}
 TransmitBuffer::~TransmitBuffer(){}
 
 /*! \brief TransmitBuffer::popByte Get the Byte at the front of the output byte queue created from a packet.
- *  \return FlyByte
+ *  \return FlyByte (First byte in the output queue)
  */
 FlyByte TransmitBuffer::popByte()
 {
@@ -38,7 +38,7 @@ void TransmitBuffer::populateBuffer()
 }
 
 /*! \brief TransmitBuffer::pushByte Takes bytes until there are enough to build a packet. It converts the bytes to a packet and adds the packet to the packet queue.
- *  \param FlyByte
+ *  \param FlyByte (Added to the incoming queue)
  */
 void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
@@ -67,7 +67,7 @@ void TransmitBuffer::pushByte(FlyByte incomingByte)
 }
 
 /*! \brief TransmitBuffer::pushPacket Adds the packets to the packet queue.
- *  \param FlyPacket
+ *  \param FlyPacket (Added to the Packet Queue)
  */
 void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
@@ -75,7 +75,7 @@ void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 }
 
 /*! \brief TransmitBuffer::popPacket Adds the packets to the packet queue.
- *  \return FlyPacket
+ *  \return FlyPacket (Gets a packet from the front of the packet queue)
  */
 FlyPacket TransmitBuffer::popPacket()
 {
@@ -83,7 +83,7 @@ FlyPacket TransmitBuffer::popPacket()
 }
 
 /*! \brief TransmitBuffer::packetsAvailable Checks if the packet queue is empty.
- *  \return True | False
+ *  \return bool (true=yes | false=no)
  */
 bool TransmitBuffer::packetsAvailable()
 {
@@ -91,7 +91,7 @@ bool TransmitBuffer::packetsAvailable()
 }
 
 /*! \brief TransmitBuffer::bytesAvailable Checks if the byte and packet queues are empty.
- *  \return True | False
+ *  \return bool (true=yes | false=no)
  */
 bool TransmitBuffer::bytesAvailable()
 {

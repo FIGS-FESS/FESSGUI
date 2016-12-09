@@ -14,7 +14,7 @@ SerialDevice::SerialDevice()
 }
 
 /*! \brief SerialDevice::SerialDevice Creates a new serial instance and configures it with the default values.
-    \param QSerialPortInfo Instance.
+    \param QSerialPortInfo (Serial Port Instance)
 */
 SerialDevice::SerialDevice(QSerialPortInfo port)
 {
@@ -24,7 +24,7 @@ SerialDevice::SerialDevice(QSerialPortInfo port)
 }
 
 /*! \brief SerialDevice::SerialDevice Creates a new serial instance and configures it with the default values.
-    \param QString Windows Example: COMM1, *INX Example: /dev/ttyUSB0.
+    \param QString (Windows Example: COMM1, *INX Example: /dev/ttyUSB0)
 */
 SerialDevice::SerialDevice(QString path)
 {

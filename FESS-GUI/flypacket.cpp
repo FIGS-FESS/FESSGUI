@@ -9,8 +9,8 @@ FlyPacket::FlyPacket()
 }
 
 /*! \brief FlyPacket::FlyPacket Set the default values, header and data.
- *  \param FlyByte Header Byte
- *  \param int Data Byte
+ *  \param FlyByte (Header Byte)
+ *  \param int (Data Byte)
  */
 FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
 {
@@ -20,8 +20,8 @@ FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
 }
 
 /*! \brief FlyPacket::FlyPacket Set the default values, header and data.
- *  \param FlyByte Header Byte
- *  \param float Data Byte
+ *  \param FlyByte (Header Byte)
+ *  \param float (Data Byte)
  */
 FlyPacket::FlyPacket(FlyByte commandByte, float dataValue)
 {
@@ -60,7 +60,7 @@ void FlyPacket::checkCommand()
 }
 
 /*! \brief FlyPacket::setCommand Sets the header of the packet and generates the footer.
- *  \param FlyByte
+ *  \param FlyByte (Header Byte)
  */
 void FlyPacket::setCommand(FlyByte generalByte)
 {
@@ -70,7 +70,7 @@ void FlyPacket::setCommand(FlyByte generalByte)
 }
 
 /*! \brief FlyPacket:setValue Converts a int into a byte array and inserts it into the packet.
- *  \param int
+ *  \param int (Data)
  */
 void FlyPacket::setValue(int dataValue)
 {
@@ -87,7 +87,7 @@ void FlyPacket::setValue(int dataValue)
 }
 
 /*! \brief FlyPacket:setValue Converts a float into a byte array and inserts it into the packet.
- *  \param float
+ *  \param float (Data)
  */
 void FlyPacket::setValue(float dataValue)
 {
@@ -105,7 +105,7 @@ void FlyPacket::setValue(float dataValue)
 
 /*! \brief FlyPacket::writeByte Writes one byte into the packet until it is full.
  * Sequence: Header, Data, ..., Data, Footer.
- *  \param FlyByte
+ *  \param FlyByte (Bytes)
  */
 void FlyPacket::writeByte(FlyByte generalByte)
 {
@@ -137,7 +137,7 @@ void FlyPacket::writeByte(FlyByte generalByte)
 // Getters
 
 /*! \brief FlyPacket::getInt Converts the internal data bytes into a int
- * \return int
+ * \return int (Data)
  */
 int FlyPacket::getInt()
 {
@@ -145,7 +145,7 @@ int FlyPacket::getInt()
 }
 
 /*! \brief FlyPacket::getFloat Converts the internal data bytes into a float
- * \return float
+ * \return float (Data)
  */
 float FlyPacket::getFloat()
 {
@@ -153,7 +153,7 @@ float FlyPacket::getFloat()
 }
 
 /*! \brief FlyPacket::getCommand Get the header byte.
- * \return FlyByte
+ * \return FlyByte (Header)
  */
 FlyByte FlyPacket::getCommand()
 {
@@ -161,7 +161,7 @@ FlyByte FlyPacket::getCommand()
 }
 
 /*! \brief FlyPacket::readByte Reads one byte from the packet and advances to the next byte.
- * \return FlyByte
+ * \return FlyByte (Byte)
  */
 FlyByte FlyPacket::readByte()
 {
