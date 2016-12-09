@@ -3,7 +3,7 @@
 
 #define TAU	6.283185307179586476925286766559005768394
 
-#include "cstring"
+#include <cstring>
 
 /*! \brief The conversions library, containing all conversions our program uses.
  */

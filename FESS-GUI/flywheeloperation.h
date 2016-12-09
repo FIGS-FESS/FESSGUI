@@ -1,3 +1,7 @@
+/*!
+ * \brief The FlywheelOperation class handles all operations involving the flywheel.
+ */
+
 #ifndef FLYWHEELOPERATION_H
 #define FLYWHEELOPERATION_H
 
@@ -10,9 +14,7 @@
 // Custom Libraries
 #include "commondeviceinterface.h"
 
-/*!
- * \brief The FlywheelOperation class handles all operations involving the flywheel.
- */
+
 class FlywheelOperation
 {
 public:
