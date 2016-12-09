@@ -12,21 +12,18 @@ The Transmit Buffer Class Provides queueing for the communication packets and ra
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341}{}\label{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341} 
 \hyperlink{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341}{Transmit\+Buffer} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341}{Transmit\+Buffer\+::\+Transmit\+Buffer} Provided if needed in the future, currently no functionality. \end{DoxyCompactList}\item 
-\hypertarget{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2}{}\label{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2} 
 \hyperlink{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2}{$\sim$\+Transmit\+Buffer} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2}{Transmit\+Buffer\+::$\sim$\+Transmit\+Buffer} Provided if needed in the future, currently no functionality. \end{DoxyCompactList}\item 
-void \hyperlink{class_transmit_buffer_aa7966064a6abaeb5ff3f7c8ff0402ec3}{push\+Byte} (Fly\+Byte)
+void \hyperlink{class_transmit_buffer_aa7966064a6abaeb5ff3f7c8ff0402ec3}{push\+Byte} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_aa7966064a6abaeb5ff3f7c8ff0402ec3}{Transmit\+Buffer\+::push\+Byte} Takes bytes until there are enough to build a packet. It converts the bytes to a packet and adds the packet to the packet queue. \end{DoxyCompactList}\item 
 void \hyperlink{class_transmit_buffer_a002757b58f4227167db20c8977bbdb28}{push\+Packet} (\hyperlink{class_fly_packet}{Fly\+Packet})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_a002757b58f4227167db20c8977bbdb28}{Transmit\+Buffer\+::push\+Packet} Adds the packets to the packet queue. \end{DoxyCompactList}\item 
-Fly\+Byte \hyperlink{class_transmit_buffer_a6da9417079dd783d996af8fcc138149c}{pop\+Byte} ()
+\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} \hyperlink{class_transmit_buffer_a6da9417079dd783d996af8fcc138149c}{pop\+Byte} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_a6da9417079dd783d996af8fcc138149c}{Transmit\+Buffer\+::pop\+Byte} Get the Byte at the front of the output byte queue created from a packet. \end{DoxyCompactList}\item 
 \hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_transmit_buffer_add84c61a7f2f060d236feab584babc64}{pop\+Packet} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_add84c61a7f2f060d236feab584babc64}{Transmit\+Buffer\+::pop\+Packet} Adds the packets to the packet queue. \end{DoxyCompactList}\item 
-\hypertarget{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a}{}\label{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a} 
 void \hyperlink{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a}{flush} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a}{Transmit\+Buffer\+::flush} Empties all internal queues. \end{DoxyCompactList}\item 
 bool \hyperlink{class_transmit_buffer_aec08c2e6aa511bfd87d83ec4226b2c8e}{bytes\+Available} ()
@@ -37,6 +34,29 @@ bool \hyperlink{class_transmit_buffer_aad9976b2ae40b1405a319de979b09827}{packets
 
 \subsection{Detailed Description}
 The Transmit Buffer Class Provides queueing for the communication packets and raw output of packets for interfaces. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341}{}\label{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341} 
+\index{Transmit\+Buffer@{Transmit\+Buffer}!Transmit\+Buffer@{Transmit\+Buffer}}
+\index{Transmit\+Buffer@{Transmit\+Buffer}!Transmit\+Buffer@{Transmit\+Buffer}}
+\subsubsection{\texorpdfstring{Transmit\+Buffer()}{TransmitBuffer()}}
+{\footnotesize\ttfamily Transmit\+Buffer\+::\+Transmit\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_transmit_buffer_adb5f67b087b5c8d1996f9f7b6fb42341}{Transmit\+Buffer\+::\+Transmit\+Buffer} Provided if needed in the future, currently no functionality. 
+
+\hypertarget{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2}{}\label{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2} 
+\index{Transmit\+Buffer@{Transmit\+Buffer}!````~Transmit\+Buffer@{$\sim$\+Transmit\+Buffer}}
+\index{````~Transmit\+Buffer@{$\sim$\+Transmit\+Buffer}!Transmit\+Buffer@{Transmit\+Buffer}}
+\subsubsection{\texorpdfstring{$\sim$\+Transmit\+Buffer()}{~TransmitBuffer()}}
+{\footnotesize\ttfamily Transmit\+Buffer\+::$\sim$\+Transmit\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_transmit_buffer_a9de4adf2b6fef27e9f35ce3392fb12d2}{Transmit\+Buffer\+::$\sim$\+Transmit\+Buffer} Provided if needed in the future, currently no functionality. 
+
+
 
 \subsection{Member Function Documentation}
 \hypertarget{class_transmit_buffer_aec08c2e6aa511bfd87d83ec4226b2c8e}{}\label{class_transmit_buffer_aec08c2e6aa511bfd87d83ec4226b2c8e} 
@@ -52,6 +72,16 @@ The Transmit Buffer Class Provides queueing for the communication packets and ra
 \begin{DoxyReturn}{Returns}
 bool (true=yes $\vert$ false=no) 
 \end{DoxyReturn}
+\hypertarget{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a}{}\label{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a} 
+\index{Transmit\+Buffer@{Transmit\+Buffer}!flush@{flush}}
+\index{flush@{flush}!Transmit\+Buffer@{Transmit\+Buffer}}
+\subsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily void Transmit\+Buffer\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_transmit_buffer_a574f5ab5eca07b5ee8a517812cd7d87a}{Transmit\+Buffer\+::flush} Empties all internal queues. 
+
 \hypertarget{class_transmit_buffer_aad9976b2ae40b1405a319de979b09827}{}\label{class_transmit_buffer_aad9976b2ae40b1405a319de979b09827} 
 \index{Transmit\+Buffer@{Transmit\+Buffer}!packets\+Available@{packets\+Available}}
 \index{packets\+Available@{packets\+Available}!Transmit\+Buffer@{Transmit\+Buffer}}
@@ -69,7 +99,7 @@ bool (true=yes $\vert$ false=no)
 \index{Transmit\+Buffer@{Transmit\+Buffer}!pop\+Byte@{pop\+Byte}}
 \index{pop\+Byte@{pop\+Byte}!Transmit\+Buffer@{Transmit\+Buffer}}
 \subsubsection{\texorpdfstring{pop\+Byte()}{popByte()}}
-{\footnotesize\ttfamily Fly\+Byte Transmit\+Buffer\+::pop\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} Transmit\+Buffer\+::pop\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -95,7 +125,7 @@ Fly\+Byte (First byte in the output queue)
 \index{Transmit\+Buffer@{Transmit\+Buffer}!push\+Byte@{push\+Byte}}
 \index{push\+Byte@{push\+Byte}!Transmit\+Buffer@{Transmit\+Buffer}}
 \subsubsection{\texorpdfstring{push\+Byte()}{pushByte()}}
-{\footnotesize\ttfamily void Transmit\+Buffer\+::push\+Byte (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{incoming\+Byte }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Transmit\+Buffer\+::push\+Byte (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{incoming\+Byte }\end{DoxyParamCaption})}
 
 
 
@@ -125,5 +155,5 @@ Fly\+Byte (First byte in the output queue)
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-F\+E\+S\+S-\/\+G\+U\+I/transmitbuffer.\+h\item 
-F\+E\+S\+S-\/\+G\+U\+I/transmitbuffer.\+cpp\end{DoxyCompactItemize}
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{transmitbuffer_8h}{transmitbuffer.\+h}\item 
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{transmitbuffer_8cpp}{transmitbuffer.\+cpp}\end{DoxyCompactItemize}

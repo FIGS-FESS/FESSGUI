@@ -1,5 +1,9 @@
 \hypertarget{class_demo_device}{}\section{Demo\+Device Class Reference}
 \label{class_demo_device}\index{Demo\+Device@{Demo\+Device}}
+
+
+{\ttfamily \#include $<$demodevice.\+h$>$}
+
 Inheritance diagram for Demo\+Device\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,46 +13,61 @@ Inheritance diagram for Demo\+Device\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58}{}\label{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58} 
 \hyperlink{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58}{Demo\+Device} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58}{Demo\+Device\+::\+Demo\+Device} Configures a new \hyperlink{class_demo_device}{Demo\+Device} with its default values. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_aff994361f45ae993feb854f72a2a32a6}{}\label{class_demo_device_aff994361f45ae993feb854f72a2a32a6} 
 \hyperlink{class_demo_device_aff994361f45ae993feb854f72a2a32a6}{$\sim$\+Demo\+Device} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_aff994361f45ae993feb854f72a2a32a6}{Demo\+Device\+::$\sim$\+Demo\+Device} Provided if needed in the future, currently no functionality. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{}\label{class_demo_device_a85671c408f6f08d82a09344ef5f34966} 
 void \hyperlink{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{sync\+RX} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{Demo\+Device\+::sync\+RX} Is the demo interface\textquotesingle{}s implementation of sync\+RX. Generates values for testing and pushes them into the interface\textquotesingle{}s RX Transmit Buffer. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_a4b33b0148627fcbd22a0704e80f05d7d}{}\label{class_demo_device_a4b33b0148627fcbd22a0704e80f05d7d} 
 void \hyperlink{class_demo_device_a4b33b0148627fcbd22a0704e80f05d7d}{sync\+TX} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{Demo\+Device\+::sync\+RX} Is the demo interface\textquotesingle{}s implementation of sync\+RX. Reacts to the interfaces commands (Only Emergency Stop currently) \end{DoxyCompactList}\item 
 bool \hyperlink{class_demo_device_aaadb9ced56699af55526b9fc7cf8420c}{is\+Ready} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_aaadb9ced56699af55526b9fc7cf8420c}{Demo\+Device\+::is\+Ready} Is the demo interface\textquotesingle{}s implementation of is\+Ready. Get the status of the demo interface. \end{DoxyCompactList}\item 
 bool \hyperlink{class_demo_device_af350ecf6ff289983cff9053197f1b1f2}{start\+Device} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_af350ecf6ff289983cff9053197f1b1f2}{Demo\+Device\+::start\+Device} Is the demo interface\textquotesingle{}s implementation of start\+Device. Starts the demo interface and updates status. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_ab95434f7121f00789108f29a8457ec98}{}\label{class_demo_device_ab95434f7121f00789108f29a8457ec98} 
 void \hyperlink{class_demo_device_ab95434f7121f00789108f29a8457ec98}{stop\+Device} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_ab95434f7121f00789108f29a8457ec98}{Demo\+Device\+::stop\+Device} Is the demo interface\textquotesingle{}s implementation of stop\+Device. Stops the demo interface and updates status. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_a79a9c22e60aca99c7667990bedc461c8}{}\label{class_demo_device_a79a9c22e60aca99c7667990bedc461c8} 
 void \hyperlink{class_demo_device_a79a9c22e60aca99c7667990bedc461c8}{set\+Defaults} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_ab95434f7121f00789108f29a8457ec98}{Demo\+Device\+::stop\+Device} Is the demo interface\textquotesingle{}s implementation of set\+Defaults. Sets the serial devices to the default values. \end{DoxyCompactList}\item 
 bool \hyperlink{class_demo_device_a52de363ec31fdbb540cf7cae6f584d22}{empty} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a52de363ec31fdbb540cf7cae6f584d22}{Demo\+Device\+::empty} Is the demo interface\textquotesingle{}s implementation of empty. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_abd7460c71a01d986b1f77908ccb779a2}{}\label{class_demo_device_abd7460c71a01d986b1f77908ccb779a2} 
 void \hyperlink{class_demo_device_abd7460c71a01d986b1f77908ccb779a2}{flush\+RX} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_abd7460c71a01d986b1f77908ccb779a2}{Demo\+Device\+::flush\+RX} Is the demo interface\textquotesingle{}s implementation of flush\+RX. Empties the RX Transmit Buffer. \end{DoxyCompactList}\item 
-\hypertarget{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe}{}\label{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe} 
 void \hyperlink{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe}{flush\+TX} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe}{Demo\+Device\+::flush\+TX} Is the demo interface\textquotesingle{}s implementation of flush\+TX. Empties the TX Transmit Buffer. \end{DoxyCompactList}\item 
-void \hyperlink{class_demo_device_a064f0bc683663200243bd68ff3713c68}{push\+Byte} (Fly\+Byte)
+void \hyperlink{class_demo_device_a064f0bc683663200243bd68ff3713c68}{push\+Byte} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{Demo\+Device\+::pop\+Byte} Is the demo interface\textquotesingle{}s implementation of push\+Byte. \end{DoxyCompactList}\item 
 void \hyperlink{class_demo_device_ac39f46589b28926cd40635ad42342a54}{push\+Packet} (\hyperlink{class_fly_packet}{Fly\+Packet})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{Demo\+Device\+::pop\+Byte} Is the demo interface\textquotesingle{}s implementation of push\+Packet. \end{DoxyCompactList}\item 
-Fly\+Byte \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{pop\+Byte} ()
+\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{pop\+Byte} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{Demo\+Device\+::pop\+Byte} Is the demo interface\textquotesingle{}s implementation of pop\+Byte. \end{DoxyCompactList}\item 
 \hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_demo_device_a6e755f50f52301b9166e278fe6851e88}{pop\+Packet} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{Demo\+Device\+::pop\+Byte} Is the demo interface\textquotesingle{}s implementation of pop\+Packet. \end{DoxyCompactList}\item 
 Q\+String \hyperlink{class_demo_device_acde538bd5a71a8d4df6293876169545c}{name} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_demo_device_acde538bd5a71a8d4df6293876169545c}{Demo\+Device\+::name} Is the demo interface\textquotesingle{}s implementation of name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58}{}\label{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58} 
+\index{Demo\+Device@{Demo\+Device}!Demo\+Device@{Demo\+Device}}
+\index{Demo\+Device@{Demo\+Device}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{Demo\+Device()}{DemoDevice()}}
+{\footnotesize\ttfamily Demo\+Device\+::\+Demo\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_demo_device_a9fc771c4152f0d9de78a69187cbd7a58}{Demo\+Device\+::\+Demo\+Device} Configures a new \hyperlink{class_demo_device}{Demo\+Device} with its default values. 
+
+\hypertarget{class_demo_device_aff994361f45ae993feb854f72a2a32a6}{}\label{class_demo_device_aff994361f45ae993feb854f72a2a32a6} 
+\index{Demo\+Device@{Demo\+Device}!````~Demo\+Device@{$\sim$\+Demo\+Device}}
+\index{````~Demo\+Device@{$\sim$\+Demo\+Device}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{$\sim$\+Demo\+Device()}{~DemoDevice()}}
+{\footnotesize\ttfamily Demo\+Device\+::$\sim$\+Demo\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_demo_device_aff994361f45ae993feb854f72a2a32a6}{Demo\+Device\+::$\sim$\+Demo\+Device} Provided if needed in the future, currently no functionality. 
+
 
 
 \subsection{Member Function Documentation}
@@ -67,7 +86,35 @@ bool (true=Empty, false=Not Empty)
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_ad670a54efd57ef65a659623f2a0b76e9}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_abd7460c71a01d986b1f77908ccb779a2}{}\label{class_demo_device_abd7460c71a01d986b1f77908ccb779a2} 
+\index{Demo\+Device@{Demo\+Device}!flush\+RX@{flush\+RX}}
+\index{flush\+RX@{flush\+RX}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{flush\+R\+X()}{flushRX()}}
+{\footnotesize\ttfamily void Demo\+Device\+::flush\+RX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_abd7460c71a01d986b1f77908ccb779a2}{Demo\+Device\+::flush\+RX} Is the demo interface\textquotesingle{}s implementation of flush\+RX. Empties the RX Transmit Buffer. 
+
+
+
+Implements \hyperlink{class_common_device_interface_a353c3bd7d63dfa9c3fa3d8bf1f392530}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe}{}\label{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe} 
+\index{Demo\+Device@{Demo\+Device}!flush\+TX@{flush\+TX}}
+\index{flush\+TX@{flush\+TX}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{flush\+T\+X()}{flushTX()}}
+{\footnotesize\ttfamily void Demo\+Device\+::flush\+TX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_a32e89c17f613abfa7f2a4d9f970bbffe}{Demo\+Device\+::flush\+TX} Is the demo interface\textquotesingle{}s implementation of flush\+TX. Empties the TX Transmit Buffer. 
+
+
+
+Implements \hyperlink{class_common_device_interface_a45edc68596f002f0765740ee14b39b77}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_aaadb9ced56699af55526b9fc7cf8420c}{}\label{class_demo_device_aaadb9ced56699af55526b9fc7cf8420c} 
 \index{Demo\+Device@{Demo\+Device}!is\+Ready@{is\+Ready}}
@@ -84,7 +131,7 @@ bool (true=Ready, false=Not Ready)
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_ae58207ead16a77fa94babe01f0a3ba40}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_acde538bd5a71a8d4df6293876169545c}{}\label{class_demo_device_acde538bd5a71a8d4df6293876169545c} 
 \index{Demo\+Device@{Demo\+Device}!name@{name}}
@@ -101,13 +148,13 @@ Qstring (\char`\"{}\+Demo Device\char`\"{})
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_a3d80b22eafc88af3109b08491bef6e8a}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4}{}\label{class_demo_device_a788dd7e426fab9c8d19ea9fd106260d4} 
 \index{Demo\+Device@{Demo\+Device}!pop\+Byte@{pop\+Byte}}
 \index{pop\+Byte@{pop\+Byte}!Demo\+Device@{Demo\+Device}}
 \subsubsection{\texorpdfstring{pop\+Byte()}{popByte()}}
-{\footnotesize\ttfamily Fly\+Byte Demo\+Device\+::pop\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} Demo\+Device\+::pop\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -118,7 +165,7 @@ Fly\+Byte (From the RX Transmit Buffer).
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_ab9f57b21f72ebfbf79c86f8d0e4f0654}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_a6e755f50f52301b9166e278fe6851e88}{}\label{class_demo_device_a6e755f50f52301b9166e278fe6851e88} 
 \index{Demo\+Device@{Demo\+Device}!pop\+Packet@{pop\+Packet}}
@@ -135,13 +182,13 @@ Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_a1b9c96bffa9af46a054e7ce0c341ea19}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_a064f0bc683663200243bd68ff3713c68}{}\label{class_demo_device_a064f0bc683663200243bd68ff3713c68} 
 \index{Demo\+Device@{Demo\+Device}!push\+Byte@{push\+Byte}}
 \index{push\+Byte@{push\+Byte}!Demo\+Device@{Demo\+Device}}
 \subsubsection{\texorpdfstring{push\+Byte()}{pushByte()}}
-{\footnotesize\ttfamily void Demo\+Device\+::push\+Byte (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{data\+Byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Demo\+Device\+::push\+Byte (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{data\+Byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 
 
@@ -154,7 +201,7 @@ Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
 \end{DoxyParams}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_aadb344329a9235fbfa781611b4f769e1}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_ac39f46589b28926cd40635ad42342a54}{}\label{class_demo_device_ac39f46589b28926cd40635ad42342a54} 
 \index{Demo\+Device@{Demo\+Device}!push\+Packet@{push\+Packet}}
@@ -173,7 +220,21 @@ Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
 \end{DoxyParams}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_a682446d40e63ab7e6aa95dae7e0cd83b}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_a79a9c22e60aca99c7667990bedc461c8}{}\label{class_demo_device_a79a9c22e60aca99c7667990bedc461c8} 
+\index{Demo\+Device@{Demo\+Device}!set\+Defaults@{set\+Defaults}}
+\index{set\+Defaults@{set\+Defaults}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{set\+Defaults()}{setDefaults()}}
+{\footnotesize\ttfamily void Demo\+Device\+::set\+Defaults (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_ab95434f7121f00789108f29a8457ec98}{Demo\+Device\+::stop\+Device} Is the demo interface\textquotesingle{}s implementation of set\+Defaults. Sets the serial devices to the default values. 
+
+
+
+Implements \hyperlink{class_common_device_interface_a542621a8b9e023531cae26447b2f8447}{Common\+Device\+Interface}.
 
 \hypertarget{class_demo_device_af350ecf6ff289983cff9053197f1b1f2}{}\label{class_demo_device_af350ecf6ff289983cff9053197f1b1f2} 
 \index{Demo\+Device@{Demo\+Device}!start\+Device@{start\+Device}}
@@ -190,11 +251,53 @@ bool (true=Started, false=Not Ready)
 \end{DoxyReturn}
 
 
-Implements \hyperlink{class_common_device_interface}{Common\+Device\+Interface}.
+Implements \hyperlink{class_common_device_interface_aa25434f588f2b8e4daa77f57f595d161}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_ab95434f7121f00789108f29a8457ec98}{}\label{class_demo_device_ab95434f7121f00789108f29a8457ec98} 
+\index{Demo\+Device@{Demo\+Device}!stop\+Device@{stop\+Device}}
+\index{stop\+Device@{stop\+Device}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{stop\+Device()}{stopDevice()}}
+{\footnotesize\ttfamily void Demo\+Device\+::stop\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_ab95434f7121f00789108f29a8457ec98}{Demo\+Device\+::stop\+Device} Is the demo interface\textquotesingle{}s implementation of stop\+Device. Stops the demo interface and updates status. 
+
+
+
+Implements \hyperlink{class_common_device_interface_a53aaf8eee7297f3ee272cc4f366506bf}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{}\label{class_demo_device_a85671c408f6f08d82a09344ef5f34966} 
+\index{Demo\+Device@{Demo\+Device}!sync\+RX@{sync\+RX}}
+\index{sync\+RX@{sync\+RX}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{sync\+R\+X()}{syncRX()}}
+{\footnotesize\ttfamily void Demo\+Device\+::sync\+RX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{Demo\+Device\+::sync\+RX} Is the demo interface\textquotesingle{}s implementation of sync\+RX. Generates values for testing and pushes them into the interface\textquotesingle{}s RX Transmit Buffer. 
+
+
+
+Implements \hyperlink{class_common_device_interface_ac0166ca78cba5ae57a4803978af9e78c}{Common\+Device\+Interface}.
+
+\hypertarget{class_demo_device_a4b33b0148627fcbd22a0704e80f05d7d}{}\label{class_demo_device_a4b33b0148627fcbd22a0704e80f05d7d} 
+\index{Demo\+Device@{Demo\+Device}!sync\+TX@{sync\+TX}}
+\index{sync\+TX@{sync\+TX}!Demo\+Device@{Demo\+Device}}
+\subsubsection{\texorpdfstring{sync\+T\+X()}{syncTX()}}
+{\footnotesize\ttfamily void Demo\+Device\+::sync\+TX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\hyperlink{class_demo_device_a85671c408f6f08d82a09344ef5f34966}{Demo\+Device\+::sync\+RX} Is the demo interface\textquotesingle{}s implementation of sync\+RX. Reacts to the interfaces commands (Only Emergency Stop currently) 
+
+
+
+Implements \hyperlink{class_common_device_interface_acae4ab2226a4f1388b2af355ac2e4f86}{Common\+Device\+Interface}.
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-F\+E\+S\+S-\/\+G\+U\+I/demodevice.\+h\item 
-F\+E\+S\+S-\/\+G\+U\+I/demodevice.\+cpp\end{DoxyCompactItemize}
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{demodevice_8h}{demodevice.\+h}\item 
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{demodevice_8cpp}{demodevice.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,220 @@
+\hypertarget{conversions_8h}{}\section{F\+E\+S\+S-\/\+G\+U\+I/conversions.h File Reference}
+\label{conversions_8h}\index{F\+E\+S\+S-\/\+G\+U\+I/conversions.\+h@{F\+E\+S\+S-\/\+G\+U\+I/conversions.\+h}}
+{\ttfamily \#include $<$cstring$>$}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{conversions_8h_a3d8c9c145887af5174ba4cc6789862ad}{T\+AU}~6.\+283185307179586476925286766559005768394
+\begin{DoxyCompactList}\small\item\em The conversions library, containing all conversions our program uses. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{conversions_8h_a9275885ec3bce64b16ac94a9a6103c78}{byte\+Array\+To\+Float} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$)
+\begin{DoxyCompactList}\small\item\em byte\+Array\+To\+Float Interprets and copies a byte a array into a float. \end{DoxyCompactList}\item 
+void \hyperlink{conversions_8h_ab39b5a672a5788c429d689b9ca444190}{float\+To\+Byte\+Array} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$, float $\ast$)
+\begin{DoxyCompactList}\small\item\em float\+To\+Byte\+Array Interprets and copies a float into a byte array. \end{DoxyCompactList}\item 
+int \hyperlink{conversions_8h_a93490cb1420875768306697f39533a58}{byte\+Array\+To\+Int} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$)
+\begin{DoxyCompactList}\small\item\em byte\+Array\+To\+Int Interprets and copies a byte array into an int. \end{DoxyCompactList}\item 
+void \hyperlink{conversions_8h_afe7ce223a3f5478ade268b610561f16e}{int\+To\+Byte\+Array} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$, int $\ast$)
+\begin{DoxyCompactList}\small\item\em int\+To\+Byte\+Array Interprets and copies an int into a byte array. \end{DoxyCompactList}\item 
+void \hyperlink{conversions_8h_a59a65a8540f0329a5167d65f33893b85}{zero\+Array} (void $\ast$, size\+\_\+t)
+\begin{DoxyCompactList}\small\item\em zero\+Array fills an array with zeros. \end{DoxyCompactList}\item 
+double \hyperlink{conversions_8h_abe2055c681ff2172aefe20c5f278a9f7}{rads\+Per\+Second\+To\+R\+PM} (double)
+\begin{DoxyCompactList}\small\item\em rads\+Per\+Second\+To\+R\+PM Convertes a value in radians per second to rotations per minute. \end{DoxyCompactList}\item 
+double \hyperlink{conversions_8h_a645f4c37d6c361bb127caa2d40adae81}{R\+P\+Mto\+Rads\+Per\+Second} (double)
+\begin{DoxyCompactList}\small\item\em R\+P\+Mto\+Rads\+Per\+Second Converts a value in rotations per miute to radians per second. \end{DoxyCompactList}\item 
+float \hyperlink{conversions_8h_a8b4b8008f613a5f7270f958155e72f7c}{derivative} (float, float)
+\begin{DoxyCompactList}\small\item\em derivative Returns the difference between two values. \end{DoxyCompactList}\item 
+float \hyperlink{conversions_8h_a299857f3182d9cfcfabee3326e858065}{refresh\+Rate\+To\+MS} (int)
+\begin{DoxyCompactList}\small\item\em refresh\+Rate\+To\+MS Converts a rate in Hz to its corresponding interval in milliseconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{conversions_8h_a3d8c9c145887af5174ba4cc6789862ad}{}\label{conversions_8h_a3d8c9c145887af5174ba4cc6789862ad} 
+\index{conversions.\+h@{conversions.\+h}!T\+AU@{T\+AU}}
+\index{T\+AU@{T\+AU}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{T\+AU}{TAU}}
+{\footnotesize\ttfamily \#define T\+AU~6.\+283185307179586476925286766559005768394}
+
+
+
+The conversions library, containing all conversions our program uses. 
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{}\label{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce} 
+\index{conversions.\+h@{conversions.\+h}!Fly\+Byte@{Fly\+Byte}}
+\index{Fly\+Byte@{Fly\+Byte}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{Fly\+Byte}{FlyByte}}
+{\footnotesize\ttfamily typedef unsigned char \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}
+
+
+
+\subsection{Function Documentation}
+\hypertarget{conversions_8h_a9275885ec3bce64b16ac94a9a6103c78}{}\label{conversions_8h_a9275885ec3bce64b16ac94a9a6103c78} 
+\index{conversions.\+h@{conversions.\+h}!byte\+Array\+To\+Float@{byte\+Array\+To\+Float}}
+\index{byte\+Array\+To\+Float@{byte\+Array\+To\+Float}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{byte\+Array\+To\+Float()}{byteArrayToFloat()}}
+{\footnotesize\ttfamily float byte\+Array\+To\+Float (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+
+
+byte\+Array\+To\+Float Interprets and copies a byte a array into a float. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The source byte array. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The array converted to a float. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_a93490cb1420875768306697f39533a58}{}\label{conversions_8h_a93490cb1420875768306697f39533a58} 
+\index{conversions.\+h@{conversions.\+h}!byte\+Array\+To\+Int@{byte\+Array\+To\+Int}}
+\index{byte\+Array\+To\+Int@{byte\+Array\+To\+Int}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{byte\+Array\+To\+Int()}{byteArrayToInt()}}
+{\footnotesize\ttfamily int byte\+Array\+To\+Int (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+
+
+byte\+Array\+To\+Int Interprets and copies a byte array into an int. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The source byte array. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The array converted to an int. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_a8b4b8008f613a5f7270f958155e72f7c}{}\label{conversions_8h_a8b4b8008f613a5f7270f958155e72f7c} 
+\index{conversions.\+h@{conversions.\+h}!derivative@{derivative}}
+\index{derivative@{derivative}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{derivative()}{derivative()}}
+{\footnotesize\ttfamily float derivative (\begin{DoxyParamCaption}\item[{float}]{value,  }\item[{float}]{prev }\end{DoxyParamCaption})}
+
+
+
+derivative Returns the difference between two values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The given value. \\
+\hline
+{\em prev} & The previous value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The difference between value and prev. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_ab39b5a672a5788c429d689b9ca444190}{}\label{conversions_8h_ab39b5a672a5788c429d689b9ca444190} 
+\index{conversions.\+h@{conversions.\+h}!float\+To\+Byte\+Array@{float\+To\+Byte\+Array}}
+\index{float\+To\+Byte\+Array@{float\+To\+Byte\+Array}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{float\+To\+Byte\+Array()}{floatToByteArray()}}
+{\footnotesize\ttfamily void float\+To\+Byte\+Array (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$}]{buffer,  }\item[{float $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+float\+To\+Byte\+Array Interprets and copies a float into a byte array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The destination byte array. \\
+\hline
+{\em val} & The source float. \\
+\hline
+\end{DoxyParams}
+\hypertarget{conversions_8h_afe7ce223a3f5478ade268b610561f16e}{}\label{conversions_8h_afe7ce223a3f5478ade268b610561f16e} 
+\index{conversions.\+h@{conversions.\+h}!int\+To\+Byte\+Array@{int\+To\+Byte\+Array}}
+\index{int\+To\+Byte\+Array@{int\+To\+Byte\+Array}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{int\+To\+Byte\+Array()}{intToByteArray()}}
+{\footnotesize\ttfamily void int\+To\+Byte\+Array (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} $\ast$}]{buffer,  }\item[{int $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+int\+To\+Byte\+Array Interprets and copies an int into a byte array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & The destination byte array. \\
+\hline
+{\em val} & The source int. \\
+\hline
+\end{DoxyParams}
+\hypertarget{conversions_8h_abe2055c681ff2172aefe20c5f278a9f7}{}\label{conversions_8h_abe2055c681ff2172aefe20c5f278a9f7} 
+\index{conversions.\+h@{conversions.\+h}!rads\+Per\+Second\+To\+R\+PM@{rads\+Per\+Second\+To\+R\+PM}}
+\index{rads\+Per\+Second\+To\+R\+PM@{rads\+Per\+Second\+To\+R\+PM}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{rads\+Per\+Second\+To\+R\+P\+M()}{radsPerSecondToRPM()}}
+{\footnotesize\ttfamily double rads\+Per\+Second\+To\+R\+PM (\begin{DoxyParamCaption}\item[{double}]{rads }\end{DoxyParamCaption})}
+
+
+
+rads\+Per\+Second\+To\+R\+PM Convertes a value in radians per second to rotations per minute. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rads} & The source value in radians per second. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value converted to rotations per minute. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_a299857f3182d9cfcfabee3326e858065}{}\label{conversions_8h_a299857f3182d9cfcfabee3326e858065} 
+\index{conversions.\+h@{conversions.\+h}!refresh\+Rate\+To\+MS@{refresh\+Rate\+To\+MS}}
+\index{refresh\+Rate\+To\+MS@{refresh\+Rate\+To\+MS}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{refresh\+Rate\+To\+M\+S()}{refreshRateToMS()}}
+{\footnotesize\ttfamily float refresh\+Rate\+To\+MS (\begin{DoxyParamCaption}\item[{int}]{rate }\end{DoxyParamCaption})}
+
+
+
+refresh\+Rate\+To\+MS Converts a rate in Hz to its corresponding interval in milliseconds. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rate} & The source value in Hz. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding interval in milliseconds. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_a645f4c37d6c361bb127caa2d40adae81}{}\label{conversions_8h_a645f4c37d6c361bb127caa2d40adae81} 
+\index{conversions.\+h@{conversions.\+h}!R\+P\+Mto\+Rads\+Per\+Second@{R\+P\+Mto\+Rads\+Per\+Second}}
+\index{R\+P\+Mto\+Rads\+Per\+Second@{R\+P\+Mto\+Rads\+Per\+Second}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{R\+P\+Mto\+Rads\+Per\+Second()}{RPMtoRadsPerSecond()}}
+{\footnotesize\ttfamily double R\+P\+Mto\+Rads\+Per\+Second (\begin{DoxyParamCaption}\item[{double}]{R\+PM }\end{DoxyParamCaption})}
+
+
+
+R\+P\+Mto\+Rads\+Per\+Second Converts a value in rotations per miute to radians per second. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em R\+PM} & The source value in rotations per minute. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value converted to radians per second. 
+\end{DoxyReturn}
+\hypertarget{conversions_8h_a59a65a8540f0329a5167d65f33893b85}{}\label{conversions_8h_a59a65a8540f0329a5167d65f33893b85} 
+\index{conversions.\+h@{conversions.\+h}!zero\+Array@{zero\+Array}}
+\index{zero\+Array@{zero\+Array}!conversions.\+h@{conversions.\+h}}
+\subsubsection{\texorpdfstring{zero\+Array()}{zeroArray()}}
+{\footnotesize\ttfamily void zero\+Array (\begin{DoxyParamCaption}\item[{void $\ast$}]{target,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+zero\+Array fills an array with zeros. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The destination array. \\
+\hline
+{\em size} & The size of the array. \\
+\hline
+\end{DoxyParams}

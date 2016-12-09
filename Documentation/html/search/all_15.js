@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['xaxis',['xAxis',['../class_q_custom_plot.html#a9a79cd0158a4c7f30cbc702f0fd800e4',1,'QCustomPlot']]],
-  ['xaxis2',['xAxis2',['../class_q_custom_plot.html#ada41599f22cad901c030f3dcbdd82fd9',1,'QCustomPlot']]]
+  ['zeroarray',['zeroArray',['../conversions_8cpp.html#a42a2821433949adfdefb81e95246bf8b',1,'zeroArray(void *target, size_t size):&#160;conversions.cpp'],['../conversions_8h.html#a59a65a8540f0329a5167d65f33893b85',1,'zeroArray(void *, size_t):&#160;conversions.cpp']]]
 ];

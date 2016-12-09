@@ -12,26 +12,20 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{}\label{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0} 
 \hyperlink{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{Fly\+Queue} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{Fly\+Queue\+::\+Fly\+Queue} Sets the default values for the queue. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{}\label{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74} 
 \hyperlink{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{$\sim$\+Fly\+Queue} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{Fly\+Queue\+::$\sim$\+Fly\+Queue} Empty Destructor. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{}\label{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc} 
 void \hyperlink{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{clear} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{Fly\+Queue\+::clear} Empties the queue. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{}\label{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a} 
 void \hyperlink{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{reset} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{Fly\+Queue\+::reset} Restores the default values and empties the queue. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{}\label{class_fly_queue_a5ab4935882579e59c763319b0716ffa1} 
 void \hyperlink{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{set\+Size} (int)
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{Fly\+Queue\+::set\+Size} Sets the maximum size for the queue. \end{DoxyCompactList}\item 
 bool \hyperlink{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{is\+Empty} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{Fly\+Queue\+::is\+Empty} Check if the queue is empty. \end{DoxyCompactList}\item 
 \hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{pop} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a96b802276ccd6ce04c42da2765001603}{Fly\+Queue\+::pop} Gets the first packet from the queue and removes it from the queue. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{}\label{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04} 
 void \hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{push} (\hyperlink{class_fly_packet}{Fly\+Packet})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{Fly\+Queue\+::push} Puts a packet at the end of the queue. \end{DoxyCompactList}\item 
 \hyperlink{class_fly_packet}{Fly\+Packet} \hyperlink{class_fly_queue_a00f38b409354127748f2093d38dee7be}{operator\mbox{[}$\,$\mbox{]}} (const unsigned int)
@@ -41,7 +35,40 @@ void \hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{push} (\hyper
 \subsection{Detailed Description}
 \hyperlink{class_fly_queue}{Fly\+Queue} Class A wrapper to allow for reuse on the microcontroller. 
 
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{}\label{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0} 
+\index{Fly\+Queue@{Fly\+Queue}!Fly\+Queue@{Fly\+Queue}}
+\index{Fly\+Queue@{Fly\+Queue}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{Fly\+Queue()}{FlyQueue()}}
+{\footnotesize\ttfamily Fly\+Queue\+::\+Fly\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_adc5d5138e7023af3697e3275b25d78d0}{Fly\+Queue\+::\+Fly\+Queue} Sets the default values for the queue. 
+
+\hypertarget{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{}\label{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74} 
+\index{Fly\+Queue@{Fly\+Queue}!````~Fly\+Queue@{$\sim$\+Fly\+Queue}}
+\index{````~Fly\+Queue@{$\sim$\+Fly\+Queue}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{$\sim$\+Fly\+Queue()}{~FlyQueue()}}
+{\footnotesize\ttfamily Fly\+Queue\+::$\sim$\+Fly\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_aba6188b6f39aac0a1386e72d30f0dd74}{Fly\+Queue\+::$\sim$\+Fly\+Queue} Empty Destructor. 
+
+
+
 \subsection{Member Function Documentation}
+\hypertarget{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{}\label{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc} 
+\index{Fly\+Queue@{Fly\+Queue}!clear@{clear}}
+\index{clear@{clear}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Fly\+Queue\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_ae4112aad97978a82e09f6ad5cfe7f5dc}{Fly\+Queue\+::clear} Empties the queue. 
+
 \hypertarget{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3}{}\label{class_fly_queue_ac866e43ea0e8e6aab10d4e2ca5f733f3} 
 \index{Fly\+Queue@{Fly\+Queue}!is\+Empty@{is\+Empty}}
 \index{is\+Empty@{is\+Empty}!Fly\+Queue@{Fly\+Queue}}
@@ -86,9 +113,39 @@ bool (True=Empty, False=Not Empty)
 \begin{DoxyReturn}{Returns}
 \hyperlink{class_fly_packet}{Fly\+Packet} 
 \end{DoxyReturn}
+\hypertarget{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{}\label{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04} 
+\index{Fly\+Queue@{Fly\+Queue}!push@{push}}
+\index{push@{push}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily void Fly\+Queue\+::push (\begin{DoxyParamCaption}\item[{\hyperlink{class_fly_packet}{Fly\+Packet}}]{incoming\+Packet }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_a93c9830f311b6f97d5e26fd882ef7d04}{Fly\+Queue\+::push} Puts a packet at the end of the queue. 
+
+\hypertarget{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{}\label{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a} 
+\index{Fly\+Queue@{Fly\+Queue}!reset@{reset}}
+\index{reset@{reset}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Fly\+Queue\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_ac3f3e14584bf80481cb9fc9e0c14019a}{Fly\+Queue\+::reset} Restores the default values and empties the queue. 
+
+\hypertarget{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{}\label{class_fly_queue_a5ab4935882579e59c763319b0716ffa1} 
+\index{Fly\+Queue@{Fly\+Queue}!set\+Size@{set\+Size}}
+\index{set\+Size@{set\+Size}!Fly\+Queue@{Fly\+Queue}}
+\subsubsection{\texorpdfstring{set\+Size()}{setSize()}}
+{\footnotesize\ttfamily void Fly\+Queue\+::set\+Size (\begin{DoxyParamCaption}\item[{int}]{buffer\+Size }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_queue_a5ab4935882579e59c763319b0716ffa1}{Fly\+Queue\+::set\+Size} Sets the maximum size for the queue. 
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-F\+E\+S\+S-\/\+G\+U\+I/flyqueue.\+h\item 
-F\+E\+S\+S-\/\+G\+U\+I/flyqueue.\+cpp\end{DoxyCompactItemize}
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{flyqueue_8h}{flyqueue.\+h}\item 
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{flyqueue_8cpp}{flyqueue.\+cpp}\end{DoxyCompactItemize}

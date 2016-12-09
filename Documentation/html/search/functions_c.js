@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['operator_2a',['operator*',['../qcustomplot_8h.html#a558b1248ff6a9e41fd5b2630555a8acc',1,'operator*(const QCPRange &amp;range, double value):&#160;qcustomplot.h'],['../qcustomplot_8h.html#a5cb2332f6957021f47cc768089f4f090',1,'operator*(double value, const QCPRange &amp;range):&#160;qcustomplot.h']]],
-  ['operator_2a_3d',['operator*=',['../class_q_c_p_range.html#a6876aa9620ff2f0f7f1873f998372cef',1,'QCPRange']]],
-  ['operator_2b',['operator+',['../qcustomplot_8h.html#aede14e69c31568a75bd3e9286603c9e0',1,'operator+(const QCPRange &amp;range, double value):&#160;qcustomplot.h'],['../qcustomplot_8h.html#aa7dd8efde53d115b7107826194879069',1,'operator+(double value, const QCPRange &amp;range):&#160;qcustomplot.h']]],
-  ['operator_2b_3d',['operator+=',['../class_q_c_p_range.html#afea7c1aa7d08f061cd9bd8832f957df8',1,'QCPRange']]],
-  ['operator_2d',['operator-',['../qcustomplot_8h.html#a797f82830b516646da8873f82e39e356',1,'qcustomplot.h']]],
-  ['operator_2d_3d',['operator-=',['../class_q_c_p_range.html#a95894bcb15a16a75ca564091374e2191',1,'QCPRange']]],
-  ['operator_2f',['operator/',['../qcustomplot_8h.html#a4b366a3a21974c88e09b0d39d4a24a4b',1,'qcustomplot.h']]],
-  ['operator_2f_3d',['operator/=',['../class_q_c_p_range.html#a6137d8682b6835ace840730b4c1e2d63',1,'QCPRange']]],
-  ['operator_3d',['operator=',['../class_q_c_p_color_map_data.html#afdf4dd1b2f5714234fe84709b85c2a8d',1,'QCPColorMapData']]],
-  ['operator_5b_5d',['operator[]',['../class_fly_queue.html#a00f38b409354127748f2093d38dee7be',1,'FlyQueue']]],
-  ['opposite',['opposite',['../class_q_c_p_axis.html#aa85ba73dfee6483e23825461b725e363',1,'QCPAxis']]],
-  ['orientation',['orientation',['../class_q_c_p_axis.html#ab988ef4538e2655bb77bd138189cd42e',1,'QCPAxis::orientation() const'],['../class_q_c_p_axis.html#a9a68b3e45f1b1e33d4d807822342516c',1,'QCPAxis::orientation(AxisType type)']]]
+  ['packetsavailable',['packetsAvailable',['../class_transmit_buffer.html#aad9976b2ae40b1405a319de979b09827',1,'TransmitBuffer']]],
+  ['passwordmatches',['passwordMatches',['../setpassworddialog_8cpp.html#a5511d5c8e3c112f705c5749c52257060',1,'passwordMatches(QString prov):&#160;setpassworddialog.cpp'],['../setpassworddialog_8h.html#a36302300525b75308862769afbb29219',1,'passwordMatches(QString):&#160;setpassworddialog.cpp']]],
+  ['pop',['pop',['../class_fly_queue.html#a96b802276ccd6ce04c42da2765001603',1,'FlyQueue']]],
+  ['popbyte',['popByte',['../class_common_device_interface.html#ab9f57b21f72ebfbf79c86f8d0e4f0654',1,'CommonDeviceInterface::popByte()'],['../class_demo_device.html#a788dd7e426fab9c8d19ea9fd106260d4',1,'DemoDevice::popByte()'],['../class_serial_device.html#aa48df17f28ab9f613ba07181487a39c9',1,'SerialDevice::popByte()'],['../class_transmit_buffer.html#a6da9417079dd783d996af8fcc138149c',1,'TransmitBuffer::popByte()']]],
+  ['poppacket',['popPacket',['../class_common_device_interface.html#a1b9c96bffa9af46a054e7ce0c341ea19',1,'CommonDeviceInterface::popPacket()'],['../class_demo_device.html#a6e755f50f52301b9166e278fe6851e88',1,'DemoDevice::popPacket()'],['../class_serial_device.html#ac581710eb5e03945d9b3de9d39be51fc',1,'SerialDevice::popPacket()'],['../class_transmit_buffer.html#add84c61a7f2f060d236feab584babc64',1,'TransmitBuffer::popPacket()']]],
+  ['push',['push',['../class_fly_queue.html#a93c9830f311b6f97d5e26fd882ef7d04',1,'FlyQueue']]],
+  ['pushbyte',['pushByte',['../class_common_device_interface.html#aadb344329a9235fbfa781611b4f769e1',1,'CommonDeviceInterface::pushByte()'],['../class_demo_device.html#a064f0bc683663200243bd68ff3713c68',1,'DemoDevice::pushByte()'],['../class_serial_device.html#a8ae456ccffcf8afccdfe49357aed3e06',1,'SerialDevice::pushByte()'],['../class_transmit_buffer.html#aa7966064a6abaeb5ff3f7c8ff0402ec3',1,'TransmitBuffer::pushByte()']]],
+  ['pushpacket',['pushPacket',['../class_common_device_interface.html#a682446d40e63ab7e6aa95dae7e0cd83b',1,'CommonDeviceInterface::pushPacket()'],['../class_demo_device.html#ac39f46589b28926cd40635ad42342a54',1,'DemoDevice::pushPacket()'],['../class_serial_device.html#a35408d01afb4c48bc259dc601d2b0bf7',1,'SerialDevice::pushPacket()'],['../class_transmit_buffer.html#a002757b58f4227167db20c8977bbdb28',1,'TransmitBuffer::pushPacket()']]]
 ];
