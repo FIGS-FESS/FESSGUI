@@ -1,64 +1,82 @@
 //Custom Libraries
-#include "conversions.h"
 #include "transmitbuffer.h"
 
 TransmitBuffer::TransmitBuffer(){}
+
 TransmitBuffer::~TransmitBuffer(){}
 
-flybyte TransmitBuffer::popByte()
+FlyByte TransmitBuffer::popByte()
 {
-    flybyte val = 0;
+    populateBuffer();
 
-    if(!buffer.empty())
+    FlyByte outputByte = outputByteArray.front();
+    outputByteArray.pop_front();
+
+    return outputByte;
+}
+
+void TransmitBuffer::populateBuffer()
+{
+    if (outputByteArray.empty() == true)
     {
-        val = buffer.front();
-        buffer.pop_front();
+        FlyPacket outputPacket = packetBuffer.pop();
+
+        while (outputPacket.isReadable() == true)
+        {
+            outputByteArray.push_back(outputPacket.readByte());
+        }
     }
-    return val;
 }
 
-void TransmitBuffer::pushByte(flybyte byt)
+void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
-     buffer.push_back(byt);
+    inputByteArray.push_back(incomingByte);
+
+    FlyPacket inputPacket;
+
+    if(inputByteArray.size() == inputPacket.getMaxSize())
+    {
+        for(int i=0; i < inputPacket.getMaxSize(); i++)
+        {
+            inputPacket.writeByte(inputByteArray[i]);
+        }
+
+        if (inputPacket.isValidPacket() == true)
+        {
+            packetBuffer.push(inputPacket);
+            inputByteArray.clear();
+        }
+
+        else
+        {
+            inputByteArray.pop_front();
+        }
+    }
 }
 
-void TransmitBuffer::pushByteFront(flybyte byt)
+void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
-     buffer.push_front(byt);
+    packetBuffer.push(incomingPacket);
 }
 
-void TransmitBuffer::pushInt(int val)
+FlyPacket TransmitBuffer::popPacket()
 {
-    flybyte bytes[4];
-
-    intToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
+    return packetBuffer.pop();
 }
 
-void TransmitBuffer::pushFloat(float val)
+bool TransmitBuffer::packetsAvailable()
 {
-    flybyte bytes[4];
-
-    floatToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
+    return !packetBuffer.isEmpty();
 }
 
-bool TransmitBuffer::empty()
+bool TransmitBuffer::bytesAvailable()
 {
-    return buffer.empty();
+    return !outputByteArray.empty() | !packetBuffer.isEmpty();
 }
 
 void TransmitBuffer::flush()
 {
-    buffer.clear();
+    packetBuffer.clear();
+    outputByteArray.clear();
+    inputByteArray.clear();
 }
-
-

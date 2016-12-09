@@ -7,7 +7,6 @@
 #include <QSerialPortInfo>
 
 // Custom Libraries
-#include "datatypes.h"
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
 
@@ -26,22 +25,21 @@ class SerialDevice : public CommonDeviceInterface
         ~SerialDevice();
 
         // Overriden Interface Methods
-        void sync();
+        void syncRX();
+        void syncTX();
         bool isReady();
         bool startDevice();
         void stopDevice();
         void setDefaults();
 
         bool empty();
-        void flush();
-        void pushInt(int);
-        void pushFloat(float);
-        void pushCommand(flybyte);
-        void pushCommandImmediate(flybyte);
+        void flushRX();
+        void flushTX();
+        void pushByte(FlyByte);
+        void pushPacket(FlyPacket);
 
-        int popInt();
-        float popFloat();
-        flybyte popCommand();
+        FlyByte popByte();
+        FlyPacket popPacket();
 
         QString name();
 

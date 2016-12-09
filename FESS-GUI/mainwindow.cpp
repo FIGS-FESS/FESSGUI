@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     errorHandler = new QErrorMessage(this);
     errorHandler->setWindowTitle("FlyCAM - Error");
 
+
     goplayer = new QMediaPlayer(); //sound players
     stopplayer = new QMediaPlayer();
 
@@ -342,6 +343,8 @@ void MainWindow::on_goButton_clicked()
     velocitySlopeTimer->start(10); //run every 10ms
     accelerationSlopeTimer->start(10);
 
+    flywheelOperation->setMotion(targetVelocity,targetAcceleration,currentExpectedJerk);
+
     stopplayer->stop();  //stop sounds so they dont overlap
     goplayer->stop();
 
@@ -438,6 +441,8 @@ void MainWindow::on_emergencyStopButton_clicked()
     //Pass information on to text browswer
     ui->outputLog->append(QString("Flywheel Emergency Stop Activated at %1")
                             .arg(QTime::currentTime().toString()));
+
+    flywheelOperation->emergencyStop();
 }
 
 /*!

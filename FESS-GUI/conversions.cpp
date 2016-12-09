@@ -1,15 +1,15 @@
-#include "qmath.h"
-#include "string.h"
 #include "conversions.h"
 
 /*!
  * \brief byteArrayToFloat Interprets and copies a byte a array into a float.
  * \param buffer The source byte array.
- * \param val The destination float.
+ * \return The array converted to a float.
  */
-void byteArrayToFloat(flybyte* buffer, float* val)
+float byteArrayToFloat(FlyByte* buffer)
 {
-    memcpy(val, buffer, sizeof(*val));
+    float val;
+    memcpy(&val, buffer, sizeof(val));
+    return val;
 }
 
 /*!
@@ -17,7 +17,7 @@ void byteArrayToFloat(flybyte* buffer, float* val)
  * \param buffer The destination byte array.
  * \param val The source float.
  */
-void floatToByteArray(flybyte* buffer, float* val)
+void floatToByteArray(FlyByte* buffer, float* val)
 {
     memcpy(buffer, val, sizeof(*val));
 }
@@ -25,11 +25,13 @@ void floatToByteArray(flybyte* buffer, float* val)
 /*!
  * \brief byteArrayToInt Interprets and copies a byte array into an int.
  * \param buffer The source byte array.
- * \param val The destination int.
+ * \return The array converted to an int.
  */
-void byteArrayToInt(flybyte* buffer, int* val)
+int byteArrayToInt(FlyByte* buffer)
 {
-    memcpy(val, buffer, sizeof(*val));
+    int val;
+    memcpy(&val, buffer, sizeof(val));
+    return val;
 }
 
 /*!
@@ -37,9 +39,19 @@ void byteArrayToInt(flybyte* buffer, int* val)
  * \param buffer The destination byte array.
  * \param val The source int.
  */
-void intToByteArray(flybyte* buffer, int* val)
+void intToByteArray(FlyByte* buffer, int* val)
 {
     memcpy(buffer, val, sizeof(*val));
+}
+
+/*!
+ * \brief zeroArray fills an array with zeros.
+ * \param target The destination array.
+ * \param size The size of the array.
+ */
+void zeroArray(void* target, size_t size)
+{
+    memset(target, 0, size);
 }
 
 /*!
@@ -49,7 +61,7 @@ void intToByteArray(flybyte* buffer, int* val)
  */
 double radsPerSecondToRPM(double rads)
 {
-    return rads * (60 / (2 * M_PI)); //M_PI is defined in <qmath.h>
+    return rads * (60 / TAU);
 }
 
 /*!
@@ -59,7 +71,7 @@ double radsPerSecondToRPM(double rads)
  */
 double RPMtoRadsPerSecond(double RPM)
 {
-    return RPM * ((2 * M_PI) / 60);
+    return RPM * (TAU / 60);
 }
 
 /*!

@@ -5,7 +5,8 @@
 #include <deque>
 
 // Custom Libraries
-#include "datatypes.h"
+#include "flyqueue.h"
+#include "flypacket.h"
 
 class TransmitBuffer
 {
@@ -13,18 +14,23 @@ class TransmitBuffer
         TransmitBuffer();
         ~TransmitBuffer();
 
-        void pushInt(int);
-        void pushFloat(float);
-        void pushByte(flybyte);
-        void pushByteFront(flybyte);
+        void pushByte(FlyByte);
+        void pushPacket(FlyPacket);
 
-        flybyte popByte();
+        FlyByte popByte();
+        FlyPacket popPacket();
 
         void flush();
-        bool empty();
+        bool bytesAvailable();
+        bool packetsAvailable();
 
     private:
-        std::deque<flybyte> buffer;
+
+        void populateBuffer();
+
+        std::deque<FlyByte> inputByteArray;
+        std::deque<FlyByte> outputByteArray;
+        FlyQueue packetBuffer;
 
 };
 

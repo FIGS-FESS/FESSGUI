@@ -1,6 +1,5 @@
 // Custom Libraries
-#include "commands.h"
-#include "datatypes.h"
+#include <QtGui>
 #include "flypacket.h"
 #include "flywheeloperation.h"
 
@@ -44,44 +43,17 @@ FlywheelOperation::~FlywheelOperation()
  */
 void FlywheelOperation::setDefaults()
 {
-    velPrev = 0.0;
-    accPrev = 0.0;
-    jerPrev = 0.0;
+    velocityValue = 0.0;
+    accelerationValue = 0.0;
+    jerkValue = 0.0;
+    lowerDisplacementXValue = 0.0;
+    lowerDisplacementYValue = 0.0;
+    upperDisplacementXValue = 0.0;
+    upperDisplacementYValue = 0.0;
+    rotationalPositionXValue = 0.0;
+    rotationalPositionYValue = 0.0;
 
-    velBuffer = std::queue<float>();
-    accBuffer = std::queue<float>();
-    jerBuffer = std::queue<float>();
-    udxBuffer = std::queue<float>();
-    udyBuffer = std::queue<float>();
-    ldxBuffer = std::queue<float>();
-    ldyBuffer = std::queue<float>();
-    rpxBuffer = std::queue<float>();
-    rpyBuffer = std::queue<float>();
-
-    velBuffer.push(0.0);
-    accBuffer.push(0.0);
-    jerBuffer.push(0.0);
-    udxBuffer.push(0.0);
-    udyBuffer.push(0.0);
-    ldxBuffer.push(0.0);
-    ldyBuffer.push(0.0);
-    rpxBuffer.push(0.0);
-    rpyBuffer.push(0.0);
-
-    velBufferLimit = 64;
-    accBufferLimit = 64;
-    jerBufferLimit = 64;
-    ldxBufferLimit = 64;
-    ldyBufferLimit = 64;
-    udxBufferLimit = 64;
-    udyBufferLimit = 64;
-    rpxBufferLimit = 64;
-    rpyBufferLimit = 64;
-
-    emergencyRetries = 0;
-    emergencyTimeout = 100; //Attempts
-
-    emergencyAcknowlegded = false;
+    emergencyStopActivated = false;
 }
 
 /*!
@@ -112,9 +84,11 @@ void FlywheelOperation::setMotion(float velocity, float acceleration, float jerk
  */
 void FlywheelOperation::setVelocity(float velocity)
 {
-    communicationDevice->pushCommand(ICM_SET_VELOCITY);
-    communicationDevice->pushFloat(velocity);
-    communicationDevice->pushCommand(CCM_SET_VELOCITY);
+     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
+    {
+        FlyPacket dataPacket(ICM_SET_VELOCITY,velocity);
+        communicationDevice->pushPacket(dataPacket);
+    }
 }
 
 /*!
@@ -123,35 +97,33 @@ void FlywheelOperation::setVelocity(float velocity)
  */
 void FlywheelOperation::setAcceleration(float acceleration)
 {
-    communicationDevice->pushCommand(ICM_SET_ACCELERATION);
-    communicationDevice->pushFloat(acceleration);
-    communicationDevice->pushCommand(CCM_SET_ACCELERATION);
+     if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
+    {
+        FlyPacket dataPacket(ICM_SET_ACCELERATION,acceleration);
+        communicationDevice->pushPacket(dataPacket);
+    }
 }
 
 /*!
  * \brief FlywheelOperation::setJerk Sets the jerk of the flywheel.
  * \param jerk The jerk to set the flywheel to.
  */
-void FlywheelOperation::setJerk(float jerk)
+void FlywheelOperation::setJerk(float jerkValue)
 {
-    communicationDevice->pushCommand(ICM_SET_JERK);
-    communicationDevice->pushFloat(jerk);
-    communicationDevice->pushCommand(CCM_SET_JERK);
+    if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
+    {
+        FlyPacket dataPacket(ICM_SET_JERK,jerkValue);
+        communicationDevice->pushPacket(dataPacket);
+    }
 }
 
 /*!
-* \brief FlywheelOperation::getVelocity Gets the current velocity of the flywheel.
+ * \brief FlywheelOperation::getVelocity Gets the current velocity of the flywheel.
  * \return The current velocity of the flywheel.
  */
 float FlywheelOperation::getVelocity()
 {
-    if (!velBuffer.empty())
-    {
-        velPrev = velBuffer.front();
-        velBuffer.pop();
-    }
-
-    return velPrev;
+    return velocityValue;
 }
 
 /*!
@@ -160,13 +132,7 @@ float FlywheelOperation::getVelocity()
  */
 float FlywheelOperation::getAcceleration()
 {
-    if (!accBuffer.empty())
-    {
-        accPrev = accBuffer.front();
-        accBuffer.pop();
-    }
-
-    return accPrev;
+    return accelerationValue;
 }
 
 /*!
@@ -175,13 +141,7 @@ float FlywheelOperation::getAcceleration()
  */
 float FlywheelOperation::getJerk()
 {
-    if (jerBuffer.empty())
-    {
-        jerPrev = jerBuffer.front();
-        jerBuffer.pop();
-    }
-
-    return jerPrev;
+    return jerkValue;
 }
 
 /*!
@@ -190,14 +150,8 @@ float FlywheelOperation::getJerk()
  */
 QPointF FlywheelOperation::getUpperDisplacement()
 {
-    if(!udxBuffer.empty() && !udyBuffer.empty())
-    {
-        upperDisplacement->setX(udxBuffer.front());
-        upperDisplacement->setY(udyBuffer.front());
-
-        udxBuffer.pop();
-        udyBuffer.pop();
-   }
+    upperDisplacement->setX(upperDisplacementXValue);
+    upperDisplacement->setY(upperDisplacementYValue);
 
     return *upperDisplacement;
 }
@@ -208,14 +162,8 @@ QPointF FlywheelOperation::getUpperDisplacement()
  */
 QPointF FlywheelOperation::getLowerDisplacement()
 {
-    if(!ldxBuffer.empty() && !ldyBuffer.empty())
-    {
-        lowerDisplacement->setX(ldxBuffer.front());
-        lowerDisplacement->setY(ldyBuffer.front());
-
-        ldxBuffer.pop();
-        ldyBuffer.pop();
-    }
+    lowerDisplacement->setX(lowerDisplacementXValue);
+    lowerDisplacement->setY(lowerDisplacementYValue);
     return *lowerDisplacement;
 }
 
@@ -225,15 +173,8 @@ QPointF FlywheelOperation::getLowerDisplacement()
  */
 QPointF FlywheelOperation::getRotationalPosition()
 {
-    if(!rpxBuffer.empty() && !rpyBuffer.empty())
-    {
-        rotationalPosition->setX(rpxBuffer.front());
-        rotationalPosition->setY(rpyBuffer.front());
-
-        rpxBuffer.pop();
-        rpyBuffer.pop();
-    }
-
+    rotationalPosition->setX(rotationalPositionXValue);
+    rotationalPosition->setY(rotationalPositionYValue);
     return *rotationalPosition;
 }
 
@@ -242,96 +183,99 @@ QPointF FlywheelOperation::getRotationalPosition()
  */
 void FlywheelOperation::emergencyStop() // Tells the controller to stop and checks to confirm it stopped
 {
-    emergencyRetries = emergencyTimeout;
-
-    communicationDevice->pushCommandImmediate(ICM_EMERGENCY_STOP);
+    emergencyStopActivated = true;
 }
 
 /*!
  * \brief FlywheelOperation::sync Syncs the flywheel operation.
  * Syncs the communication device and fixes error where bytes in a data set are missing.
  */
-void FlywheelOperation::sync() // Fix issue where one or more bytes in a data set is missing. Example 1 2 3 arrived 4 is late. Error from overpopping queues
+void FlywheelOperation::syncRX()
 {
-    if (communicationDevice->isReady())
+    while(!communicationDevice->empty())
     {
-        communicationDevice->sync();
+        FlyPacket rxPacket = communicationDevice->popPacket();
 
-        while(!communicationDevice->empty())
+        switch(rxPacket.getCommand())
         {
-            flybyte rxData = communicationDevice->popCommand();
-            flypacket rxPacket = buildFlyPacket(rxData);
-
-            if (rxPacket.packetType == DATA_PACKET)
+            case IDM_SEND_VELOCITY:
             {
-                switch(rxPacket.dataType)
-                {
-                    case VELOCITY:
-                    {
-                        if (velBuffer.size() > velBufferLimit) velBuffer.pop();
-                        velBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case ACCELERATION:
-                    {
-                        if (accBuffer.size() > accBufferLimit) accBuffer.pop();
-                        accBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case JERK:
-                    {
-                        if (jerBuffer.size() > jerBufferLimit) jerBuffer.pop();
-                        jerBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case LOWER_DISPLACMENT_X:
-                    {
-                        if (ldxBuffer.size() > ldxBufferLimit) ldxBuffer.pop();
-                        ldxBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case LOWER_DISPLACMENT_Y:
-                    {
-                        if (ldyBuffer.size() > ldyBufferLimit) ldyBuffer.pop();
-                        ldyBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case UPPER_DISPLACMENT_X:
-                    {
-                        if (udxBuffer.size() > udxBufferLimit) udxBuffer.pop();
-                        udxBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case UPPER_DISPLACMENT_Y:
-                    {
-                        if (udyBuffer.size() > udyBufferLimit) udyBuffer.pop();
-                        udyBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case ROTATIONAL_POSITION_X:
-                    {
-                        if (rpxBuffer.size() > rpxBufferLimit) rpxBuffer.pop();
-                        rpxBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    case ROTATIONAL_POSITION_Y:
-                    {
-                        if (rpyBuffer.size() > rpyBufferLimit) rpyBuffer.pop();
-                        rpyBuffer.push(rxPacket.dataValue);
-                        break;
-                    }
-
-                    default: break;
-                }
+                velocityValue = rxPacket.getFloat();
+                break;
             }
+
+            case IDM_SEND_ACCELERATION:
+            {
+                accelerationValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_JERK:
+            {
+                jerkValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_LOWER_DISPLACEMENT_X:
+            {
+                lowerDisplacementXValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_LOWER_DISPLACEMENT_Y:
+            {
+                lowerDisplacementYValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_UPPER_DISPLACEMENT_X:
+            {
+                upperDisplacementXValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_UPPER_DISPLACEMENT_Y:
+            {
+                upperDisplacementYValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_ROTATIONAL_POSITION_X:
+            {
+                rotationalPositionXValue = rxPacket.getFloat();
+                break;
+            }
+
+            case IDM_SEND_ROTATIONAL_POSITION_Y:
+            {
+                rotationalPositionYValue = rxPacket.getFloat();
+                break;
+            }
+
+            case ICM_EMERGENCY_STOP:
+            {
+                emergencyStopActivated = false;
+                break;
+            }
+
+            default: break;
         }
+    }
+}
+
+void FlywheelOperation::sync()
+{
+    if ((communicationDevice != nullptr) && (communicationDevice->isReady()))
+    {
+        if (emergencyStopActivated == true)
+        {
+            communicationDevice->flushTX();
+            FlyPacket emergencyStopPacket(ICM_EMERGENCY_STOP,0);
+            communicationDevice->pushPacket(emergencyStopPacket);
+        }
+
+        communicationDevice->syncRX();
+        communicationDevice->syncTX();
+        syncRX();
     }
 }

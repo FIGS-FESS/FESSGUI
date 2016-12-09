@@ -176,7 +176,7 @@ void SerialDevice::setStopBits(int bits)
 
 void SerialDevice::sendTX()
 {
-    while(!tx.empty())
+    while(tx.bytesAvailable() == true)
     {
         device->putChar(tx.popByte());
     }
@@ -201,10 +201,14 @@ void SerialDevice::readRX()
 // Interface Overedload Functions
 //--------------------------------------------------------------------
 
-void SerialDevice::sync()
+void SerialDevice::syncRX()
+{
+    readRX();
+}
+
+void SerialDevice::syncTX()
 {
     sendTX();
-    readRX();
 }
 
 bool SerialDevice::isReady()
@@ -214,14 +218,27 @@ bool SerialDevice::isReady()
 
 bool SerialDevice::startDevice()
 {
-    statusReady = true;
-    return device->open(QIODevice::ReadWrite);
+    statusReady = device->open(QIODevice::ReadWrite);
+
+    if (statusReady == true)
+    {
+        device->clear();
+    }
+
+    return statusReady;
 }
 
 void SerialDevice::stopDevice()
 {
-    statusReady = false;
-    device->close();
+    if (statusReady == true)
+    {
+
+        statusReady = false;
+        rx.flush();
+        tx.flush();
+        device->clear();
+        device->close();
+    }
 }
 
 void SerialDevice::setDefaults()
@@ -234,43 +251,39 @@ void SerialDevice::setDefaults()
     setStopBits(1);
 }
 
-
-flybyte SerialDevice::popCommand()
+FlyByte SerialDevice::popByte()
 {
     return rx.popByte();
 }
 
-
-void SerialDevice::pushInt(int32_t val)
+FlyPacket SerialDevice::popPacket()
 {
-    tx.pushInt(val);
+    return rx.popPacket();
 }
 
-void SerialDevice::pushFloat(float val)
+void SerialDevice::pushByte(FlyByte dataByte)
 {
-    tx.pushFloat(val);
+    tx.pushByte(dataByte);
 }
 
-void SerialDevice::pushCommand(flybyte byte)
+void SerialDevice::pushPacket(FlyPacket dataPacket)
 {
-    tx.pushByte(byte);
+    tx.pushPacket(dataPacket);
 }
 
-void SerialDevice::pushCommandImmediate(flybyte byte)
-{
-    tx.pushByteFront(byte);
-    sendTX();
-}
-
-
-void SerialDevice::flush()
+void SerialDevice::flushRX()
 {
     rx.flush();
 }
 
+void SerialDevice::flushTX()
+{
+    tx.flush();
+}
+
 bool SerialDevice::empty()
 {
-    return rx.empty();
+    return !rx.packetsAvailable();
 }
 
 

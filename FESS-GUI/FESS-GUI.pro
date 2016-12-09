@@ -25,24 +25,24 @@ SOURCES     +=  main.cpp \
                 serialdevice.cpp \
                 graph.cpp \
                 commoninterfaceselector.cpp \
-                commoninterfacemanager.cpp
+                commoninterfacemanager.cpp \
+    flyqueue.cpp
 
 HEADERS     +=  mainwindow.h \
                 qcustomplot.h \
                 setpassworddialog.h \
                 flywheeloperation.h \
                 recordingoperation.h \
-                commands.h \
                 transmitbuffer.h \
                 commondeviceinterface.h \
-                datatypes.h \
                 conversions.h \
                 flypacket.h \
                 demodevice.h \
                 serialdevice.h \
                 graph.h \
                 commoninterfaceselector.h \
-                commoninterfacemanager.h
+                commoninterfacemanager.h \
+    flyqueue.h
 
 FORMS       +=  mainwindow.ui \
                 setpassworddialog.ui \

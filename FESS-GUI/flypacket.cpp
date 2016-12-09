@@ -1,184 +1,201 @@
-#include "commands.h"
 #include "flypacket.h"
-#include "conversions.h"
+#include <QtGui>
 
-flypacket buildFlyPacket(flybyte byte)
+FlyPacket::FlyPacket()
 {
-    flybyte error = 0;
+    reset();
+}
 
-    flypacket decoded;
+FlyPacket::FlyPacket(FlyByte commandByte, int dataValue)
+{
+    reset();
+    setCommand(commandByte);
+    setValue(dataValue);
+}
 
-    decoded.dataType = NULL_TYPE;
-    decoded.dataValue = NULL_DATA;
-    decoded.packetType = NULL_PACKET;
+FlyPacket::FlyPacket(FlyByte commandByte, float dataValue)
+{
+    reset();
+    setCommand(commandByte);
+    setValue(dataValue);
+}
 
-    static flybyte buffer[4];
+FlyPacket::~FlyPacket(){};
 
-    static flybyte data = 0;
-    static flybyte state = 0;
-    static flybyte count = 0;
+// Setters
 
-    if (data)
+void FlyPacket::checkCommand()
+{
+    switch(commandByte)
     {
-        if (count == 4)
+        case ICM_EMERGENCY_STOP:                invalidCommand = false; break;
+        case ICM_SET_VELOCITY:                  invalidCommand = false; break;
+        case ICM_SET_ACCELERATION:              invalidCommand = false; break;
+        case ICM_SET_JERK:                      invalidCommand = false; break;
+        case IDM_SEND_VELOCITY:                 invalidCommand = false; break;
+        case IDM_SEND_ACCELERATION:             invalidCommand = false; break;
+        case IDM_SEND_JERK:                     invalidCommand = false; break;
+        case IDM_SEND_LOWER_DISPLACEMENT_X:     invalidCommand = false; break;
+        case IDM_SEND_LOWER_DISPLACEMENT_Y:     invalidCommand = false; break;
+        case IDM_SEND_UPPER_DISPLACEMENT_X:     invalidCommand = false; break;
+        case IDM_SEND_UPPER_DISPLACEMENT_Y:     invalidCommand = false; break;
+        case IDM_SEND_ROTATIONAL_POSITION_X:    invalidCommand = false; break;
+        case IDM_SEND_ROTATIONAL_POSITION_Y:    invalidCommand = false; break;
+        default:                                invalidCommand = true; break;
+    }
+}
+
+void FlyPacket::setCommand(FlyByte generalByte)
+{
+    commandByte = generalByte;
+    acknowledgeByte = (generalByte | IDM_CMD_DIFFERENCE);
+    checkCommand();
+}
+
+void FlyPacket::setValue(int dataValue)
+{
+    if (sizeof(dataValue) <= MAX_PAYLOAD)
+    {
+        FlyByte localbyteArray[sizeof(dataValue)];
+        intToByteArray(localbyteArray,&dataValue);
+
+        for (unsigned int i = 0; i < sizeof(dataValue); i++)
         {
-            if (( byte == CDM_SEND_VELOCITY ) && ( state == IDM_SEND_VELOCITY ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = VELOCITY;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_ACCELERATION ) && ( state == IDM_SEND_ACCELERATION ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = ACCELERATION;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_JERK ) && ( state == IDM_SEND_JERK ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = JERK;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_LOWER_DISPLACEMENT_X ) && ( state == IDM_SEND_LOWER_DISPLACEMENT_X ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = LOWER_DISPLACMENT_X;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_LOWER_DISPLACEMENT_Y ) && ( state == IDM_SEND_LOWER_DISPLACEMENT_Y ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = LOWER_DISPLACMENT_Y;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_UPPER_DISPLACEMENT_X ) && ( state == IDM_SEND_UPPER_DISPLACEMENT_X ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = UPPER_DISPLACMENT_X;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_UPPER_DISPLACEMENT_Y ) && ( state == IDM_SEND_UPPER_DISPLACEMENT_Y ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = UPPER_DISPLACMENT_Y;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_ROTATIONAL_POSITION_X) && ( state == IDM_SEND_ROTATIONAL_POSITION_X ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = ROTATIONAL_POSITION_X;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else if (( byte == CDM_SEND_ROTATIONAL_POSITION_Y ) && ( state == IDM_SEND_ROTATIONAL_POSITION_Y ))
-            {
-                byteArrayToFloat(buffer, &decoded.dataValue);
-                decoded.dataType = ROTATIONAL_POSITION_Y;
-                decoded.packetType = DATA_PACKET;
-            }
-
-            else
-            {
-                error = 1;
-            }
-
-            count = 0;
-            data = 0;
-            state = 0;
-        }
-
-        else
-        {
-            buffer[count] = byte;
-            count++;
+            byteArray[i] = localbyteArray[i];
         }
     }
-    else
+}
+
+void FlyPacket::setValue(float dataValue)
+{
+    if (sizeof(dataValue) <= MAX_PAYLOAD)
     {
-        if (byte == IDM_SEND_VELOCITY)
-        {
-            state = IDM_SEND_VELOCITY;
-            count = 0;
-            data = 1;
-        }
+        FlyByte localbyteArray[sizeof(dataValue)];
+        floatToByteArray(localbyteArray,&dataValue);
 
-        else if (byte == IDM_SEND_ACCELERATION)
+        for (unsigned int i = 0; i < sizeof(dataValue); i++)
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            byteArray[i] = localbyteArray[i];
         }
+    }
+}
 
-        else if (byte == IDM_SEND_JERK)
+void FlyPacket::writeByte(FlyByte generalByte)
+{
+
+    switch(byteArrayPositionWrite)
+    {
+        case PACKET_BEGINNING:
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            commandByte = generalByte;
+            byteArrayPositionWrite++;
+            checkCommand();
+            break;
         }
-
-        else if (byte == IDM_SEND_LOWER_DISPLACEMENT_X)
+        case PACKET_END:
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            acknowledgeByte = generalByte;
+            writeComplete = true;
+            break;
         }
-
-        else if (byte == IDM_SEND_LOWER_DISPLACEMENT_Y)
+        default:
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            byteArray[byteArrayPositionWrite-DATA_BEGINNING] = generalByte;
+            byteArrayPositionWrite++;
+            break;
         }
+    }
+}
 
-        else if (byte == IDM_SEND_UPPER_DISPLACEMENT_X)
+// Getters
+
+int FlyPacket::getInt()
+{
+    return byteArrayToInt(byteArray);
+}
+
+float FlyPacket::getFloat()
+{
+    return byteArrayToFloat(byteArray);
+}
+
+FlyByte FlyPacket::getCommand()
+{
+    return commandByte;
+}
+
+FlyByte FlyPacket::readByte()
+{
+    FlyByte returnByte;
+
+    switch(byteArrayPositionRead)
+    {
+        case PACKET_BEGINNING:
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            returnByte = commandByte;
+            byteArrayPositionRead++;
+            break;
         }
-
-        else if (byte == IDM_SEND_UPPER_DISPLACEMENT_Y)
+        case PACKET_END:
         {
-            state = byte;
-            count = 0;
-            data = 1;
+            returnByte = acknowledgeByte;
+            readComplete = true;
+            break;
         }
-
-        else if (byte == IDM_SEND_ROTATIONAL_POSITION_X)
+        default:
         {
-            state = byte;
-            count = 0;
-            data = 1;
-        }
-
-        else if (byte == IDM_SEND_ROTATIONAL_POSITION_Y)
-        {
-            state = byte;
-            count = 0;
-            data = 1;
-        }
-
-        else // Error: Unknown Commands
-        {
-            error = 0;
+            returnByte = byteArray[byteArrayPositionRead-DATA_BEGINNING];
+            byteArrayPositionRead++;
+            break;
         }
     }
 
-    if (error)
+    return returnByte;
+}
+
+// Universal Commands
+
+void FlyPacket::reset()
+{
+    readComplete = false;
+    writeComplete = false;
+    invalidCommand = false;
+    byteArrayPositionWrite = PACKET_BEGINNING;
+    byteArrayPositionRead = PACKET_BEGINNING;
+
+    zeroArray(byteArray,sizeof(byteArray));
+}
+
+bool FlyPacket::isReadable()
+{
+    return !readComplete;
+}
+
+bool FlyPacket::isWriteable()
+{
+    return !writeComplete;
+}
+
+bool FlyPacket::isValidPacket()
+{
+    if (invalidCommand == false)
     {
-        //communicationDevice->flush();
-        state = 0;
-        count = 0;
-        data = 0;
+
+        if (acknowledgeByte == (commandByte | IDM_CMD_DIFFERENCE))
+        {
+            return true;
+        }
     }
 
-    return decoded;
+    return false;
+}
+
+bool FlyPacket::isValidCommand()
+{
+    return !invalidCommand;
+}
+
+FlyByte FlyPacket::getMaxSize()
+{
+    return PACKET_SIZE;
 }
