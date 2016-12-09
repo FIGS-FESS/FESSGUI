@@ -1,3 +1,7 @@
+/*! \brief The Demo Class
+ * Simulates flywheel activity.
+ */
+
 #ifndef DEMO_H
 #define DEMO_H
 
@@ -5,6 +9,7 @@
 #include <string>
 
 // Custom Libraries
+#include "flypacket.h"
 #include "transmitbuffer.h"
 #include "commondeviceinterface.h"
 
@@ -19,28 +24,26 @@ class DemoDevice : public CommonDeviceInterface
         ~DemoDevice();
 
         // Overriden Interface Methods
-        void sync();
+        void syncRX();
+        void syncTX();
         bool isReady();
         bool startDevice();
         void stopDevice();
         void setDefaults();
 
         bool empty();
-        void flush();
-        void pushInt(int);
-        void pushFloat(float);
-        void pushCommand(flybyte);
-        void pushCommandImmediate(flybyte);
+        void flushRX();
+        void flushTX();
+        void pushByte(FlyByte);
+        void pushPacket(FlyPacket);
 
-        int popInt();
-        float popFloat();
-        flybyte popCommand();
+        FlyByte popByte();
+        FlyPacket popPacket();
 
         QString name();
 
 
     private:
-        bool broadcast;
         bool statusReady;
 
         float vel;
@@ -62,6 +65,7 @@ class DemoDevice : public CommonDeviceInterface
         float key;
 
         int type;
+        bool loop;
 
         TransmitBuffer rx;
         TransmitBuffer tx;

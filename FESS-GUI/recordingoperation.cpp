@@ -6,10 +6,16 @@
 // Custom Libraries
 #include "recordingoperation.h"
 
+/*!
+ * \brief RecordingOperation::RecordingOperation
+ */
 RecordingOperation::RecordingOperation()
 {
 }
-
+/*!
+ * \brief RecordingOperation::Start Starts the recording process.
+ * Creates a file "FlywheelOutput_{time}.csv", opens a filestream for it, and prints the heading row.
+ */
 void RecordingOperation::Start(){
     time_t rawtime;
     struct tm * timeinfo;
@@ -37,6 +43,18 @@ void RecordingOperation::Start(){
         << std::endl;
 }
 
+/*!
+ * \brief RecordingOperation::Record Records the given values in a row.
+ * \param time Value to record in the time column.
+ * \param velocity Value to record in the velocity column.
+ * \param acceleration Value to record in the acceleration column.
+ * \param upperDispX Value to record in the upper displacement x column.
+ * \param upperDispY Value to record in the upper displacement y column.
+ * \param lowerDispX Value to record in the lower displacement x column.
+ * \param lowerDispY Value to record in the lower displacement y column.
+ * \param rotationalPosX Value to record in the rotational position x column.
+ * \param rotationalPosY Value to record in the rotational position y column.
+ */
 void RecordingOperation::Record(double time, double velocity, double acceleration,
                            double upperDispX, double upperDispY,
                            double lowerDispX, double lowerDispY,
@@ -54,6 +72,10 @@ void RecordingOperation::Record(double time, double velocity, double acceleratio
         << "\n";
 }
 
+/*!
+ * \brief RecordingOperation::Stop Stops the current recording process.
+ * Flushes the uffer and closes the filestream.
+ */
 void RecordingOperation::Stop(){
     rfs << std::flush;
     rfs.close();

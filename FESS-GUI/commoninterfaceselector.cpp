@@ -1,5 +1,11 @@
 #include "commoninterfaceselector.h"
 
+/*! \brief CommonInterfaceSelector::CommonInterfaceSelector
+ * GUI window for configuring devices.
+ *  \param CommonInterfaceManager* (Interface Manager Instance)
+ *  \param QWidget (Parent Window)
+ */
+
 CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonManager, QWidget *parent) : QDialog(parent), ui(new Ui::CommonInterfaceSelector)
 {
     ui->setupUi(this);
@@ -15,6 +21,9 @@ CommonInterfaceSelector::CommonInterfaceSelector(CommonInterfaceManager* commonM
     setSerialPortsComboBox();
 }
 
+/*! \brief CommonInterfaceSelector::~CommonInterfaceSelector
+ *  Destructor deletes ui and errorHandler objects.
+ */
 CommonInterfaceSelector::~CommonInterfaceSelector()
 {
     delete errorHandler;
@@ -23,11 +32,15 @@ CommonInterfaceSelector::~CommonInterfaceSelector()
 
 // Private Slots
 
+/*! \brief CommonInterfaceSelector::closeWindow Closes the selection windows and invokes the destructor.
+ */
 void CommonInterfaceSelector::closeWindow()
 {
     this->close();
 }
 
+/*! \brief CommonInterfaceSelector::setUpSingals Binds ui buttons to functions.
+ */
 void CommonInterfaceSelector::setUpSignals()
 {
     connect(ui->demoButtonSet,    SIGNAL(clicked()), this, SLOT(demoButtonSetClicked()));
@@ -40,6 +53,8 @@ void CommonInterfaceSelector::setUpSignals()
     connect(ui->serialPortCombo, SIGNAL(editTextChanged(const QString)), this, SLOT(setSerialPortsComboBoxText(const QString)));
 }
 
+/*! \brief CommonInterfaceSelector::setSerialPortComboBox Interates over available serial interfaces and adds them to a drop down box.
+ */
 void CommonInterfaceSelector::setSerialPortsComboBox()
 {
     serialPortList = QSerialPortInfo::availablePorts();
@@ -52,6 +67,8 @@ void CommonInterfaceSelector::setSerialPortsComboBox()
 
 // Private Slots
 
+/*! \brief CommonInterfaceSelector::demoButtonSetClicked Creates a demo object and passes it to the interface manager.
+ */
 void CommonInterfaceSelector::demoButtonSetClicked()
 {
     int demo_port_index = ui->demoPortCombo->currentIndex();
@@ -70,14 +87,18 @@ void CommonInterfaceSelector::demoButtonSetClicked()
     closeWindow();
 }
 
+/*! \brief CommonInterfaceSelector::demoButtonCancelClicked Discards the changes made in the selection menu and closes the window.
+ */
 void CommonInterfaceSelector::demoButtonCancelClicked()
 {
     closeWindow();
 }
 
+/*! \brief CommonInterfaceSelector::serialButtonClicked Creates a serial object with the selected settings and passed it to the interface manager.
+ */
 void CommonInterfaceSelector::serialButtonSetClicked()
 {
-    SerialDevice* deviceInterface = NULL;
+    SerialDevice* deviceInterface = nullptr;
 
     int serialBaudRate = ui->serialBaudLine->text().toInt();
     int serialDataIndex = ui->serialDataCombo->currentIndex();
@@ -124,17 +145,25 @@ void CommonInterfaceSelector::serialButtonSetClicked()
     }
 }
 
+/*! \brief CommonInterfaceSelector::serialButtonCancelClicked Discards the changes made in the selection menu and closes the window.
+ */
 void CommonInterfaceSelector::serialButtonCancelClicked()
 {
     closeWindow();
 }
 
+/*! \brief CommonInterfaceSelector::setSerialPortsComboBoxText Allows the user to enter devices into the device combo box the application didn't find.
+ *  \param QString (The name of the device or path to the device)
+ */
 void CommonInterfaceSelector::setSerialPortsComboBoxText(const QString &text)
 {
     serialPortIndex = -1;
     serialPortTextValue = text;
 }
 
+/*! \brief CommonInterfaceSelector::setSerialPortsComboBoxIndex Allows the interface to change the selection of drop down interfaces.
+ *  \param int (Index of desired device)
+ */
 void CommonInterfaceSelector::setSerialPortsComboBoxIndex(int serialIndex)
 {
     serialPortIndex = serialIndex;

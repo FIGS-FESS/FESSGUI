@@ -2,6 +2,10 @@
 #define RECORDINGOPERATION_H
 #include <fstream>
 
+/*!
+ * \brief The RecordingOperation class
+ * Handles operations involving recording values to csv.
+ */
 class RecordingOperation
 {
 private:

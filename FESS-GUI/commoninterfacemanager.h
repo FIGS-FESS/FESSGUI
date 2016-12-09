@@ -1,3 +1,7 @@
+/*! \brief CommonInterfaceManager Class
+ *  Manages interfaces set in the interface selector menu
+ */
+
 #ifndef COMMONINTERFACEMANAGER_H
 #define COMMONINTERFACEMANAGER_H
 
@@ -8,6 +12,8 @@ class CommonInterfaceManager
     public:
 
         CommonInterfaceManager();
+        ~CommonInterfaceManager();
+
         CommonDeviceInterface* getCurrentInterface();
 
         void setCurrentInterface(CommonDeviceInterface*);

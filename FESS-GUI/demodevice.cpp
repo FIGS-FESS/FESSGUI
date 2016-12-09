@@ -1,58 +1,71 @@
 //QT Libraries
+#include <QtGui>
 #include <QString>
 
 // C Libraries
 #include <cmath>
 
 // Custom Libraries
-#include "commands.h"
-#include "demodevice.h"
 #include "conversions.h"
+#include "demodevice.h"
 
+/*! \brief DemoDevice::DemoDevice Configures a new DemoDevice with its default values.
+ */
 DemoDevice::DemoDevice()
 {    
     setDefaults();
 }
 
-DemoDevice::~DemoDevice()
-{
-}
+/*! \brief DemoDevice::~DemoDevice Provided if needed in the future, currently no functionality.
+ */
+DemoDevice::~DemoDevice(){}
 
-void DemoDevice::sync()
-{
 //---------------------------------------------------------------------
 // Command Interpretation
 //---------------------------------------------------------------------
 
-    bool loop = true;
-
-    while(!tx.empty() && loop)
+/*! \brief DemoDevice::syncRX Is the demo interface's implementation of syncRX.
+ * Reacts to the interfaces commands (Only Emergency Stop currently)
+ */
+void DemoDevice::syncTX()
+{
+    if(loop == true)
     {
-        char val = tx.popByte();
-
-        switch(val)
+        while(tx.packetsAvailable() == true)
         {
-            case ICM_EMERGENCY_STOP: // Emergency Stop
-            {
-                loop = false;
-                type = STOP;
-                rx.pushByte(CCM_EMERGENCY_STOP);
-                break;
-            }
+            FlyPacket incomingPacket = tx.popPacket();
 
-            default: // Error: Unknown Commands
+            switch(incomingPacket.getCommand())
             {
-                loop = false;
-                tx.flush();
-                break;
+                case ICM_EMERGENCY_STOP: // Emergency Stop
+                {
+                    loop = false;
+                    type = STOP;
+                    rx.pushPacket(incomingPacket);
+                    break;
+                }
+
+                default: // Error: Unknown Commands
+                {
+                    loop = false;
+                    tx.flush();
+                    break;
+                }
             }
         }
     }
+}
 
 //---------------------------------------------------------------------
 // Value Generation
 //---------------------------------------------------------------------
 
+
+/*! \brief DemoDevice::syncRX Is the demo interface's implementation of syncRX.
+ * Generates values for testing and pushes them into the interface's RX Transmit Buffer
+ */
+void DemoDevice::syncRX()
+{
     switch(type)
     {
         case RANDOM:
@@ -107,107 +120,137 @@ void DemoDevice::sync()
 // Data Broadcasting
 //---------------------------------------------------------------------
 
-    rx.pushByte(IDM_SEND_VELOCITY);
-    rx.pushFloat(vel);
-    rx.pushByte(CDM_SEND_VELOCITY);
+    FlyPacket dataPacket(IDM_SEND_VELOCITY,vel);
+    rx.pushPacket(dataPacket);
 
-    rx.pushByte(IDM_SEND_ACCELERATION);
-    rx.pushFloat(acc);
-    rx.pushByte(CDM_SEND_ACCELERATION);
+    FlyPacket dataPacket0(IDM_SEND_ACCELERATION,acc);
+    rx.pushPacket(dataPacket0);
 
-    rx.pushByte(IDM_SEND_JERK);
-    rx.pushFloat(jer);
-    rx.pushByte(CDM_SEND_JERK);
+    FlyPacket dataPacket1(IDM_SEND_JERK,jer);
+    rx.pushPacket(dataPacket1);
 
-    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_X);
-    rx.pushFloat(ldx);
-    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_X);
+    FlyPacket dataPacket2(IDM_SEND_LOWER_DISPLACEMENT_X,ldx);
+    rx.pushPacket(dataPacket2);
 
-    rx.pushByte(IDM_SEND_LOWER_DISPLACEMENT_Y);
-    rx.pushFloat(ldy);
-    rx.pushByte(CDM_SEND_LOWER_DISPLACEMENT_Y);
+    FlyPacket dataPacket3(IDM_SEND_LOWER_DISPLACEMENT_Y,ldy);
+    rx.pushPacket(dataPacket3);
 
-    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_X);
-    rx.pushFloat(udx);
-    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_X);
+    FlyPacket dataPacket4(IDM_SEND_UPPER_DISPLACEMENT_X,udx);
+    rx.pushPacket(dataPacket4);
 
-    rx.pushByte(IDM_SEND_UPPER_DISPLACEMENT_Y);
-    rx.pushFloat(udy);
-    rx.pushByte(CDM_SEND_UPPER_DISPLACEMENT_Y);
+    FlyPacket dataPacket5(IDM_SEND_UPPER_DISPLACEMENT_Y,udy);
+    rx.pushPacket(dataPacket5);
 
-    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_X);
-    rx.pushFloat(rpx);
-    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_X);
+    FlyPacket dataPacket6(IDM_SEND_ROTATIONAL_POSITION_X,rpx);
+    rx.pushPacket(dataPacket6);
 
-    rx.pushByte(IDM_SEND_ROTATIONAL_POSITION_Y);
-    rx.pushFloat(rpy);
-    rx.pushByte(CDM_SEND_ROTATIONAL_POSITION_Y);
+    FlyPacket dataPacket7(IDM_SEND_ROTATIONAL_POSITION_Y,rpy);
+    rx.pushPacket(dataPacket7);
+
 }
 
 //--------------------------------------------------------------------
 // Interface Overload Functions
 //--------------------------------------------------------------------
 
+/*! \brief DemoDevice::isReady Is the demo interface's implementation of isReady.
+ * Get the status of the demo interface
+ *  \return bool (true=Ready, false=Not Ready)
+ */
 bool DemoDevice::isReady()
 {
     return statusReady;
 }
 
+/*! \brief DemoDevice::startDevice Is the demo interface's implementation of startDevice.
+ * Starts the demo interface and updates status
+ *  \return bool (true=Started, false=Not Ready)
+ */
 bool DemoDevice::startDevice()
 {
     statusReady = true;
     return true;
 }
 
+/*! \brief DemoDevice::stopDevice Is the demo interface's implementation of stopDevice.
+ * Stops the demo interface and updates status
+ */
 void DemoDevice::stopDevice()
 {
     statusReady = false;
 }
 
+/*! \brief DemoDevice::stopDevice Is the demo interface's implementation of setDefaults.
+ * Sets the serial devices to the default values.
+ */
 void DemoDevice::setDefaults()
 {
     statusReady = false;
     type = RANDOM;
     velRate = 0.1;
     key = 0;
+    loop = true;
 }
 
-flybyte DemoDevice::popCommand()
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of popByte.
+ *  \return FlyByte (From the RX Transmit Buffer).
+ */
+FlyByte DemoDevice::popByte()
 {
     return rx.popByte();
 }
 
-void DemoDevice::pushInt(int val)
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of popPacket.
+ *  \return FlyPacket (From the RX Transmit Buffer).
+ */
+FlyPacket DemoDevice::popPacket()
 {
-    tx.pushInt(val);
+    return rx.popPacket();
 }
 
-void DemoDevice::pushFloat(float val)
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of pushByte.
+ *  \param FlyByte (Adds it to the TX Transmit Buffer).
+ */
+void DemoDevice::pushByte(FlyByte dataByte)
 {
-    tx.pushFloat(val);
+    tx.pushByte(dataByte);
 }
 
-void DemoDevice::pushCommand(flybyte byte)
+/*! \brief DemoDevice::popByte Is the demo interface's implementation of pushPacket.
+ *  \param FlyPacket (Adds to the TX Transmit Buffer).
+ */
+void DemoDevice::pushPacket(FlyPacket dataPacket)
 {
-    tx.pushByte(byte);
+    tx.pushPacket(dataPacket);
 }
 
-void DemoDevice::pushCommandImmediate(flybyte byte)
-{
-    tx.pushByteFront(byte);
-}
-
-
-void DemoDevice::flush()
+/*! \brief DemoDevice::flushRX Is the demo interface's implementation of flushRX.
+ *  Empties the RX Transmit Buffer
+ */
+void DemoDevice::flushRX()
 {
     rx.flush();
 }
 
-bool DemoDevice::empty()
+/*! \brief DemoDevice::flushTX Is the demo interface's implementation of flushTX.
+ *  Empties the TX Transmit Buffer
+ */
+void DemoDevice::flushTX()
 {
-    return rx.empty();
+    tx.flush();
 }
 
+/*! \brief DemoDevice::empty Is the demo interface's implementation of empty.
+ *  \return bool (true=Empty, false=Not Empty)
+ */
+bool DemoDevice::empty()
+{
+    return !rx.packetsAvailable();
+}
+
+/*! \brief DemoDevice::name Is the demo interface's implementation of name.
+ *  \return Qstring ("Demo Device")
+ */
 QString DemoDevice::name()
 {
     return QString("Demo Device");

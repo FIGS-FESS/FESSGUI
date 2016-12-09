@@ -1,18 +1,30 @@
+/*! \brief The conversions library, containing all conversions our program uses.
+ */
+
 #ifndef CONVERSIONS_H
 #define CONVERSIONS_H
 
-#include <datatypes.h>
+#define TAU	6.283185307179586476925286766559005768394
 
-void byteArrayToFloat(flybyte*, float*);
-void floatToByteArray(flybyte*, float*);
+#include <cstring>
 
-void byteArrayToInt(flybyte*, int*);
-void intToByteArray(flybyte*, int*);
+typedef unsigned char FlyByte;
+
+
+float byteArrayToFloat(FlyByte*);
+void floatToByteArray(FlyByte*, float*);
+
+int byteArrayToInt(FlyByte*);
+void intToByteArray(FlyByte*, int*);
+
+void zeroArray(void* , size_t);
 
 double radsPerSecondToRPM(double);
 double RPMtoRadsPerSecond(double);
 
+
 float derivative(float, float);
+
 
 float refreshRateToMS(int);
 

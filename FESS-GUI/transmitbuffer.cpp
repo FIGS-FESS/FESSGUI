@@ -1,64 +1,108 @@
 //Custom Libraries
-#include "conversions.h"
 #include "transmitbuffer.h"
 
+/*! \brief TransmitBuffer::TransmitBuffer Provided if needed in the future, currently no functionality.
+ */
 TransmitBuffer::TransmitBuffer(){}
+
+/*! \brief TransmitBuffer::~TransmitBuffer Provided if needed in the future, currently no functionality.
+ */
 TransmitBuffer::~TransmitBuffer(){}
 
-flybyte TransmitBuffer::popByte()
+/*! \brief TransmitBuffer::popByte Get the Byte at the front of the output byte queue created from a packet.
+ *  \return FlyByte (First byte in the output queue)
+ */
+FlyByte TransmitBuffer::popByte()
 {
-    flybyte val = 0;
+    populateBuffer();
 
-    if(!buffer.empty())
+    FlyByte outputByte = outputByteArray.front();
+    outputByteArray.pop_front();
+
+    return outputByte;
+}
+
+/*! \brief TransmitBuffer::populateBuffer When the ouput byte queue is empty it grabs a packet from the packet queue and adds its data to the output byte queue.
+ */
+void TransmitBuffer::populateBuffer()
+{
+    if (outputByteArray.empty() == true)
     {
-        val = buffer.front();
-        buffer.pop_front();
+        FlyPacket outputPacket = packetBuffer.pop();
+
+        while (outputPacket.isReadable() == true)
+        {
+            outputByteArray.push_back(outputPacket.readByte());
+        }
     }
-    return val;
 }
 
-void TransmitBuffer::pushByte(flybyte byt)
+/*! \brief TransmitBuffer::pushByte Takes bytes until there are enough to build a packet. It converts the bytes to a packet and adds the packet to the packet queue.
+ *  \param FlyByte (Added to the incoming queue)
+ */
+void TransmitBuffer::pushByte(FlyByte incomingByte)
 {
-     buffer.push_back(byt);
+    inputByteArray.push_back(incomingByte);
+
+    FlyPacket inputPacket;
+
+    if(inputByteArray.size() == inputPacket.getMaxSize())
+    {
+        for(int i=0; i < inputPacket.getMaxSize(); i++)
+        {
+            inputPacket.writeByte(inputByteArray[i]);
+        }
+
+        if (inputPacket.isValidPacket() == true)
+        {
+            packetBuffer.push(inputPacket);
+            inputByteArray.clear();
+        }
+
+        else
+        {
+            inputByteArray.pop_front();
+        }
+    }
 }
 
-void TransmitBuffer::pushByteFront(flybyte byt)
+/*! \brief TransmitBuffer::pushPacket Adds the packets to the packet queue.
+ *  \param FlyPacket (Added to the Packet Queue)
+ */
+void TransmitBuffer::pushPacket(FlyPacket incomingPacket)
 {
-     buffer.push_front(byt);
+    packetBuffer.push(incomingPacket);
 }
 
-void TransmitBuffer::pushInt(int val)
+/*! \brief TransmitBuffer::popPacket Adds the packets to the packet queue.
+ *  \return FlyPacket (Gets a packet from the front of the packet queue)
+ */
+FlyPacket TransmitBuffer::popPacket()
 {
-    flybyte bytes[4];
-
-    intToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
+    return packetBuffer.pop();
 }
 
-void TransmitBuffer::pushFloat(float val)
+/*! \brief TransmitBuffer::packetsAvailable Checks if the packet queue is empty.
+ *  \return bool (true=yes | false=no)
+ */
+bool TransmitBuffer::packetsAvailable()
 {
-    flybyte bytes[4];
-
-    floatToByteArray(bytes,&val);
-
-    buffer.push_back(bytes[0]);
-    buffer.push_back(bytes[1]);
-    buffer.push_back(bytes[2]);
-    buffer.push_back(bytes[3]);
+    return !packetBuffer.isEmpty();
 }
 
-bool TransmitBuffer::empty()
+/*! \brief TransmitBuffer::bytesAvailable Checks if the byte and packet queues are empty.
+ *  \return bool (true=yes | false=no)
+ */
+bool TransmitBuffer::bytesAvailable()
 {
-    return buffer.empty();
+    return !outputByteArray.empty() | !packetBuffer.isEmpty();
 }
 
+/*! \brief TransmitBuffer::flush Empties all internal queues.
+ */
 void TransmitBuffer::flush()
 {
-    buffer.clear();
+    packetBuffer.clear();
+    outputByteArray.clear();
+    inputByteArray.clear();
 }
-
-
