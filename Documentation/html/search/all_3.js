@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['data',['data',['../class_q_c_p_graph.html#acde1c0d1f6a817930489548396e6b3e6',1,'QCPGraph::data()'],['../class_q_c_p_color_map.html#a047d7eb3ae657f93f2f39b5e68b79451',1,'QCPColorMap::data()'],['../class_q_c_p_financial.html#a528c81578e4f25999a9169127763cfd4',1,'QCPFinancial::data()']]],
-  ['datarangechanged',['dataRangeChanged',['../class_q_c_p_color_scale.html#a293176da9447ec6819be1d901966a257',1,'QCPColorScale::dataRangeChanged()'],['../class_q_c_p_color_map.html#a482980f2335d09cfb36dd95ba9663197',1,'QCPColorMap::dataRangeChanged()']]],
-  ['datascaletypechanged',['dataScaleTypeChanged',['../class_q_c_p_color_scale.html#a61558b962f7791ff2f15a565dcf60181',1,'QCPColorScale::dataScaleTypeChanged()'],['../class_q_c_p_color_map.html#a978d5d5c9f68cffef8c902b855c04490',1,'QCPColorMap::dataScaleTypeChanged()']]],
+  ['data_5fbeginning',['DATA_BEGINNING',['../flypacket_8h.html#acc006b1f51aca487bab35bc2ca81b05a',1,'flypacket.h']]],
+  ['data_5fend',['DATA_END',['../flypacket_8h.html#a8ab8d9e7f143cb0c17c688702f755ffa',1,'flypacket.h']]],
   ['demodevice',['DemoDevice',['../class_demo_device.html',1,'DemoDevice'],['../class_demo_device.html#a9fc771c4152f0d9de78a69187cbd7a58',1,'DemoDevice::DemoDevice()']]],
-  ['deselectall',['deselectAll',['../class_q_custom_plot.html#a9d4808ab925b003054085246c92a257c',1,'QCustomPlot']]],
-  ['drawline',['drawLine',['../class_q_c_p_painter.html#a0b4b1b9bd495e182c731774dc800e6e0',1,'QCPPainter']]],
-  ['drawshape',['drawShape',['../class_q_c_p_scatter_style.html#a2b3964961b6cbfbc87be6e1e3a6f3c96',1,'QCPScatterStyle::drawShape(QCPPainter *painter, QPointF pos) const'],['../class_q_c_p_scatter_style.html#a95c297b114c77c22428ef40f54620ddf',1,'QCPScatterStyle::drawShape(QCPPainter *painter, double x, double y) const']]]
+  ['demodevice_2ecpp',['demodevice.cpp',['../demodevice_8cpp.html',1,'']]],
+  ['demodevice_2eh',['demodevice.h',['../demodevice_8h.html',1,'']]],
+  ['derivative',['derivative',['../conversions_8cpp.html#a44ec348b66eea095ebc540cd534371bf',1,'derivative(float value, float prev):&#160;conversions.cpp'],['../conversions_8h.html#a8b4b8008f613a5f7270f958155e72f7c',1,'derivative(float, float):&#160;conversions.cpp']]],
+  ['displayunit',['displayUnit',['../class_graph.html#a28488c31277fec31c8d54a44860efede',1,'Graph']]]
 ];

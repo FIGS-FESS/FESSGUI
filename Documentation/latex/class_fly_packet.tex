@@ -1,35 +1,36 @@
 \hypertarget{class_fly_packet}{}\section{Fly\+Packet Class Reference}
 \label{class_fly_packet}\index{Fly\+Packet@{Fly\+Packet}}
+
+
+{\ttfamily \#include $<$flypacket.\+h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{}\label{class_fly_packet_aca19954f7e01d839b5759245a9950d57} 
 \hyperlink{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{Fly\+Packet} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{Fly\+Packet\+::\+Fly\+Packet} Set the default values. \end{DoxyCompactList}\item 
-\hyperlink{class_fly_packet_ac6a9ad5c29755d32ae52bb3526563d79}{Fly\+Packet} (Fly\+Byte, int)
+\hyperlink{class_fly_packet_ac6a9ad5c29755d32ae52bb3526563d79}{Fly\+Packet} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}, int)
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{Fly\+Packet\+::\+Fly\+Packet} Set the default values, header and data. \end{DoxyCompactList}\item 
-\hyperlink{class_fly_packet_a24c7957a841f24405f26ceb918e15a04}{Fly\+Packet} (Fly\+Byte, float)
+\hyperlink{class_fly_packet_a24c7957a841f24405f26ceb918e15a04}{Fly\+Packet} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}, float)
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{Fly\+Packet\+::\+Fly\+Packet} Set the default values, header and data. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf}{}\label{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf} 
 \hyperlink{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf}{$\sim$\+Fly\+Packet} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf}{Fly\+Packet\+::$\sim$\+Fly\+Packet} Empty Destructor. \end{DoxyCompactList}\item 
 void \hyperlink{class_fly_packet_ab3d6f9ed138f3938dc97a510e050f1dc}{set\+Value} (int)
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet}{Fly\+Packet}\+:set\+Value Converts a int into a byte array and inserts it into the packet. \end{DoxyCompactList}\item 
 void \hyperlink{class_fly_packet_a4735fdfc7443640f35b298f5798aab99}{set\+Value} (float)
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet}{Fly\+Packet}\+:set\+Value Converts a float into a byte array and inserts it into the packet. \end{DoxyCompactList}\item 
-void \hyperlink{class_fly_packet_aa0693a87a15559c8d88613463805c532}{set\+Command} (Fly\+Byte)
+void \hyperlink{class_fly_packet_aa0693a87a15559c8d88613463805c532}{set\+Command} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_aa0693a87a15559c8d88613463805c532}{Fly\+Packet\+::set\+Command} Sets the header of the packet and generates the footer. \end{DoxyCompactList}\item 
-void \hyperlink{class_fly_packet_ad0296d3260b26f33eb384dbf5421277a}{write\+Byte} (Fly\+Byte)
+void \hyperlink{class_fly_packet_ad0296d3260b26f33eb384dbf5421277a}{write\+Byte} (\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte})
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_ad0296d3260b26f33eb384dbf5421277a}{Fly\+Packet\+::write\+Byte} Writes one byte into the packet until it is full. Sequence\+: Header, Data, ..., Data, Footer. \end{DoxyCompactList}\item 
 int \hyperlink{class_fly_packet_a0a24a69f5c318d9579fac40ad5c7b502}{get\+Int} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_a0a24a69f5c318d9579fac40ad5c7b502}{Fly\+Packet\+::get\+Int} Converts the internal data bytes into a int. \end{DoxyCompactList}\item 
 float \hyperlink{class_fly_packet_a8987702368547e049b1f7ab8e979ce91}{get\+Float} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_a8987702368547e049b1f7ab8e979ce91}{Fly\+Packet\+::get\+Float} Converts the internal data bytes into a float. \end{DoxyCompactList}\item 
-Fly\+Byte \hyperlink{class_fly_packet_af3e863f81ee5de3fb73ec200efac0924}{read\+Byte} ()
+\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} \hyperlink{class_fly_packet_af3e863f81ee5de3fb73ec200efac0924}{read\+Byte} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_af3e863f81ee5de3fb73ec200efac0924}{Fly\+Packet\+::read\+Byte} Reads one byte from the packet and advances to the next byte. \end{DoxyCompactList}\item 
-Fly\+Byte \hyperlink{class_fly_packet_af0989edccb2cff9652f5a3c38fd210a2}{get\+Command} ()
+\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} \hyperlink{class_fly_packet_af0989edccb2cff9652f5a3c38fd210a2}{get\+Command} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_af0989edccb2cff9652f5a3c38fd210a2}{Fly\+Packet\+::get\+Command} Get the header byte. \end{DoxyCompactList}\item 
-\hypertarget{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3}{}\label{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3} 
 void \hyperlink{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3}{reset} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3}{Fly\+Packet\+::reset} Resets the packet to all zeros\+: data,header and footer. \end{DoxyCompactList}\item 
 bool \hyperlink{class_fly_packet_a1e63a54895660739a5232b5b546fcf07}{is\+Writeable} ()
@@ -40,16 +41,26 @@ bool \hyperlink{class_fly_packet_a71175af24ccf498579c804aa21500db5}{is\+Valid\+P
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_a71175af24ccf498579c804aa21500db5}{Fly\+Packet\+::is\+Valid\+Packet()} Check if the packet is valid. \end{DoxyCompactList}\item 
 bool \hyperlink{class_fly_packet_a32bdd283c8d5961adb20524a14269224}{is\+Valid\+Command} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_a32bdd283c8d5961adb20524a14269224}{Fly\+Packet\+::is\+Valid\+Command} Check if the header is valid. \end{DoxyCompactList}\item 
-Fly\+Byte \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{get\+Max\+Size} ()
+\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{get\+Max\+Size} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{Fly\+Packet\+::get\+Max\+Size} Get the maximum packet size. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{}\label{class_fly_packet_aca19954f7e01d839b5759245a9950d57} 
+\index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
+\index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
+\subsubsection{\texorpdfstring{Fly\+Packet()}{FlyPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Fly\+Packet\+::\+Fly\+Packet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_packet_aca19954f7e01d839b5759245a9950d57}{Fly\+Packet\+::\+Fly\+Packet} Set the default values. 
+
 \hypertarget{class_fly_packet_ac6a9ad5c29755d32ae52bb3526563d79}{}\label{class_fly_packet_ac6a9ad5c29755d32ae52bb3526563d79} 
 \index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
 \index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
-\subsubsection{\texorpdfstring{Fly\+Packet()}{FlyPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily Fly\+Packet\+::\+Fly\+Packet (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{command\+Byte,  }\item[{int}]{data\+Value }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{Fly\+Packet()}{FlyPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Fly\+Packet\+::\+Fly\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{command\+Byte,  }\item[{int}]{data\+Value }\end{DoxyParamCaption})}
 
 
 
@@ -65,8 +76,8 @@ Fly\+Byte \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{get\+Ma
 \hypertarget{class_fly_packet_a24c7957a841f24405f26ceb918e15a04}{}\label{class_fly_packet_a24c7957a841f24405f26ceb918e15a04} 
 \index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
 \index{Fly\+Packet@{Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
-\subsubsection{\texorpdfstring{Fly\+Packet()}{FlyPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily Fly\+Packet\+::\+Fly\+Packet (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{command\+Byte,  }\item[{float}]{data\+Value }\end{DoxyParamCaption})}
+\subsubsection{\texorpdfstring{Fly\+Packet()}{FlyPacket()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Fly\+Packet\+::\+Fly\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{command\+Byte,  }\item[{float}]{data\+Value }\end{DoxyParamCaption})}
 
 
 
@@ -79,6 +90,16 @@ Fly\+Byte \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{get\+Ma
 {\em float} & (Data Byte) \\
 \hline
 \end{DoxyParams}
+\hypertarget{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf}{}\label{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf} 
+\index{Fly\+Packet@{Fly\+Packet}!````~Fly\+Packet@{$\sim$\+Fly\+Packet}}
+\index{````~Fly\+Packet@{$\sim$\+Fly\+Packet}!Fly\+Packet@{Fly\+Packet}}
+\subsubsection{\texorpdfstring{$\sim$\+Fly\+Packet()}{~FlyPacket()}}
+{\footnotesize\ttfamily Fly\+Packet\+::$\sim$\+Fly\+Packet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_packet_a58a219b0a59c413237eea53dc6231fcf}{Fly\+Packet\+::$\sim$\+Fly\+Packet} Empty Destructor. 
+
 
 
 \subsection{Member Function Documentation}
@@ -86,7 +107,7 @@ Fly\+Byte \hyperlink{class_fly_packet_ad8406536002965db603f5c9f03906794}{get\+Ma
 \index{Fly\+Packet@{Fly\+Packet}!get\+Command@{get\+Command}}
 \index{get\+Command@{get\+Command}!Fly\+Packet@{Fly\+Packet}}
 \subsubsection{\texorpdfstring{get\+Command()}{getCommand()}}
-{\footnotesize\ttfamily Fly\+Byte Fly\+Packet\+::get\+Command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} Fly\+Packet\+::get\+Command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -125,7 +146,7 @@ int (Data)
 \index{Fly\+Packet@{Fly\+Packet}!get\+Max\+Size@{get\+Max\+Size}}
 \index{get\+Max\+Size@{get\+Max\+Size}!Fly\+Packet@{Fly\+Packet}}
 \subsubsection{\texorpdfstring{get\+Max\+Size()}{getMaxSize()}}
-{\footnotesize\ttfamily Fly\+Byte Fly\+Packet\+::get\+Max\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} Fly\+Packet\+::get\+Max\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -190,7 +211,7 @@ bool (true=yes, false=no)
 \index{Fly\+Packet@{Fly\+Packet}!read\+Byte@{read\+Byte}}
 \index{read\+Byte@{read\+Byte}!Fly\+Packet@{Fly\+Packet}}
 \subsubsection{\texorpdfstring{read\+Byte()}{readByte()}}
-{\footnotesize\ttfamily Fly\+Byte Fly\+Packet\+::read\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte} Fly\+Packet\+::read\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -199,11 +220,21 @@ bool (true=yes, false=no)
 \begin{DoxyReturn}{Returns}
 Fly\+Byte (Byte) 
 \end{DoxyReturn}
+\hypertarget{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3}{}\label{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3} 
+\index{Fly\+Packet@{Fly\+Packet}!reset@{reset}}
+\index{reset@{reset}!Fly\+Packet@{Fly\+Packet}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Fly\+Packet\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_fly_packet_aaac4cf49c1ef150d0e4e59c2377cedd3}{Fly\+Packet\+::reset} Resets the packet to all zeros\+: data,header and footer. 
+
 \hypertarget{class_fly_packet_aa0693a87a15559c8d88613463805c532}{}\label{class_fly_packet_aa0693a87a15559c8d88613463805c532} 
 \index{Fly\+Packet@{Fly\+Packet}!set\+Command@{set\+Command}}
 \index{set\+Command@{set\+Command}!Fly\+Packet@{Fly\+Packet}}
 \subsubsection{\texorpdfstring{set\+Command()}{setCommand()}}
-{\footnotesize\ttfamily void Fly\+Packet\+::set\+Command (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{general\+Byte }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Fly\+Packet\+::set\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{general\+Byte }\end{DoxyParamCaption})}
 
 
 
@@ -248,7 +279,7 @@ Fly\+Byte (Byte)
 \index{Fly\+Packet@{Fly\+Packet}!write\+Byte@{write\+Byte}}
 \index{write\+Byte@{write\+Byte}!Fly\+Packet@{Fly\+Packet}}
 \subsubsection{\texorpdfstring{write\+Byte()}{writeByte()}}
-{\footnotesize\ttfamily void Fly\+Packet\+::write\+Byte (\begin{DoxyParamCaption}\item[{Fly\+Byte}]{general\+Byte }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Fly\+Packet\+::write\+Byte (\begin{DoxyParamCaption}\item[{\hyperlink{conversions_8h_a1f006e31a957accfe6aa1bf6f401efce}{Fly\+Byte}}]{general\+Byte }\end{DoxyParamCaption})}
 
 
 
@@ -263,5 +294,5 @@ Fly\+Byte (Byte)
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-F\+E\+S\+S-\/\+G\+U\+I/flypacket.\+h\item 
-F\+E\+S\+S-\/\+G\+U\+I/flypacket.\+cpp\end{DoxyCompactItemize}
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{flypacket_8h}{flypacket.\+h}\item 
+F\+E\+S\+S-\/\+G\+U\+I/\hyperlink{flypacket_8cpp}{flypacket.\+cpp}\end{DoxyCompactItemize}

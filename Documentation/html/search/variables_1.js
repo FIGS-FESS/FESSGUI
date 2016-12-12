@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['maxrange',['maxRange',['../class_q_c_p_range.html#a5ca51e7a2dc5dc0d49527ab171fe1f4f',1,'QCPRange']]],
-  ['minrange',['minRange',['../class_q_c_p_range.html#ab46d3bc95030ee25efda41b89e2b616b',1,'QCPRange']]]
+  ['colors',['colors',['../class_location_graph.html#af5c037a973c98ff0a17853f8ef661c7f',1,'LocationGraph']]],
+  ['currentexpectedacceleration',['currentExpectedAcceleration',['../class_main_window.html#a6382bf386001d617cd5b717a92c5004d',1,'MainWindow']]],
+  ['currentexpectedjerk',['currentExpectedJerk',['../class_main_window.html#a380cbb9e901211a3c8fc685cea11c8f9',1,'MainWindow']]],
+  ['currentexpectedvelocity',['currentExpectedVelocity',['../class_main_window.html#a879db4d65600c3b3945d67976d9a8622',1,'MainWindow']]]
 ];

@@ -1,0 +1,15 @@
+\hypertarget{graph_8h}{}\section{F\+E\+S\+S-\/\+G\+U\+I/graph.h File Reference}
+\label{graph_8h}\index{F\+E\+S\+S-\/\+G\+U\+I/graph.\+h@{F\+E\+S\+S-\/\+G\+U\+I/graph.\+h}}
+{\ttfamily \#include \char`\"{}qcustomplot.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$Q\+String$>$}\newline
+{\ttfamily \#include $<$Q\+PointF$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_graph}{Graph}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_graph}{Graph} class, base class for all graphs. Each graph contains a main plot (the large graph that is seen when a graph is selected) and a auxiliary plot (the smaller graph that is always visible on the right side). \end{DoxyCompactList}\item 
+class \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_scrolling_time_graph}{Scrolling\+Time\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph with time as the x axis, that \char`\"{}scrolls\char`\"{} with time, showing a sliding window of values. The y axis represents whatever value this graph displays. \end{DoxyCompactList}\item 
+class \hyperlink{class_location_graph}{Location\+Graph}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_location_graph}{Location\+Graph} class, which inherits from the \hyperlink{class_graph}{Graph} class. This represents a graph where the x and y axes represent location. This is a real-\/time graph, with no view of what happened in the past. \end{DoxyCompactList}\end{DoxyCompactItemize}
